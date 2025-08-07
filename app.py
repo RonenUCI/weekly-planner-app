@@ -337,37 +337,34 @@ def main():
         if st.session_state.activities_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
-            # Compact header with selectors
-            col1, col2 = st.columns([1, 1])
-            
-            with col1:
-                current_week_start, current_week_end = get_current_week_dates()
-                selected_week_date = st.date_input(
-                    "Week:",
-                    value=date.today(),
-                    help="Select week"
-                )
-            
-            with col2:
-                kids = st.session_state.activities_df['kid_name'].unique()
-                selected_kid_filter = st.selectbox(
-                    "Kid:",
-                    ["All"] + list(kids),
-                    help="Filter by kid"
-                )
+            # Compact header with just week selector
+            current_week_start, current_week_end = get_current_week_dates()
+            selected_week_date = st.date_input(
+                "Select week:",
+                value=date.today(),
+                help="Select week"
+            )
             
             week_start, week_end = get_week_dates(selected_week_date)
             st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
             
             weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
             
-            if selected_kid_filter != "All":
-                weekly_schedule = weekly_schedule[weekly_schedule['Kid'] == selected_kid_filter]
-                st.info(f"👶 {selected_kid_filter}")
-            
             if not weekly_schedule.empty:
+                # Kid filter after the table
+                kids = st.session_state.activities_df['kid_name'].unique()
+                selected_kid_filter = st.selectbox(
+                    "Filter by kid:",
+                    ["All Kids"] + list(kids),
+                    help="Filter by kid"
+                )
+                
+                if selected_kid_filter != "All Kids":
+                    weekly_schedule = weekly_schedule[weekly_schedule['Kid'] == selected_kid_filter]
+                    st.info(f"👶 Showing schedule for: {selected_kid_filter}")
+                
                 # Toggle for past days
-                # show_past_days = st.checkbox("Show past days", value=False)
+                show_past_days = st.checkbox("Show past days", value=False)
                 
                 # Mobile-optimized schedule display
                 def make_address_clickable(address):
@@ -428,7 +425,7 @@ def main():
                         st.dataframe(drives_df, use_container_width=True, hide_index=True)
                 
             else:
-                if selected_kid_filter != "All":
+                if selected_kid_filter != "All Kids":
                     st.info(f"No activities for {selected_kid_filter} this week")
                 else:
                     st.info("No activities this week")
