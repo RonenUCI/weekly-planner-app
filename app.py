@@ -388,7 +388,7 @@ def main():
                         st.metric("Kids", len(kids_in_schedule))
                     with col2:
                         st.metric("Hours", f"{sum(kids_hours.values()):.1f}h")
-                        st.metric("Drivers", len(set(weekly_schedule['Pickup Driver'].tolist() + weekly_schedule['Return Driver'].tolist())))
+                        st.metric("Drivers", len(set(weekly_schedule['Pickup'].tolist() + weekly_schedule['Return'].tolist())))
                     
                     # Compact tables
                     if kids_hours:
