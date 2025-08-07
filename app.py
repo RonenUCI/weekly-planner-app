@@ -400,9 +400,11 @@ def main():
         if st.session_state.activities_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
-            # Display the table first (with default current week)
+            # Get the selected week and kid filter first
             current_week_start, current_week_end = get_current_week_dates()
             week_start, week_end = get_current_week_dates()
+            
+            # Display the table first (with default current week)
             weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
             
             # Display the table first
@@ -418,7 +420,6 @@ def main():
                 days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
                 
                 # Use client date (hardcoded for now since JavaScript communication is complex)
-                # Client shows 8/6 (Wednesday), so let's use that
                 today = date(2025, 8, 6)  # Wednesday, August 6, 2025
                 
                 for i, day in enumerate(days_order):
@@ -466,6 +467,29 @@ def main():
                 # Show the selected week info
                 week_start, week_end = get_week_dates(selected_week_date)
                 st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
+                
+                # Recalculate and display filtered schedule
+                if selected_kid_filter != "All Kids" or selected_week_date != date.today():
+                    st.subheader("Filtered Schedule")
+                    
+                    # Recalculate schedule with new filters
+                    new_weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
+                    
+                    if selected_kid_filter != "All Kids":
+                        new_weekly_schedule = new_weekly_schedule[new_weekly_schedule['Kid'] == selected_kid_filter[0].upper()]
+                        st.info(f"👶 Showing schedule for: {selected_kid_filter}")
+                    
+                    if not new_weekly_schedule.empty:
+                        # Display filtered schedule
+                        new_weekly_schedule['Address'] = new_weekly_schedule['Address'].apply(make_address_clickable)
+                        
+                        for i, day in enumerate(days_order):
+                            day_activities = new_weekly_schedule[new_weekly_schedule['Day'] == days_abbrev[i]]
+                            if not day_activities.empty:
+                                st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
+                                st.markdown(day_activities.to_html(escape=False, index=False), unsafe_allow_html=True)
+                    else:
+                        st.info("No activities found with the selected filters.")
                 
                 # Summary statistics
                 with st.expander(" Summary", expanded=False):
