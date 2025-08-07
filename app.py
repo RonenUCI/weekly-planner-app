@@ -341,7 +341,7 @@ def main():
         if st.session_state.activities_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
-            # Compact header with just week selector
+            # Initial schedule display (default to current week and all kids)
             current_week_start, current_week_end = get_current_week_dates()
             selected_week_date = st.date_input(
                 "Select week:",
@@ -350,26 +350,10 @@ def main():
             )
             
             week_start, week_end = get_week_dates(selected_week_date)
-            st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
-            
             weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
             
+            # Display the table first
             if not weekly_schedule.empty:
-                # Kid filter after the table
-                kids = st.session_state.activities_df['kid_name'].unique()
-                selected_kid_filter = st.selectbox(
-                    "Filter by kid:",
-                    ["All Kids"] + list(kids),
-                    help="Filter by kid"
-                )
-                
-                if selected_kid_filter != "All Kids":
-                    weekly_schedule = weekly_schedule[weekly_schedule['Kid'] == selected_kid_filter]
-                    st.info(f"👶 Showing schedule for: {selected_kid_filter}")
-                
-                # Toggle for past days
-                show_past_days = st.checkbox("Show past days", value=False)
-                
                 # Mobile-optimized schedule display
                 def make_address_clickable(address):
                     return f'<a href="https://www.google.com/maps/search/?api=1&query={address.replace(" ", "+")}" target="_blank">{address}</a>'
@@ -389,10 +373,6 @@ def main():
                         if week_start <= today <= week_end:
                             day_index = i
                             day_date = week_start + timedelta(days=day_index)
-                            
-                            # Show previous day as well (remove the past day filter)
-                            # if day_date < today and not show_past_days:
-                            #     continue
                         
                         # Mobile-optimized day display
                         st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
@@ -400,7 +380,25 @@ def main():
                         # Full-width table
                         st.markdown(day_activities.to_html(escape=False, index=False), unsafe_allow_html=True)
                 
-                # Compact summary
+                # Controls after the table
+                st.markdown("---")
+                st.subheader("Controls")
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    kids = st.session_state.activities_df['kid_name'].unique()
+                    selected_kid_filter = st.selectbox(
+                        "Filter by kid:",
+                        ["All Kids"] + list(kids),
+                        help="Filter by kid"
+                    )
+                
+                with col2:
+                    show_past_days = st.checkbox("Show past days", value=False)
+                
+                st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
+                
+                # Summary statistics
                 with st.expander(" Summary", expanded=False):
                     kids_in_schedule = weekly_schedule['Kid'].unique()
                     kids_hours = {}
@@ -429,10 +427,7 @@ def main():
                         st.dataframe(drives_df, use_container_width=True, hide_index=True)
                 
             else:
-                if selected_kid_filter != "All Kids":
-                    st.info(f"No activities for {selected_kid_filter} this week")
-                else:
-                    st.info("No activities this week")
+                st.info("No activities this week")
     
     # Kid Manager Section
     elif page == "👶 Kids":
