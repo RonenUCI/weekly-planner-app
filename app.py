@@ -25,6 +25,7 @@ def get_client_timezone():
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
         const now = new Date();
+        const timestamp = now.toISOString();
         
         // Send to parent window
         if (window.parent && window.parent.postMessage) {
@@ -32,13 +33,21 @@ def get_client_timezone():
                 type: 'TIMEZONE_INFO',
                 timezone: timezone,
                 today: today,
-                timestamp: now.getTime()
+                timestamp: timestamp
             }, '*');
         }
         
         // Also store in localStorage for persistence
         localStorage.setItem('clientTimezone', timezone);
         localStorage.setItem('clientDate', today);
+        localStorage.setItem('clientTimestamp', timestamp);
+        
+        // Display the info
+        document.body.innerHTML += '<div id="timezone-info" style="display:none;">' + 
+            '<p>Timezone: ' + timezone + '</p>' +
+            '<p>Date: ' + today + '</p>' +
+            '<p>Timestamp: ' + timestamp + '</p>' +
+            '</div>';
         </script>
         """,
         height=0
@@ -179,6 +188,12 @@ if 'csv_file' not in st.session_state:
 
 if 'client_date' not in st.session_state:
     st.session_state.client_date = date.today()
+
+# Initialize session state for client info
+if 'client_timezone' not in st.session_state:
+    st.session_state.client_timezone = "Detecting..."
+if 'client_timestamp' not in st.session_state:
+    st.session_state.client_timestamp = "Detecting..."
 
 # Helper functions (same as before)
 def migrate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
@@ -420,6 +435,16 @@ def main():
                 # Controls after the table
                 st.markdown("---")
                 st.subheader("Controls")
+                
+                # Display client timezone info
+                st.write("**Client Information:**")
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("Timezone", st.session_state.client_timezone)
+                with col2:
+                    st.metric("Date", str(today))
+                with col3:
+                    st.metric("Time", st.session_state.client_timestamp[:19] if len(st.session_state.client_timestamp) > 19 else st.session_state.client_timestamp)
                 
                 col1, col2 = st.columns(2)
                 with col1:
