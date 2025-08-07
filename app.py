@@ -17,40 +17,42 @@ st.set_page_config(
     initial_sidebar_state="collapsed"  # Collapse sidebar on mobile
 )
 
-# Add JavaScript to get client timezone and date
-def get_client_timezone():
+# Add this function to display client info
+def display_client_info():
     components.html(
         """
-        <script>
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
-        const now = new Date();
-        const timestamp = now.toISOString();
-        
-        // Send to parent window
-        if (window.parent && window.parent.postMessage) {
-            window.parent.postMessage({
-                type: 'TIMEZONE_INFO',
-                timezone: timezone,
-                today: today,
-                timestamp: timestamp
-            }, '*');
-        }
-        
-        // Also store in localStorage for persistence
-        localStorage.setItem('clientTimezone', timezone);
-        localStorage.setItem('clientDate', today);
-        localStorage.setItem('clientTimestamp', timestamp);
-        
-        // Display the info
-        document.body.innerHTML += '<div id="timezone-info" style="display:none;">' + 
-            '<p>Timezone: ' + timezone + '</p>' +
-            '<p>Date: ' + today + '</p>' +
-            '<p>Timestamp: ' + timestamp + '</p>' +
-            '</div>';
-        </script>
+        <div id="client-info" style="background-color: #f0f2f6; padding: 10px; border-radius: 5px; margin: 10px 0; font-family: monospace;">
+            <strong>Client Information:</strong><br>
+            <div id="timezone-info">Loading...</div>
+            <script>
+            function updateClientInfo() {
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                const now = new Date();
+                const today = now.toLocaleDateString('en-CA');
+                const time = now.toLocaleTimeString();
+                const timestamp = now.toISOString();
+                
+                document.getElementById('timezone-info').innerHTML = 
+                    'Timezone: ' + timezone + '<br>' +
+                    'Date: ' + today + '<br>' +
+                    'Time: ' + time + '<br>' +
+                    'Timestamp: ' + timestamp;
+                
+                // Store for potential use
+                window.clientTimezone = timezone;
+                window.clientDate = today;
+                window.clientTimestamp = timestamp;
+            }
+            
+            // Update immediately
+            updateClientInfo();
+            
+            // Update every second to show current time
+            setInterval(updateClientInfo, 1000);
+            </script>
+        </div>
         """,
-        height=0
+        height=120
     )
 
 # Mobile-optimized CSS
@@ -373,7 +375,7 @@ def main():
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     
     # Get client timezone and date
-    get_client_timezone()
+    # get_client_timezone() # This function is no longer needed as client info is displayed directly
     
     # Load data
     st.session_state.activities_df = load_data_from_csv(st.session_state.csv_file)
@@ -437,14 +439,7 @@ def main():
                 st.subheader("Controls")
                 
                 # Display client timezone info
-                st.write("**Client Information:**")
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.metric("Timezone", st.session_state.client_timezone)
-                with col2:
-                    st.metric("Date", str(today))
-                with col3:
-                    st.metric("Time", st.session_state.client_timestamp[:19] if len(st.session_state.client_timestamp) > 19 else st.session_state.client_timestamp)
+                display_client_info()
                 
                 col1, col2 = st.columns(2)
                 with col1:
