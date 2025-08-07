@@ -341,15 +341,9 @@ def main():
         if st.session_state.activities_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
-            # Initial schedule display (default to current week and all kids)
+            # Display the table first (with default current week)
             current_week_start, current_week_end = get_current_week_dates()
-            selected_week_date = st.date_input(
-                "Select week:",
-                value=date.today(),
-                help="Select week"
-            )
-            
-            week_start, week_end = get_week_dates(selected_week_date)
+            week_start, week_end = get_current_week_dates()
             weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
             
             # Display the table first
@@ -386,6 +380,13 @@ def main():
                 
                 col1, col2 = st.columns(2)
                 with col1:
+                    selected_week_date = st.date_input(
+                        "Select week:",
+                        value=date.today(),
+                        help="Select week"
+                    )
+                
+                with col2:
                     kids = st.session_state.activities_df['kid_name'].unique()
                     selected_kid_filter = st.selectbox(
                         "Filter by kid:",
@@ -393,9 +394,10 @@ def main():
                         help="Filter by kid"
                     )
                 
-                with col2:
-                    show_past_days = st.checkbox("Show past days", value=False)
+                show_past_days = st.checkbox("Show past days", value=False)
                 
+                # Show the selected week info
+                week_start, week_end = get_week_dates(selected_week_date)
                 st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
                 
                 # Summary statistics
