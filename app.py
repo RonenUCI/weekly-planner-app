@@ -421,9 +421,6 @@ def main():
                 # Client shows 8/6 (Wednesday), so let's use that
                 today = date(2025, 8, 6)  # Wednesday, August 6, 2025
                 
-                # For debugging, let's show what date we're using
-                st.info(f"Using date for filtering: {today} (client date: 8/6 - Wednesday)")
-                
                 for i, day in enumerate(days_order):
                     # Use the abbreviated day name for filtering
                     day_activities = weekly_schedule[weekly_schedule['Day'] == days_abbrev[i]]
