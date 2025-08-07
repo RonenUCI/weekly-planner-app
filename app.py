@@ -124,13 +124,17 @@ st.markdown("""
         padding: 0.15rem !important;
         white-space: nowrap;
     }
-    /* Compact day headers */
+    /* Enhanced day headers with better visibility */
     .day-header {
-        background-color: #f8f9fa;
-        padding: 0.5rem;
-        border-radius: 0.25rem;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
+        background-color: #1f77b4 !important;
+        color: white !important;
+        padding: 0.75rem !important;
+        border-radius: 0.25rem !important;
+        margin-bottom: 0.5rem !important;
+        font-weight: bold !important;
+        font-size: 1.1rem !important;
+        text-align: center !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     }
 </style>
 """, unsafe_allow_html=True)
