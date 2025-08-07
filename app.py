@@ -265,15 +265,23 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
             end_datetime = start_datetime + timedelta(minutes=duration_minutes)
             end_time = end_datetime.time().strftime('%H:%M')
             
+            # Abbreviate kid name using first letter
+            kid_name = activity['kid_name'][0].upper()
+            
+            # Abbreviate day name (M, T, W, Th, F, S, Su)
+            if day.lower() == 'thursday':
+                day_abbrev = 'Th'
+            else:
+                day_abbrev = day[0].upper()
+            
             weekly_data.append({
-                'Day': day.capitalize(),
-                'Kid': activity['kid_name'],
+                'Day': day_abbrev,
+                'Kid': kid_name,
                 'Activity': activity['activity'],
-                'Time': f"{activity['time'][:5]} - {end_time}",
-                'Duration': f"{activity['duration']}h",
+                'Time': f"{activity['time'][:5]}-{end_time}",
                 'Address': activity['address'],
-                'Pickup Driver': activity['pickup_driver'],
-                'Return Driver': activity['return_driver'],
+                'Pickup': activity['pickup_driver'],
+                'Return': activity['return_driver'],
                 'Start Date': activity['start_date'],
                 'End Date': activity['end_date']
             })
@@ -333,7 +341,7 @@ def main():
             
             if not weekly_schedule.empty:
                 # Toggle for past days
-                show_past_days = st.checkbox("Show past days", value=False)
+                # show_past_days = st.checkbox("Show past days", value=False)
                 
                 # Mobile-optimized schedule display
                 def make_address_clickable(address):
@@ -343,25 +351,27 @@ def main():
                 
                 # Display schedule by day with mobile optimization
                 days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
                 today = date.today()
                 
-                for day in days_order:
-                    day_activities = weekly_schedule[weekly_schedule['Day'] == day]
+                for i, day in enumerate(days_order):
+                    # Use the abbreviated day name for filtering
+                    day_activities = weekly_schedule[weekly_schedule['Day'] == days_abbrev[i]]
                     if not day_activities.empty:
                         day_date = None
                         if week_start <= today <= week_end:
-                            day_index = days_order.index(day)
+                            day_index = i
                             day_date = week_start + timedelta(days=day_index)
                             
-                            if day_date < today and not show_past_days:
-                                continue
+                            # Show previous day as well (remove the past day filter)
+                            # if day_date < today and not show_past_days:
+                            #     continue
                         
                         # Mobile-optimized day display
                         st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
                         
-                        # Compact table for mobile
-                        with st.container():
-                            st.markdown(day_activities.to_html(escape=False, index=False, classes='mobile-table'), unsafe_allow_html=True)
+                        # Full-width table
+                        st.markdown(day_activities.to_html(escape=False, index=False), unsafe_allow_html=True)
                 
                 # Compact summary
                 with st.expander(" Summary", expanded=False):
