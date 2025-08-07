@@ -7,6 +7,7 @@ import webbrowser
 import os
 from typing import Dict, List, Tuple
 import json
+import streamlit.components.v1 as components
 
 # Page configuration optimized for mobile
 st.set_page_config(
@@ -15,6 +16,33 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"  # Collapse sidebar on mobile
 )
+
+# Add JavaScript to get client timezone and date
+def get_client_timezone():
+    components.html(
+        """
+        <script>
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
+        const now = new Date();
+        
+        // Send to parent window
+        if (window.parent && window.parent.postMessage) {
+            window.parent.postMessage({
+                type: 'TIMEZONE_INFO',
+                timezone: timezone,
+                today: today,
+                timestamp: now.getTime()
+            }, '*');
+        }
+        
+        // Also store in localStorage for persistence
+        localStorage.setItem('clientTimezone', timezone);
+        localStorage.setItem('clientDate', today);
+        </script>
+        """,
+        height=0
+    )
 
 # Mobile-optimized CSS
 st.markdown("""
@@ -148,6 +176,9 @@ if 'activities_df' not in st.session_state:
 
 if 'csv_file' not in st.session_state:
     st.session_state.csv_file = 'activities.csv'
+
+if 'client_date' not in st.session_state:
+    st.session_state.client_date = date.today()
 
 # Helper functions (same as before)
 def migrate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
@@ -326,6 +357,9 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
 def main():
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     
+    # Get client timezone and date
+    get_client_timezone()
+    
     # Load data
     st.session_state.activities_df = load_data_from_csv(st.session_state.csv_file)
     
@@ -333,7 +367,7 @@ def main():
     st.sidebar.title("Menu")
     page = st.sidebar.selectbox(
         "Choose:",
-        ["📋 Schedule", " Kids", " Drivers", "⚙️ Data"]
+        ["📋 Schedule", "👶 Kids", "🚗 Drivers", "⚙️ Data"]
     )
     
     # Weekly View Section (landing page)
@@ -357,7 +391,12 @@ def main():
                 # Display schedule by day with mobile optimization
                 days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
                 days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
-                today = date.today()
+                
+                # Get current date in client timezone (fallback to server date)
+                try:
+                    today = st.session_state.client_date
+                except:
+                    today = date.today()
                 
                 for i, day in enumerate(days_order):
                     # Use the abbreviated day name for filtering
@@ -367,6 +406,10 @@ def main():
                         if week_start <= today <= week_end:
                             day_index = i
                             day_date = week_start + timedelta(days=day_index)
+                            
+                            # Hide past days (show only current day and future days)
+                            if day_date < today:
+                                continue
                         
                         # Mobile-optimized day display
                         st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
@@ -393,8 +436,6 @@ def main():
                         ["All Kids"] + list(kids),
                         help="Filter by kid"
                     )
-                
-                show_past_days = st.checkbox("Show past days", value=False)
                 
                 # Show the selected week info
                 week_start, week_end = get_week_dates(selected_week_date)
