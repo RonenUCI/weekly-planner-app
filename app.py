@@ -41,9 +41,13 @@ st.markdown("""
             padding: 0.5rem !important;
             margin-bottom: 0.5rem !important;
         }
-        /* Compact tables for mobile */
+        /* Ultra-compact tables for mobile */
         .dataframe {
-            font-size: 0.8rem !important;
+            font-size: 0.7rem !important;
+        }
+        .dataframe th, .dataframe td {
+            padding: 0.2rem !important;
+            text-align: left !important;
         }
         /* Reduce padding in expanders */
         .streamlit-expanderHeader {
@@ -52,6 +56,24 @@ st.markdown("""
         /* Compact form elements */
         .stSelectbox, .stDateInput, .stTimeInput {
             margin-bottom: 0.5rem !important;
+        }
+        /* Force horizontal layout for selectors */
+        [data-testid="column"] {
+            flex-direction: row !important;
+            display: flex !important;
+        }
+        [data-testid="column"] > div {
+            flex: 1 !important;
+            min-width: 0 !important;
+        }
+        /* Override Streamlit's mobile stacking */
+        .row-widget.stHorizontal {
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+        }
+        .row-widget.stHorizontal > div {
+            flex: 1 !important;
+            min-width: 0 !important;
         }
     }
     
@@ -93,10 +115,14 @@ st.markdown("""
         border-radius: 0.5rem;
         margin-bottom: 1rem;
     }
-    /* Mobile-optimized table styles */
+    /* Ultra-compact mobile table styles */
     .mobile-table {
-        font-size: 0.75rem;
+        font-size: 0.65rem !important;
         overflow-x: auto;
+    }
+    .mobile-table th, .mobile-table td {
+        padding: 0.15rem !important;
+        white-space: nowrap;
     }
     /* Compact day headers */
     .day-header {
