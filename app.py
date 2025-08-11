@@ -398,10 +398,17 @@ def main():
     
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
-    page = st.sidebar.selectbox(
+    
+    # Use radio buttons for cleaner mobile experience
+    page = st.sidebar.radio(
         "Choose:",
-        ["📋 Schedule", "👶 Kids", "🚗 Drivers", "⚙️ Data"]
+        ["📋 Schedule", "👶 Kids", "🚗 Drivers", "⚙️ Data"],
+        label_visibility="collapsed"  # Hide the label to save space
     )
+    
+    # Set default page if not set
+    if 'current_page' not in st.session_state:
+        st.session_state.current_page = "📋 Schedule"
     
     # Weekly View Section (landing page)
     if page == "📋 Schedule":
@@ -680,11 +687,15 @@ def main():
             selected_week_date = st.date_input("Week:", value=date.today())
             week_start, week_end = get_week_dates(selected_week_date)
             
+            # Get unique drivers
             pickup_drivers = st.session_state.activities_df['pickup_driver'].unique()
             return_drivers = st.session_state.activities_df['return_driver'].unique()
             all_drivers = list(set(list(pickup_drivers) + list(return_drivers)))
             
-            selected_driver = st.selectbox("Select driver:", all_drivers)
+            # Default to Ronen if available, otherwise first driver
+            default_driver = "Ronen" if "Ronen" in all_drivers else all_drivers[0] if all_drivers else ""
+            
+            selected_driver = st.selectbox("Select driver:", all_drivers, index=all_drivers.index(default_driver) if default_driver in all_drivers else 0)
             
             if selected_driver:
                 st.subheader(f"Schedule for {selected_driver}")
@@ -715,14 +726,13 @@ def main():
                     driver_df = pd.DataFrame(driver_schedule)
                     driver_df = driver_df.sort_values(['Day', 'Time'])
                     
+                    # Display schedule with better mobile formatting
                     for _, item in driver_df.iterrows():
-                        st.markdown(f"""
-                        <div class="driver-schedule">
-                            <strong>{item['Day']} - {item['Time']}</strong><br>
-                            {item['Type']}: {item['Kid']} - {item['Activity']}<br>
-                            Address: <a href="#" onclick="window.open('https://www.google.com/maps/search/?api=1&query={item['Address'].replace(' ', '+')}', '_blank')" class="address-link">{item['Address']}</a>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        with st.container():
+                            st.markdown(f"**{item['Day']} - {item['Time']}**")
+                            st.write(f"{item['Type']}: {item['Kid']} - {item['Activity']}")
+                            st.write(f"Address: [{item['Address']}](https://www.google.com/maps/search/?api=1&query={item['Address'].replace(' ', '+')})")
+                            st.markdown("---")
                 else:
                     st.info(f"No activities for {selected_driver} this week")
     
