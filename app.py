@@ -278,7 +278,9 @@ def get_current_week_dates() -> Tuple[date, date]:
 
 def is_activity_active_in_week(activity_start: date, activity_end: date, week_start: date, week_end: date) -> bool:
     """Check if activity is active during the specified week"""
-    return activity_start <= week_end and activity_end >= week_start
+    # Activity is active if it actually occurs during the week
+    # It should start before or during the week AND end after or during the week
+    return (activity_start <= week_end) and (activity_end >= week_start)
 
 def calculate_hours_by_day(df: pd.DataFrame, kid_name: str, week_start: date = None, week_end: date = None) -> Dict[str, float]:
     """Calculate daily hours for a specific kid within a date range"""
@@ -343,34 +345,40 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
         days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
         
         for day in days:
-            start_time = pd.to_datetime(activity['time']).time()
-            duration_hours = float(activity['duration'])
-            duration_minutes = int(duration_hours * 60)
+            # Calculate the actual date for this day in the week
+            day_index = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].index(day.lower())
+            day_date = week_start + timedelta(days=day_index)
             
-            start_datetime = datetime.combine(date.today(), start_time)
-            end_datetime = start_datetime + timedelta(minutes=duration_minutes)
-            end_time = end_datetime.time().strftime('%H:%M')
-            
-            # Abbreviate kid name using first letter
-            kid_name = activity['kid_name'][0].upper()
-            
-            # Abbreviate day name (M, T, W, Th, F, S, Su)
-            if day.lower() == 'thursday':
-                day_abbrev = 'Th'
-            else:
-                day_abbrev = day[0].upper()
-            
-            weekly_data.append({
-                'Day': day_abbrev,
-                'Kid': kid_name,
-                'Activity': activity['activity'],
-                'Time': f"{activity['time'][:5]}-{end_time}",
-                'Address': activity['address'],
-                'Pickup': activity['pickup_driver'],
-                'Return': activity['return_driver'],
-                'Start Date': activity['start_date'],
-                'End Date': activity['end_date']
-            })
+            # Only show activity if it's active on this specific day
+            if activity['start_date'] <= day_date <= activity['end_date']:
+                start_time = pd.to_datetime(activity['time']).time()
+                duration_hours = float(activity['duration'])
+                duration_minutes = int(duration_hours * 60)
+                
+                start_datetime = datetime.combine(date.today(), start_time)
+                end_datetime = start_datetime + timedelta(minutes=duration_minutes)
+                end_time = end_datetime.time().strftime('%H:%M')
+                
+                # Abbreviate kid name using first letter
+                kid_name = activity['kid_name'][0].upper()
+                
+                # Abbreviate day name (M, T, W, Th, F, S, Su)
+                if day.lower() == 'thursday':
+                    day_abbrev = 'Th'
+                else:
+                    day_abbrev = day[0].upper()
+                
+                weekly_data.append({
+                    'Day': day_abbrev,
+                    'Kid': kid_name,
+                    'Activity': activity['activity'],
+                    'Time': f"{activity['time'][:5]}-{end_time}",
+                    'Address': activity['address'],
+                    'Pickup': activity['pickup_driver'],
+                    'Return': activity['return_driver'],
+                    'Start Date': activity['start_date'],
+                    'End Date': activity['end_date']
+                })
     
     weekly_df = pd.DataFrame(weekly_data)
     if not weekly_df.empty:
@@ -404,10 +412,44 @@ def main():
             current_week_start, current_week_end = get_current_week_dates()
             week_start, week_end = get_current_week_dates()
             
-            # Display the table first (with default current week)
+            # Display the table first (with smart week selection)
+            current_week_start, current_week_end = get_current_week_dates()
+            today = date.today()
+            
+            # Start with current week
+            week_start, week_end = get_current_week_dates()
             weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
             
-            # Display the table first
+            # Check if there are any activities in the remaining days of current week
+            if not weekly_schedule.empty:
+                # Count activities in remaining days (current day onwards)
+                remaining_activities = 0
+                days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
+                
+                for i, day in enumerate(days_order):
+                    day_activities = weekly_schedule[weekly_schedule['Day'] == days_abbrev[i]]
+                    if not day_activities.empty:
+                        day_date = week_start + timedelta(days=i)
+                        if day_date >= today:  # Current day or future
+                            remaining_activities += len(day_activities)
+                
+                # If no activities in remaining days, try next week
+                if remaining_activities == 0:
+                    next_week_start = current_week_end + timedelta(days=1)
+                    week_start, week_end = get_week_dates(next_week_start)
+                    weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
+                    st.info(f"📅 **Schedule for next week:** {week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')} (no activities in remaining days of current week)")
+                else:
+                    st.info(f"📅 **Schedule for current week:** {week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')} ({remaining_activities} activities in remaining days)")
+            else:
+                # No activities in current week, try next week
+                next_week_start = current_week_end + timedelta(days=1)
+                week_start, week_end = get_week_dates(next_week_start)
+                weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
+                st.info(f"📅 **Schedule for next week:** {week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')} (no activities in current week)")
+            
+            # Display the table
             if not weekly_schedule.empty:
                 # Mobile-optimized schedule display
                 def make_address_clickable(address):
@@ -419,8 +461,11 @@ def main():
                 days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
                 days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
                 
-                # Use client date (hardcoded for now since JavaScript communication is complex)
-                today = date(2025, 8, 6)  # Wednesday, August 6, 2025
+                # Show what date is being used for filtering
+                st.caption(f"🔍 **Filtering:** Showing activities from {today.strftime('%B %d, %Y')} onwards")
+                
+                # Show the current date being used for day selection
+                st.caption(f"📱 **Current Date:** {today.strftime('%A, %B %d, %Y')} (used to determine which days to show)")
                 
                 for i, day in enumerate(days_order):
                     # Use the abbreviated day name for filtering
