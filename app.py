@@ -545,10 +545,27 @@ def main():
                 
                 # Summary statistics
                 with st.expander(" Summary", expanded=False):
-                    kids_in_schedule = weekly_schedule['Kid'].unique()
-                    kids_hours = {}
-                    for kid in kids_in_schedule:
-                        kids_hours[kid] = calculate_weekly_hours(st.session_state.activities_df, kid, week_start, week_end)
+                    # Use the correct data source for calculations
+                    if selected_kid_filter != "All Kids":
+                        # If filtering by specific kid, calculate hours for that kid only
+                        kids_in_schedule = [selected_kid_filter]
+                        kids_hours = {selected_kid_filter: calculate_weekly_hours(st.session_state.activities_df, selected_kid_filter, week_start, week_end)}
+                    else:
+                        # If showing all kids, get unique kids from the weekly schedule
+                        kids_in_schedule = weekly_schedule['Kid'].unique()
+                        kids_hours = {}
+                        for kid in kids_in_schedule:
+                            # Convert abbreviated kid name back to full name for calculation
+                            full_kid_name = None
+                            for _, activity in st.session_state.activities_df.iterrows():
+                                if activity['kid_name'][0].upper() == kid:
+                                    full_kid_name = activity['kid_name']
+                                    break
+                            
+                            if full_kid_name:
+                                kids_hours[kid] = calculate_weekly_hours(st.session_state.activities_df, full_kid_name, week_start, week_end)
+                            else:
+                                kids_hours[kid] = 0.0
                     
                     drives_per_driver = calculate_drives_per_driver(st.session_state.activities_df, week_start, week_end)
                     
@@ -557,18 +574,21 @@ def main():
                         st.metric("Activities", len(weekly_schedule))
                         st.metric("Kids", len(kids_in_schedule))
                     with col2:
-                        st.metric("Hours", f"{sum(kids_hours.values()):.1f}h")
+                        total_hours = sum(kids_hours.values())
+                        st.metric("Hours", f"{total_hours:.1f}h")
                         st.metric("Drivers", len(set(weekly_schedule['Pickup'].tolist() + weekly_schedule['Return'].tolist())))
                     
                     # Compact tables
                     if kids_hours:
                         st.write("**Hours per Kid:**")
                         kids_df = pd.DataFrame(list(kids_hours.items()), columns=['Kid', 'Hours'])
+                        kids_df = kids_df.sort_values('Hours', ascending=False)
                         st.dataframe(kids_df, use_container_width=True, hide_index=True)
                     
                     if drives_per_driver:
                         st.write("**Drives per Driver:**")
                         drives_df = pd.DataFrame(list(drives_per_driver.items()), columns=['Driver', 'Drives'])
+                        drives_df = drives_df.sort_values('Drives', ascending=False)
                         st.dataframe(drives_df, use_container_width=True, hide_index=True)
                 
             else:
@@ -726,7 +746,12 @@ def main():
                     driver_df = pd.DataFrame(driver_schedule)
                     driver_df = driver_df.sort_values(['Day', 'Time'])
                     
-                    # Display schedule with better mobile formatting
+                    # Convert day names to proper order for sorting
+                    day_order = {'Monday': 1, 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4, 'Friday': 5, 'Saturday': 6, 'Sunday': 7}
+                    driver_df['Day_Order'] = driver_df['Day'].map(day_order)
+                    driver_df = driver_df.sort_values(['Day_Order', 'Time']).drop('Day_Order', axis=1)
+                    
+                    # Display schedule
                     for _, item in driver_df.iterrows():
                         with st.container():
                             st.markdown(f"**{item['Day']} - {item['Time']}**")
