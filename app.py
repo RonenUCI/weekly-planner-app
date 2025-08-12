@@ -361,8 +361,10 @@ def main():
             week_start, week_end = get_current_week_dates()
             
             # Display the table first (with smart week selection)
-            current_week_start, current_week_end = get_current_week_dates()
-            today = date.today()
+            # Use server time converted to Pacific timezone
+            server_now = datetime.now()
+            pacific_time = server_now - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
+            today = pacific_time.date()  # Use Pacific date for filtering
             
             # Start with current week
             week_start, week_end = get_current_week_dates()
@@ -409,8 +411,9 @@ def main():
                 days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
                 days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
                 
-                # Show the current date being used for day selection
-                st.caption(f"📱 **Current Date:** {today.strftime('%A, %B %d, %Y')} (used to determine which days to show)")
+                # Show the current date being used for day selection (Pacific time)
+                pacific_time = datetime.now() - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
+                st.caption(f"📱 **Current Date:** {today.strftime('%A, %B %d, %Y')} at {pacific_time.strftime('%I:%M %p')} PDT (Pacific Time) (used to determine which days to show)")
                 
                 for i, day in enumerate(days_order):
                     # Use the abbreviated day name for filtering
