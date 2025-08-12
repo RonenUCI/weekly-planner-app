@@ -7,7 +7,6 @@ import webbrowser
 import os
 from typing import Dict, List, Tuple
 import json
-import streamlit.components.v1 as components
 
 # Page configuration optimized for mobile
 st.set_page_config(
@@ -16,52 +15,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"  # Collapse sidebar on mobile
 )
-
-# Add this function to display client info
-def display_client_info():
-    components.html(
-        """
-        <div id="client-info" style="background-color: #f0f2f6; padding: 10px; border-radius: 5px; margin: 10px 0; font-family: monospace;">
-            <strong>Client Information:</strong><br>
-            <div id="timezone-info">Loading...</div>
-            <script>
-            function updateClientInfo() {
-                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                const now = new Date();
-                const today = now.toLocaleDateString('en-CA');
-                const time = now.toLocaleTimeString();
-                const timestamp = now.toISOString();
-                
-                document.getElementById('timezone-info').innerHTML = 
-                    'Timezone: ' + timezone + '<br>' +
-                    'Date: ' + today + '<br>' +
-                    'Time: ' + time + '<br>' +
-                    'Timestamp: ' + timestamp;
-                
-                // Store for potential use
-                window.clientTimezone = timezone;
-                window.clientDate = today;
-                window.clientTimestamp = timestamp;
-                
-                // Try to communicate with Streamlit
-                if (window.parent && window.parent.postMessage) {
-                    window.parent.postMessage({
-                        type: 'CLIENT_DATE',
-                        date: today
-                    }, '*');
-                }
-            }
-            
-            // Update immediately
-            updateClientInfo();
-            
-            // Update every second to show current time
-            setInterval(updateClientInfo, 1000);
-            </script>
-        </div>
-        """,
-        height=120
-    )
 
 # Mobile-optimized CSS
 st.markdown("""
@@ -195,15 +148,6 @@ if 'activities_df' not in st.session_state:
 
 if 'csv_file' not in st.session_state:
     st.session_state.csv_file = 'activities.csv'
-
-if 'client_date' not in st.session_state:
-    st.session_state.client_date = date.today()
-
-# Initialize session state for client info
-if 'client_timezone' not in st.session_state:
-    st.session_state.client_timezone = "Detecting..."
-if 'client_timestamp' not in st.session_state:
-    st.session_state.client_timestamp = "Detecting..."
 
 # Helper functions (same as before)
 def migrate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
@@ -390,9 +334,6 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
 def main():
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     
-    # Get client timezone and date
-    # get_client_timezone() # This function is no longer needed as client info is displayed directly
-    
     # Load data
     st.session_state.activities_df = load_data_from_csv(st.session_state.csv_file)
     
@@ -468,9 +409,6 @@ def main():
                 days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
                 days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
                 
-                # Show what date is being used for filtering
-                st.caption(f"🔍 **Filtering:** Showing activities from {today.strftime('%B %d, %Y')} onwards")
-                
                 # Show the current date being used for day selection
                 st.caption(f"📱 **Current Date:** {today.strftime('%A, %B %d, %Y')} (used to determine which days to show)")
                 
@@ -496,9 +434,6 @@ def main():
                 # Controls after the table
                 st.markdown("---")
                 st.subheader("Controls")
-                
-                # Display client timezone info
-                display_client_info()
                 
                 col1, col2 = st.columns(2)
                 with col1:
