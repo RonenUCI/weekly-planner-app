@@ -419,7 +419,7 @@ def main():
             # Display the table first
             if not weekly_schedule.empty:
                 # Show what date range the schedule is for
-                st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} ({today.strftime('%d')} at {pacific_time.strftime('%I:%M %p')} PDT)")
+                st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} ({today.strftime('%d')} at {pacific_time.strftime('%I:%M %p')})")
                 
                 # Display current week schedule
                 st.subheader(f"📋 {week_description.title()} Schedule")
