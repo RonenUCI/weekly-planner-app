@@ -8,6 +8,11 @@ import os
 from typing import Dict, List, Tuple
 import json
 
+# Add this function at the top level, before the main() function
+def make_address_clickable(address):
+    """Convert address to clickable Google Maps link"""
+    return f'<a href="https://www.google.com/maps/search/?api=1&query={address.replace(" ", "+")}" target="_blank">{address}</a>'
+
 # Page configuration optimized for mobile
 st.set_page_config(
     page_title="Weekly Planner",
@@ -330,6 +335,35 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
     
     return weekly_df
 
+def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
+    """Helper function to display weekly schedule by day"""
+    days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
+    
+    for i, day in enumerate(days_order):
+        # Filter activities for this specific day
+        day_activities = weekly_schedule[weekly_schedule['Day'] == days_abbrev[i]]
+        if not day_activities.empty:
+            day_date = week_start + timedelta(days=i)
+            
+            # Hide past days (show only current day and future days)
+            if day_date < today:
+                continue
+                
+            # Mobile-optimized day display
+            st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
+            
+            # Create DataFrame for this day's activities
+            day_df = pd.DataFrame(day_activities)
+            
+            # Check if Address column exists before processing
+            if 'Address' in day_df.columns:
+                day_df['Address'] = day_df['Address'].apply(make_address_clickable)
+            
+            # Display the day's activities
+            st.dataframe(day_df, use_container_width=True, hide_index=True)
+            st.markdown("---")
+
 # Main application
 def main():
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
@@ -356,130 +390,95 @@ def main():
         if st.session_state.activities_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
-            # Get the selected week and kid filter first
-            current_week_start, current_week_end = get_current_week_dates()
-            week_start, week_end = get_current_week_dates()
-            
             # Display the table first (with smart week selection)
+            current_week_start, current_week_end = get_current_week_dates()
+            
             # Use server time converted to Pacific timezone
             server_now = datetime.now()
             pacific_time = server_now - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
             today = pacific_time.date()  # Use Pacific date for filtering
             
-            # Start with current week
-            week_start, week_end = get_current_week_dates()
-            weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
-            
-            # Check if there are any activities in the remaining days of current week
-            if not weekly_schedule.empty:
-                # Count activities in remaining days (current day onwards)
-                remaining_activities = 0
-                days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
-                
-                for i, day in enumerate(days_order):
-                    day_activities = weekly_schedule[weekly_schedule['Day'] == days_abbrev[i]]
-                    if not day_activities.empty:
-                        day_date = week_start + timedelta(days=i)
-                        if day_date >= today:  # Current day or future
-                            remaining_activities += len(day_activities)
-                
-                # If no activities in remaining days, try next week
-                if remaining_activities == 0:
-                    next_week_start = current_week_end + timedelta(days=1)
-                    week_start, week_end = get_week_dates(next_week_start)
-                    weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
-                    st.info(f"📅 **Schedule for next week:** {week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')} (no activities in remaining days of current week)")
-                else:
-                    st.info(f"📅 **Schedule for current week:** {week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')} ({remaining_activities} activities in remaining days)")
-            else:
-                # No activities in current week, try next week
-                next_week_start = current_week_end + timedelta(days=1)
+            # Determine which week to show
+            if today.weekday() >= 5:  # Saturday (5) or Sunday (6)
+                # Show next week
+                next_week_start = current_week_end + timedelta(days=1)  # Monday of next week
                 week_start, week_end = get_week_dates(next_week_start)
-                weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
-                st.info(f"📅 **Schedule for next week:** {week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')} (no activities in current week)")
+                week_description = f"next week"
+            else:
+                # Show current week
+                week_start, week_end = get_current_week_dates()
+                week_description = f"current week"
             
-            # Display the table
+            # Also get the following week for extended view
+            following_week_start = week_end + timedelta(days=1)  # Monday of following week
+            following_week_end = following_week_start + timedelta(days=6)  # Sunday of following week
+            
+            weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
+            following_week_schedule = create_weekly_schedule(st.session_state.activities_df, following_week_start, following_week_end)
+            
+            # Display the table first
             if not weekly_schedule.empty:
-                # Mobile-optimized schedule display
-                def make_address_clickable(address):
-                    return f'<a href="https://www.google.com/maps/search/?api=1&query={address.replace(" ", "+")}" target="_blank">{address}</a>'
+                # Show what date range the schedule is for
+                st.info(f"📅 **Schedule for {week_description}:** {week_start.strftime('%B %d')} - {week_end.strftime('%B %d, %Y')} ({len(weekly_schedule)} activities in remaining days)📱 **Current Date:** {today.strftime('%A, %B %d, %Y')} at {pacific_time.strftime('%I:%M %p')} PDT (Pacific Time) (used to determine which days to show)")
                 
-                weekly_schedule['Address'] = weekly_schedule['Address'].apply(make_address_clickable)
+                # Display current week schedule
+                st.subheader(f"📋 {week_description.title()} Schedule")
+                display_weekly_schedule(weekly_schedule, week_start, week_end, today)
                 
-                # Display schedule by day with mobile optimization
-                days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
+                # Display following week schedule
+                if not following_week_schedule.empty:
+                    st.subheader(f"📋 Following Week Schedule ({following_week_start.strftime('%B %d')} - {following_week_end.strftime('%B %d, %Y')})")
+                    st.info(f"📅 **Upcoming:** {len(following_week_schedule)} activities in the following week")
+                    display_weekly_schedule(following_week_schedule, following_week_start, following_week_end, today)
+                else:
+                    st.caption("🔮 **Following week:** No activities scheduled")
+            
+            # Controls after the table
+            st.markdown("---")
+            st.subheader("Controls")
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                selected_week_date = st.date_input(
+                    "Select week:",
+                    value=date.today(),
+                    help="Select week"
+                )
+            
+            with col2:
+                kids = st.session_state.activities_df['kid_name'].unique()
+                selected_kid_filter = st.selectbox(
+                    "Filter by kid:",
+                    ["All Kids"] + list(kids),
+                    help="Filter by kid"
+                )
+            
+            # Show the selected week info
+            week_start, week_end = get_week_dates(selected_week_date)
+            st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
+            
+            # Recalculate and display filtered schedule
+            if selected_kid_filter != "All Kids" or selected_week_date != date.today():
+                st.subheader("Filtered Schedule")
                 
-                # Show the current date being used for day selection (Pacific time)
-                pacific_time = datetime.now() - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
-                st.caption(f"📱 **Current Date:** {today.strftime('%A, %B %d, %Y')} at {pacific_time.strftime('%I:%M %p')} PDT (Pacific Time) (used to determine which days to show)")
+                # Recalculate schedule with new filters
+                new_weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
                 
-                for i, day in enumerate(days_order):
-                    # Use the abbreviated day name for filtering
-                    day_activities = weekly_schedule[weekly_schedule['Day'] == days_abbrev[i]]
-                    if not day_activities.empty:
-                        day_date = None
-                        if week_start <= today <= week_end:
-                            day_index = i
-                            day_date = week_start + timedelta(days=day_index)
-                            
-                            # Hide past days (show only current day and future days)
-                            if day_date < today:
-                                continue
-                        
-                        # Mobile-optimized day display
-                        st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
-                        
-                        # Full-width table
-                        st.markdown(day_activities.to_html(escape=False, index=False), unsafe_allow_html=True)
+                if selected_kid_filter != "All Kids":
+                    new_weekly_schedule = new_weekly_schedule[new_weekly_schedule['Kid'] == selected_kid_filter[0].upper()]
+                    st.info(f"👶 Showing schedule for: {selected_kid_filter}")
                 
-                # Controls after the table
-                st.markdown("---")
-                st.subheader("Controls")
-                
-                col1, col2 = st.columns(2)
-                with col1:
-                    selected_week_date = st.date_input(
-                        "Select week:",
-                        value=date.today(),
-                        help="Select week"
-                    )
-                
-                with col2:
-                    kids = st.session_state.activities_df['kid_name'].unique()
-                    selected_kid_filter = st.selectbox(
-                        "Filter by kid:",
-                        ["All Kids"] + list(kids),
-                        help="Filter by kid"
-                    )
-                
-                # Show the selected week info
-                week_start, week_end = get_week_dates(selected_week_date)
-                st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
-                
-                # Recalculate and display filtered schedule
-                if selected_kid_filter != "All Kids" or selected_week_date != date.today():
-                    st.subheader("Filtered Schedule")
+                if not new_weekly_schedule.empty:
+                    # Display filtered schedule
+                    new_weekly_schedule['Address'] = new_weekly_schedule['Address'].apply(make_address_clickable)
                     
-                    # Recalculate schedule with new filters
-                    new_weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
-                    
-                    if selected_kid_filter != "All Kids":
-                        new_weekly_schedule = new_weekly_schedule[new_weekly_schedule['Kid'] == selected_kid_filter[0].upper()]
-                        st.info(f"👶 Showing schedule for: {selected_kid_filter}")
-                    
-                    if not new_weekly_schedule.empty:
-                        # Display filtered schedule
-                        new_weekly_schedule['Address'] = new_weekly_schedule['Address'].apply(make_address_clickable)
-                        
-                        for i, day in enumerate(days_order):
-                            day_activities = new_weekly_schedule[new_weekly_schedule['Day'] == days_abbrev[i]]
-                            if not day_activities.empty:
-                                st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
-                                st.markdown(day_activities.to_html(escape=False, index=False), unsafe_allow_html=True)
-                    else:
-                        st.info("No activities found with the selected filters.")
+                    for i, day in enumerate(days_order):
+                        day_activities = new_weekly_schedule[new_weekly_schedule['Day'] == days_abbrev[i]]
+                        if not day_activities.empty:
+                            st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
+                            st.markdown(day_activities.to_html(escape=False, index=False), unsafe_allow_html=True)
+                else:
+                    st.info("No activities found with the selected filters.")
                 
                 # Summary statistics
                 with st.expander(" Summary", expanded=False):
