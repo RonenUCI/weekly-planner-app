@@ -10,8 +10,10 @@ import json
 
 # Add this function at the top level, before the main() function
 def make_address_clickable(address):
-    """Convert address to clickable Google Maps link"""
-    return f'<a href="https://www.google.com/maps/search/?api=1&query={address.replace(" ", "+")}" target="_blank">{address}</a>'
+    """Convert address to clickable Google Maps link with truncated display text"""
+    # Truncate address to 15 characters for display
+    display_text = address[:15] + "..." if len(address) > 15 else address
+    return f'<a href="https://www.google.com/maps/search/?api=1&query={address.replace(" ", "+")}" target="_blank">{display_text}</a>'
 
 # Page configuration optimized for mobile
 st.set_page_config(
@@ -360,8 +362,9 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             if 'Address' in day_df.columns:
                 day_df['Address'] = day_df['Address'].apply(make_address_clickable)
             
-            # Display the day's activities
-            st.dataframe(day_df, use_container_width=True, hide_index=True)
+            # Display the day's activities as HTML table instead of dataframe
+            html_table = day_df.to_html(escape=False, index=False)
+            st.markdown(html_table, unsafe_allow_html=True)
             st.markdown("---")
 
 # Main application
