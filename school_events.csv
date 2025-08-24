@@ -1,0 +1,169 @@
+kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-08-25,2025-08-25,,N/A,N/A
+All,Ohlone: Back to School Night,17:30:00,1.5,one-time,"[""tuesday""]",2025-08-26,2025-08-26,,N/A,N/A
+All,JLS: Back to School Night,17:45:00,2.25,one-time,"[""wednesday""]",2025-08-27,2025-08-27,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-08-28,2025-08-28,,N/A,N/A
+All,JLS: Minimum Day - 12:40 PM Dismissal,00:00:00,0.0,one-time,"[""friday""]",2025-08-29,2025-08-29,,N/A,N/A
+All,Ohlone: Back to School Forms Due,00:00:00,0.0,one-time,"[""friday""]",2025-08-29,2025-08-29,,N/A,N/A
+All,Ohlone: Early Release Day,12:15:00,0.08,one-time,"[""friday""]",2025-08-29,2025-08-29,,N/A,N/A
+All,JLS: No School-Holiday,00:00:00,0.0,one-time,"[""monday""]",2025-09-01,2025-09-01,,N/A,N/A
+All,Ohlone: School Holiday - Labor Day,00:00:00,0.0,one-time,"[""monday""]",2025-09-01,2025-09-01,,N/A,N/A
+All,Ohlone: Harvest Festival & Fun Parties Info Session,08:20:00,1.0,one-time,"[""tuesday""]",2025-09-02,2025-09-02,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-09-03,2025-09-03,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2025-09-04,2025-09-04,,N/A,N/A
+All,Ohlone: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2025-09-08,2025-09-08,,N/A,N/A
+All,Ohlone: PiE Back to School Challenge Grant Ends,00:00:00,0.0,one-time,"[""tuesday""]",2025-09-09,2025-09-09,,N/A,N/A
+All,Ohlone: Farm 40th Anniversary,00:00:00,0.0,one-time,"[""wednesday""]",2025-09-10,2025-09-10,,N/A,N/A
+All,Ohlone: Community Breakfast,07:15:00,1.0,one-time,"[""friday""]",2025-09-12,2025-09-12,,N/A,N/A
+All,JLS: Parent Ed Book Club #1,19:30:00,1.0,one-time,"[""wednesday""]",2025-09-17,2025-09-17,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-09-17,2025-09-17,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-09-18,2025-09-18,,N/A,N/A
+All,Ohlone: Ohlone Sleepover Fundraiser,17:00:00,17.0,one-time,"[""friday""]",2025-09-19,2025-09-19,,N/A,N/A
+All,Ohlone: Ohlone School Sleepover,10:00:00,1.0,one-time,"[""saturday""]",2025-09-20,2025-09-20,,N/A,N/A
+All,Ohlone: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2025-09-28,2025-09-28,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-09-29,2025-09-29,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-10-01,2025-10-01,,N/A,N/A
+All,JLS: No School - Staff Development Day,00:00:00,0.0,one-time,"[""friday""]",2025-10-03,2025-10-03,,N/A,N/A
+All,Ohlone: Staff Development Day - No School,00:00:00,0.0,one-time,"[""friday""]",2025-10-03,2025-10-03,,N/A,N/A
+All,Ohlone: Middle School Panel,19:00:00,1.0,one-time,"[""wednesday""]",2025-10-08,2025-10-08,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2025-10-09,2025-10-09,,N/A,N/A
+All,Ohlone: Harvest Festival,11:00:00,4.0,one-time,"[""saturday""]",2025-10-11,2025-10-11,,N/A,N/A
+All,Ohlone: Unity Day - Wear Orange,00:00:00,0.0,one-time,"[""wednesday""]",2025-10-15,2025-10-15,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-10-15,2025-10-15,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-10-16,2025-10-16,,N/A,N/A
+All,Ohlone: Full Day Kinder Begins,00:00:00,0.0,one-time,"[""monday""]",2025-10-20,2025-10-20,,N/A,N/A
+All,Ohlone: Diwali,12:00:00,1.0,one-time,"[""monday""]",2025-10-20,2025-10-20,,N/A,N/A
+All,JLS: AVID Family Night,17:00:00,3.0,one-time,"[""wednesday""]",2025-10-22,2025-10-22,cafe,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-10-29,2025-10-29,,N/A,N/A
+All,JLS: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-10-31,2025-10-31,,N/A,N/A
+All,Ohlone: Costume Parade,08:30:00,0.5,one-time,"[""friday""]",2025-10-31,2025-10-31,,N/A,N/A
+All,Ohlone: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-10-31,2025-10-31,,N/A,N/A
+All,Ohlone: PiE Rally Days Challenge Grant Starts,00:00:00,0.0,one-time,"[""saturday""]",2025-11-01,2025-11-01,,N/A,N/A
+All,Ohlone: Dia De Los Muertes,12:00:00,1.0,one-time,"[""monday""]",2025-11-03,2025-11-03,,N/A,N/A
+All,Ohlone: Site Council Meeting,15:00:00,1.0,one-time,"[""tuesday""]",2025-11-04,2025-11-04,,N/A,N/A
+All,JLS: Parent Ed Book Club #2,19:30:00,1.0,one-time,"[""wednesday""]",2025-11-05,2025-11-05,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2025-11-06,2025-11-06,,N/A,N/A
+All,Ohlone: International Potluck,17:00:00,2.0,one-time,"[""friday""]",2025-11-07,2025-11-07,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-11-10,2025-11-10,,N/A,N/A
+All,JLS: No School- Holiday,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,,N/A,N/A
+All,Ohlone: Veterans Day Holiday - No School,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-11-12,2025-11-12,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-11-13,2025-11-13,,N/A,N/A
+All,Ohlone: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2025-11-16,2025-11-16,,N/A,N/A
+All,Ohlone:  PiE Rally Days Challenge Grant Ends,00:00:00,0.0,one-time,"[""monday""]",2025-11-17,2025-11-17,,N/A,N/A
+All,JLS: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-11-21,2025-11-21,,N/A,N/A
+All,Ohlone: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-11-21,2025-11-21,,N/A,N/A
+All,JLS: No School- Thanksgiving Break,00:00:00,0.0,one-time,"[""monday""]",2025-11-24,2025-11-24,,N/A,N/A
+All,Ohlone: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""monday""]",2025-11-24,2025-11-24,,N/A,N/A
+All,Ohlone: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-25,2025-11-25,,N/A,N/A
+All,Ohlone: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""wednesday""]",2025-11-26,2025-11-26,,N/A,N/A
+All,Ohlone: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""thursday""]",2025-11-27,2025-11-27,,N/A,N/A
+All,Ohlone: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""friday""]",2025-11-28,2025-11-28,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-12-03,2025-12-03,,N/A,N/A
+All,Ohlone: Book Fair,00:00:00,0.0,one-time,"[""monday""]",2025-12-08,2025-12-08,,N/A,N/A
+All,Ohlone: Book Fair,00:00:00,0.0,one-time,"[""tuesday""]",2025-12-09,2025-12-09,,N/A,N/A
+All,Ohlone: Book Fair,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-10,2025-12-10,,N/A,N/A
+All,Ohlone: Book Fair,00:00:00,0.0,one-time,"[""thursday""]",2025-12-11,2025-12-11,,N/A,N/A
+All,Ohlone: Book Fair,00:00:00,0.0,one-time,"[""friday""]",2025-12-12,2025-12-12,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-12-15,2025-12-15,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-12-17,2025-12-17,,N/A,N/A
+All,JLS: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-12-19,2025-12-19,,N/A,N/A
+All,Ohlone: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-12-19,2025-12-19,,N/A,N/A
+All,JLS: No School- Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""tuesday""]",2025-12-23,2025-12-23,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-24,2025-12-24,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""thursday""]",2025-12-25,2025-12-25,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""friday""]",2025-12-26,2025-12-26,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-29,2025-12-29,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""tuesday""]",2025-12-30,2025-12-30,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-31,2025-12-31,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""thursday""]",2026-01-01,2026-01-01,,N/A,N/A
+All,Ohlone: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""friday""]",2026-01-02,2026-01-02,,N/A,N/A
+All,Ohlone: Staff Development Day,00:00:00,0.0,one-time,"[""monday""]",2026-01-05,2026-01-05,,N/A,N/A
+All,JLS: Students return to school,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,,N/A,N/A
+All,Ohlone: K-5 Return to School,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-01-08,2026-01-08,,N/A,N/A
+All,Ohlone: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-01-12,2026-01-12,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-01-14,2026-01-14,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-01-15,2026-01-15,,N/A,N/A
+All,JLS: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-01-19,2026-01-19,,N/A,N/A
+All,Ohlone: MLK Holiday - No School,00:00:00,0.0,one-time,"[""monday""]",2026-01-19,2026-01-19,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-01-26,2026-01-26,,N/A,N/A
+All,Ohlone: School Play Auditions Grade 4,14:45:00,1.33,one-time,"[""tuesday""]",2026-01-27,2026-01-27,,N/A,N/A
+All,Ohlone: School Play Auditions Grade 5,13:25:00,1.33,one-time,"[""wednesday""]",2026-01-28,2026-01-28,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-01-28,2026-01-28,,N/A,N/A
+All,JLS: Parent Ed Book Club #3,19:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-02-05,2026-02-05,,N/A,N/A
+All,Ohlone: *Farm Work Day,09:00:00,4.0,one-time,"[""saturday""]",2026-02-07,2026-02-07,,N/A,N/A
+All,Ohlone: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-02-09,2026-02-09,,N/A,N/A
+All,JLS: No Shcool- Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,,N/A,N/A
+All,Ohlone: School Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,,N/A,N/A
+All,Ohlone: School Holiday - President's  Day,00:00:00,0.0,one-time,"[""monday""]",2026-02-16,2026-02-16,,N/A,N/A
+All,Ohlone: Ohlone Online Auction,00:00:00,0.0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,,N/A,N/A
+All,Ohlone: Lunar New Year Celebration,11:00:00,1.0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,,N/A,N/A
+All,Ohlone: Ohlone Online Auction,00:00:00,0.0,one-time,"[""wednesday""]",2026-02-18,2026-02-18,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-02-18,2026-02-18,,N/A,N/A
+All,Ohlone: Ohlone Online Auction,00:00:00,0.0,one-time,"[""thursday""]",2026-02-19,2026-02-19,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-02-19,2026-02-19,,N/A,N/A
+All,Ohlone: Ohlone Online Auction,00:00:00,0.0,one-time,"[""friday""]",2026-02-20,2026-02-20,,N/A,N/A
+All,Ohlone: Ohlone Online Auction,00:00:00,0.0,one-time,"[""saturday""]",2026-02-21,2026-02-21,,N/A,N/A
+All,Ohlone: Ohlone Online Auction,00:00:00,0.0,one-time,"[""sunday""]",2026-02-22,2026-02-22,,N/A,N/A
+All,Ohlone: Ohlone Online Auction,00:00:00,0.0,one-time,"[""monday""]",2026-02-23,2026-02-23,,N/A,N/A
+All,Ohlone: Heart and Soul Black History Month Bike Ride,00:00:00,0.0,one-time,"[""saturday""]",2026-02-28,2026-02-28,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-03-02,2026-03-02,,N/A,N/A
+All,Ohlone: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-03-02,2026-03-02,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-03-04,2026-03-04,,N/A,N/A
+All,JLS: Local Holiday- No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,,N/A,N/A
+All,Ohlone: Local Holiday - No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,,N/A,N/A
+All,JLS: No School -Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,,N/A,N/A
+All,Ohlone: Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-03-12,2026-03-12,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-03-18,2026-03-18,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,,N/A,N/A
+All,Ohlone: School Play Performance,16:30:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,,N/A,N/A
+All,Ohlone: School Play Performance,19:00:00,1.0,one-time,"[""friday""]",2026-03-20,2026-03-20,,N/A,N/A
+All,Ohlone: School Play Performance,14:00:00,1.0,one-time,"[""saturday""]",2026-03-21,2026-03-21,,N/A,N/A
+All,Ohlone: STEAM Fair,17:00:00,2.0,one-time,"[""friday""]",2026-03-27,2026-03-27,,N/A,N/A
+All,Ohlone: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2026-03-29,2026-03-29,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,,N/A,N/A
+All,Ohlone: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-04-01,2026-04-01,,N/A,N/A
+All,JLS: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2026-04-03,2026-04-03,,N/A,N/A
+All,Ohlone: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2026-04-03,2026-04-03,,N/A,N/A
+All,JLS: No School- Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,,N/A,N/A
+All,Ohlone: Holiday - Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,,N/A,N/A
+All,Ohlone: Holiday - Spring Break,00:00:00,0.0,one-time,"[""tuesday""]",2026-04-07,2026-04-07,,N/A,N/A
+All,Ohlone: Holiday - Spring Break,00:00:00,0.0,one-time,"[""wednesday""]",2026-04-08,2026-04-08,,N/A,N/A
+All,Ohlone: Holiday - Spring Break,00:00:00,0.0,one-time,"[""thursday""]",2026-04-09,2026-04-09,,N/A,N/A
+All,Ohlone: Holiday - Spring Break,00:00:00,0.0,one-time,"[""friday""]",2026-04-10,2026-04-10,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-04-16,2026-04-16,,N/A,N/A
+All,JLS: CAASPP Testing ,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,,N/A,N/A
+All,Ohlone: Earth Week,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-04-20,2026-04-20,,N/A,N/A
+All,Ohlone: Staff Appreciation,00:00:00,0.0,one-time,"[""tuesday""]",2026-04-21,2026-04-21,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-04-22,2026-04-22,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-04-23,2026-04-23,,N/A,N/A
+All,Ohlone: Talent Show/ Ice Cream Social,00:00:00,0.0,one-time,"[""sunday""]",2026-04-26,2026-04-26,,N/A,N/A
+All,JLS: AVID Family Night,17:00:00,3.0,one-time,"[""wednesday""]",2026-04-29,2026-04-29,,N/A,N/A
+All,JLS: No School- Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,,N/A,N/A
+All,Ohlone: Local Holiday - No School,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,,N/A,N/A
+All,Ohlone: May Fete Parade,10:00:00,1.0,one-time,"[""saturday""]",2026-05-02,2026-05-02,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-05-06,2026-05-06,,N/A,N/A
+All,Ohlone: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-05-07,2026-05-07,,N/A,N/A
+All,Ohlone: Buddy Night,00:00:00,0.0,one-time,"[""monday""]",2026-05-11,2026-05-11,,N/A,N/A
+All,Ohlone: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-05-11,2026-05-11,,N/A,N/A
+All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-05-18,2026-05-18,,N/A,N/A
+All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-05-20,2026-05-20,,N/A,N/A
+All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-05-21,2026-05-21,,N/A,N/A
+All,JLS: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,,N/A,N/A
+All,Ohlone: Memorial Day Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,,N/A,N/A
+All,Ohlone: *Farm Work Day,09:00:00,4.0,one-time,"[""saturday""]",2026-05-30,2026-05-30,,N/A,N/A
+All,Ohlone: Early Release Day,12:15:00,1.0,one-time,"[""tuesday""]",2026-06-02,2026-06-02,,N/A,N/A
+All,Ohlone: 5th Grade Promotion Party,10:00:00,3.0,one-time,"[""wednesday""]",2026-06-03,2026-06-03,,N/A,N/A
+All,JLS: Districtwide Minimum Day,00:00:00,0.0,one-time,"[""thursday""]",2026-06-04,2026-06-04,,N/A,N/A
+All,Ohlone: Last day of School,00:00:00,0.0,one-time,"[""thursday""]",2026-06-04,2026-06-04,,N/A,N/A
+All,Ohlone: Early Release Day,12:15:00,1.0,one-time,"[""thursday""]",2026-06-04,2026-06-04,,N/A,N/A
+All,Ohlone: Veterans Day Holiday - No School,00:00:00,0.0,one-time,"[""wednesday""]",2026-11-11,2026-11-11,,N/A,N/A
+All,Ohlone: MLK Holiday - No School,00:00:00,0.0,one-time,"[""monday""]",2027-01-18,2027-01-18,,N/A,N/A

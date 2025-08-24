@@ -1,26 +1,25 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-Sagie,School,08:30:00,6.75,weekly,"[""tuesday"",""thursday""]",2025-08-14,2025-12-15,"230 San Antonio Cir, Mountain View, CA 94040",Walk,Walk
-Ariella,School,08:30:00,6.75,weekly,"[""tuesday"",""thursday""]",2025-08-14,2025-12-15,"230 San Antonio Cir, Mountain View, CA 94040",Walk,Walk
-Sagie,School,08:30:00,6,weekly,"[""monday"",""wednesday""]",2025-08-14,2025-12-15,"230 San Antonio Cir, Mountain View, CA 94040",Walk,Walk
-Ariella,School,08:30:00,6,weekly,"[""monday"",""wednesday""]",2025-08-14,2025-12-15,"230 San Antonio Cir, Mountain View, CA 94040",Walk,Walk
-Sagie,School,08:30:00,5.25,weekly,"[""friday""]",2025-08-14,2025-12-15,"230 San Antonio Cir, Mountain View, CA 94040",Walk,Walk
-Ariella,School,08:30:00,5.25,weekly,"[""friday""]",2025-08-14,2025-12-15,"230 San Antonio Cir, Mountain View, CA 94040",Walk,Walk
+Sagie,School,08:30:00,6.75,weekly,"[""tuesday"",""thursday""]",2025-08-14,2025-12-15,"480 E Meadow Dr, Palo Alto, CA",Walk,Walk
+Ariella,School,08:30:00,6.75,weekly,"[""tuesday"",""thursday""]",2025-08-14,2025-12-15,"480 E Meadow Dr, Palo Alto, CA",Walk,Walk
+Sagie,School,08:30:00,6,weekly,"[""monday"",""wednesday""]",2025-08-14,2025-12-15,"480 E Meadow Dr, Palo Alto, CA",Walk,Walk
+Ariella,School,08:30:00,6,weekly,"[""monday"",""wednesday""]",2025-08-14,2025-12-15,"480 E Meadow Dr, Palo Alto, CA",Walk,Walk
+Sagie,School,08:30:00,5.25,weekly,"[""friday""]",2025-08-14,2025-12-15,"480 E Meadow Dr, Palo Alto, CA",Walk,Walk
+Ariella,School,08:30:00,5.25,weekly,"[""friday""]",2025-08-14,2025-12-15,"480 E Meadow Dr, Palo Alto, CA",Walk,Walk
 Yoni,School,08:15:00,6.09,weekly,"[""monday"",""tuesday"",""thursday"",""friday""]",2025-08-14,2025-12-15,"950 Amarillo Ave, Palo Alto, CA 94303",Liat,Chabad
 Yoni,School,08:15:00,5.09,weekly,"[""wednesday""]",2025-08-14,2025-12-15,"950 Amarillo Ave, Palo Alto, CA 94303",Liat,Chabad
-Yoni,Chabad After School,14:20:00,3.00,weekly,"[""monday"",""tuesday"",""thursday"",""friday""]",2025-08-14,2025-12-15,"3070 Louis Rd, Palo Alto",Chabad,Chabad
-Yoni,Chabad After School,13:20:00,4.00,weekly,"[""wednesday""]",2025-08-14,2025-12-15,"3070 Louis Rd, Palo Alto",Chabad,Chabad
+Yoni,Chabad After S.,14:20:00,3.00,weekly,"[""monday"",""tuesday"",""thursday"",""friday""]",2025-08-14,2025-12-15,"3070 Louis Rd, Palo Alto",Chabad,Chabad
+Yoni,Chabad After S.,13:20:00,4.00,weekly,"[""wednesday""]",2025-08-14,2025-12-15,"3070 Louis Rd, Palo Alto",Chabad,Chabad
 Sagie,Piano,16:00:00,0.5,weekly,"[""monday""]",2025-08-04,2025-08-15,"230 San Antonio Cir, Mountain View, CA 94040",Bus,Liat
 Ariella,Piano,16:30:00,0.5,weekly,"[""monday""]",2025-08-04,2025-08-15,"230 San Antonio Cir, Mountain View, CA 94040",Bus,Liat
 Yoni,Piano,17:00:00,0.5,weekly,"[""monday""]",2025-08-04,2025-08-15,"230 San Antonio Cir, Mountain View, CA 94040",Bus,Liat
 Sagie,Piano,19:15:00,0.5,weekly,"[""wednesday""]",2025-08-16,2026-01-13,"230 San Antonio Cir, Mountain View, CA 94040",Bus,Liat
 Ariella,Piano,19:00:00,0.5,weekly,"[""tuesday""]",2025-08-16,2026-01-13,"230 San Antonio Cir, Mountain View, CA 94040",Bus,Liat
 Yoni,Piano,18:30:00,0.5,weekly,"[""tuesday""]",2025-08-16,2026-01-13,"230 San Antonio Cir, Mountain View, CA 94040",Bus,Liat
-Sagie,Hebrew,18:00:00,1.0,weekly,"[""monday""]",2025-08-04,2025-12-15,500 w middlefield rd mountain view apt 160,Ronen,Ronen
-Ariella,Hebrew,18:00:00,1.0,weekly,"[""monday""]",2025-08-04,2025-12-15,500 w middlefield rd mountain view apt 160,Ronen,Ronen
+Sagie,Hebrew,18:00:00,1.0,weekly,"[""monday""]",2025-08-04,2025-12-15,500 w middlefield rd mountain view apt 155,Ronen,Ronen
+Ariella,Hebrew,18:00:00,1.0,weekly,"[""monday""]",2025-08-04,2025-12-15,500 w middlefield rd mountain view apt 155,Ronen,Ronen
 Ariella,Guitar,20:30:00,0.5,weekly,"[""tuesday""]",2025-08-04,2025-12-15,"2431 Ash St, Palo Alto, CA 94306",Ronen,Ronen
 Sagie,Woodworking,16:00:00,1.5,weekly,"[""wednesday""]",2025-08-04,2025-12-15,"2729 Middlefield Rd, Palo Alto, CA 94306",Walk,Walk
 Yoni,Woodworking,16:00:00,1.5,weekly,"[""wednesday""]",2025-08-04,2025-12-15,"2729 Middlefield Rd, Palo Alto, CA 94306",Walk,Walk
 Sagie,Climbing team,16:30:00,2.0,weekly,"[""tuesday"", ""thursday""]",2025-08-12,2025-12-15,"630 San Antonio Rd, Mountain View, CA 94040",Bus,Liat
-Sagie,Math Yael Tal - We drive,18:30:00,1.0,bi-weekly,"[""tuesday""]",2025-08-19,2025-12-15,"1058 Lois AveSunnyvale, CA 94087",Ronen,Ronen
-Sagie,Math Yael Tal - they drive,18:30:00,1.0,bi-weekly,"[""tuesday""]",2025-08-26,2025-12-15,"1058 Lois AveSunnyvale, CA 94087",They,They
+Sagie,Math Yael Tal,18:30:00,1.0,bi-weekly,"[""tuesday""]",2025-08-19,2025-12-15,"1058 Lois AveSunnyvale, CA 94087",Ronen,Ronen
 Ariella,Math totur,15:20:00,0.75,weekly,"[""thursday""]",2025-08-04,2025-12-15,"480 E Meadow Dr, Palo Alto, CA 94306",Walk,Walk

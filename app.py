@@ -11,9 +11,16 @@ import json
 # Add this function at the top level, before the main() function
 def make_address_clickable(address):
     """Convert address to clickable Google Maps link with truncated display text"""
+    # Handle NaN/None values
+    if pd.isna(address) or address is None:
+        return "No address"
+    
+    # Convert to string if it's not already
+    address_str = str(address)
+    
     # Truncate address to 15 characters for display
-    display_text = address[:15] + "..." if len(address) > 15 else address
-    return f'<a href="https://www.google.com/maps/search/?api=1&query={address.replace(" ", "+")}" target="_blank">{display_text}</a>'
+    display_text = address_str[:15] + "..." if len(address_str) > 15 else address_str
+    return f'<a href="https://www.google.com/maps/search/?api=1&query={address_str.replace(" ", "+")}" target="_blank">{display_text}</a>'
 
 # Page configuration optimized for mobile
 st.set_page_config(
@@ -198,6 +205,40 @@ def load_data_from_csv(filename: str) -> pd.DataFrame:
         'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
     ])
 
+def load_combined_data_for_display() -> pd.DataFrame:
+    """Load and combine activities.csv with school_events.csv for display purposes"""
+    # Load main activities
+    activities_df = load_data_from_csv('activities.csv')
+    
+    # Load school events if available
+    school_events_df = pd.DataFrame()
+    if os.path.exists('school_events.csv'):
+        try:
+            school_events_df = pd.read_csv('school_events.csv')
+            if 'days_of_week' in school_events_df.columns:
+                school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
+                    lambda x: json.loads(x) if isinstance(x, str) else x
+                )
+            
+            # Convert date columns to proper date objects (same as load_data_from_csv)
+            if 'start_date' in school_events_df.columns:
+                school_events_df['start_date'] = pd.to_datetime(school_events_df['start_date']).dt.date
+            if 'end_date' in school_events_df.columns:
+                school_events_df['end_date'] = pd.to_datetime(school_events_df['end_date']).dt.date
+            
+            print(f"Loaded {len(school_events_df)} school events")
+        except Exception as e:
+            print(f"Warning: Could not load school events: {e}")
+    
+    # Combine the dataframes
+    if not school_events_df.empty:
+        combined_df = pd.concat([activities_df, school_events_df], ignore_index=True)
+        print(f"Combined {len(activities_df)} activities + {len(school_events_df)} school events = {len(combined_df)} total")
+        return combined_df
+    else:
+        print(f"Using only activities: {len(activities_df)} events")
+        return activities_df
+
 def save_data_to_csv(df: pd.DataFrame, filename: str):
     """Save activities data to CSV file"""
     try:
@@ -371,8 +412,9 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
 def main():
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     
-    # Load data
+    # Load data - keep original for editing, use combined for display
     st.session_state.activities_df = load_data_from_csv(st.session_state.csv_file)
+    display_df = load_combined_data_for_display()  # Combined data for display
     
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
@@ -390,7 +432,7 @@ def main():
     
     # Weekly View Section (landing page)
     if page == "📋 Schedule":
-        if st.session_state.activities_df.empty:
+        if display_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
             # Display the table first (with smart week selection)
@@ -416,8 +458,8 @@ def main():
             following_week_start = week_end + timedelta(days=1)  # Monday of following week
             following_week_end = following_week_start + timedelta(days=6)  # Sunday of following week
             
-            weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
-            following_week_schedule = create_weekly_schedule(st.session_state.activities_df, following_week_start, following_week_end)
+            weekly_schedule = create_weekly_schedule(display_df, week_start, week_end)
+            following_week_schedule = create_weekly_schedule(display_df, following_week_start, following_week_end)
             
             # Display the table first
             if not weekly_schedule.empty:
@@ -465,7 +507,7 @@ def main():
                 st.subheader("Filtered Schedule")
                 
                 # Recalculate schedule with new filters
-                new_weekly_schedule = create_weekly_schedule(st.session_state.activities_df, week_start, week_end)
+                new_weekly_schedule = create_weekly_schedule(display_df, week_start, week_end)
                 
                 if selected_kid_filter != "All Kids":
                     new_weekly_schedule = new_weekly_schedule[new_weekly_schedule['Kid'] == selected_kid_filter[0].upper()]
@@ -503,11 +545,11 @@ def main():
                                     break
                             
                             if full_kid_name:
-                                kids_hours[kid] = calculate_weekly_hours(st.session_state.activities_df, full_kid_name, week_start, week_end)
+                                kids_hours[kid] = calculate_weekly_hours(display_df, full_kid_name, week_start, week_end)
                             else:
                                 kids_hours[kid] = 0.0
                     
-                    drives_per_driver = calculate_drives_per_driver(st.session_state.activities_df, week_start, week_end)
+                    drives_per_driver = calculate_drives_per_driver(display_df, week_start, week_end)
                     
                     col1, col2 = st.columns(2)
                     with col1:
@@ -538,7 +580,7 @@ def main():
     elif page == "👶 Kids":
         st.header("👶 Kid Manager")
         
-        kids = st.session_state.activities_df['kid_name'].unique() if not st.session_state.activities_df.empty else []
+        kids = display_df['kid_name'].unique() if not display_df.empty else []
         
         col1, col2 = st.columns([2, 1])
         with col1:
@@ -641,15 +683,15 @@ def main():
     elif page == "🚗 Drivers":
         st.header("🚗 Driver View")
         
-        if st.session_state.activities_df.empty:
+        if display_df.empty:
             st.info("No activities available!")
         else:
             selected_week_date = st.date_input("Week:", value=date.today())
             week_start, week_end = get_week_dates(selected_week_date)
             
             # Get unique drivers
-            pickup_drivers = st.session_state.activities_df['pickup_driver'].unique()
-            return_drivers = st.session_state.activities_df['return_driver'].unique()
+            pickup_drivers = display_df['pickup_driver'].unique()
+            return_drivers = display_df['return_driver'].unique()
             all_drivers = list(set(list(pickup_drivers) + list(return_drivers)))
             
             # Default to Ronen if available, otherwise first driver
@@ -660,11 +702,11 @@ def main():
             if selected_driver:
                 st.subheader(f"Schedule for {selected_driver}")
                 
-                driver_activities = st.session_state.activities_df[
-                    ((st.session_state.activities_df['pickup_driver'] == selected_driver) |
-                     (st.session_state.activities_df['return_driver'] == selected_driver)) &
-                    (st.session_state.activities_df['start_date'] <= week_end) &
-                    (st.session_state.activities_df['end_date'] >= week_start)
+                driver_activities = display_df[
+                    ((display_df['pickup_driver'] == selected_driver) |
+                     (display_df['return_driver'] == selected_driver)) &
+                    (display_df['start_date'] <= week_end) &
+                    (display_df['end_date'] >= week_start)
                 ]
                 
                 if not driver_activities.empty:
