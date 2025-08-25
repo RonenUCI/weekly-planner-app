@@ -206,7 +206,7 @@ def load_data_from_csv(filename: str) -> pd.DataFrame:
     ])
 
 def load_combined_data_for_display() -> pd.DataFrame:
-    """Load and combine activities.csv with school_events.csv for display purposes"""
+    """Load and combine activities.csv with school_events.csv and jewish_holidays.csv for display purposes"""
     # Load main activities
     activities_df = load_data_from_csv('activities.csv')
     
@@ -230,10 +230,41 @@ def load_combined_data_for_display() -> pd.DataFrame:
         except Exception as e:
             print(f"Warning: Could not load school events: {e}")
     
-    # Combine the dataframes
+    # Load Jewish holidays if available
+    jewish_holidays_df = pd.DataFrame()
+    if os.path.exists('jewish_holidays.csv'):
+        try:
+            jewish_holidays_df = pd.read_csv('jewish_holidays.csv')
+            if 'days_of_week' in jewish_holidays_df.columns:
+                jewish_holidays_df['days_of_week'] = jewish_holidays_df['days_of_week'].apply(
+                    lambda x: json.loads(x) if isinstance(x, str) else x
+                )
+            
+            # Convert date columns to proper date objects
+            if 'start_date' in jewish_holidays_df.columns:
+                jewish_holidays_df['start_date'] = pd.to_datetime(jewish_holidays_df['start_date']).dt.date
+            if 'end_date' in jewish_holidays_df.columns:
+                jewish_holidays_df['end_date'] = pd.to_datetime(jewish_holidays_df['end_date']).dt.date
+            
+            print(f"Loaded {len(jewish_holidays_df)} Jewish holidays")
+        except Exception as e:
+            print(f"Warning: Could not load Jewish holidays: {e}")
+    
+    # Combine all dataframes
+    all_dataframes = [activities_df]
+    total_events = len(activities_df)
+    
     if not school_events_df.empty:
-        combined_df = pd.concat([activities_df, school_events_df], ignore_index=True)
-        print(f"Combined {len(activities_df)} activities + {len(school_events_df)} school events = {len(combined_df)} total")
+        all_dataframes.append(school_events_df)
+        total_events += len(school_events_df)
+    
+    if not jewish_holidays_df.empty:
+        all_dataframes.append(jewish_holidays_df)
+        total_events += len(jewish_holidays_df)
+    
+    if len(all_dataframes) > 1:
+        combined_df = pd.concat(all_dataframes, ignore_index=True)
+        print(f"Combined {len(activities_df)} activities + {len(school_events_df)} school events + {len(jewish_holidays_df)} Jewish holidays = {len(combined_df)} total")
         return combined_df
     else:
         print(f"Using only activities: {len(activities_df)} events")

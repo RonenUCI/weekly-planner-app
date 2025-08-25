@@ -12,9 +12,11 @@ import re
 from typing import List, Dict, Optional
 from icalendar import Calendar
 import pytz
+from ics_calendar_scraper import ICSCalendarScraper
 
-class SchoolCalendarScraper:
+class SchoolCalendarScraper(ICSCalendarScraper):
     def __init__(self):
+        super().__init__("School Calendar")
         # Define school ICS feeds
         self.school_feeds = {
             'JLS': {
@@ -28,11 +30,6 @@ class SchoolCalendarScraper:
                 'address': '950 Amarillo Ave, Palo Alto, CA 94303'
             }
         }
-        
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        })
         
     def download_all_school_feeds(self) -> Dict[str, Optional[str]]:
         """Download ICS feeds from all schools"""
@@ -53,38 +50,7 @@ class SchoolCalendarScraper:
         
         return feeds
     
-    def parse_school_feed(self, ics_content: str, school_code: str) -> List[Dict]:
-        """Parse ICS content for a specific school and extract events"""
-        events = []
-        
-        try:
-            # Parse ICS content
-            cal = Calendar.from_ical(ics_content)
-            
-            print(f"Parsing {school_code} calendar with {len(cal.walk('VEVENT'))} events...")
-            
-            # Get current date for filtering
-            current_date = datetime.now().date()
-            print(f"Filtering {school_code} events from {current_date} onwards...")
-            
-            for component in cal.walk('VEVENT'):
-                event = self._parse_ics_event(component, school_code)
-                if event:
-                    # Filter out past events
-                    event_date = datetime.strptime(event['date'], '%Y-%m-%d').date()
-                    if event_date >= current_date:
-                        events.append(event)
-            
-            print(f"Successfully parsed {len(events)} current/future events from {school_code}")
-            
-        except Exception as e:
-            print(f"Error parsing {school_code} ICS feed: {e}")
-            # Fallback: create sample events for this school
-            events = self._create_sample_events(2025, school_code)
-        
-        return events
-    
-    def _parse_ics_event(self, component, school_code: str) -> Optional[Dict]:
+    def _parse_ics_event(self, component, school_code: str = "") -> Optional[Dict]:
         """Parse individual ICS event component for a specific school"""
         try:
             # Extract event details
@@ -177,19 +143,13 @@ class SchoolCalendarScraper:
         else:
             return 'School Event'
     
-    def _calculate_duration(self, start_dt: datetime, end_dt: datetime) -> float:
-        """Calculate duration between start and end times in hours"""
-        try:
-            # Handle overnight events
-            if end_dt < start_dt:
-                end_dt += timedelta(days=1)
-            
-            duration = (end_dt - start_dt).total_seconds() / 3600
-            return round(duration, 2)
-        except:
-            return 1.0  # Default 1 hour
+    def _get_event_location(self, event_name: str, school_code: str = "") -> str:
+        """Get event location for school events"""
+        if school_code in self.school_feeds:
+            return self.school_feeds[school_code]['address']
+        return "School"
     
-    def _create_sample_events(self, year: int, school_code: str) -> List[Dict]:
+    def _create_sample_events(self, year: int, school_code: str = "") -> List[Dict]:
         """Create sample events based on known school calendar structure"""
         print(f"Creating sample events for {school_code} based on known calendar...")
         
@@ -260,7 +220,7 @@ class SchoolCalendarScraper:
         # Parse each school's feed
         for school_code, ics_content in feeds.items():
             if ics_content:
-                school_events = self.parse_school_feed(ics_content, school_code)
+                school_events = self.parse_ics_feed(ics_content, school_code)
                 all_events.extend(school_events)
             else:
                 print(f"Using fallback data for {school_code}")
@@ -316,49 +276,6 @@ class SchoolCalendarScraper:
                 continue
         
         return pd.DataFrame(planner_events)
-    
-    def save_to_csv(self, df: pd.DataFrame, filename: str = 'school_events.csv'):
-        """Save events to CSV file"""
-        df.to_csv(filename, index=False)
-        print(f"Saved {len(df)} events to {filename}")
-    
-    def merge_with_existing_csv(self, new_events_df: pd.DataFrame, existing_csv: str = 'activities.csv'):
-        """Merge new events with existing CSV, avoiding duplicates"""
-        try:
-            # Load existing CSV
-            existing_df = pd.read_csv(existing_csv)
-            print(f"Loaded existing CSV with {len(existing_df)} activities")
-            
-            # Create a key for duplicate detection
-            existing_df['event_key'] = existing_df['activity'] + existing_df['start_date']
-            new_events_df['event_key'] = new_events_df['activity'] + new_events_df['start_date']
-            
-            # Find new events (not in existing CSV)
-            existing_keys = set(existing_df['event_key'])
-            new_events_filtered = new_events_df[~new_events_df['event_key'].isin(existing_keys)]
-            
-            print(f"Found {len(new_events_filtered)} new events to add")
-            
-            if len(new_events_filtered) > 0:
-                # Remove the temporary key column
-                new_events_filtered = new_events_filtered.drop('event_key', axis=1)
-                existing_df = existing_df.drop('event_key', axis=1)
-                
-                # Combine dataframes
-                combined_df = pd.concat([existing_df, new_events_filtered], ignore_index=True)
-                
-                # Save back to CSV
-                combined_df.to_csv(existing_csv, index=False)
-                print(f"Successfully merged {len(new_events_filtered)} new events into {existing_csv}")
-                print(f"Total activities: {len(combined_df)}")
-            else:
-                print("No new events to add")
-                
-        except FileNotFoundError:
-            print(f"Existing CSV {existing_csv} not found, saving as new file")
-            new_events_df.to_csv(existing_csv, index=False)
-        except Exception as e:
-            print(f"Error merging with existing CSV: {e}")
 
 def main():
     """Main function to run the scraper"""
