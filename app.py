@@ -441,6 +441,10 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
 
 # Main application
 def main():
+    # Define day order and abbreviations for schedule display
+    days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
+    
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     
     # Load data - keep original for editing, use combined for display
