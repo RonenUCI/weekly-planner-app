@@ -48,7 +48,14 @@ class ICSCalendarScraper:
             
             # Get current date for filtering
             current_date = datetime.now().date()
-            print(f"Filtering {self.calendar_name} events from {current_date} onwards...")
+            
+            # For Jewish holidays, limit to 18 months from current date
+            if self.calendar_name == "Jewish Holidays":
+                max_date = current_date + timedelta(days=18*30)  # Approximately 18 months
+                print(f"Filtering {self.calendar_name} events from {current_date} to {max_date} (18 months)...")
+            else:
+                max_date = None
+                print(f"Filtering {self.calendar_name} events from {current_date} onwards...")
             
             for component in cal.walk('VEVENT'):
                 event = self._parse_ics_event(component, feed_identifier)
@@ -56,6 +63,9 @@ class ICSCalendarScraper:
                     # Filter out past events
                     event_date = datetime.strptime(event['date'], '%Y-%m-%d').date()
                     if event_date >= current_date:
+                        # For Jewish holidays, also filter out events beyond 18 months
+                        if max_date and event_date > max_date:
+                            continue
                         events.append(event)
             
             print(f"Successfully parsed {len(events)} current/future events from {self.calendar_name}")
