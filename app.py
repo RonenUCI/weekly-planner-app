@@ -478,16 +478,26 @@ def main():
             pacific_time = server_now - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
             today = pacific_time.date()  # Use Pacific date for filtering
             
-            # Determine which week to show
-            if today.weekday() >= 5:  # Saturday (5) or Sunday (6)
-                # Show next week
+            # Always show current week by default
+            week_start, week_end = get_current_week_dates()
+            week_description = f"current week"
+            
+            # Check if there are activities in the remaining days of current week
+            remaining_days_activities = 0
+            for i in range(today.weekday(), 7):  # From today to end of week
+                day_date = week_start + timedelta(days=i)
+                day_activities = display_df[
+                    (display_df['start_date'] <= day_date) & 
+                    (display_df['end_date'] >= day_date)
+                ]
+                remaining_days_activities += len(day_activities)
+            
+            # Only show next week if no activities remain in current week
+            if remaining_days_activities == 0 and today.weekday() >= 5:  # Weekend with no remaining activities
                 next_week_start = current_week_end + timedelta(days=1)  # Monday of next week
                 week_start, week_end = get_week_dates(next_week_start)
                 week_description = f"next week"
-            else:
-                # Show current week
-                week_start, week_end = get_current_week_dates()
-                week_description = f"current week"
+                st.info(f"📅 **Note:** Showing next week because no activities remain in current week (remaining days: {remaining_days_activities} activities)")
             
             # Also get the following week for extended view
             following_week_start = week_end + timedelta(days=1)  # Monday of following week
@@ -499,7 +509,7 @@ def main():
             # Display the table first
             if not weekly_schedule.empty:
                 # Show what date range the schedule is for
-                st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} ({today.strftime('%d')}-{pacific_time.strftime('%I:%M %p')})")
+                st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} (Current: {today.strftime('%B %d')} at {pacific_time.strftime('%I:%M %p')})")
                 
                 # Display current week schedule
                 st.subheader(f"📋 {week_description.title()} Schedule")
