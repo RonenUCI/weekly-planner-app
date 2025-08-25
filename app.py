@@ -527,13 +527,24 @@ def main():
             st.markdown("---")
             st.subheader("Controls")
             
+            # Week selection with override option
             col1, col2 = st.columns(2)
             with col1:
-                selected_week_date = st.date_input(
-                    "Select week:",
-                    value=date.today(),
-                    help="Select week"
+                # Add a toggle to override automatic week selection
+                override_week = st.checkbox(
+                    "Override week selection",
+                    help="Check to manually select a different week"
                 )
+                
+                if override_week:
+                    selected_week_date = st.date_input(
+                        "Select week:",
+                        value=date.today(),
+                        help="Select week"
+                    )
+                else:
+                    # Use the automatically determined week
+                    selected_week_date = week_start
             
             with col2:
                 kids = st.session_state.activities_df['kid_name'].unique()
@@ -548,7 +559,7 @@ def main():
             st.caption(f"📅 {week_start.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}")
             
             # Recalculate and display filtered schedule
-            if selected_kid_filter != "All Kids" or selected_week_date != date.today():
+            if selected_kid_filter != "All Kids" or override_week or selected_week_date != week_start:
                 st.subheader("Filtered Schedule")
                 
                 # Recalculate schedule with new filters
