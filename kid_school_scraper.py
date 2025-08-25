@@ -294,27 +294,15 @@ def main():
         planner_df = scraper.convert_to_planner_format(all_events)
         
         if not planner_df.empty:
-            # Save to separate file first
+            # Always save to school_events.csv
             scraper.save_to_csv(planner_df, 'school_events.csv')
             
-            # Ask user if they want to merge with existing CSV
             print("\n" + "="*50)
             print("SCRAPING COMPLETE")
             print("="*50)
             print(f"Downloaded and parsed {len(all_events)} events from all schools")
             print(f"Converted to {len(planner_df)} planner activities")
-            print("\nOptions:")
-            print("1. Merge with existing activities.csv")
-            print("2. Save as separate school_events.csv only")
-            print("3. View parsed events")
-            
-            choice = input("\nEnter your choice (1-3): ").strip()
-            
-            if choice == '1':
-                scraper.merge_with_existing_csv(planner_df)
-            elif choice == '3':
-                print("\nParsed Events:")
-                print(planner_df.to_string(index=False))
+            print(f"Saved to school_events.csv")
         else:
             print("No events could be converted to planner format")
     else:

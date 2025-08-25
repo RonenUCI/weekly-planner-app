@@ -224,24 +224,12 @@ def main():
     )
     
     if not planner_df.empty:
-        # Ask user if they want to merge with existing CSV
         print("\n" + "="*50)
         print("SCRAPING COMPLETE")
         print("="*50)
         print(f"Successfully processed Jewish holidays from Hebcal")
         print(f"Converted to {len(planner_df)} planner activities")
-        print("\nOptions:")
-        print("1. Merge with existing activities.csv")
-        print("2. Save as separate jewish_holidays.csv only")
-        print("3. View parsed Jewish holidays")
-        
-        choice = input("\nEnter your choice (1-3): ").strip()
-        
-        if choice == '1':
-            scraper.merge_with_existing_csv(planner_df)
-        elif choice == '3':
-            print("\nParsed Jewish Holidays:")
-            print(planner_df.to_string(index=False))
+        print(f"Saved to jewish_holidays.csv")
     else:
         print("Failed to process Jewish holidays from Hebcal")
 
