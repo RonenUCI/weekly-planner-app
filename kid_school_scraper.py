@@ -33,6 +33,22 @@ class SchoolCalendarScraper(ICSCalendarScraper):
             event['location'] = self.school_feeds[school_code]['address']
         return event
     
+    def save_to_csv(self, df: pd.DataFrame, filename: str):
+        """Save events to CSV file with proper escaping for addresses"""
+        try:
+            # Ensure addresses are properly escaped
+            df_copy = df.copy()
+            if 'address' in df_copy.columns:
+                df_copy['address'] = df_copy['address'].astype(str).str.replace('\n', ' ').str.replace('\r', ' ')
+            
+            # Save with proper CSV escaping
+            df_copy.to_csv(filename, index=False, quoting=1)  # quoting=1 uses QUOTE_ALL
+            print(f"Saved {len(df)} events to {filename}")
+        except Exception as e:
+            print(f"Error saving CSV: {e}")
+            # Fallback to basic CSV saving
+            df.to_csv(filename, index=False)
+    
     def scrape_all_schools(self) -> pd.DataFrame:
         """Scrape all schools and combine them into one DataFrame"""
         all_events = []
