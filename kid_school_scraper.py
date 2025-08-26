@@ -44,8 +44,12 @@ class SchoolCalendarScraper(ICSCalendarScraper):
             # Download and parse the ICS feed directly
             ics_content = self.download_ics_feed(school_info['url'])
             if ics_content:
+                # Parse events and ensure school addresses are applied
                 school_events = self.parse_ics_feed(ics_content, school_code)
                 if school_events:
+                    # Apply school addresses to each event
+                    for event in school_events:
+                        event = self._enhance_event(event, school_code)
                     all_events.extend(school_events)
         
         if all_events:

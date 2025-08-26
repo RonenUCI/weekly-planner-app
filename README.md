@@ -14,6 +14,11 @@ streamlit run app.py
 python3 update_calendars.py && git add . && git status && echo "Type 'yes' to commit and push:" && read confirm && [ "$confirm" = "yes" ] && git commit -m "Weekly calendar update $(date +'%Y-%m-%d')" && git push origin main || echo "Update aborted."
 ```
 
+### **Commit All Pending Changes**
+```bash
+git add . && git commit -m "Update: $(date +'%Y-%m-%d %H:%M')" && git push origin main
+```
+
 ## ✨ **Features**
 
 - **Kid Manager**: Add/manage individual schedules with activity tracking
