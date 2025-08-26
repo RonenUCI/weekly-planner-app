@@ -1,5 +1,4 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-08-25,2025-08-25,,N/A,N/A
 All,Ohlone: Back to School Night,17:30:00,1.5,one-time,"[""tuesday""]",2025-08-26,2025-08-26,,N/A,N/A
 All,JLS: Back to School Night,17:45:00,2.25,one-time,"[""wednesday""]",2025-08-27,2025-08-27,,N/A,N/A
 All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-08-28,2025-08-28,,N/A,N/A
@@ -20,6 +19,7 @@ All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-09-
 All,Ohlone: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-09-18,2025-09-18,,N/A,N/A
 All,Ohlone: Ohlone Sleepover Fundraiser,17:00:00,17.0,one-time,"[""friday""]",2025-09-19,2025-09-19,,N/A,N/A
 All,Ohlone: Ohlone School Sleepover,10:00:00,1.0,one-time,"[""saturday""]",2025-09-20,2025-09-20,,N/A,N/A
+All,JLS: Site Council Meeting,15:45:00,1.5,one-time,"[""monday""]",2025-09-22,2025-09-22,,N/A,N/A
 All,Ohlone: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2025-09-28,2025-09-28,,N/A,N/A
 All,Ohlone: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-09-29,2025-09-29,,N/A,N/A
 All,Ohlone: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-10-01,2025-10-01,,N/A,N/A

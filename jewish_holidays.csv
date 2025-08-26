@@ -1,7 +1,4 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,Jewish: 🌒 Rosh Chodesh Elul,00:00:00,0,one-time,"[""sunday""]",2025-08-24,2025-08-24,Home/Synagogue,N/A,N/A
-All,Jewish: 🐑 Rosh Hashana LaBehemot,00:00:00,0,one-time,"[""monday""]",2025-08-25,2025-08-25,Home/Synagogue,N/A,N/A
-All,Jewish: 🌒 Rosh Chodesh Elul,00:00:00,0,one-time,"[""monday""]",2025-08-25,2025-08-25,Home/Synagogue,N/A,N/A
 All,Jewish: 🕍 Leil Selichot,00:00:00,0,one-time,"[""saturday""]",2025-09-13,2025-09-13,Home/Synagogue,N/A,N/A
 All,Jewish: 🍏🍯 Erev Rosh Hashana,00:00:00,0,one-time,"[""monday""]",2025-09-22,2025-09-22,Home/Synagogue,N/A,N/A
 All,Jewish: 🍏🍯 Rosh Hashana 5786,00:00:00,0,one-time,"[""tuesday""]",2025-09-23,2025-09-23,Home/Synagogue,N/A,N/A
