@@ -13,10 +13,12 @@ def make_address_clickable(address):
     """Convert address to clickable Google Maps link with truncated display text"""
     # Handle NaN/None values
     if pd.isna(address) or address is None:
+        print(f"DEBUG: Address is NaN/None: {address}")
         return "No address"
     
     # Convert to string if it's not already
     address_str = str(address)
+    print(f"DEBUG: Processing address: '{address_str}' (type: {type(address)})")
     
     # Truncate address to 15 characters for display
     display_text = address_str[:15] + "..." if len(address_str) > 15 else address_str
