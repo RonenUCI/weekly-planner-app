@@ -361,11 +361,17 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
     
     weekly_data = []
     
-    for _, activity in df.iterrows():
+    for idx, activity in df.iterrows():
         if not is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end):
             continue
-            
-        days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
+        
+        # Handle different frequency types
+        if activity.get('frequency') == 'one-time':
+            # For one-time events, days_of_week contains the actual day
+            days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
+        else:
+            # For recurring events, days_of_week contains recurring days
+            days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
         
         for day in days:
             # Calculate the actual date for this day in the week
@@ -406,6 +412,11 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
     weekly_df = pd.DataFrame(weekly_data)
     if not weekly_df.empty:
         weekly_df = weekly_df.sort_values(['Day', 'Time'])
+    
+    # Ensure we always return a DataFrame
+    if not isinstance(weekly_df, pd.DataFrame):
+        print(f"WARNING: weekly_df is not a DataFrame, it's {type(weekly_df)}")
+        return pd.DataFrame()
     
     return weekly_df
 
@@ -564,6 +575,11 @@ def main():
                 
                 # Recalculate schedule with new filters
                 new_weekly_schedule = create_weekly_schedule(display_df, week_start, week_end)
+                
+                # Safety check: ensure new_weekly_schedule is a DataFrame
+                if not isinstance(new_weekly_schedule, pd.DataFrame):
+                    st.error(f"Error: Expected DataFrame but got {type(new_weekly_schedule)}")
+                    new_weekly_schedule = pd.DataFrame()
                 
                 if selected_kid_filter != "All Kids":
                     new_weekly_schedule = new_weekly_schedule[new_weekly_schedule['Kid'] == selected_kid_filter[0].upper()]
