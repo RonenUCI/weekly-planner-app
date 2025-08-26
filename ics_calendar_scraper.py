@@ -243,8 +243,8 @@ class ICSCalendarScraper:
             if 'address' in df_copy.columns:
                 df_copy['address'] = df_copy['address'].astype(str).str.replace('\n', ' ').str.replace('\r', ' ')
             
-            # Save with proper CSV escaping
-            df_copy.to_csv(filename, index=False, quoting=1)  # quoting=1 uses QUOTE_ALL
+            # Save with minimal quoting to avoid deployment issues
+            df_copy.to_csv(filename, index=False, quoting=0)  # quoting=0 uses QUOTE_MINIMAL
             print(f"Saved {len(df)} events to {filename}")
         except Exception as e:
             print(f"Error saving CSV: {e}")
