@@ -67,7 +67,7 @@ python3 jewish_holidays_scraper.py   # Jewish holidays only
 ## 📁 **Key Files**
 
 - `app.py`: Main Streamlit application
-- `update_calendars.py`: Calendar update script
+- `update_calendars.py`: Calendar update script (consolidated)
 - `activities.csv`: Family activities (editable)
 - `school_events.csv`: School calendar events (auto-generated)
 - `jewish_holidays.csv`: Jewish holidays (auto-generated)

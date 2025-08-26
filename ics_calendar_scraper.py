@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """
-Generalized ICS Calendar Scraper Base Class
+Generic ICS Calendar Scraper Base Class
 Base class for downloading and parsing ICS calendar feeds and converting them to weekly planner CSV format
 """
 
 import requests
 import pandas as pd
-import json
 from datetime import datetime, date, timedelta
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Optional
 from icalendar import Calendar
-import pytz
 
 class ICSCalendarScraper:
     """Base class for scraping ICS calendar feeds"""
@@ -37,7 +35,7 @@ class ICSCalendarScraper:
             return None
     
     def parse_ics_feed(self, ics_content: str, feed_identifier: str = "") -> List[Dict]:
-        """Parse ICS content and extract events"""
+        """Parse ICS content and extract events - generic implementation"""
         events = []
         
         try:
@@ -49,12 +47,11 @@ class ICSCalendarScraper:
             # Get current date for filtering
             current_date = datetime.now().date()
             
-            # For Jewish holidays, limit to 18 months from current date
-            if self.calendar_name == "Jewish Holidays":
-                max_date = current_date + timedelta(days=18*30)  # Approximately 18 months
-                print(f"Filtering {self.calendar_name} events from {current_date} to {max_date} (18 months)...")
+            # Let subclasses define their own date filtering logic
+            max_date = self._get_max_date(current_date)
+            if max_date:
+                print(f"Filtering {self.calendar_name} events from {current_date} to {max_date}...")
             else:
-                max_date = None
                 print(f"Filtering {self.calendar_name} events from {current_date} onwards...")
             
             for component in cal.walk('VEVENT'):
@@ -63,7 +60,7 @@ class ICSCalendarScraper:
                     # Filter out past events
                     event_date = datetime.strptime(event['date'], '%Y-%m-%d').date()
                     if event_date >= current_date:
-                        # For Jewish holidays, also filter out events beyond 18 months
+                        # Let subclasses define their own date filtering
                         if max_date and event_date > max_date:
                             continue
                         events.append(event)
@@ -72,26 +69,92 @@ class ICSCalendarScraper:
             
         except Exception as e:
             print(f"Error parsing {self.calendar_name} ICS feed: {e}")
-            # Fallback: create sample events
-            events = self._create_sample_events(2025, feed_identifier)
+            return []
         
         return events
     
+    def _get_max_date(self, current_date: date) -> Optional[date]:
+        """Get maximum date for filtering - subclasses can override for specific limits"""
+        return None  # No limit by default
+    
     def _parse_ics_event(self, component, feed_identifier: str = "") -> Optional[Dict]:
-        """Parse individual ICS event component - to be implemented by subclasses"""
-        raise NotImplementedError("Subclasses must implement _parse_ics_event")
+        """Parse individual ICS event component - generic implementation"""
+        try:
+            # Extract event details
+            summary = str(component.get('summary', ''))
+            description = str(component.get('description', ''))
+            
+            # Get start date/time
+            start_dt = component.get('dtstart')
+            if hasattr(start_dt, 'dt'):
+                start_dt = start_dt.dt
+            else:
+                start_dt = start_dt
+            
+            # Get end date/time
+            end_dt = component.get('dtend')
+            if hasattr(end_dt, 'dt'):
+                end_dt = end_dt.dt
+            else:
+                end_dt = end_dt
+            
+            # Handle all-day events
+            if isinstance(start_dt, date) and not isinstance(start_dt, datetime):
+                # All-day event
+                start_date = start_dt
+                start_time = '00:00:00'
+                end_time = '00:00:00'
+                duration = 0
+                is_all_day = True
+            else:
+                # Timed event
+                start_date = start_dt.date()
+                start_time = start_dt.strftime('%H:%M:%S')
+                
+                if end_dt:
+                    if isinstance(end_dt, date) and not isinstance(end_dt, datetime):
+                        end_time = '23:59:59'
+                        duration = 24.0
+                    else:
+                        end_time = end_dt.strftime('%H:%M:%S')
+                        duration = self._calculate_duration(start_dt, end_dt)
+                else:
+                    end_time = start_time
+                    duration = 1.0  # Default 1 hour
+                
+                is_all_day = False
+            
+            # Get location from ICS or use default - let subclasses override if needed
+            location = str(component.get('location', 'Location TBD'))
+            
+            # Get category from ICS or use default - let subclasses override if needed
+            category = str(component.get('categories', 'Event')) if component.get('categories') else 'Event'
+            
+            # Build base event structure
+            event = {
+                'date': start_date.strftime('%Y-%m-%d'),
+                'name': summary,
+                'description': description,
+                'start_time': start_time,
+                'end_time': end_time,
+                'duration': duration,
+                'is_all_day': is_all_day,
+                'location': location,
+                'category': category
+            }
+            
+            # Let subclasses add additional fields or override defaults
+            event = self._enhance_event(event, feed_identifier)
+            
+            return event
+            
+        except Exception as e:
+            print(f"Error parsing ICS event: {e}")
+            return None
     
-    def _categorize_event(self, event_name: str) -> str:
-        """Categorize events based on their names - to be implemented by subclasses"""
-        raise NotImplementedError("Subclasses must implement _categorize_event")
-    
-    def _get_event_location(self, event_name: str, feed_identifier: str = "") -> str:
-        """Get event location - to be implemented by subclasses"""
-        raise NotImplementedError("Subclasses must implement _get_event_location")
-    
-    def _create_sample_events(self, year: int, feed_identifier: str = "") -> List[Dict]:
-        """Create sample events - to be implemented by subclasses"""
-        raise NotImplementedError("Subclasses must implement _create_sample_events")
+    def _enhance_event(self, event: Dict, feed_identifier: str = "") -> Dict:
+        """Allow subclasses to add additional fields to the event"""
+        return event  # Default: no enhancement
     
     def _calculate_duration(self, start_dt: datetime, end_dt: datetime) -> float:
         """Calculate duration between start and end times in hours"""
@@ -106,7 +169,7 @@ class ICSCalendarScraper:
             return 1.0  # Default 1 hour
     
     def convert_to_planner_format(self, events: List[Dict], prefix: str = "") -> pd.DataFrame:
-        """Convert parsed events to weekly planner CSV format"""
+        """Convert parsed events to weekly planner CSV format - generic implementation"""
         planner_events = []
         
         for event in events:
@@ -118,13 +181,8 @@ class ICSCalendarScraper:
                 start_time = event['start_time']
                 duration = event['duration']
                 
-                # Determine frequency and days
-                if event.get('is_recurring', False):
-                    frequency = 'weekly'
-                    days_of_week = event.get('days_of_week', '["' + event_date.strftime('%A').lower() + '"]')
-                else:
-                    frequency = 'one-time'
-                    days_of_week = '["' + event_date.strftime('%A').lower() + '"]'
+                # Determine frequency and days - let subclasses override
+                frequency, days_of_week = self._determine_frequency_and_days(event, event_date)
                 
                 # Create activity name with prefix
                 activity_name = event['name']
@@ -154,48 +212,33 @@ class ICSCalendarScraper:
         
         return pd.DataFrame(planner_events)
     
+    def _determine_frequency_and_days(self, event: Dict, event_date: date) -> tuple:
+        """Determine frequency and days of week - subclasses can override"""
+        # Check for common recurring patterns in event names
+        event_name_lower = event['name'].lower()
+        
+        # Weekly patterns
+        if any(word in event_name_lower for word in ['shabbat', 'sabbath', 'sunday service', 'weekly meeting']):
+            frequency = 'weekly'
+            # Try to determine the day from the event name or use the event date
+            if 'friday' in event_name_lower or 'saturday' in event_name_lower:
+                days_of_week = '["friday", "saturday"]'
+            elif 'sunday' in event_name_lower:
+                days_of_week = '["sunday"]'
+            else:
+                # Default to the day of the event
+                days_of_week = '["' + event_date.strftime('%A').lower() + '"]'
+        else:
+            # Default: one-time event on the specific day
+            frequency = 'one-time'
+            days_of_week = '["' + event_date.strftime('%A').lower() + '"]'
+        
+        return frequency, days_of_week
+    
     def save_to_csv(self, df: pd.DataFrame, filename: str):
         """Save events to CSV file"""
         df.to_csv(filename, index=False)
         print(f"Saved {len(df)} events to {filename}")
-    
-    def merge_with_existing_csv(self, new_events_df: pd.DataFrame, existing_csv: str = 'activities.csv'):
-        """Merge new events with existing CSV, avoiding duplicates"""
-        try:
-            # Load existing CSV
-            existing_df = pd.read_csv(existing_csv)
-            print(f"Loaded existing CSV with {len(existing_df)} activities")
-            
-            # Create a key for duplicate detection
-            existing_df['event_key'] = existing_df['activity'] + existing_df['start_date']
-            new_events_df['event_key'] = new_events_df['activity'] + new_events_df['start_date']
-            
-            # Find new events (not in existing CSV)
-            existing_keys = set(existing_df['event_key'])
-            new_events_filtered = new_events_df[~new_events_df['event_key'].isin(existing_keys)]
-            
-            print(f"Found {len(new_events_filtered)} new events to add")
-            
-            if len(new_events_filtered) > 0:
-                # Remove the temporary key column
-                new_events_filtered = new_events_filtered.drop('event_key', axis=1)
-                existing_df = existing_df.drop('event_key', axis=1)
-                
-                # Combine dataframes
-                combined_df = pd.concat([existing_df, new_events_filtered], ignore_index=True)
-                
-                # Save back to CSV
-                combined_df.to_csv(existing_csv, index=False)
-                print(f"Successfully merged {len(new_events_filtered)} new events into {existing_csv}")
-                print(f"Total activities: {len(combined_df)}")
-            else:
-                print("No new events to add")
-                
-        except FileNotFoundError:
-            print(f"Existing CSV {existing_csv} not found, saving as new file")
-            new_events_df.to_csv(existing_csv, index=False)
-        except Exception as e:
-            print(f"Error merging with existing CSV: {e}")
     
     def scrape_and_convert(self, url: str, output_filename: str, prefix: str = "") -> pd.DataFrame:
         """Main method to scrape ICS feed and convert to planner format"""

@@ -4,3 +4,15 @@
 [2025-08-26 07:58:06] SUCCESS: All calendars updated successfully
 [2025-08-26 08:01:10] SUCCESS: All calendars updated successfully
 [2025-08-26 08:02:11] SUCCESS: All calendars updated successfully
+[2025-08-26 08:15:29] SUCCESS: All calendars updated successfully
+[2025-08-26 08:17:26] SUCCESS: All calendars updated successfully
+[2025-08-26 08:22:22] SUCCESS: All calendars updated successfully
+[2025-08-26 08:28:52] SUCCESS: All calendars updated successfully
+[2025-08-26 08:34:39] SUCCESS: All calendars updated successfully
+[2025-08-26 08:41:04] SUCCESS: All calendars updated successfully
+[2025-08-26 08:42:45] SUCCESS: All calendars updated successfully
+[2025-08-26 08:43:27] SUCCESS: All calendars updated successfully
+[2025-08-26 08:46:13] SUCCESS: All calendars updated successfully
+[2025-08-26 08:49:31] ERROR: Error updating calendars: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+[2025-08-26 08:50:26] SUCCESS: All calendars updated successfully
+[2025-08-26 08:51:29] SUCCESS: All calendars updated successfully
