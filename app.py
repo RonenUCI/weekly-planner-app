@@ -16,9 +16,14 @@ def load_activities_from_google_drive():
     try:
         import requests
         from io import StringIO
+        import time
         
         print("Attempting to load activities from Google Drive...")
-        response = requests.get(google_drive_url, timeout=10)
+        # Add timestamp to prevent caching
+        timestamp = int(time.time())
+        cache_bust_url = f"{google_drive_url}&t={timestamp}"
+        
+        response = requests.get(cache_bust_url, timeout=10)
         response.raise_for_status()
         
         # Read CSV content from Google Drive
@@ -675,7 +680,9 @@ def main():
                     new_weekly_schedule = pd.DataFrame()
                 
                 if selected_kid_filter != "All Kids":
-                    new_weekly_schedule = new_weekly_schedule[new_weekly_schedule['Kid'] == selected_kid_filter[0].upper()]
+                    # Get the abbreviated kid name (first letter)
+                    kid_abbrev = selected_kid_filter[0].upper()
+                    new_weekly_schedule = new_weekly_schedule[new_weekly_schedule['Kid'] == kid_abbrev]
                     st.info(f"👶 Showing schedule for: {selected_kid_filter}")
                 
                 if not new_weekly_schedule.empty:
