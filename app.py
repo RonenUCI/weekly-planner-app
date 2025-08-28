@@ -531,12 +531,6 @@ def main():
         st.session_state.activities_df = load_activities_from_google_drive()
         display_df = load_combined_data_for_display()  # Combined data for display
         
-        # Debug: Check what data we have
-        st.info(f"🔍 **Data Loaded:** {len(st.session_state.activities_df)} activities from Google Drive, {len(display_df)} total combined events")
-        if not display_df.empty:
-            st.info(f"📊 **Data Types:** start_date: {display_df['start_date'].dtype}, end_date: {display_df['end_date'].dtype}")
-            st.info(f"📅 **Date Range:** {display_df['start_date'].min()} to {display_df['end_date'].max()}")
-        
     except Exception as e:
         st.error(f"🚨 **Google Drive Error:** {str(e)}")
         st.info("""
