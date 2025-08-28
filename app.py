@@ -385,69 +385,104 @@ def calculate_drives_per_driver(df: pd.DataFrame, week_start: date, week_end: da
 
 def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -> pd.DataFrame:
     """Create a weekly schedule table organized by day and driver for a specific week"""
-    if df.empty:
-        return pd.DataFrame()
-    
-    weekly_data = []
-    
-    for idx, activity in df.iterrows():
-        if not is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end):
-            continue
+    try:
+        if df.empty:
+            return pd.DataFrame()
         
-        # Handle different frequency types
-        if activity.get('frequency') == 'one-time':
-            # For one-time events, days_of_week contains the actual day
-            days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
-        else:
-            # For recurring events, days_of_week contains recurring days
-            days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
+        weekly_data = []
         
-        for day in days:
-            # Calculate the actual date for this day in the week
-            day_index = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].index(day.lower())
-            day_date = week_start + timedelta(days=day_index)
-            
-            # Only show activity if it's active on this specific day
-            if activity['start_date'] <= day_date <= activity['end_date']:
-                start_time = pd.to_datetime(activity['time']).time()
-                duration_hours = float(activity['duration'])
-                duration_minutes = int(duration_hours * 60)
+        for idx, activity in df.iterrows():
+            try:
+                if not is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end):
+                    continue
                 
-                start_datetime = datetime.combine(date.today(), start_time)
-                end_datetime = start_datetime + timedelta(minutes=duration_minutes)
-                end_time = end_datetime.time().strftime('%H:%M')
-                
-                # Abbreviate kid name using first letter
-                kid_name = activity['kid_name'][0].upper()
-                
-                # Abbreviate day name (M, T, W, Th, F, S, Su)
-                if day.lower() == 'thursday':
-                    day_abbrev = 'Th'
+                # Handle different frequency types
+                if activity.get('frequency') == 'one-time':
+                    # For one-time events, days_of_week contains the actual day
+                    days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
                 else:
-                    day_abbrev = day[0].upper()
+                    # For recurring events, days_of_week contains recurring days
+                    days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
                 
-                weekly_data.append({
-                    'Day': day_abbrev,
-                    'Kid': kid_name,
-                    'Activity': activity['activity'],
-                    'Time': f"{activity['time'][:5]}-{end_time}",
-                    'Address': activity['address'],
-                    'Pickup': activity['pickup_driver'],
-                    'Return': activity['return_driver'],
-                    'Start Date': activity['start_date'],
-                    'End Date': activity['end_date']
-                })
-    
-    weekly_df = pd.DataFrame(weekly_data)
-    if not weekly_df.empty:
-        weekly_df = weekly_df.sort_values(['Day', 'Time'])
-    
-    # Ensure we always return a DataFrame
-    if not isinstance(weekly_df, pd.DataFrame):
-        print(f"WARNING: weekly_df is not a DataFrame, it's {type(weekly_df)}")
+                # Safety check: ensure days is a list
+                if not isinstance(days, list):
+                    print(f"WARNING: days_of_week is not a list for activity {activity.get('activity', 'Unknown')}: {days} (type: {type(days)})")
+                    days = []
+                
+                # Filter out any non-string days
+                days = [day for day in days if isinstance(day, str)]
+                
+                print(f"DEBUG: Days for this activity: {days} (type: {type(days)})")
+                
+                for day in days:
+                    try:
+                        # Calculate the actual date for this day in the week
+                        day_index = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].index(day.lower())
+                        day_date = week_start + timedelta(days=day_index)
+                        
+                        # Only show activity if it's active on this specific day
+                        if activity['start_date'] <= day_date <= activity['end_date']:
+                            start_time = pd.to_datetime(activity['time']).time()
+                            duration_hours = float(activity['duration'])
+                            duration_minutes = int(duration_hours * 60)
+                            
+                            start_datetime = datetime.combine(date.today(), start_time)
+                            end_datetime = start_datetime + timedelta(minutes=duration_minutes)
+                            end_time = end_datetime.time().strftime('%H:%M')
+                            
+                            # Abbreviate kid name using first letter
+                            kid_name = activity['kid_name'][0].upper()
+                            
+                            # Abbreviate day name (M, T, W, Th, F, S, Su)
+                            if day.lower() == 'thursday':
+                                day_abbrev = 'Th'
+                            else:
+                                day_abbrev = day[0].upper()
+                            
+                            weekly_data.append({
+                                'Day': day_abbrev,
+                                'Kid': kid_name,
+                                'Activity': activity['activity'],
+                                'Time': f"{activity['time'][:5]}-{end_time}",
+                                'Address': activity['address'],
+                                'Pickup': activity['pickup_driver'],
+                                'Return': activity['return_driver'],
+                                'Start Date': activity['start_date'],
+                                'End Date': activity['end_date']
+                            })
+                    except Exception as day_error:
+                        print(f"ERROR processing day {day} for activity {activity.get('activity', 'Unknown')}: {day_error}")
+                        continue
+                        
+            except Exception as activity_error:
+                print(f"ERROR processing activity {activity.get('activity', 'Unknown')}: {activity_error}")
+                continue
+        
+        print(f"DEBUG: Created {len(weekly_data)} weekly data entries")
+        
+        weekly_df = pd.DataFrame(weekly_data)
+        print(f"DEBUG: DataFrame created with {len(weekly_df)} rows, type: {type(weekly_df)}")
+        
+        if not weekly_df.empty:
+            weekly_df = weekly_df.sort_values(['Day', 'Time'])
+        
+        # Ensure we always return a DataFrame
+        if not isinstance(weekly_df, pd.DataFrame):
+            print(f"WARNING: weekly_df is not a DataFrame, it's {type(weekly_df)}")
+            return pd.DataFrame()
+        
+        print(f"DEBUG: Returning DataFrame with {len(weekly_df)} rows")
+        return weekly_df
+        
+    except Exception as e:
+        print(f"CRITICAL ERROR in create_weekly_schedule: {e}")
+        import traceback
+        traceback.print_exc()
         return pd.DataFrame()
     
-    return weekly_df
+    # Final safety check - this should never be reached, but just in case
+    print("WARNING: Unexpected code path reached, returning empty DataFrame")
+    return pd.DataFrame()
 
 def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
     """Helper function to display weekly schedule by day"""
@@ -557,6 +592,16 @@ def main():
             weekly_schedule = create_weekly_schedule(display_df, week_start, week_end)
             following_week_schedule = create_weekly_schedule(display_df, following_week_start, following_week_end)
             
+            # Safety check: ensure weekly_schedule is a DataFrame
+            if not isinstance(weekly_schedule, pd.DataFrame):
+                st.error(f"Error: Expected DataFrame but got {type(weekly_schedule)}")
+                weekly_schedule = pd.DataFrame()
+            
+            # Safety check: ensure following_week_schedule is a DataFrame
+            if not isinstance(following_week_schedule, pd.DataFrame):
+                st.error(f"Error: Expected DataFrame but got {type(following_week_schedule)}")
+                following_week_schedule = pd.DataFrame()
+            
             # Display the table first
             if not weekly_schedule.empty:
                 # Show what date range the schedule is for
@@ -654,7 +699,7 @@ def main():
                         kids_hours = {selected_kid_filter: calculate_weekly_hours(st.session_state.activities_df, selected_kid_filter, week_start, week_end)}
                     else:
                         # If showing all kids, get unique kids from the weekly schedule
-                        kids_in_schedule = weekly_schedule['Kid'].unique()
+                        kids_in_schedule = weekly_schedule['Kid'].unique() if isinstance(weekly_schedule, pd.DataFrame) and not weekly_schedule.empty else []
                         kids_hours = {}
                         for kid in kids_in_schedule:
                             # Convert abbreviated kid name back to full name for calculation
@@ -673,12 +718,19 @@ def main():
                     
                     col1, col2 = st.columns(2)
                     with col1:
-                        st.metric("Activities", len(weekly_schedule))
+                        st.metric("Activities", len(weekly_schedule) if isinstance(weekly_schedule, pd.DataFrame) else 0)
                         st.metric("Kids", len(kids_in_schedule))
                     with col2:
                         total_hours = sum(kids_hours.values())
                         st.metric("Hours", f"{total_hours:.1f}h")
-                        st.metric("Drivers", len(set(weekly_schedule['Pickup'].tolist() + weekly_schedule['Return'].tolist())))
+                        # Safety check for pickup/return columns
+                        if isinstance(weekly_schedule, pd.DataFrame) and not weekly_schedule.empty and 'Pickup' in weekly_schedule.columns and 'Return' in weekly_schedule.columns:
+                            pickup_drivers = weekly_schedule['Pickup'].tolist()
+                            return_drivers = weekly_schedule['Return'].tolist()
+                            unique_drivers = len(set(pickup_drivers + return_drivers))
+                        else:
+                            unique_drivers = 0
+                        st.metric("Drivers", unique_drivers)
                     
                     # Compact tables
                     if kids_hours:
