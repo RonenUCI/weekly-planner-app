@@ -194,8 +194,9 @@ if 'activities_df' not in st.session_state:
         'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
     ])
 
-if 'csv_file' not in st.session_state:
-    st.session_state.csv_file = 'activities.csv'
+# Remove the CSV file path since we're using Google Sheets as primary source
+# if 'csv_file' not in st.session_state:
+#     st.session_state.csv_file = 'activities.csv'
 
 # Helper functions (same as before)
 def migrate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
@@ -240,9 +241,13 @@ def load_data_from_csv(filename: str) -> pd.DataFrame:
     ])
 
 def load_combined_data_for_display() -> pd.DataFrame:
-    """Load and combine activities.csv with school_events.csv and jewish_holidays.csv for display purposes"""
-    # Load main activities
-    activities_df = load_data_from_csv('activities.csv')
+    """Load and combine Google Drive activities with school_events.csv and jewish_holidays.csv for display purposes"""
+    # Load main activities from Google Drive
+    try:
+        activities_df = load_activities_from_google_drive()
+    except Exception as e:
+        st.error(f"Failed to load activities from Google Drive: {e}")
+        return pd.DataFrame()
     
     # Load school events if available
     school_events_df = pd.DataFrame()
@@ -926,6 +931,15 @@ def main():
     elif page == "⚙️ Data":
         st.header("⚙️ Data Management")
         
+        st.info("""
+        **📊 Primary Data Source:** Google Sheets
+        
+        Your activities are now stored in Google Sheets and automatically sync with the app.
+        The local CSV file is only used for backup/export purposes.
+        
+        **🔗 [Edit in Google Sheets](https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit)**
+        """)
+        
         col1, col2 = st.columns(2)
         
         with col1:
@@ -936,8 +950,7 @@ def main():
                     df = pd.read_csv(uploaded_file)
                     df = migrate_dataframe(df)
                     st.session_state.activities_df = df
-                    if save_data_to_csv(st.session_state.activities_df, st.session_state.csv_file):
-                        st.success("Imported!")
+                    st.success("Imported! Note: This only updates the local session. For permanent changes, edit the Google Sheet.")
                 except Exception as e:
                     st.error(f"Error: {e}")
         
@@ -948,8 +961,9 @@ def main():
                 st.download_button(
                     label="Download CSV",
                     data=csv_data,
-                    file_name="activities.csv",
-                    mime="text/csv"
+                    file_name="activities_backup.csv",
+                    mime="text/csv",
+                    help="Download current data as backup CSV"
                 )
         
         if not st.session_state.activities_df.empty:
