@@ -38,6 +38,12 @@ def load_activities_from_google_drive():
         if 'end_date' in df.columns:
             df['end_date'] = pd.to_datetime(df['end_date']).dt.date
         
+        # Process days_of_week column if it exists
+        if 'days_of_week' in df.columns:
+            df['days_of_week'] = df['days_of_week'].apply(
+                lambda x: json.loads(x) if isinstance(x, str) and x.strip() else []
+            )
+        
         print(f"✅ Successfully loaded {len(df)} activities from Google Drive")
         return df
         
