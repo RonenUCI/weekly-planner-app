@@ -426,34 +426,47 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                         
                         # Only show activity if it's active on this specific day
                         if activity['start_date'] <= day_date <= activity['end_date']:
-                            start_time = pd.to_datetime(activity['time']).time()
-                            duration_hours = float(activity['duration'])
-                            duration_minutes = int(duration_hours * 60)
+                            # Clean and format the start time consistently
+                            start_time_str = str(activity['time']).strip()
+                            # Remove any extra colons and ensure proper format
+                            if start_time_str.count(':') > 1:
+                                start_time_str = start_time_str.split(':')[0] + ':' + start_time_str.split(':')[1]
                             
-                            start_datetime = datetime.combine(date.today(), start_time)
-                            end_datetime = start_datetime + timedelta(minutes=duration_minutes)
-                            end_time = end_datetime.time().strftime('%H:%M')
-                            
-                            # Abbreviate kid name using first letter
-                            kid_name = activity['kid_name'][0].upper()
-                            
-                            # Abbreviate day name (M, T, W, Th, F, S, Su)
-                            if day.lower() == 'thursday':
-                                day_abbrev = 'Th'
-                            else:
-                                day_abbrev = day[0].upper()
-                            
-                            weekly_data.append({
-                                'Day': day_abbrev,
-                                'Kid': kid_name,
-                                'Activity': activity['activity'],
-                                'Time': f"{activity['time'][:5]}-{end_time}",
-                                'Address': activity['address'],
-                                'Pickup': activity['pickup_driver'],
-                                'Return': activity['return_driver'],
-                                'Start Date': activity['start_date'],
-                                'End Date': activity['end_date']
-                            })
+                            try:
+                                start_time = pd.to_datetime(start_time_str).time()
+                                duration_hours = float(activity['duration'])
+                                duration_minutes = int(duration_hours * 60)
+                                
+                                start_datetime = datetime.combine(date.today(), start_time)
+                                end_datetime = start_datetime + timedelta(minutes=duration_minutes)
+                                end_time = end_datetime.time().strftime('%H:%M')
+                                
+                                # Format start time consistently with leading zeros
+                                formatted_start_time = start_time.strftime('%H:%M')
+                                
+                                # Abbreviate kid name using first letter
+                                kid_name = activity['kid_name'][0].upper()
+                                
+                                # Abbreviate day name (M, T, W, Th, F, S, Su)
+                                if day.lower() == 'thursday':
+                                    day_abbrev = 'Th'
+                                else:
+                                    day_abbrev = day[0].upper()
+                                
+                                weekly_data.append({
+                                    'Day': day_abbrev,
+                                    'Kid': kid_name,
+                                    'Activity': activity['activity'],
+                                    'Time': f"{formatted_start_time}-{end_time}",
+                                    'Address': activity['address'],
+                                    'Pickup': activity['pickup_driver'],
+                                    'Return': activity['return_driver'],
+                                    'Start Date': activity['start_date'],
+                                    'End Date': activity['end_date']
+                                })
+                            except Exception as time_error:
+                                print(f"WARNING: Could not process time '{start_time_str}' for activity {activity.get('activity', 'Unknown')}: {time_error}")
+                                continue
                     except Exception as day_error:
                         print(f"ERROR processing day {day} for activity {activity.get('activity', 'Unknown')}: {day_error}")
                         continue
@@ -468,10 +481,18 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
         print(f"DEBUG: DataFrame created with {len(weekly_df)} rows, type: {type(weekly_df)}")
         
         if not weekly_df.empty:
-            # Sort by day first, then by start time (extract start time from time range)
-            weekly_df['Start_Time'] = weekly_df['Time'].str.split('-').str[0]
-            weekly_df = weekly_df.sort_values(['Day', 'Start_Time'])
-            weekly_df = weekly_df.drop('Start_Time', axis=1)
+            # Sort by day first, then by start time (convert to time objects for proper sorting)
+            try:
+                # Extract start time and convert to time objects for proper sorting
+                weekly_df['Start_Time'] = weekly_df['Time'].str.split('-').str[0].apply(
+                    lambda x: pd.to_datetime(x, format='%H:%M').time()
+                )
+                weekly_df = weekly_df.sort_values(['Day', 'Start_Time'])
+                weekly_df = weekly_df.drop('Start_Time', axis=1)
+            except Exception as sort_error:
+                print(f"WARNING: Could not sort by time, using default order: {sort_error}")
+                # Fallback: sort by day only
+                weekly_df = weekly_df.sort_values(['Day'])
         
         # Ensure we always return a DataFrame
         if not isinstance(weekly_df, pd.DataFrame):
