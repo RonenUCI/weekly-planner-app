@@ -32,6 +32,12 @@ def load_activities_from_google_drive():
         if df.empty:
             raise ValueError("Google Sheet is empty - no activities found")
         
+        # Convert date columns to datetime objects
+        if 'start_date' in df.columns:
+            df['start_date'] = pd.to_datetime(df['start_date']).dt.date
+        if 'end_date' in df.columns:
+            df['end_date'] = pd.to_datetime(df['end_date']).dt.date
+        
         print(f"✅ Successfully loaded {len(df)} activities from Google Drive")
         return df
         
@@ -258,13 +264,11 @@ def load_combined_data_for_display() -> pd.DataFrame:
                 school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
                 )
-            
-            # Convert date columns to proper date objects (same as load_data_from_csv)
+            # Convert date columns to datetime objects
             if 'start_date' in school_events_df.columns:
                 school_events_df['start_date'] = pd.to_datetime(school_events_df['start_date']).dt.date
             if 'end_date' in school_events_df.columns:
                 school_events_df['end_date'] = pd.to_datetime(school_events_df['end_date']).dt.date
-            
             print(f"Loaded {len(school_events_df)} school events")
         except Exception as e:
             print(f"Warning: Could not load school events: {e}")
@@ -278,36 +282,20 @@ def load_combined_data_for_display() -> pd.DataFrame:
                 jewish_holidays_df['days_of_week'] = jewish_holidays_df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
                 )
-            
-            # Convert date columns to proper date objects
+            # Convert date columns to datetime objects
             if 'start_date' in jewish_holidays_df.columns:
                 jewish_holidays_df['start_date'] = pd.to_datetime(jewish_holidays_df['start_date']).dt.date
             if 'end_date' in jewish_holidays_df.columns:
                 jewish_holidays_df['end_date'] = pd.to_datetime(jewish_holidays_df['end_date']).dt.date
-            
             print(f"Loaded {len(jewish_holidays_df)} Jewish holidays")
         except Exception as e:
             print(f"Warning: Could not load Jewish holidays: {e}")
     
     # Combine all dataframes
-    all_dataframes = [activities_df]
-    total_events = len(activities_df)
+    combined_df = pd.concat([activities_df, school_events_df, jewish_holidays_df], ignore_index=True)
+    print(f"Combined {len(activities_df)} activities + {len(school_events_df)} school events + {len(jewish_holidays_df)} Jewish holidays = {len(combined_df)} total")
     
-    if not school_events_df.empty:
-        all_dataframes.append(school_events_df)
-        total_events += len(school_events_df)
-    
-    if not jewish_holidays_df.empty:
-        all_dataframes.append(jewish_holidays_df)
-        total_events += len(jewish_holidays_df)
-    
-    if len(all_dataframes) > 1:
-        combined_df = pd.concat(all_dataframes, ignore_index=True)
-        print(f"Combined {len(activities_df)} activities + {len(school_events_df)} school events + {len(jewish_holidays_df)} Jewish holidays = {len(combined_df)} total")
-        return combined_df
-    else:
-        print(f"Using only activities: {len(activities_df)} events")
-        return activities_df
+    return combined_df
 
 def save_data_to_csv(df: pd.DataFrame, filename: str):
     """Save activities data to CSV file"""
