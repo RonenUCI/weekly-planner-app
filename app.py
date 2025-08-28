@@ -8,6 +8,33 @@ import os
 from typing import Dict, List, Tuple
 import json
 
+def load_activities_from_google_drive():
+    """Load activities from Google Drive - no fallback to local file"""
+    # Google Drive shareable URL for your activities spreadsheet
+    google_drive_url = "https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/export?format=csv"
+    
+    try:
+        import requests
+        from io import StringIO
+        
+        print("Attempting to load activities from Google Drive...")
+        response = requests.get(google_drive_url, timeout=10)
+        response.raise_for_status()
+        
+        # Read CSV content from Google Drive
+        df = pd.read_csv(StringIO(response.text))
+        
+        if df.empty:
+            raise ValueError("Google Sheet is empty - no activities found")
+        
+        print(f"✅ Successfully loaded {len(df)} activities from Google Drive")
+        return df
+        
+    except Exception as e:
+        error_msg = f"❌ Failed to load activities from Google Drive: {str(e)}"
+        print(error_msg)
+        raise RuntimeError(error_msg)
+
 # Add this function at the top level, before the main() function
 def make_address_clickable(address):
     """Convert address to clickable Google Maps link with truncated display text"""
@@ -460,9 +487,20 @@ def main():
     
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     
-    # Load data - keep original for editing, use combined for display
-    st.session_state.activities_df = load_data_from_csv(st.session_state.csv_file)
-    display_df = load_combined_data_for_display()  # Combined data for display
+    # Load data - try Google Drive first, fallback to local file
+    try:
+        st.session_state.activities_df = load_activities_from_google_drive()
+        display_df = load_combined_data_for_display()  # Combined data for display
+    except Exception as e:
+        st.error(f"🚨 **Google Drive Error:** {str(e)}")
+        st.info("""
+        **Troubleshooting Steps:**
+        1. Check your internet connection
+        2. Verify the Google Sheet is accessible: [Open Google Sheet](https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit)
+        3. Make sure the sheet has data in the correct format
+        4. Try refreshing the page
+        """)
+        st.stop()  # Stop execution if Google Drive fails
     
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
@@ -523,6 +561,14 @@ def main():
             if not weekly_schedule.empty:
                 # Show what date range the schedule is for
                 st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} (Current: {today.strftime('%B %d')} at {pacific_time.strftime('%I:%M %p')})")
+                
+                # Add refresh button for Google Drive updates
+                col1, col2 = st.columns([3, 1])
+                with col1:
+                    st.markdown("💡 **Tip:** Edit activities in [Google Sheets](https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit) for real-time updates")
+                with col2:
+                    if st.button("🔄 Refresh Data", help="Click to reload latest data from Google Drive"):
+                        st.rerun()
                 
                 # Display current week schedule
                 st.subheader(f"📋 {week_description.title()} Schedule")
