@@ -468,7 +468,10 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
         print(f"DEBUG: DataFrame created with {len(weekly_df)} rows, type: {type(weekly_df)}")
         
         if not weekly_df.empty:
-            weekly_df = weekly_df.sort_values(['Day', 'Time'])
+            # Sort by day first, then by start time (extract start time from time range)
+            weekly_df['Start_Time'] = weekly_df['Time'].str.split('-').str[0]
+            weekly_df = weekly_df.sort_values(['Day', 'Start_Time'])
+            weekly_df = weekly_df.drop('Start_Time', axis=1)
         
         # Ensure we always return a DataFrame
         if not isinstance(weekly_df, pd.DataFrame):
