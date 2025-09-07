@@ -376,15 +376,15 @@ st.markdown("""
     
     /* Mobile-specific fixes for monthly view */
     @media (max-width: 768px) {
-        /* Force light blue background on main container */
+        /* Force light grey background on main container */
         .main .block-container {
-            background-color: #f8fafc !important;
+            background-color: #f5f5f5 !important;
             color: #1e293b !important;
         }
         
         /* Override Streamlit's default dark theme - but preserve sidebar */
         .stApp {
-            background-color: #f8fafc !important;
+            background-color: #f5f5f5 !important;
             color: #1e293b !important;
         }
         
@@ -394,9 +394,9 @@ st.markdown("""
             color: #ffffff !important;
         }
         
-        /* Keep main content area light blue */
+        /* Keep main content area light grey */
         .main .block-container {
-            background-color: #f8fafc !important;
+            background-color: #f5f5f5 !important;
             color: #1e293b !important;
         }
         
@@ -451,7 +451,7 @@ st.markdown("""
     @media (max-width: 768px) {
         /* Target all possible Streamlit containers */
         .stApp > div {
-            background-color: #f8fafc !important;
+            background-color: #f5f5f5 !important;
         }
         
         /* Force visibility on all text elements - but exclude Streamlit UI elements */
