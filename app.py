@@ -309,10 +309,12 @@ st.markdown("""
         font-weight: bold;
         text-align: center;
         margin-bottom: 1rem;
-        color: #0066cc;
+        color: #0066cc !important;
+        background-color: #ffffff !important;
     }
     .monitor-day {
-        background-color: #f8f9fa;
+        background-color: #f8f9fa !important;
+        color: #000000 !important;
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
@@ -321,7 +323,8 @@ st.markdown("""
         border: 1px solid #dee2e6;
     }
     .monitor-day-today {
-        background-color: #fff3cd;
+        background-color: #fff3cd !important;
+        color: #000000 !important;
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
@@ -334,13 +337,15 @@ st.markdown("""
         font-size: 0.8rem;
         font-weight: bold;
         margin-bottom: 0.05rem;
-        color: #0066cc;
+        color: #0066cc !important;
+        background-color: transparent !important;
         text-align: center;
         padding: 0.05rem;
         line-height: 1.0;
     }
     .monitor-activity {
-        background-color: transparent;
+        background-color: transparent !important;
+        color: #000000 !important;
         padding: 0.1rem 0;
         margin: 0.05rem 0;
         border: none;
@@ -350,20 +355,60 @@ st.markdown("""
     .monitor-activity-time {
         font-size: 0.6rem;
         font-weight: bold;
-        color: #0066cc;
+        color: #0066cc !important;
+        background-color: transparent !important;
         display: inline;
     }
     .monitor-activity-details {
         font-size: 0.6rem;
         margin-left: 0.3rem;
-        color: #000000;
+        color: #000000 !important;
+        background-color: transparent !important;
         display: inline;
     }
     .monitor-no-activities {
         font-size: 0.6rem;
         text-align: center;
-        color: #6c757d;
+        color: #6c757d !important;
+        background-color: transparent !important;
         padding: 0.2rem;
+    }
+    
+    /* Mobile-specific fixes for monthly view */
+    @media (max-width: 768px) {
+        .monitor-header {
+            font-size: 1.5rem !important;
+            color: #0066cc !important;
+            background-color: #ffffff !important;
+        }
+        .monitor-day {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .monitor-day-today {
+            background-color: #fff3cd !important;
+            color: #000000 !important;
+        }
+        .monitor-day-header {
+            color: #0066cc !important;
+            background-color: transparent !important;
+        }
+        .monitor-activity {
+            color: #000000 !important;
+            background-color: transparent !important;
+        }
+        .monitor-activity-time {
+            color: #0066cc !important;
+            background-color: transparent !important;
+        }
+        .monitor-activity-details {
+            color: #000000 !important;
+            background-color: transparent !important;
+        }
+        .monitor-no-activities {
+            color: #6c757d !important;
+            background-color: transparent !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -735,8 +780,8 @@ def display_monitor_dashboard():
     st.markdown("""
     <style>
     .monitor-container {
-        background-color: #ffffff;
-        color: #000000;
+        background-color: #ffffff !important;
+        color: #000000 !important;
         padding: 1rem;
         border-radius: 1rem;
         margin: 0.5rem 0;
@@ -746,10 +791,12 @@ def display_monitor_dashboard():
         font-weight: bold;
         text-align: center;
         margin-bottom: 1rem;
-        color: #0066cc;
+        color: #0066cc !important;
+        background-color: #ffffff !important;
     }
     .monitor-day {
-        background-color: #f8f9fa;
+        background-color: #f8f9fa !important;
+        color: #000000 !important;
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
@@ -758,7 +805,8 @@ def display_monitor_dashboard():
         border: 1px solid #dee2e6;
     }
     .monitor-day-today {
-        background-color: #fff3cd;
+        background-color: #fff3cd !important;
+        color: #000000 !important;
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
@@ -772,8 +820,8 @@ def display_monitor_dashboard():
         font-weight: bold;
         text-align: center;
         margin: 1rem 0 0.5rem 0;
-        color: #0066cc;
-        background-color: #e9ecef;
+        color: #0066cc !important;
+        background-color: #e9ecef !important;
         padding: 0.25rem;
         border-radius: 0.25rem;
         border: 1px solid #dee2e6;
@@ -782,13 +830,15 @@ def display_monitor_dashboard():
         font-size: 0.8rem;
         font-weight: bold;
         margin-bottom: 0.05rem;
-        color: #0066cc;
+        color: #0066cc !important;
+        background-color: transparent !important;
         text-align: center;
         padding: 0.05rem;
         line-height: 1.0;
     }
     .monitor-activity {
-        background-color: transparent;
+        background-color: transparent !important;
+        color: #000000 !important;
         padding: 0.1rem 0;
         margin: 0.05rem 0;
         border: none;
@@ -798,19 +848,22 @@ def display_monitor_dashboard():
     .monitor-activity-time {
         font-size: 0.6rem;
         font-weight: bold;
-        color: #0066cc;
+        color: #0066cc !important;
+        background-color: transparent !important;
         display: inline;
     }
     .monitor-activity-details {
         font-size: 0.6rem;
         margin-left: 0.3rem;
-        color: #000000;
+        color: #000000 !important;
+        background-color: transparent !important;
         display: inline;
     }
     .monitor-no-activities {
         font-size: 0.6rem;
         text-align: center;
-        color: #6c757d;
+        color: #6c757d !important;
+        background-color: transparent !important;
         padding: 0.2rem;
     }
     .monitor-refresh {
