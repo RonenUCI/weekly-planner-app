@@ -763,7 +763,7 @@ def main():
                     # Show the selected option with a link button
                     if selected_option is not None:
                         selected_address = nav_options[selected_option]['address']
-                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving"
+                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                         st.link_button("🗺️ Navigate to Selected Destination", maps_url, type="primary")
                 else:
                     # Single destination - direct navigation
@@ -772,8 +772,8 @@ def main():
                         button_text = "🏠 Navigate Home" if nav_type == "home" else "🧭 Navigate to Activity"
                         st.write(f"**{nav_reason}**")
                     with col2:
-                        # Use Google Maps URL that shows driving directions with prominent start button
-                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving"
+                        # Use Google Maps URL that auto-starts navigation
+                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                         # For mobile compatibility, use st.link_button instead of webbrowser.open
                         st.link_button(button_text, maps_url, type="primary")
                 
