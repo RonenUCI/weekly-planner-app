@@ -417,6 +417,80 @@ st.markdown("""
             min-width: 0 !important;
             max-width: 50% !important;
         }
+        
+        /* Fix dropdown options styling */
+        .stSelectbox > div > div {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox [data-baseweb="select"] {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox [data-baseweb="select"] > div {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox [data-baseweb="select"] > div > div {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        /* Fix dropdown menu options */
+        [data-baseweb="menu"] {
+            background-color: #f8f9fa !important;
+        }
+        [data-baseweb="menu"] > div {
+            background-color: #f8f9fa !important;
+        }
+        [data-baseweb="menu"] li {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        [data-baseweb="menu"] li:hover {
+            background-color: #e9ecef !important;
+            color: #262730 !important;
+        }
+        [data-baseweb="menu"] li[aria-selected="true"] {
+            background-color: #e9ecef !important;
+            color: #262730 !important;
+        }
+    }
+    
+    /* Fix dropdown styling for all screen sizes */
+    .stSelectbox > div > div {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="select"] {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="select"] > div {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="select"] > div > div {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    /* Fix dropdown menu options */
+    [data-baseweb="menu"] {
+        background-color: #f8f9fa !important;
+    }
+    [data-baseweb="menu"] > div {
+        background-color: #f8f9fa !important;
+    }
+    [data-baseweb="menu"] li {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    [data-baseweb="menu"] li:hover {
+        background-color: #e9ecef !important;
+        color: #262730 !important;
+    }
+    [data-baseweb="menu"] li[aria-selected="true"] {
+        background-color: #e9ecef !important;
+        color: #262730 !important;
     }
     
     .main-header {
