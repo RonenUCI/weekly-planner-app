@@ -382,8 +382,20 @@ st.markdown("""
             color: #000000 !important;
         }
         
-        /* Override Streamlit's default dark theme */
+        /* Override Streamlit's default dark theme - but preserve sidebar */
         .stApp {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        
+        /* Keep sidebar dark */
+        .stSidebar {
+            background-color: #0e1117 !important;
+            color: #ffffff !important;
+        }
+        
+        /* Keep main content area white */
+        .main .block-container {
             background-color: #ffffff !important;
             color: #000000 !important;
         }
@@ -442,9 +454,46 @@ st.markdown("""
             background-color: #ffffff !important;
         }
         
-        /* Force visibility on all text elements */
-        p, div, span, td, th {
+        /* Force visibility on all text elements - but exclude Streamlit UI elements */
+        p:not(.stButton > div > p):not(.stSelectbox > div > p):not(.stRadio > div > p), 
+        div:not(.stButton):not(.stSelectbox):not(.stRadio):not(.stSidebar):not(.stSidebar > div), 
+        span:not(.stButton > div > span):not(.stSelectbox > div > span), 
+        td, th {
             color: #000000 !important;
+        }
+        
+        /* Fix Streamlit UI elements */
+        .stButton > div > p, .stButton > div > span {
+            color: #ffffff !important;
+        }
+        
+        .stSelectbox > div > p, .stSelectbox > div > span {
+            color: #ffffff !important;
+        }
+        
+        .stRadio > div > p, .stRadio > div > span {
+            color: #ffffff !important;
+        }
+        
+        /* Fix sidebar text */
+        .stSidebar p, .stSidebar div, .stSidebar span {
+            color: #ffffff !important;
+        }
+        
+        /* Fix button text and backgrounds */
+        button, .stButton button {
+            color: #ffffff !important;
+            background-color: #ff4b4b !important;
+        }
+        
+        /* Fix selectbox and radio button text */
+        .stSelectbox label, .stRadio label {
+            color: #ffffff !important;
+        }
+        
+        /* Fix form elements */
+        .stSelectbox > div > div, .stRadio > div > div {
+            color: #ffffff !important;
         }
         
         /* Specific overrides for monitor elements */
