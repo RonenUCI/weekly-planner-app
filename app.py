@@ -376,6 +376,18 @@ st.markdown("""
     
     /* Mobile-specific fixes for monthly view */
     @media (max-width: 768px) {
+        /* Force white background on main container */
+        .main .block-container {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        
+        /* Override Streamlit's default dark theme */
+        .stApp {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        
         .monitor-header {
             font-size: 1.5rem !important;
             color: #0066cc !important;
@@ -408,6 +420,40 @@ st.markdown("""
         .monitor-no-activities {
             color: #6c757d !important;
             background-color: transparent !important;
+        }
+        
+        /* Force all text to be visible */
+        div[data-testid="stMarkdownContainer"] {
+            color: #000000 !important;
+            background-color: transparent !important;
+        }
+        
+        /* Override any dark theme styles */
+        .css-1d391kg {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+    }
+    
+    /* Additional mobile overrides */
+    @media (max-width: 768px) {
+        /* Target all possible Streamlit containers */
+        .stApp > div {
+            background-color: #ffffff !important;
+        }
+        
+        /* Force visibility on all text elements */
+        p, div, span, td, th {
+            color: #000000 !important;
+        }
+        
+        /* Specific overrides for monitor elements */
+        .monitor-day * {
+            color: #000000 !important;
+        }
+        
+        .monitor-day-header * {
+            color: #0066cc !important;
         }
     }
 </style>
@@ -908,11 +954,13 @@ def display_monitor_dashboard():
                 if day_date == today:
                     day_class = "monitor-day-today"
                     day_icon = "⭐"
+                    bg_color = "#fff3cd"
                 else:
                     day_class = "monitor-day"
                     day_icon = "📅"
+                    bg_color = "#f8f9fa"
                 
-                st.markdown(f'<div class="{day_class}"><div class="monitor-day-header">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="{day_class}" style="background-color: {bg_color} !important; color: #000000 !important;"><div class="monitor-day-header" style="color: #0066cc !important; background-color: transparent !important;">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
                 display_day_activities(display_df, day_date)
                 st.markdown('</div>', unsafe_allow_html=True)
         
@@ -973,7 +1021,7 @@ def display_day_activities(display_df, target_date):
     day_activities.sort(key=lambda x: x['time'])
     
     if not day_activities:
-        st.markdown('<div class="monitor-no-activities">No activities scheduled</div>', unsafe_allow_html=True)
+        st.markdown('<div class="monitor-no-activities" style="color: #6c757d !important; background-color: transparent !important;">No activities scheduled</div>', unsafe_allow_html=True)
     else:
         for activity in day_activities:
                         # Truncate activity name if too long
@@ -982,9 +1030,9 @@ def display_day_activities(display_df, target_date):
                             activity_name = activity_name[:17] + "..."
                         
                         st.markdown(f'''
-                        <div class="monitor-activity">
-                            <span class="monitor-activity-time">{activity["time"]}</span>
-                            <span class="monitor-activity-details">
+                        <div class="monitor-activity" style="color: #000000 !important; background-color: transparent !important;">
+                            <span class="monitor-activity-time" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
+                            <span class="monitor-activity-details" style="color: #000000 !important; background-color: transparent !important;">
                                 <strong>{activity_name}</strong> ({activity["kid"]})
                             </span>
                         </div>
@@ -1355,11 +1403,13 @@ def main():
                         if day_date == today:
                             day_class = "monitor-day-today"
                             day_icon = "⭐"
+                            bg_color = "#fff3cd"
                         else:
                             day_class = "monitor-day"
                             day_icon = "📅"
+                            bg_color = "#f8f9fa"
                         
-                        st.markdown(f'<div class="{day_class}"><div class="monitor-day-header">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="{day_class}" style="background-color: {bg_color} !important; color: #000000 !important;"><div class="monitor-day-header" style="color: #0066cc !important; background-color: transparent !important;">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
                         display_day_activities(display_df, day_date)
                         st.markdown('</div>', unsafe_allow_html=True)
                 
