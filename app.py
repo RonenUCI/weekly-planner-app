@@ -480,6 +480,40 @@ st.markdown("""
             color: #ffffff !important;
         }
         
+        /* Fix mobile menu (hamburger menu) text */
+        .css-1d391kg p, .css-1d391kg div, .css-1d391kg span {
+            color: #ffffff !important;
+        }
+        
+        /* Fix mobile sidebar overlay text */
+        .stSidebar .css-1d391kg p, .stSidebar .css-1d391kg div, .stSidebar .css-1d391kg span {
+            color: #ffffff !important;
+        }
+        
+        /* Fix any mobile menu containers */
+        [data-testid="stSidebar"] p, [data-testid="stSidebar"] div, [data-testid="stSidebar"] span {
+            color: #ffffff !important;
+        }
+        
+        /* Additional mobile menu fixes */
+        .stSidebar .css-1d391kg, .stSidebar .css-1d391kg * {
+            color: #ffffff !important;
+        }
+        
+        /* Fix mobile menu buttons and links */
+        .stSidebar button, .stSidebar .stButton, .stSidebar a {
+            color: #ffffff !important;
+        }
+        
+        /* Fix mobile menu radio buttons and selectboxes */
+        .stSidebar .stRadio, .stSidebar .stSelectbox {
+            color: #ffffff !important;
+        }
+        
+        .stSidebar .stRadio label, .stSidebar .stSelectbox label {
+            color: #ffffff !important;
+        }
+        
         /* Fix button text and backgrounds */
         button, .stButton button {
             color: #ffffff !important;
