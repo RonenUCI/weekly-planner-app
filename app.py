@@ -651,11 +651,243 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             st.markdown(html_table, unsafe_allow_html=True)
             st.markdown("---")
 
+def display_monitor_dashboard():
+    """Display wall dashboard for monitor mode showing today and tomorrow's activities"""
+    # Load data
+    try:
+        display_df = load_combined_data_for_display()
+    except Exception as e:
+        st.error(f"Failed to load activities: {e}")
+        return
+    
+    if display_df.empty:
+        st.info("No activities available for monitor display")
+        return
+    
+    # Get today and next 30 days
+    today = date.today()
+    end_date = today + timedelta(days=29)  # 30 days inclusive
+    
+    # Create monitor-specific CSS for large display
+    st.markdown("""
+    <style>
+    .monitor-container {
+        background-color: #ffffff;
+        color: #000000;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin: 0.5rem 0;
+    }
+    .monitor-header {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #0066cc;
+    }
+    .monitor-day {
+        background-color: #f8f9fa;
+        padding: 0.15rem;
+        border-radius: 0.25rem;
+        margin: 0.25rem;
+        border-left: 2px solid #0066cc;
+        min-height: 30px;
+        border: 1px solid #dee2e6;
+    }
+    .monitor-day-today {
+        background-color: #fff3cd;
+        padding: 0.15rem;
+        border-radius: 0.25rem;
+        margin: 0.25rem;
+        border-left: 3px solid #ffc107;
+        min-height: 30px;
+        box-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
+        border: 2px solid #ffc107;
+    }
+    .monitor-week-header {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        margin: 1rem 0 0.5rem 0;
+        color: #0066cc;
+        background-color: #e9ecef;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        border: 1px solid #dee2e6;
+    }
+    .monitor-day-header {
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 0.05rem;
+        color: #0066cc;
+        text-align: center;
+        padding: 0.05rem;
+        line-height: 1.0;
+    }
+    .monitor-activity {
+        background-color: transparent;
+        padding: 0.1rem 0;
+        margin: 0.05rem 0;
+        border: none;
+        font-size: 0.6rem;
+        line-height: 1.1;
+    }
+    .monitor-activity-time {
+        font-size: 0.6rem;
+        font-weight: bold;
+        color: #0066cc;
+        display: inline;
+    }
+    .monitor-activity-details {
+        font-size: 0.6rem;
+        margin-left: 0.3rem;
+        color: #000000;
+        display: inline;
+    }
+    .monitor-no-activities {
+        font-size: 0.6rem;
+        text-align: center;
+        color: #6c757d;
+        padding: 0.2rem;
+    }
+    .monitor-refresh {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Display 30-day calendar view with refresh button
+    col1, col2, col3 = st.columns([3, 1, 1])
+    with col1:
+        st.markdown(f'<div class="monitor-header">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
+    with col3:
+        if st.button("🔄 Refresh", key="monitor_refresh", type="primary"):
+            st.rerun()
+    
+    # Create a grid layout for the 30 days
+    # Group days into weeks for better organization
+    current_date = today
+    
+    while current_date <= end_date:
+        # Start a new week
+        week_start = current_date
+        week_end = min(current_date + timedelta(days=6), end_date)
+        
+        # Create columns for this week (up to 7 days)
+        week_days = []
+        temp_date = week_start
+        while temp_date <= week_end and temp_date <= end_date:
+            week_days.append(temp_date)
+            temp_date += timedelta(days=1)
+        
+        # Create columns dynamically based on number of days in this week
+        cols = st.columns(len(week_days))
+        
+        for i, day_date in enumerate(week_days):
+            with cols[i]:
+                # Highlight today
+                if day_date == today:
+                    day_class = "monitor-day-today"
+                    day_icon = "⭐"
+                else:
+                    day_class = "monitor-day"
+                    day_icon = "📅"
+                
+                st.markdown(f'<div class="{day_class}"><div class="monitor-day-header">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
+                display_day_activities(display_df, day_date)
+                st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Move to next week
+        current_date = week_end + timedelta(days=1)
+    
+    # Auto-refresh every 5 minutes
+    st.markdown("""
+    <script>
+    setTimeout(function(){
+        window.location.reload();
+    }, 300000); // 5 minutes
+    </script>
+    """, unsafe_allow_html=True)
+
+def display_day_activities(display_df, target_date):
+    """Display activities for a specific day in monitor format"""
+    # Get activities for the target date
+    day_activities = []
+    
+    for _, activity in display_df.iterrows():
+        # Check if activity is active on this date
+        if activity['start_date'] <= target_date <= activity['end_date']:
+            # Check if this activity occurs on this day of the week
+            days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
+            day_name = target_date.strftime('%A').lower()
+            
+            if day_name in [d.lower() for d in days]:
+                try:
+                    # Format time
+                    start_time_str = str(activity['time']).strip()
+                    if start_time_str.count(':') > 1:
+                        start_time_str = start_time_str.split(':')[0] + ':' + start_time_str.split(':')[1]
+                    
+                    start_time = pd.to_datetime(start_time_str, format='%H:%M').time()
+                    duration_hours = float(activity['duration'])
+                    duration_minutes = int(duration_hours * 60)
+                    
+                    start_datetime = datetime.combine(target_date, start_time)
+                    end_datetime = start_datetime + timedelta(minutes=duration_minutes)
+                    end_time = end_datetime.time().strftime('%H:%M')
+                    
+                    formatted_start_time = start_time.strftime('%H:%M')
+                    
+                    day_activities.append({
+                        'time': f"{formatted_start_time}-{end_time}",
+                        'activity': activity['activity'],
+                        'kid': activity['kid_name'],
+                        'address': activity['address'],
+                        'pickup': activity['pickup_driver'],
+                        'return': activity['return_driver']
+                    })
+                except Exception as e:
+                    print(f"Error processing activity {activity.get('activity', 'Unknown')}: {e}")
+                    continue
+    
+    # Sort by time
+    day_activities.sort(key=lambda x: x['time'])
+    
+    if not day_activities:
+        st.markdown('<div class="monitor-no-activities">No activities scheduled</div>', unsafe_allow_html=True)
+    else:
+        for activity in day_activities:
+                        # Truncate activity name if too long
+                        activity_name = activity["activity"]
+                        if len(activity_name) > 20:
+                            activity_name = activity_name[:17] + "..."
+                        
+                        st.markdown(f'''
+                        <div class="monitor-activity">
+                            <span class="monitor-activity-time">{activity["time"]}</span>
+                            <span class="monitor-activity-details">
+                                <strong>{activity_name}</strong> ({activity["kid"]})
+                            </span>
+                        </div>
+                        ''', unsafe_allow_html=True)
+
 # Main application
 def main():
     # Define day order and abbreviations for schedule display
     days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
+    
+    # Check for monitor mode URL parameter
+    query_params = st.query_params
+    is_monitor_mode = query_params.get("mode") == "monitor"
+    
+    if is_monitor_mode:
+        # Monitor mode - wall dashboard
+        display_monitor_dashboard()
+        return
     
     st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     

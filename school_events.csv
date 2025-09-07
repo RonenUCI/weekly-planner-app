@@ -1,169 +1,588 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,School: Back to School Night,17:30:00,1.5,one-time,"[""tuesday""]",2025-08-26,2025-08-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Back to School Night,17:45:00,2.25,one-time,"[""wednesday""]",2025-08-27,2025-08-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-08-28,2025-08-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Minimum Day - 12:40 PM Dismissal,00:00:00,0.0,one-time,"[""friday""]",2025-08-29,2025-08-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-All,School: Early Release Day,12:15:00,0.08,one-time,"[""friday""]",2025-08-29,2025-08-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Back to School Forms Due,00:00:00,0.0,one-time,"[""friday""]",2025-08-29,2025-08-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: No School-Holiday,00:00:00,0.0,one-time,"[""monday""]",2025-09-01,2025-09-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-All,School: School Holiday - Labor Day,00:00:00,0.0,one-time,"[""monday""]",2025-09-01,2025-09-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Harvest Festival & Fun Parties Info Session,08:20:00,1.0,one-time,"[""tuesday""]",2025-09-02,2025-09-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-09-03,2025-09-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2025-09-04,2025-09-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-09-08,2025-09-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2025-09-08,2025-09-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: PiE Back to School Challenge Grant Ends,00:00:00,0.0,one-time,"[""tuesday""]",2025-09-09,2025-09-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-09-09,2025-09-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Farm 40th Anniversary,00:00:00,0.0,one-time,"[""wednesday""]",2025-09-10,2025-09-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-09-10,2025-09-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Picture Day,00:00:00,0.0,one-time,"[""thursday""]",2025-09-11,2025-09-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-09-11,2025-09-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Community Chat/Principal Zoom,08:45:00,0.75,one-time,"[""friday""]",2025-09-12,2025-09-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: 6th Grade Movie Night,17:00:00,2.0,one-time,"[""friday""]",2025-09-12,2025-09-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Breakfast,07:15:00,1.0,one-time,"[""friday""]",2025-09-12,2025-09-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Parent Ed Book Club #1,19:30:00,1.0,one-time,"[""wednesday""]",2025-09-17,2025-09-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-09-15,2025-09-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-09-16,2025-09-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-09-17,2025-09-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Parent Ed Book Club #1,19:30:00,1.0,one-time,"[""wednesday""]",2025-09-17,2025-09-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-09-17,2025-09-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-09-18,2025-09-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-09-18,2025-09-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: JLS PTA Gen Association Mtg,19:30:00,1.0,one-time,"[""thursday""]",2025-09-18,2025-09-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Ohlone Sleepover Fundraiser,17:00:00,17.0,one-time,"[""friday""]",2025-09-19,2025-09-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Ohlone School Sleepover,10:00:00,1.0,one-time,"[""saturday""]",2025-09-20,2025-09-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Site Council Meeting,15:45:00,1.5,one-time,"[""monday""]",2025-09-22,2025-09-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-09-22,2025-09-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: School Picture Day Retakes - Conf J,00:00:00,24.0,one-time,"[""monday""]",2025-09-22,2025-09-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-09-23,2025-09-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-09-24,2025-09-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-09-25,2025-09-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2025-09-28,2025-09-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-09-29,2025-09-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-09-29,2025-09-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-09-30,2025-09-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Third Grade Bike Rodeo / Second Grade Pedestrian Safety Lesson,00:00:00,0.0,one-time,"[""tuesday""]",2025-09-30,2025-09-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-10-01,2025-10-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-10-01,2025-10-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-10-02,2025-10-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: No School - Staff Development Day,00:00:00,0.0,one-time,"[""friday""]",2025-10-03,2025-10-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Staff Development Day - No School,00:00:00,0.0,one-time,"[""friday""]",2025-10-03,2025-10-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-10-06,2025-10-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Walk and Roll Week,00:00:00,0.0,one-time,"[""monday""]",2025-10-06,2025-10-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-10-07,2025-10-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Walk and Roll Week,00:00:00,0.0,one-time,"[""tuesday""]",2025-10-07,2025-10-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Middle School Panel,19:00:00,1.0,one-time,"[""wednesday""]",2025-10-08,2025-10-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-10-08,2025-10-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Walk and Roll Week,00:00:00,0.0,one-time,"[""wednesday""]",2025-10-08,2025-10-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Walk and Roll Week,00:00:00,0.0,one-time,"[""thursday""]",2025-10-09,2025-10-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2025-10-09,2025-10-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-10-09,2025-10-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Walk and Roll Week,00:00:00,0.0,one-time,"[""friday""]",2025-10-10,2025-10-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Harvest Festival,11:00:00,4.0,one-time,"[""saturday""]",2025-10-11,2025-10-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Unity Day - Wear Orange,00:00:00,0.0,one-time,"[""wednesday""]",2025-10-15,2025-10-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-10-13,2025-10-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-10-14,2025-10-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-10-15,2025-10-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Unity Day - Wear Orange,00:00:00,0.0,one-time,"[""wednesday""]",2025-10-15,2025-10-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-10-15,2025-10-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-10-16,2025-10-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-10-16,2025-10-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Full Day Kinder Begins,00:00:00,0.0,one-time,"[""monday""]",2025-10-20,2025-10-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Diwali,12:00:00,1.0,one-time,"[""monday""]",2025-10-20,2025-10-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-10-20,2025-10-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-10-21,2025-10-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-10-22,2025-10-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: AVID Family Night,17:00:00,3.0,one-time,"[""wednesday""]",2025-10-22,2025-10-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-10-23,2025-10-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-10-27,2025-10-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-10-28,2025-10-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-10-29,2025-10-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-10-29,2025-10-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-10-30,2025-10-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Restructured Day - Dismissal at 2:30 PM,00:00:00,0.0,one-time,"[""thursday""]",2025-10-30,2025-10-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-10-31,2025-10-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-10-31,2025-10-31,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Costume Parade,08:30:00,0.5,one-time,"[""friday""]",2025-10-31,2025-10-31,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: PiE Rally Days Challenge Grant Starts,00:00:00,0.0,one-time,"[""saturday""]",2025-11-01,2025-11-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-11-03,2025-11-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Dia De Los Muertes,12:00:00,1.0,one-time,"[""monday""]",2025-11-03,2025-11-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Site Council Meeting,15:00:00,1.0,one-time,"[""tuesday""]",2025-11-04,2025-11-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-11-04,2025-11-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Parent Ed Book Club #2,19:30:00,1.0,one-time,"[""wednesday""]",2025-11-05,2025-11-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-11-05,2025-11-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2025-11-06,2025-11-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-11-06,2025-11-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: International Potluck,17:00:00,2.0,one-time,"[""friday""]",2025-11-07,2025-11-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-11-10,2025-11-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: No School- Holiday,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-11-10,2025-11-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Veterans Day Holiday - No School,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: No School- Holiday,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-11-11,2025-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-11-12,2025-11-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-11-12,2025-11-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-11-13,2025-11-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-11-13,2025-11-13,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2025-11-16,2025-11-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School:  PiE Rally Days Challenge Grant Ends,00:00:00,0.0,one-time,"[""monday""]",2025-11-17,2025-11-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-11-21,2025-11-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-11-17,2025-11-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-11-18,2025-11-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-11-19,2025-11-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-11-20,2025-11-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-11-21,2025-11-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-11-21,2025-11-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""monday""]",2025-11-24,2025-11-24,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-11-24,2025-11-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: No School- Thanksgiving Break,00:00:00,0.0,one-time,"[""monday""]",2025-11-24,2025-11-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-25,2025-11-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-11-25,2025-11-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""wednesday""]",2025-11-26,2025-11-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-11-26,2025-11-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""thursday""]",2025-11-27,2025-11-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-11-27,2025-11-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""friday""]",2025-11-28,2025-11-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-12-01,2025-12-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-12-02,2025-12-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-12-03,2025-12-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-12-03,2025-12-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-12-04,2025-12-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-12-08,2025-12-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Book Fair,00:00:00,0.0,one-time,"[""monday""]",2025-12-08,2025-12-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Book Fair,00:00:00,0.0,one-time,"[""tuesday""]",2025-12-09,2025-12-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-12-09,2025-12-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Book Fair,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-10,2025-12-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-12-10,2025-12-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-12-11,2025-12-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Book Fair,00:00:00,0.0,one-time,"[""thursday""]",2025-12-11,2025-12-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Book Fair,00:00:00,0.0,one-time,"[""friday""]",2025-12-12,2025-12-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-12-15,2025-12-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-12-15,2025-12-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-12-16,2025-12-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-12-17,2025-12-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-12-17,2025-12-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-12-19,2025-12-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-12-18,2025-12-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-12-19,2025-12-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-All,School: No School- Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-12-19,2025-12-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-12-22,2025-12-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: No School- Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-12-23,2025-12-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""tuesday""]",2025-12-23,2025-12-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-24,2025-12-24,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-12-24,2025-12-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""thursday""]",2025-12-25,2025-12-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2025-12-25,2025-12-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""friday""]",2025-12-26,2025-12-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-29,2025-12-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2025-12-29,2025-12-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""tuesday""]",2025-12-30,2025-12-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2025-12-30,2025-12-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-31,2025-12-31,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2025-12-31,2025-12-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""thursday""]",2026-01-01,2026-01-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-01-01,2026-01-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""friday""]",2026-01-02,2026-01-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-01-05,2026-01-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Staff Development Day,00:00:00,0.0,one-time,"[""monday""]",2026-01-05,2026-01-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: K-5 Return to School,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Students return to school,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-01-07,2026-01-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-01-08,2026-01-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-01-08,2026-01-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-01-12,2026-01-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-01-12,2026-01-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-01-13,2026-01-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-01-14,2026-01-14,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-01-14,2026-01-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-01-15,2026-01-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-01-15,2026-01-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: MLK Holiday - No School,00:00:00,0.0,one-time,"[""monday""]",2026-01-19,2026-01-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-01-19,2026-01-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-01-19,2026-01-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-01-20,2026-01-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-01-21,2026-01-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-01-22,2026-01-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-01-26,2026-01-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-01-26,2026-01-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: School Play Auditions Grade 4,14:45:00,1.33,one-time,"[""tuesday""]",2026-01-27,2026-01-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: School Play Auditions Grade 5,13:25:00,1.33,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-01-27,2026-01-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Parent Ed Book Club #3,19:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: School Play Auditions Grade 5,13:25:00,1.33,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-01-29,2026-01-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-02-02,2026-02-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-02-03,2026-02-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Parent Ed Book Club #3,19:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-02-05,2026-02-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-02-05,2026-02-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: *Farm Work Day,09:00:00,4.0,one-time,"[""saturday""]",2026-02-07,2026-02-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-02-09,2026-02-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: No Shcool- Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-02-09,2026-02-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-02-10,2026-02-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-02-11,2026-02-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-02-12,2026-02-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: No Shcool- Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-02-16,2026-02-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: School Holiday - President's  Day,00:00:00,0.0,one-time,"[""monday""]",2026-02-16,2026-02-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Lunar New Year Celebration,11:00:00,1.0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-02-17,2026-02-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-02-18,2026-02-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-02-18,2026-02-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""wednesday""]",2026-02-18,2026-02-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""thursday""]",2026-02-19,2026-02-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-02-19,2026-02-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-02-19,2026-02-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""friday""]",2026-02-20,2026-02-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""saturday""]",2026-02-21,2026-02-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""sunday""]",2026-02-22,2026-02-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""monday""]",2026-02-23,2026-02-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-02-23,2026-02-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-02-24,2026-02-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-02-25,2026-02-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-02-26,2026-02-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Heart and Soul Black History Month Bike Ride,00:00:00,0.0,one-time,"[""saturday""]",2026-02-28,2026-02-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-03-02,2026-03-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-03-02,2026-03-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-03-02,2026-03-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-03-03,2026-03-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-03-04,2026-03-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-03-04,2026-03-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Local Holiday- No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-03-05,2026-03-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-03-09,2026-03-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Local Holiday - No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Local Holiday- No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: No School -Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-03-11,2026-03-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-03-12,2026-03-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-03-12,2026-03-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-03-16,2026-03-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-03-17,2026-03-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-03-18,2026-03-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-03-18,2026-03-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-03-19,2026-03-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: School Play Performance,16:30:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: School Play Performance,19:00:00,1.0,one-time,"[""friday""]",2026-03-20,2026-03-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: School Play Performance,14:00:00,1.0,one-time,"[""saturday""]",2026-03-21,2026-03-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-03-23,2026-03-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-03-24,2026-03-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-03-25,2026-03-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-03-26,2026-03-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: STEAM Fair,17:00:00,2.0,one-time,"[""friday""]",2026-03-27,2026-03-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2026-03-29,2026-03-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-03-30,2026-03-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-03-31,2026-03-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-04-01,2026-04-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-All,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-04-01,2026-04-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-04-02,2026-04-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-All,School: No School- Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Holiday - Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-04-06,2026-04-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: No School- Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Holiday - Spring Break,00:00:00,0.0,one-time,"[""tuesday""]",2026-04-07,2026-04-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-04-07,2026-04-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-04-08,2026-04-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Holiday - Spring Break,00:00:00,0.0,one-time,"[""wednesday""]",2026-04-08,2026-04-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Holiday - Spring Break,00:00:00,0.0,one-time,"[""thursday""]",2026-04-09,2026-04-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-04-09,2026-04-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Holiday - Spring Break,00:00:00,0.0,one-time,"[""friday""]",2026-04-10,2026-04-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-04-13,2026-04-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-04-14,2026-04-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-04-15,2026-04-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-04-16,2026-04-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-04-16,2026-04-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: CAASPP Testing ,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-All,School: Earth Week,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-04-20,2026-04-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Walk and Roll Week,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Earth Week,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-04-21,2026-04-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Staff Appreciation,00:00:00,0.0,one-time,"[""tuesday""]",2026-04-21,2026-04-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-04-22,2026-04-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-04-22,2026-04-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-04-23,2026-04-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-04-23,2026-04-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Talent Show/ Ice Cream Social,00:00:00,0.0,one-time,"[""sunday""]",2026-04-26,2026-04-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-04-27,2026-04-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-04-28,2026-04-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-04-29,2026-04-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: AVID Family Night,17:00:00,3.0,one-time,"[""wednesday""]",2026-04-29,2026-04-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-All,School: Local Holiday - No School,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-04-30,2026-04-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: No School- Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Local Holiday - No School,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: May Fete Parade,10:00:00,1.0,one-time,"[""saturday""]",2026-05-02,2026-05-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-05-04,2026-05-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-05-05,2026-05-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-05-06,2026-05-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-05-06,2026-05-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-05-07,2026-05-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-05-07,2026-05-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Buddy Night,00:00:00,0.0,one-time,"[""monday""]",2026-05-11,2026-05-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-05-11,2026-05-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-05-11,2026-05-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-05-12,2026-05-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-05-13,2026-05-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-05-14,2026-05-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-05-18,2026-05-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-05-18,2026-05-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-05-19,2026-05-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-05-20,2026-05-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-05-20,2026-05-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-05-21,2026-05-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-05-21,2026-05-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Memorial Day Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-05-25,2026-05-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-05-26,2026-05-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-05-27,2026-05-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-05-28,2026-05-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: *Farm Work Day,09:00:00,4.0,one-time,"[""saturday""]",2026-05-30,2026-05-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-06-01,2026-06-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Early Release Day,12:15:00,1.0,one-time,"[""tuesday""]",2026-06-02,2026-06-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-06-02,2026-06-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: 5th Grade Promotion Party,10:00:00,3.0,one-time,"[""wednesday""]",2026-06-03,2026-06-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-06-03,2026-06-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Last day of School,00:00:00,0.0,one-time,"[""thursday""]",2026-06-04,2026-06-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 All,School: Early Release Day,12:15:00,1.0,one-time,"[""thursday""]",2026-06-04,2026-06-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-06-04,2026-06-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Districtwide Minimum Day,00:00:00,0.0,one-time,"[""thursday""]",2026-06-04,2026-06-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-06-08,2026-06-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-06-09,2026-06-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-06-10,2026-06-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-06-11,2026-06-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-06-15,2026-06-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-06-16,2026-06-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-06-17,2026-06-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-06-18,2026-06-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-06-22,2026-06-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-06-23,2026-06-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-06-24,2026-06-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-06-25,2026-06-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-06-29,2026-06-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-06-30,2026-06-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-07-01,2026-07-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-07-02,2026-07-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-07-06,2026-07-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-07-07,2026-07-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-07-08,2026-07-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-07-09,2026-07-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-07-13,2026-07-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-07-14,2026-07-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-07-15,2026-07-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-07-16,2026-07-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-07-20,2026-07-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-07-21,2026-07-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-07-22,2026-07-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-07-23,2026-07-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-07-27,2026-07-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-07-28,2026-07-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-07-29,2026-07-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-07-30,2026-07-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-08-03,2026-08-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-08-04,2026-08-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-08-05,2026-08-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-08-06,2026-08-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-08-10,2026-08-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-08-11,2026-08-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-08-12,2026-08-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-08-13,2026-08-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-08-17,2026-08-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-08-18,2026-08-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-08-19,2026-08-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-08-20,2026-08-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-08-24,2026-08-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-08-25,2026-08-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-08-26,2026-08-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-08-27,2026-08-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-08-31,2026-08-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-09-01,2026-09-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-09-02,2026-09-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-09-03,2026-09-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-09-07,2026-09-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-09-08,2026-09-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-09-10,2026-09-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-09-14,2026-09-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-09-17,2026-09-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-09-21,2026-09-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-09-24,2026-09-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-09-28,2026-09-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-09-29,2026-09-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-09-30,2026-09-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-10-01,2026-10-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-10-05,2026-10-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-10-06,2026-10-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-10-07,2026-10-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-10-08,2026-10-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-10-12,2026-10-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-10-14,2026-10-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-10-15,2026-10-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-10-19,2026-10-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-10-20,2026-10-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-10-21,2026-10-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-10-22,2026-10-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-10-26,2026-10-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-10-27,2026-10-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-10-28,2026-10-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-10-29,2026-10-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-11-02,2026-11-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-11-03,2026-11-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-11-04,2026-11-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-11-05,2026-11-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-11-09,2026-11-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-11-10,2026-11-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: Veterans Day Holiday - No School,00:00:00,0.0,one-time,"[""wednesday""]",2026-11-11,2026-11-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-11-11,2026-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-11-12,2026-11-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-11-16,2026-11-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-11-17,2026-11-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-11-18,2026-11-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-11-19,2026-11-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-11-23,2026-11-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-11-24,2026-11-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-11-25,2026-11-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-11-26,2026-11-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-11-30,2026-11-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-12-01,2026-12-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-12-02,2026-12-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-12-03,2026-12-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-12-07,2026-12-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-12-08,2026-12-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-12-09,2026-12-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-12-10,2026-12-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-12-14,2026-12-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-12-15,2026-12-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-12-16,2026-12-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-12-17,2026-12-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-12-21,2026-12-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-12-22,2026-12-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-12-23,2026-12-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-12-24,2026-12-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2026-12-28,2026-12-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2026-12-29,2026-12-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2026-12-30,2026-12-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2026-12-31,2026-12-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-01-04,2027-01-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-01-05,2027-01-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-01-06,2027-01-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-01-07,2027-01-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-01-11,2027-01-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-01-12,2027-01-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-01-13,2027-01-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-01-14,2027-01-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-01-18,2027-01-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 All,School: MLK Holiday - No School,00:00:00,0.0,one-time,"[""monday""]",2027-01-18,2027-01-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-01-19,2027-01-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-01-20,2027-01-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-01-21,2027-01-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-01-25,2027-01-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-01-26,2027-01-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-01-27,2027-01-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-01-28,2027-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-02-01,2027-02-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-02-02,2027-02-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-02-03,2027-02-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-02-04,2027-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-02-08,2027-02-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-02-09,2027-02-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-02-10,2027-02-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-02-11,2027-02-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-02-15,2027-02-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-02-16,2027-02-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-02-17,2027-02-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-02-18,2027-02-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-02-22,2027-02-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-02-23,2027-02-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-02-24,2027-02-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-02-25,2027-02-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-03-01,2027-03-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-03-02,2027-03-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-03-03,2027-03-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-03-04,2027-03-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-03-08,2027-03-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-03-09,2027-03-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-03-10,2027-03-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-03-11,2027-03-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-03-15,2027-03-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-03-16,2027-03-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-03-17,2027-03-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-03-18,2027-03-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-03-22,2027-03-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-03-23,2027-03-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-03-24,2027-03-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-03-25,2027-03-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-03-29,2027-03-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-03-30,2027-03-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-03-31,2027-03-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-04-01,2027-04-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-04-05,2027-04-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-04-06,2027-04-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-04-07,2027-04-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-04-08,2027-04-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-04-12,2027-04-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-04-13,2027-04-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-04-14,2027-04-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-04-15,2027-04-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-04-19,2027-04-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-04-20,2027-04-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-04-21,2027-04-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-04-22,2027-04-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-04-26,2027-04-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-04-27,2027-04-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-04-28,2027-04-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-04-29,2027-04-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-05-03,2027-05-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-05-04,2027-05-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-05-05,2027-05-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-05-06,2027-05-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-05-10,2027-05-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-05-11,2027-05-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-05-12,2027-05-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-05-13,2027-05-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-05-17,2027-05-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-05-18,2027-05-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-05-19,2027-05-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-05-20,2027-05-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-05-24,2027-05-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-05-25,2027-05-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-05-26,2027-05-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-05-27,2027-05-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-05-31,2027-05-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-06-01,2027-06-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-06-02,2027-06-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-06-03,2027-06-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-06-07,2027-06-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-06-08,2027-06-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-06-09,2027-06-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-06-10,2027-06-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-06-14,2027-06-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-06-15,2027-06-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-06-16,2027-06-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-06-17,2027-06-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-06-21,2027-06-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-06-22,2027-06-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-06-23,2027-06-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-06-24,2027-06-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-06-28,2027-06-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-06-29,2027-06-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-06-30,2027-06-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-07-01,2027-07-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-07-05,2027-07-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-07-06,2027-07-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-07-07,2027-07-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-07-08,2027-07-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-07-12,2027-07-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-07-13,2027-07-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-07-14,2027-07-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-07-15,2027-07-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-07-19,2027-07-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-07-20,2027-07-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-07-21,2027-07-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-07-22,2027-07-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-07-26,2027-07-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-07-27,2027-07-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-07-28,2027-07-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-07-29,2027-07-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-08-02,2027-08-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-08-03,2027-08-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-08-04,2027-08-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-08-05,2027-08-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-08-09,2027-08-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-08-10,2027-08-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-08-11,2027-08-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-08-12,2027-08-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-08-16,2027-08-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-08-17,2027-08-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-08-18,2027-08-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-08-19,2027-08-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-08-23,2027-08-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-08-24,2027-08-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-08-25,2027-08-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-08-26,2027-08-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-08-30,2027-08-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""tuesday""]",2027-08-31,2027-08-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.33,one-time,"[""wednesday""]",2027-09-01,2027-09-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,15:30:00,1.33,one-time,"[""thursday""]",2027-09-02,2027-09-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+All,School: Homework Habitat,14:45:00,1.58,one-time,"[""monday""]",2027-09-06,2027-09-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
