@@ -19,6 +19,62 @@ python3 update_calendars.py && git add . && git status && echo "Type 'yes' to co
 git add . && git commit -m "Update: $(date +'%Y-%m-%d %H:%M')" && git push origin main
 ```
 
+## 🌐 **Live App**
+
+**URL**: https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/
+
+## ⚙️ **URL Parameters**
+
+The app supports several URL parameters for different views and testing:
+
+### **Time Override (Testing)**
+Test the app at different times by adding the `?time=` parameter:
+
+```
+# Test at 2:30 PM
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?time=14:30
+
+# Test at 8:00 AM
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?time=08:00
+
+# Test at 6:00 PM
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?time=18:00
+
+# Test with seconds
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?time=14:30:45
+```
+
+**What it does:**
+- Overrides the current time for smart navigation logic
+- Shows activities for the day corresponding to your test time
+- Displays "Testing Mode" indicator in the sidebar
+- Works in both weekly and monthly views
+
+### **Monitor Mode (Wall Dashboard)**
+Display a 30-day wall dashboard by adding the `?mode=monitor` parameter:
+
+```
+# Wall dashboard view
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?mode=monitor
+
+# Wall dashboard with time override
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?mode=monitor&time=14:30
+```
+
+**What it does:**
+- Shows a compact 30-day calendar view
+- Optimized for wall displays and tablets
+- Auto-refreshes every 30 seconds
+- Perfect for family room or kitchen displays
+
+### **Combined Parameters**
+You can combine multiple parameters:
+
+```
+# Monitor mode with time override
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?mode=monitor&time=09:00
+```
+
 ## ✨ **Features**
 
 - **Kid Manager**: Add/manage individual schedules with activity tracking
