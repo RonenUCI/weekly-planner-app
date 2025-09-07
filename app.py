@@ -581,6 +581,32 @@ st.markdown("""
         color: #262730 !important;
     }
     
+    /* Global aggressive dropdown override for all devices */
+    .stSelectbox, .stSelectbox *, .stSelectbox > div, .stSelectbox > div * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    
+    /* Override any dark theme globally */
+    [data-baseweb="select"], [data-baseweb="select"] *, 
+    [data-baseweb="popover"], [data-baseweb="popover"] *, 
+    [data-baseweb="menu"], [data-baseweb="menu"] * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    
+    /* Force all selectbox elements to light theme */
+    .stSelectbox [class*="css-"], .stSelectbox [class*="css-"] * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    
+    /* Override Streamlit's default dark theme for selectboxes */
+    .stSelectbox [data-testid*="select"], .stSelectbox [data-testid*="select"] * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    
     .main-header {
         font-size: 2.5rem;
         color: #1f77b4;
@@ -785,12 +811,49 @@ st.markdown("""
         }
     }
     
-    /* Additional mobile overrides */
-    @media (max-width: 768px) {
-        /* Target all possible Streamlit containers */
-        .stApp > div {
-            background-color: #f5f5f5 !important;
-        }
+        /* Additional mobile overrides */
+        @media (max-width: 768px) {
+            /* Target all possible Streamlit containers */
+            .stApp > div {
+                background-color: #f5f5f5 !important;
+            }
+            
+            /* Aggressive mobile dropdown fixes */
+            .stSelectbox, .stSelectbox *, .stSelectbox > div, .stSelectbox > div * {
+                background-color: #f8f9fa !important;
+                color: #262730 !important;
+            }
+            
+            /* Force all selectbox elements to light background */
+            .stSelectbox [data-baseweb="select"], 
+            .stSelectbox [data-baseweb="select"] *, 
+            .stSelectbox [data-baseweb="popover"], 
+            .stSelectbox [data-baseweb="popover"] *, 
+            .stSelectbox [data-baseweb="menu"], 
+            .stSelectbox [data-baseweb="menu"] * {
+                background-color: #f8f9fa !important;
+                color: #262730 !important;
+            }
+            
+            /* Override any dark theme selectors */
+            .stSelectbox [class*="css-"], 
+            .stSelectbox [class*="css-"] * {
+                background-color: #f8f9fa !important;
+                color: #262730 !important;
+            }
+            
+            /* Force dropdown options to be visible */
+            .stSelectbox li, .stSelectbox [role="option"], .stSelectbox [role="listbox"] {
+                background-color: #f8f9fa !important;
+                color: #262730 !important;
+            }
+            
+            /* Override any Streamlit dark theme */
+            .stSelectbox [data-testid*="select"], 
+            .stSelectbox [data-testid*="select"] * {
+                background-color: #f8f9fa !important;
+                color: #262730 !important;
+            }
         
         /* Force visibility on all text elements - but exclude Streamlit UI elements */
         p:not(.stButton > div > p):not(.stSelectbox > div > p):not(.stRadio > div > p), 
@@ -951,6 +1014,59 @@ st.markdown("""
         
         .monitor-day-header * {
             color: #0066cc !important;
+        }
+        
+        /* Final aggressive mobile dropdown override */
+        .stSelectbox {
+            background-color: #f8f9fa !important;
+        }
+        .stSelectbox * {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox div {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox span {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox p {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox li {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox a {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        
+        /* Override any remaining dark theme elements */
+        [data-baseweb="select"] {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        [data-baseweb="select"] * {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        [data-baseweb="popover"] {
+            background-color: #f8f9fa !important;
+        }
+        [data-baseweb="popover"] * {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        [data-baseweb="menu"] {
+            background-color: #f8f9fa !important;
+        }
+        [data-baseweb="menu"] * {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
         }
     }
 </style>
