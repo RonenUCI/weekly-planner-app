@@ -345,6 +345,24 @@ st.markdown("""
             background-color: #f8f9fa !important;
             color: #000000 !important;
         }
+        /* Force navigation buttons to stay on same row on mobile */
+        [data-testid="column"]:nth-child(2),
+        [data-testid="column"]:nth-child(3) {
+            flex: 0 0 auto !important;
+            min-width: 120px !important;
+            max-width: 150px !important;
+        }
+        /* Ensure buttons don't wrap on mobile */
+        .stLinkButton, .stButton {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+        .stLinkButton > a, .stButton > button {
+            width: 100% !important;
+            text-align: center !important;
+            font-size: 0.8rem !important;
+            padding: 0.3rem 0.5rem !important;
+        }
     }
     
     .main-header {
