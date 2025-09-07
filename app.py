@@ -952,7 +952,6 @@ def main():
         display_monitor_dashboard()
         return
     
-    st.markdown('<h1 class="main-header"> Weekly Planner</h1>', unsafe_allow_html=True)
     
     # Load data - try Google Drive first, fallback to local file
     try:
@@ -1072,36 +1071,52 @@ def main():
                 current_time = datetime.now().time()
                 nav_type, nav_address, nav_reason, nav_options = analyze_navigation_context(weekly_schedule, current_time)
                 
-                # Create a prominent navigation section at the top
-                st.markdown("---")
-                st.markdown("### 🧭 Smart Navigation")
+                # Create a single-line header with navigation, status, and title
+                col1, col2, col3 = st.columns([2, 1, 2])
                 
-                if nav_type == "multiple":
-                    # Show dropdown for multiple options
-                    st.write(f"**{nav_reason}** - Choose your destination:")
-                    selected_option = st.selectbox(
-                        "Navigation options:",
-                        options=range(len(nav_options)),
-                        format_func=lambda x: nav_options[x]['description'],
-                        key="nav_select"
-                    )
-                    
-                    # Show the selected option with a link button
-                    if selected_option is not None:
-                        selected_address = nav_options[selected_option]['address']
-                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                        st.link_button("🗺️ Navigate to Selected Destination", maps_url, type="primary")
-                else:
-                    # Single destination - direct navigation
-                    col1, col2 = st.columns([3, 1])
-                    with col1:
+                with col1:
+                    if nav_type == "multiple":
+                        # Show dropdown for multiple options
+                        st.write(f"**{nav_reason}** - Choose your destination:")
+                        selected_option = st.selectbox(
+                            "Navigation options:",
+                            options=range(len(nav_options)),
+                            format_func=lambda x: nav_options[x]['description'],
+                            key="nav_select"
+                        )
+                        
+                        # Show the selected option with a link button
+                        if selected_option is not None:
+                            selected_address = nav_options[selected_option]['address']
+                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                            st.link_button("🗺️ Navigate to Selected Destination", maps_url, type="primary")
+                    else:
+                        # Single destination - direct navigation
                         button_text = "🏠 Navigate Home" if nav_type == "home" else "🧭 Navigate to Activity"
-                        st.write(f"**{nav_reason}**")
-                    with col2:
-                        # Use Google Maps URL that auto-starts navigation
-                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                        # For mobile compatibility, use st.link_button instead of webbrowser.open
-                        st.link_button(button_text, maps_url, type="primary")
+                        
+                        # Create a row with message and button side by side
+                        if nav_reason == "No activities today":
+                            # For no activities, show message and button on same line
+                            col_msg, col_btn = st.columns([1, 1])
+                            with col_msg:
+                                st.write(f"**{nav_reason}**")
+                            with col_btn:
+                                maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                                st.link_button(button_text, maps_url, type="primary")
+                        else:
+                            # For other cases, show message above button
+                            st.write(f"**{nav_reason}**")
+                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                            st.link_button(button_text, maps_url, type="primary")
+                
+                with col2:
+                    # Show status message only when there are activities
+                    if nav_reason != "No activities today":
+                        st.success("📅 Activities scheduled")
+                
+                with col3:
+                    # Empty column for spacing
+                    pass
                 
                 st.markdown("---")
             
@@ -1119,13 +1134,11 @@ def main():
                         st.rerun()
                 
                 # Display current week schedule
-                st.subheader(f"📋 {week_description.title()} Schedule")
                 display_weekly_schedule(weekly_schedule, week_start, week_end, today)
                 
                 # Display following week schedule
                 if not following_week_schedule.empty:
                     st.subheader(f"📋 Following Week Schedule ({following_week_start.strftime('%B %d')} - {following_week_end.strftime('%B %d, %Y')})")
-                    st.info(f"📅 **Upcoming:** {len(following_week_schedule)} activities in the following week")
                     display_weekly_schedule(following_week_schedule, following_week_start, following_week_end, today)
                 else:
                     st.caption("🔮 **Following week:** No activities scheduled")
