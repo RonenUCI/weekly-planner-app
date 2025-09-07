@@ -752,21 +752,19 @@ def main():
                 
                 if nav_type == "multiple":
                     # Show dropdown for multiple options
-                    col1, col2 = st.columns([3, 1])
-                    with col1:
-                        st.write(f"**{nav_reason}** - Choose your destination:")
-                        selected_option = st.selectbox(
-                            "Navigation options:",
-                            options=range(len(nav_options)),
-                            format_func=lambda x: nav_options[x]['description'],
-                            key="nav_select"
-                        )
-                    with col2:
-                        if st.button("✅ Navigate", key="nav_confirm", type="primary"):
-                            selected_address = nav_options[selected_option]['address']
-                            # Use Google Maps URL that shows driving directions with prominent start button
-                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving"
-                            webbrowser.open(maps_url)
+                    st.write(f"**{nav_reason}** - Choose your destination:")
+                    selected_option = st.selectbox(
+                        "Navigation options:",
+                        options=range(len(nav_options)),
+                        format_func=lambda x: nav_options[x]['description'],
+                        key="nav_select"
+                    )
+                    
+                    # Show the selected option with a link button
+                    if selected_option is not None:
+                        selected_address = nav_options[selected_option]['address']
+                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving"
+                        st.link_button("🗺️ Navigate to Selected Destination", maps_url, type="primary")
                 else:
                     # Single destination - direct navigation
                     col1, col2 = st.columns([3, 1])
@@ -774,10 +772,10 @@ def main():
                         button_text = "🏠 Navigate Home" if nav_type == "home" else "🧭 Navigate to Activity"
                         st.write(f"**{nav_reason}**")
                     with col2:
-                        if st.button(button_text, key="nav_single", type="primary"):
-                            # Use Google Maps URL that shows driving directions with prominent start button
-                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving"
-                            webbrowser.open(maps_url)
+                        # Use Google Maps URL that shows driving directions with prominent start button
+                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving"
+                        # For mobile compatibility, use st.link_button instead of webbrowser.open
+                        st.link_button(button_text, maps_url, type="primary")
                 
                 st.markdown("---")
             
