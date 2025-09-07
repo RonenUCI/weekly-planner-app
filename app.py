@@ -45,6 +45,13 @@ def load_activities_from_google_drive():
             )
         
         print(f"✅ Successfully loaded {len(df)} activities from Google Drive")
+        
+        # Debug: Show date ranges of activities
+        if not df.empty and 'start_date' in df.columns and 'end_date' in df.columns:
+            print(f"DEBUG: Activity date ranges:")
+            for idx, row in df.iterrows():
+                print(f"  {row.get('activity', 'Unknown')}: {row['start_date']} to {row['end_date']}")
+        
         return df
         
     except Exception as e:
@@ -80,8 +87,17 @@ def analyze_navigation_context(weekly_schedule, current_time):
     today = current_time.date()
     current_day_name = today.strftime('%A').lower()
     
-    # Get today's activities
-    today_activities = weekly_schedule[weekly_schedule['Day'] == current_day_name[:3].upper()]
+    # Get today's activities - convert current day to abbreviated format
+    day_abbrev_map = {
+        'monday': 'M', 'tuesday': 'T', 'wednesday': 'W', 'thursday': 'Th',
+        'friday': 'F', 'saturday': 'S', 'sunday': 'S'
+    }
+    current_day_abbrev = day_abbrev_map.get(current_day_name, current_day_name.capitalize())
+    print(f"DEBUG: Looking for activities on {current_day_abbrev} (from {current_day_name})")
+    print(f"DEBUG: Available days in weekly_schedule: {weekly_schedule['Day'].unique() if not weekly_schedule.empty else 'Empty'}")
+    
+    today_activities = weekly_schedule[weekly_schedule['Day'] == current_day_abbrev]
+    print(f"DEBUG: Found {len(today_activities)} activities for {current_day_abbrev}")
     
     if today_activities.empty:
         return "home", home_address, "No activities today", []
@@ -94,6 +110,11 @@ def analyze_navigation_context(weekly_schedule, current_time):
     
     for _, activity in today_activities.iterrows():
         try:
+            # Skip activities with "walk" or "chabad" as driver
+            driver = str(activity.get('Driver', '')).lower()
+            if 'walk' in driver or 'chabad' in driver:
+                continue
+                
             # Parse start and end times
             start_time_str = activity['Time'].split('-')[0]
             end_time_str = activity['Time'].split('-')[1]
@@ -141,6 +162,7 @@ def analyze_navigation_context(weekly_schedule, current_time):
     else:
         # Multiple options, return all for user selection
         options = []
+        seen_addresses = set()  # Track addresses to avoid duplicates
         
         # Add home option
         options.append({
@@ -149,30 +171,65 @@ def analyze_navigation_context(weekly_schedule, current_time):
             'description': '🏠 Home (628 Wellsbury Way, Palo Alto)',
             'reason': 'No clear next destination'
         })
+        seen_addresses.add(home_address)
         
-        # Add current activities
+        # Add current activities (deduplicated by address)
         for item in current_activities:
             activity = item['activity']
             address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
-            options.append({
-                'type': 'current',
-                'address': address,
-                'description': f"🔄 {activity['Activity']} (Current - {item['time_info']})",
-                'reason': 'Currently in progress'
-            })
+            
+            # Skip if driver is "walk" or "chabad"
+            driver = str(activity.get('Driver', '')).lower()
+            if 'walk' in driver or 'chabad' in driver:
+                print(f"DEBUG: Skipping activity {activity['Activity']} due to driver: {driver}")
+                continue
+                
+            if address not in seen_addresses:
+                print(f"DEBUG: Adding current activity: {activity['Activity']} at {address}")
+                options.append({
+                    'type': 'current',
+                    'address': address,
+                    'description': f"🔄 {activity['Activity']} (Current - {item['time_info']})",
+                    'reason': 'Currently in progress'
+                })
+                seen_addresses.add(address)
+            else:
+                print(f"DEBUG: Skipping duplicate address: {address}")
         
-        # Add upcoming activities
+        # Add upcoming activities (deduplicated by address)
         for item in upcoming_activities:
             activity = item['activity']
             address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
-            options.append({
-                'type': 'upcoming',
-                'address': address,
-                'description': f"⏰ {activity['Activity']} (Next - {item['time_info']})",
-                'reason': 'Starting soon'
-            })
+            
+            # Skip if driver is "walk" or "chabad"
+            driver = str(activity.get('Driver', '')).lower()
+            if 'walk' in driver or 'chabad' in driver:
+                print(f"DEBUG: Skipping upcoming activity {activity['Activity']} due to driver: {driver}")
+                continue
+                
+            if address not in seen_addresses:
+                print(f"DEBUG: Adding upcoming activity: {activity['Activity']} at {address}")
+                options.append({
+                    'type': 'upcoming',
+                    'address': address,
+                    'description': f"⏰ {activity['Activity']} (Next - {item['time_info']})",
+                    'reason': 'Starting soon'
+                })
+                seen_addresses.add(address)
+            else:
+                print(f"DEBUG: Skipping duplicate address: {address}")
         
-        return "multiple", None, f"Multiple options available ({total_relevant_activities} activities)", options
+        # Count unique destinations (excluding home)
+        unique_destinations = len(options) - 1  # Subtract 1 for the home option
+        total_options = len(options)
+        
+        if unique_destinations == 0:
+            return "multiple", None, f"Multiple options available (Home only)", options
+        elif unique_destinations == 1:
+            return "multiple", None, f"Multiple options available (Home + 1 destination)", options
+        else:
+            destination_text = "destinations" if unique_destinations > 1 else "destination"
+            return "multiple", None, f"Multiple options available (Home + {unique_destinations} {destination_text})", options
 
 # Page configuration optimized for mobile
 st.set_page_config(
@@ -819,7 +876,12 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
         
         for idx, activity in df.iterrows():
             try:
-                if not is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end):
+                # Debug: Check date ranges
+                print(f"DEBUG: Activity {activity.get('activity', 'Unknown')} - Start: {activity['start_date']}, End: {activity['end_date']}, Week: {week_start} to {week_end}")
+                is_active = is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end)
+                print(f"DEBUG: Is active in week: {is_active}")
+                
+                if not is_active:
                     continue
                 
                 # Handle different frequency types
@@ -1210,21 +1272,41 @@ def main():
     query_params = st.query_params
     is_monitor_mode = query_params.get("mode") == "monitor"
     
-    # Time override for testing
+    # Time and date override for testing
     time_override = query_params.get("time")
+    date_override = query_params.get("date")
+    
+    # Start with current datetime
+    current_time = datetime.now()
+    
+    # Define home address
+    home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
+    
+    # Apply date override if provided
+    if date_override:
+        try:
+            # Parse date in format "YYYY-MM-DD"
+            year, month, day = map(int, date_override.split('-'))
+            current_time = current_time.replace(year=year, month=month, day=day)
+            st.info(f"📅 **Date Override Active:** {current_time.strftime('%A, %B %d, %Y')} (for testing)")
+        except ValueError:
+            st.warning(f"⚠️ Invalid date format: {date_override}. Use YYYY-MM-DD format (e.g., ?date=2024-01-15)")
+    
+    # Apply time override if provided
     if time_override:
         try:
             # Parse time in format "HH:MM" or "HH:MM:SS"
             if len(time_override.split(':')) == 2:
                 time_override += ":00"  # Add seconds if not provided
             hour, minute, second = map(int, time_override.split(':'))
-            current_time = datetime.now().replace(hour=hour, minute=minute, second=second, microsecond=0)
-            st.info(f"🕐 **Time Override Active:** {current_time.strftime('%I:%M %p')} (for testing)")
+            current_time = current_time.replace(hour=hour, minute=minute, second=second, microsecond=0)
+            if date_override:
+                st.info(f"🕐 **Time Override Active:** {current_time.strftime('%I:%M %p')} on {current_time.strftime('%A, %B %d, %Y')} (for testing)")
+            else:
+                st.info(f"🕐 **Time Override Active:** {current_time.strftime('%I:%M %p')} (for testing)")
         except ValueError:
             st.warning(f"⚠️ Invalid time format: {time_override}. Use HH:MM format (e.g., ?time=14:30)")
             current_time = datetime.now()
-    else:
-        current_time = datetime.now()
     
     if is_monitor_mode:
         # Monitor mode - wall dashboard
@@ -1251,11 +1333,16 @@ def main():
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
     
-    # Time override help
-    if time_override:
-        st.sidebar.info(f"🕐 **Testing Mode**\nTime: {current_time.strftime('%I:%M %p')}\n\nRemove `?time=` from URL to use real time")
+    # Time and date override help
+    if time_override or date_override:
+        if time_override and date_override:
+            st.sidebar.info(f"🕐 **Testing Mode**\nTime: {current_time.strftime('%I:%M %p')}\nDate: {current_time.strftime('%A, %B %d, %Y')}\n\nRemove `?time=` and `?date=` from URL to use real time")
+        elif time_override:
+            st.sidebar.info(f"🕐 **Testing Mode**\nTime: {current_time.strftime('%I:%M %p')}\n\nRemove `?time=` from URL to use real time")
+        elif date_override:
+            st.sidebar.info(f"📅 **Testing Mode**\nDate: {current_time.strftime('%A, %B %d, %Y')}\n\nRemove `?date=` from URL to use real date")
     else:
-        st.sidebar.caption("💡 **Testing Tip:** Add `?time=14:30` to URL to test different times")
+        st.sidebar.caption("💡 **Testing Tips:**\n• Add `?time=14:30` to test different times\n• Add `?date=2025-09-15` to test different dates\n• Combine both: `?time=14:30&date=2025-09-15`")
     
     # Initialize session state
     if 'page' not in st.session_state:
@@ -1305,16 +1392,22 @@ def main():
             st.info("No activities available. Add some activities first!")
         else:
             # Display the table first (with smart week selection)
-            current_week_start, current_week_end = get_current_week_dates()
-            
-            # Use server time converted to Pacific timezone
-            server_now = datetime.now()
-            pacific_time = server_now - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
-            today = pacific_time.date()  # Use Pacific date for filtering
-            
-            # Always show current week by default
-            week_start, week_end = get_current_week_dates()
-            week_description = f"current week"
+            # Use overridden date if available, otherwise use current date
+            if date_override or time_override:
+                # Use the overridden date/time
+                today = current_time.date()
+                week_start, week_end = get_week_dates(today)
+                week_description = f"week of {today.strftime('%B %d, %Y')}"
+            else:
+                # Use current date
+                # Use server time converted to Pacific timezone
+                server_now = datetime.now()
+                pacific_time = server_now - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
+                today = pacific_time.date()  # Use Pacific date for filtering
+                
+                # Always show current week by default
+                week_start, week_end = get_current_week_dates()
+                week_description = f"current week"
             
             # Check if there are activities in the remaining days of current week
             remaining_days_activities = 0
@@ -1328,7 +1421,7 @@ def main():
             
             # Only show next week if no activities remain in current week
             if remaining_days_activities == 0 and today.weekday() >= 5:  # Weekend with no remaining activities
-                next_week_start = current_week_end + timedelta(days=1)  # Monday of next week
+                next_week_start = week_end + timedelta(days=1)  # Monday of next week
                 week_start, week_end = get_week_dates(next_week_start)
                 week_description = f"next week"
                 st.info(f"📅 **Note:** Showing next week because no activities remain in current week (remaining days: {remaining_days_activities} activities)")
@@ -1353,7 +1446,7 @@ def main():
             # SMART NAVIGATION BUTTON - FIRST AND TOP
             if not weekly_schedule.empty:
                 # Smart navigation button at the very top
-                current_time = datetime.now().time()
+                # current_time is already set from the time override logic above
                 nav_type, nav_address, nav_reason, nav_options = analyze_navigation_context(weekly_schedule, current_time)
                 
                 # Create a single-line header with navigation, status, and title
@@ -1361,54 +1454,86 @@ def main():
                 
                 with col1:
                     if nav_type == "multiple":
-                        # Show dropdown for multiple options
-                        st.write(f"**{nav_reason}** - Choose your destination:")
-                        selected_option = st.selectbox(
-                            "Navigation options:",
-                            options=range(len(nav_options)),
-                            format_func=lambda x: nav_options[x]['description'],
-                            key="nav_select"
-                        )
-                        
-                        # Show the selected option with a link button
-                        if selected_option is not None:
-                            selected_address = nav_options[selected_option]['address']
-                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                            st.link_button("🗺️ Navigate to Selected Destination", maps_url, type="primary")
-                    else:
-                        # Single destination - direct navigation
-                        button_text = "🏠 Navigate Home" if nav_type == "home" else "🧭 Navigate to Activity"
-                        
-                        # Create a row with message and button side by side
-                        if nav_reason == "No activities today":
-                            # For no activities, show message and button on same line
-                            col_msg, col_btn = st.columns([1, 1])
-                            with col_msg:
-                                st.write(f"**{nav_reason}**")
-                            with col_btn:
-                                maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                                st.link_button(button_text, maps_url, type="primary")
+                        # Show destination and go button for multiple options
+                        non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
+                        if non_home_options:
+                            if len(non_home_options) == 1:
+                                # Single destination - show it directly
+                                default_dest = non_home_options[0]
+                                st.write(f"**Destination:** {default_dest['description']}")
+                            else:
+                                # Multiple destinations - show dropdown
+                                selected_option = st.selectbox(
+                                    f"Choose destination: ({len(non_home_options)} options)",
+                                    options=range(len(non_home_options)),
+                                    format_func=lambda x: non_home_options[x]['description'],
+                                    key="nav_select"
+                                )
+                                default_dest = non_home_options[selected_option]
                         else:
-                            # For other cases, show message above button
                             st.write(f"**{nav_reason}**")
-                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                            st.link_button(button_text, maps_url, type="primary")
+                            st.write("**Destination:** Home")
+                    else:
+                        # Single destination - show destination and go button
+                        if nav_reason == "No activities today":
+                            st.write(f"**{nav_reason}**")
+                            st.write("**Destination:** Home")
+                        else:
+                            # Get the activity details for display
+                            activity_details = ""
+                            if nav_options and len(nav_options) > 0:
+                                # Find the matching activity in nav_options
+                                for option in nav_options:
+                                    if option['address'] == nav_address:
+                                        activity_details = option['description']
+                                        break
+                            
+                            if activity_details:
+                                st.write(f"**Destination:** {activity_details}")
+                            else:
+                                st.write(f"**Destination:** {nav_address}")
                 
                 with col2:
-                    # Show status message only when there are activities
-                    if nav_reason != "No activities today":
-                        st.success("📅 Activities scheduled")
+                    # Show Go button
+                    if nav_type == "multiple":
+                        non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
+                        if non_home_options:
+                            if len(non_home_options) == 1:
+                                selected_address = non_home_options[0]['address']
+                            else:
+                                # Use the selected option from dropdown
+                                if 'nav_select' in st.session_state:
+                                    selected_index = st.session_state.nav_select
+                                    if 0 <= selected_index < len(non_home_options):
+                                        selected_address = non_home_options[selected_index]['address']
+                                    else:
+                                        selected_address = non_home_options[0]['address']
+                                else:
+                                    selected_address = non_home_options[0]['address']
+                        else:
+                            selected_address = home_address
+                    else:
+                        selected_address = nav_address
+                    
+                    maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                    st.link_button("🧭 Go", maps_url, type="primary")
                 
                 with col3:
-                    # Empty column for spacing
-                    pass
+                    # Always show Home button
+                    home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                    st.link_button("🏠 Home", home_maps_url)
                 
                 st.markdown("---")
             
             # Display the table
             if not weekly_schedule.empty:
                 # Show what date range the schedule is for
-                st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} (Current: {today.strftime('%B %d')} at {pacific_time.strftime('%I:%M %p')})")
+                # Use overridden time if available, otherwise use Pacific time
+                if time_override or date_override:
+                    display_time = current_time.strftime('%I:%M %p')
+                else:
+                    display_time = pacific_time.strftime('%I:%M %p')
+                st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} (Current: {today.strftime('%B %d')} at {display_time})")
                 
                 # Add refresh button for Google Drive updates
                 col1, col2 = st.columns([3, 1])
@@ -1453,11 +1578,21 @@ def main():
             
             with col2:
                 kids = st.session_state.activities_df['kid_name'].unique()
+                kid_options = ["All Kids"] + list(kids)
+                # Use index parameter to ensure we get the string value
                 selected_kid_filter = st.selectbox(
                     "Filter by kid:",
-                    ["All Kids"] + list(kids),
+                    kid_options,
+                    index=0,  # Default to "All Kids"
                     help="Filter by kid"
                 )
+                
+                # Debug: Check what we got
+                print(f"DEBUG: selected_kid_filter type: {type(selected_kid_filter)}, value: {selected_kid_filter}")
+                
+                # Final safety check - ensure it's a string
+                if not isinstance(selected_kid_filter, str):
+                    selected_kid_filter = "All Kids"
             
             # Show the selected week info
             week_start, week_end = get_week_dates(selected_week_date)

@@ -50,6 +50,26 @@ https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?time=14:30:45
 - Displays "Testing Mode" indicator in the sidebar
 - Works in both weekly and monthly views
 
+### **Date Override (Testing)**
+Test the app on different dates by adding the `?date=` parameter:
+
+```
+# Test on January 15, 2024
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?date=2024-01-15
+
+# Test on a Monday
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?date=2024-01-08
+
+# Test on a weekend
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?date=2024-01-13
+```
+
+**What it does:**
+- Overrides the current date for schedule display
+- Shows activities for the specified date
+- Works with any date format (YYYY-MM-DD)
+- Perfect for testing different days of the week
+
 ### **Monitor Mode (Wall Dashboard)**
 Display a 30-day wall dashboard by adding the `?mode=monitor` parameter:
 
@@ -73,6 +93,12 @@ You can combine multiple parameters:
 ```
 # Monitor mode with time override
 https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?mode=monitor&time=09:00
+
+# Time and date override together
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?time=14:30&date=2024-01-15
+
+# Monitor mode with both time and date override
+https://weekly-planner-app-k9qrftskhzdsbxmd9ppxfr.streamlit.app/?mode=monitor&time=09:00&date=2024-01-15
 ```
 
 ## ✨ **Features**
