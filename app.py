@@ -298,6 +298,53 @@ st.markdown("""
             flex: 1 !important;
             min-width: 0 !important;
         }
+        /* Fix dropdown and button styling on mobile */
+        .stSelectbox > div > div {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stSelectbox > div > div > div {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stSelectbox [data-baseweb="select"] {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stSelectbox [data-baseweb="select"] > div {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stSelectbox [data-baseweb="select"] > div > div {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stSelectbox [data-baseweb="popover"] {
+            background-color: #f8f9fa !important;
+        }
+        .stSelectbox [data-baseweb="popover"] > div {
+            background-color: #f8f9fa !important;
+        }
+        .stSelectbox [data-baseweb="popover"] li {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stSelectbox [data-baseweb="popover"] li:hover {
+            background-color: #e9ecef !important;
+            color: #000000 !important;
+        }
+        .stLinkButton {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stLinkButton > a {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
+        .stButton > button {
+            background-color: #f8f9fa !important;
+            color: #000000 !important;
+        }
     }
     
     .main-header {
@@ -1520,6 +1567,7 @@ def main():
                 
                 with col3:
                     # Always show Home button
+                    home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
                     home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     st.link_button("🏠 Home", home_maps_url)
                 
