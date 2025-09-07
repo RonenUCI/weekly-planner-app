@@ -301,23 +301,23 @@ st.markdown("""
         /* Fix dropdown and button styling on mobile */
         .stSelectbox > div > div {
             background-color: #f8f9fa !important;
-            color: #000000 !important;
+            color: #262730 !important;
         }
         .stSelectbox > div > div > div {
             background-color: #f8f9fa !important;
-            color: #000000 !important;
+            color: #262730 !important;
         }
         .stSelectbox [data-baseweb="select"] {
             background-color: #f8f9fa !important;
-            color: #000000 !important;
+            color: #262730 !important;
         }
         .stSelectbox [data-baseweb="select"] > div {
             background-color: #f8f9fa !important;
-            color: #000000 !important;
+            color: #262730 !important;
         }
         .stSelectbox [data-baseweb="select"] > div > div {
             background-color: #f8f9fa !important;
-            color: #000000 !important;
+            color: #262730 !important;
         }
         .stSelectbox [data-baseweb="popover"] {
             background-color: #f8f9fa !important;
@@ -327,11 +327,11 @@ st.markdown("""
         }
         .stSelectbox [data-baseweb="popover"] li {
             background-color: #f8f9fa !important;
-            color: #000000 !important;
+            color: #262730 !important;
         }
         .stSelectbox [data-baseweb="popover"] li:hover {
             background-color: #e9ecef !important;
-            color: #000000 !important;
+            color: #262730 !important;
         }
         .stLinkButton {
             background-color: #f8f9fa !important;
@@ -454,6 +454,25 @@ st.markdown("""
             background-color: #e9ecef !important;
             color: #262730 !important;
         }
+        /* Additional dropdown styling for better visibility */
+        .stSelectbox [data-baseweb="popover"] {
+            background-color: #f8f9fa !important;
+        }
+        .stSelectbox [data-baseweb="popover"] > div {
+            background-color: #f8f9fa !important;
+        }
+        .stSelectbox [data-baseweb="popover"] li {
+            background-color: #f8f9fa !important;
+            color: #262730 !important;
+        }
+        .stSelectbox [data-baseweb="popover"] li:hover {
+            background-color: #e9ecef !important;
+            color: #262730 !important;
+        }
+        .stSelectbox [data-baseweb="popover"] li[aria-selected="true"] {
+            background-color: #e9ecef !important;
+            color: #262730 !important;
+        }
     }
     
     /* Fix dropdown styling for all screen sizes */
@@ -490,6 +509,75 @@ st.markdown("""
     }
     [data-baseweb="menu"] li[aria-selected="true"] {
         background-color: #e9ecef !important;
+        color: #262730 !important;
+    }
+    /* Additional dropdown styling for better visibility */
+    .stSelectbox [data-baseweb="popover"] {
+        background-color: #f8f9fa !important;
+    }
+    .stSelectbox [data-baseweb="popover"] > div {
+        background-color: #f8f9fa !important;
+    }
+    .stSelectbox [data-baseweb="popover"] li {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="popover"] li:hover {
+        background-color: #e9ecef !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="popover"] li[aria-selected="true"] {
+        background-color: #e9ecef !important;
+        color: #262730 !important;
+    }
+    
+    /* Additional comprehensive dropdown styling */
+    .stSelectbox [role="listbox"] {
+        background-color: #f8f9fa !important;
+    }
+    .stSelectbox [role="option"] {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [role="option"]:hover {
+        background-color: #e9ecef !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [role="option"][aria-selected="true"] {
+        background-color: #e9ecef !important;
+        color: #262730 !important;
+    }
+    /* Fix any remaining dropdown elements */
+    .stSelectbox div[data-baseweb="select"] {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox div[data-baseweb="select"] * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    
+    /* Override any dark theme styles that might interfere */
+    .stSelectbox * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="select"] * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="popover"] * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    .stSelectbox [data-baseweb="menu"] * {
+        background-color: #f8f9fa !important;
+        color: #262730 !important;
+    }
+    
+    /* Specific fix for dropdown option text */
+    .stSelectbox span, .stSelectbox div, .stSelectbox p {
+        background-color: #f8f9fa !important;
         color: #262730 !important;
     }
     
