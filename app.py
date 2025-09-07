@@ -1894,19 +1894,6 @@ def main():
                                 st.write(f"**Destination:** {nav_address}")
                 
                 with col2:
-                    # Use a single row with two buttons side by side
-                    # Create a custom HTML container to force horizontal layout
-                    st.markdown("""
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <div style="flex: 1;">
-                            <a href="#" id="go-button" style="display: block; text-align: center; padding: 0.5rem 1rem; background-color: #ff4b4b; color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600;">🧭 Go</a>
-                        </div>
-                        <div style="flex: 1;">
-                            <a href="#" id="home-button" style="display: block; text-align: center; padding: 0.5rem 1rem; background-color: #f0f2f6; color: #262730; text-decoration: none; border-radius: 0.5rem; font-weight: 600;">🏠 Home</a>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                    
                     # Get the selected address for the Go button
                     if nav_type == "multiple":
                         non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
@@ -1932,13 +1919,14 @@ def main():
                     go_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     
-                    # Add JavaScript to set the button URLs
-                    st.markdown(f"""
-                    <script>
-                        document.getElementById('go-button').href = '{go_maps_url}';
-                        document.getElementById('home-button').href = '{home_maps_url}';
-                    </script>
-                    """, unsafe_allow_html=True)
+                    # Use Streamlit link buttons instead of HTML
+                    col_go, col_home = st.columns(2)
+                    
+                    with col_go:
+                        st.link_button("🧭 Go", go_maps_url, type="primary")
+                    
+                    with col_home:
+                        st.link_button("🏠 Home", home_maps_url, type="secondary")
                 
                 st.markdown("---")
             
