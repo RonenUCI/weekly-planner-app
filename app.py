@@ -1135,7 +1135,10 @@ def load_combined_data_for_display() -> pd.DataFrame:
         activities_df = load_activities_from_google_drive()
     except Exception as e:
         st.error(f"Failed to load activities from Google Drive: {e}")
-        return pd.DataFrame()
+        return pd.DataFrame(columns=[
+            'kid_name', 'activity', 'time', 'duration', 'frequency', 
+            'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
+        ])
     
     # Load school events if available
     school_events_df = pd.DataFrame()
@@ -1172,6 +1175,18 @@ def load_combined_data_for_display() -> pd.DataFrame:
             print(f"Loaded {len(jewish_holidays_df)} Jewish holidays")
         except Exception as e:
             print(f"Warning: Could not load Jewish holidays: {e}")
+    
+    # Ensure all dataframes have the same columns before concatenating
+    required_columns = [
+        'kid_name', 'activity', 'time', 'duration', 'frequency', 
+        'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
+    ]
+    
+    # Add missing columns to each dataframe
+    for df in [activities_df, school_events_df, jewish_holidays_df]:
+        for col in required_columns:
+            if col not in df.columns:
+                df[col] = None
     
     # Combine all dataframes
     combined_df = pd.concat([activities_df, school_events_df, jewish_holidays_df], ignore_index=True)
@@ -1216,6 +1231,9 @@ def is_activity_active_in_week(activity_start: date, activity_end: date, week_st
 
 def calculate_hours_by_day(df: pd.DataFrame, kid_name: str, week_start: date = None, week_end: date = None) -> Dict[str, float]:
     """Calculate daily hours for a specific kid within a date range"""
+    if df.empty or 'kid_name' not in df.columns:
+        return {day: 0.0 for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}
+    
     kid_activities = df[df['kid_name'] == kid_name]
     kid_activities = kid_activities[kid_activities['activity'].str.lower() != 'school']
     
@@ -2023,7 +2041,7 @@ def main():
                     selected_week_date = week_start
             
             with col2:
-                kids = st.session_state.activities_df['kid_name'].unique()
+                kids = st.session_state.activities_df['kid_name'].unique() if not st.session_state.activities_df.empty and 'kid_name' in st.session_state.activities_df.columns else []
                 kid_options = ["All Kids"] + list(kids)
                 # Use index parameter to ensure we get the string value
                 selected_kid_filter = st.selectbox(
@@ -2185,7 +2203,7 @@ def main():
     elif current_page == "👶 Kids":
         st.header("👶 Kid Manager")
         
-        kids = display_df['kid_name'].unique() if not display_df.empty else []
+        kids = display_df['kid_name'].unique() if not display_df.empty and 'kid_name' in display_df.columns else []
         
         col1, col2 = st.columns([2, 1])
         with col1:
@@ -2265,7 +2283,10 @@ def main():
                 fig = px.bar(daily_df, x='Day', y='Hours', title=f"{selected_kid}'s Hours")
                 st.plotly_chart(fig, use_container_width=True)
             
-            kid_activities = st.session_state.activities_df[st.session_state.activities_df['kid_name'] == selected_kid]
+            if not st.session_state.activities_df.empty and 'kid_name' in st.session_state.activities_df.columns:
+                kid_activities = st.session_state.activities_df[st.session_state.activities_df['kid_name'] == selected_kid]
+            else:
+                kid_activities = pd.DataFrame()
             
             for idx, activity in kid_activities.iterrows():
                 with st.expander(f"{activity['activity']} - {activity['time']}"):
