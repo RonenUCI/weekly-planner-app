@@ -352,16 +352,38 @@ st.markdown("""
             min-width: 120px !important;
             max-width: 150px !important;
         }
-        /* Ensure buttons don't wrap on mobile */
+        /* Ensure buttons don't wrap on mobile - more aggressive rules */
         .stLinkButton, .stButton {
             width: 100% !important;
             margin: 0 !important;
+            display: inline-block !important;
         }
         .stLinkButton > a, .stButton > button {
             width: 100% !important;
             text-align: center !important;
             font-size: 0.8rem !important;
             padding: 0.3rem 0.5rem !important;
+            display: inline-block !important;
+        }
+        /* Force the row to not wrap */
+        .row-widget.stHorizontal {
+            flex-wrap: nowrap !important;
+            display: flex !important;
+        }
+        .row-widget.stHorizontal > div {
+            flex-shrink: 0 !important;
+            flex-grow: 0 !important;
+        }
+        /* Specific targeting for navigation columns */
+        .stHorizontal [data-testid="column"]:nth-child(2),
+        .stHorizontal [data-testid="column"]:nth-child(3) {
+            flex: 0 0 120px !important;
+            min-width: 120px !important;
+            max-width: 120px !important;
+        }
+        .stHorizontal [data-testid="column"]:nth-child(1) {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
         }
     }
     
@@ -1588,6 +1610,7 @@ def main():
                 
                 with col3:
                     # Always show Home button
+                    home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
                     home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     st.link_button("🏠 Home", home_maps_url)
                 
