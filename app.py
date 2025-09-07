@@ -302,6 +302,69 @@ st.markdown("""
         text-align: center !important;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     }
+    
+    /* Monthly view styles */
+    .monitor-header {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #0066cc;
+    }
+    .monitor-day {
+        background-color: #f8f9fa;
+        padding: 0.15rem;
+        border-radius: 0.25rem;
+        margin: 0.25rem;
+        border-left: 2px solid #0066cc;
+        min-height: 30px;
+        border: 1px solid #dee2e6;
+    }
+    .monitor-day-today {
+        background-color: #fff3cd;
+        padding: 0.15rem;
+        border-radius: 0.25rem;
+        margin: 0.25rem;
+        border-left: 3px solid #ffc107;
+        min-height: 30px;
+        box-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
+        border: 2px solid #ffc107;
+    }
+    .monitor-day-header {
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 0.05rem;
+        color: #0066cc;
+        text-align: center;
+        padding: 0.05rem;
+        line-height: 1.0;
+    }
+    .monitor-activity {
+        background-color: transparent;
+        padding: 0.1rem 0;
+        margin: 0.05rem 0;
+        border: none;
+        font-size: 0.6rem;
+        line-height: 1.1;
+    }
+    .monitor-activity-time {
+        font-size: 0.6rem;
+        font-weight: bold;
+        color: #0066cc;
+        display: inline;
+    }
+    .monitor-activity-details {
+        font-size: 0.6rem;
+        margin-left: 0.3rem;
+        color: #000000;
+        display: inline;
+    }
+    .monitor-no-activities {
+        font-size: 0.6rem;
+        text-align: center;
+        color: #6c757d;
+        padding: 0.2rem;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -910,19 +973,50 @@ def main():
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
     
+    # Initialize session state
+    if 'page' not in st.session_state:
+        st.session_state.page = "📋 Schedule"
+    
     # Use radio buttons for cleaner mobile experience
+    radio_options = ["📋 Schedule", "👶 Kids", "🚗 Drivers", "⚙️ Data"]
+    current_page = st.session_state.page
+    
+    # If current page is not in radio options (like Monthly), don't change it
+    # Just use the first option for the radio display
+    radio_index = 0
+    if current_page in radio_options:
+        radio_index = radio_options.index(current_page)
+    
     page = st.sidebar.radio(
         "Choose:",
-        ["📋 Schedule", "👶 Kids", "🚗 Drivers", "⚙️ Data"],
-        label_visibility="collapsed"  # Hide the label to save space
+        radio_options,
+        label_visibility="collapsed",  # Hide the label to save space
+        index=radio_index
     )
     
-    # Set default page if not set
-    if 'current_page' not in st.session_state:
-        st.session_state.current_page = "📋 Schedule"
+    # Add quick navigation buttons for calendar views
+    st.sidebar.markdown("---")
+    col1, col2 = st.sidebar.columns(2)
+    with col1:
+        if st.button("📅 Monthly", help="View 30-day calendar", key="nav_monthly"):
+            st.session_state.page = "📅 Monthly"
+            st.rerun()
+    with col2:
+        if st.button("📋 Weekly", help="View weekly schedule", key="nav_weekly"):
+            st.session_state.page = "📋 Schedule"
+            st.rerun()
+    
+    
+    # Update session state when radio button changes (only if current page is in radio options)
+    if page != current_page and current_page in radio_options:
+        st.session_state.page = page
+        current_page = page
+    
+    # Use session state page
+    current_page = st.session_state.page
     
     # Weekly View Section (landing page)
-    if page == "📋 Schedule":
+    if current_page == "📋 Schedule":
         if display_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
@@ -1159,8 +1253,55 @@ def main():
             else:
                 st.info("No activities this week")
     
+    # Monthly View Section
+    elif current_page == "📅 Monthly":
+        if display_df.empty:
+            st.info("No activities available. Add some activities first!")
+        else:
+            # Display 30-day calendar view
+            today = date.today()
+            end_date = today + timedelta(days=29)  # 30 days inclusive
+            
+            st.markdown(f'<div class="monitor-header">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
+            
+            # Create a grid layout for the 30 days
+            # Group days into weeks for better organization
+            current_date = today
+            
+            while current_date <= end_date:
+                # Start a new week
+                week_start = current_date
+                week_end = min(current_date + timedelta(days=6), end_date)
+                
+                # Create columns for this week (up to 7 days)
+                week_days = []
+                temp_date = week_start
+                while temp_date <= week_end and temp_date <= end_date:
+                    week_days.append(temp_date)
+                    temp_date += timedelta(days=1)
+                
+                # Create columns dynamically based on number of days in this week
+                cols = st.columns(len(week_days))
+                
+                for i, day_date in enumerate(week_days):
+                    with cols[i]:
+                        # Highlight today
+                        if day_date == today:
+                            day_class = "monitor-day-today"
+                            day_icon = "⭐"
+                        else:
+                            day_class = "monitor-day"
+                            day_icon = "📅"
+                        
+                        st.markdown(f'<div class="{day_class}"><div class="monitor-day-header">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
+                        display_day_activities(display_df, day_date)
+                        st.markdown('</div>', unsafe_allow_html=True)
+                
+                # Move to next week
+                current_date = week_end + timedelta(days=1)
+    
     # Kid Manager Section
-    elif page == "👶 Kids":
+    elif current_page == "👶 Kids":
         st.header("👶 Kid Manager")
         
         kids = display_df['kid_name'].unique() if not display_df.empty else []
@@ -1263,7 +1404,7 @@ def main():
                         st.rerun()
     
     # Driver View Section
-    elif page == "🚗 Drivers":
+    elif current_page == "🚗 Drivers":
         st.header("🚗 Driver View")
         
         if display_df.empty:
@@ -1327,7 +1468,7 @@ def main():
                     st.info(f"No activities for {selected_driver} this week")
     
     # Data Management Section
-    elif page == "⚙️ Data":
+    elif current_page == "⚙️ Data":
         st.header("⚙️ Data Management")
         
         st.info("""
