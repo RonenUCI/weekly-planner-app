@@ -76,8 +76,8 @@ def analyze_navigation_context(weekly_schedule, current_time):
     if weekly_schedule.empty:
         return "home", home_address, "No activities scheduled", []
     
-    # Get current day
-    today = date.today()
+    # Get current day from the passed current_time
+    today = current_time.date()
     current_day_name = today.strftime('%A').lower()
     
     # Get today's activities
@@ -87,7 +87,7 @@ def analyze_navigation_context(weekly_schedule, current_time):
         return "home", home_address, "No activities today", []
     
     # Find activities within the next 30 minutes
-    thirty_minutes_later = (datetime.combine(date.today(), current_time) + timedelta(minutes=30)).time()
+    thirty_minutes_later = (current_time + timedelta(minutes=30)).time()
     
     current_activities = []
     upcoming_activities = []
@@ -101,7 +101,7 @@ def analyze_navigation_context(weekly_schedule, current_time):
             end_time = pd.to_datetime(end_time_str, format='%H:%M').time()
             
             # Check if we're currently in this activity
-            if start_time <= current_time <= end_time:
+            if start_time <= current_time.time() <= end_time:
                 current_activities.append({
                     'activity': activity,
                     'type': 'current',
@@ -109,7 +109,7 @@ def analyze_navigation_context(weekly_schedule, current_time):
                 })
             
             # Check if this activity starts within the next 30 minutes
-            elif start_time <= thirty_minutes_later and start_time > current_time:
+            elif start_time <= thirty_minutes_later and start_time > current_time.time():
                 upcoming_activities.append({
                     'activity': activity,
                     'type': 'upcoming',
@@ -964,8 +964,8 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             st.markdown(html_table, unsafe_allow_html=True)
             st.markdown("---")
 
-def display_monitor_dashboard():
-    """Display wall dashboard for monitor mode showing today and tomorrow's activities"""
+def display_monitor_dashboard(current_time=None):
+    """Display wall dashboard for monitor mode showing today and next 30 days' activities"""
     # Load data
     try:
         display_df = load_combined_data_for_display()
@@ -977,8 +977,11 @@ def display_monitor_dashboard():
         st.info("No activities available for monitor display")
         return
     
-    # Get today and next 30 days
-    today = date.today()
+    # Get today and next 30 days (use current_time if provided, otherwise use today)
+    if current_time:
+        today = current_time.date()
+    else:
+        today = date.today()
     end_date = today + timedelta(days=29)  # 30 days inclusive
     
     # Create monitor-specific CSS for large display
@@ -1207,9 +1210,25 @@ def main():
     query_params = st.query_params
     is_monitor_mode = query_params.get("mode") == "monitor"
     
+    # Time override for testing
+    time_override = query_params.get("time")
+    if time_override:
+        try:
+            # Parse time in format "HH:MM" or "HH:MM:SS"
+            if len(time_override.split(':')) == 2:
+                time_override += ":00"  # Add seconds if not provided
+            hour, minute, second = map(int, time_override.split(':'))
+            current_time = datetime.now().replace(hour=hour, minute=minute, second=second, microsecond=0)
+            st.info(f"🕐 **Time Override Active:** {current_time.strftime('%I:%M %p')} (for testing)")
+        except ValueError:
+            st.warning(f"⚠️ Invalid time format: {time_override}. Use HH:MM format (e.g., ?time=14:30)")
+            current_time = datetime.now()
+    else:
+        current_time = datetime.now()
+    
     if is_monitor_mode:
         # Monitor mode - wall dashboard
-        display_monitor_dashboard()
+        display_monitor_dashboard(current_time)
         return
     
     
@@ -1231,6 +1250,12 @@ def main():
     
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
+    
+    # Time override help
+    if time_override:
+        st.sidebar.info(f"🕐 **Testing Mode**\nTime: {current_time.strftime('%I:%M %p')}\n\nRemove `?time=` from URL to use real time")
+    else:
+        st.sidebar.caption("💡 **Testing Tip:** Add `?time=14:30` to URL to test different times")
     
     # Initialize session state
     if 'page' not in st.session_state:
