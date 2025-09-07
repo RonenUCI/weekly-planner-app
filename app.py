@@ -1496,8 +1496,11 @@ def main():
                 # current_time is already set from the time override logic above
                 nav_type, nav_address, nav_reason, nav_options = analyze_navigation_context(weekly_schedule, current_time)
                 
+                # Define home address for navigation
+                home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
+                
                 # Create a single-line header with navigation, status, and title
-                col1, col2, col3 = st.columns([2, 1, 2])
+                col1, col2, col3 = st.columns([2, 1, 1])
                 
                 with col1:
                     if nav_type == "multiple":
@@ -1567,7 +1570,6 @@ def main():
                 
                 with col3:
                     # Always show Home button
-                    home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
                     home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     st.link_button("🏠 Home", home_maps_url)
                 
