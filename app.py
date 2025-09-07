@@ -1863,11 +1863,15 @@ def main():
                                 st.write(f"**Destination:** {default_dest['description']}")
                             else:
                                 # Multiple destinations - show dropdown
+                                def on_destination_change():
+                                    st.rerun()
+                                
                                 selected_option = st.selectbox(
                                     f"Choose destination: ({len(non_home_options)} options)",
                                     options=range(len(non_home_options)),
                                     format_func=lambda x: non_home_options[x]['description'],
-                                    key="nav_select"
+                                    key="nav_select",
+                                    on_change=on_destination_change
                                 )
                                 default_dest = non_home_options[selected_option]
                         else:
@@ -1915,11 +1919,14 @@ def main():
                     else:
                         selected_address = nav_address
                     
+                    # Store the selected address in session state for dynamic updates
+                    st.session_state.selected_nav_address = selected_address
+                    
                     # Create the URLs
                     go_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     
-                    # Use Streamlit link buttons instead of HTML
+                    # Use link buttons that will update when the page reruns
                     col_go, col_home = st.columns(2)
                     
                     with col_go:
