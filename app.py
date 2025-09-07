@@ -68,6 +68,112 @@ def make_address_clickable(address):
     display_text = address_str[:15] + "..." if len(address_str) > 15 else address_str
     return f'<a href="https://www.google.com/maps/search/?api=1&query={address_str.replace(" ", "+")}" target="_blank">{display_text}</a>'
 
+def analyze_navigation_context(weekly_schedule, current_time):
+    """Analyze current navigation context and return navigation options"""
+    home_address = "628 Wellsbury Way, Palo Alto"
+    navigation_options = []
+    
+    if weekly_schedule.empty:
+        return "home", home_address, "No activities scheduled", []
+    
+    # Get current day
+    today = date.today()
+    current_day_name = today.strftime('%A').lower()
+    
+    # Get today's activities
+    today_activities = weekly_schedule[weekly_schedule['Day'] == current_day_name[:3].upper()]
+    
+    if today_activities.empty:
+        return "home", home_address, "No activities today", []
+    
+    # Find activities within the next 30 minutes
+    thirty_minutes_later = (datetime.combine(date.today(), current_time) + timedelta(minutes=30)).time()
+    
+    current_activities = []
+    upcoming_activities = []
+    
+    for _, activity in today_activities.iterrows():
+        try:
+            # Parse start and end times
+            start_time_str = activity['Time'].split('-')[0]
+            end_time_str = activity['Time'].split('-')[1]
+            start_time = pd.to_datetime(start_time_str, format='%H:%M').time()
+            end_time = pd.to_datetime(end_time_str, format='%H:%M').time()
+            
+            # Check if we're currently in this activity
+            if start_time <= current_time <= end_time:
+                current_activities.append({
+                    'activity': activity,
+                    'type': 'current',
+                    'time_info': f"Now until {end_time_str}"
+                })
+            
+            # Check if this activity starts within the next 30 minutes
+            elif start_time <= thirty_minutes_later and start_time > current_time:
+                upcoming_activities.append({
+                    'activity': activity,
+                    'type': 'upcoming',
+                    'time_info': f"Starts at {start_time_str}"
+                })
+                
+        except Exception as e:
+            print(f"Error parsing time for activity {activity.get('Activity', 'Unknown')}: {e}")
+            continue
+    
+    # Determine navigation logic
+    total_relevant_activities = len(current_activities) + len(upcoming_activities)
+    
+    if total_relevant_activities == 0:
+        # No activities within 30 minutes, go home
+        return "home", home_address, "No activities within 30 minutes", []
+    
+    elif total_relevant_activities == 1:
+        # Only one relevant activity, navigate there
+        if current_activities:
+            activity = current_activities[0]['activity']
+            address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
+            return "activity", address, f"Current: {activity['Activity']}", []
+        else:
+            activity = upcoming_activities[0]['activity']
+            address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
+            return "activity", address, f"Next: {activity['Activity']}", []
+    
+    else:
+        # Multiple options, return all for user selection
+        options = []
+        
+        # Add home option
+        options.append({
+            'type': 'home',
+            'address': home_address,
+            'description': '🏠 Home (628 Wellsbury Way, Palo Alto)',
+            'reason': 'No clear next destination'
+        })
+        
+        # Add current activities
+        for item in current_activities:
+            activity = item['activity']
+            address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
+            options.append({
+                'type': 'current',
+                'address': address,
+                'description': f"🔄 {activity['Activity']} (Current - {item['time_info']})",
+                'reason': 'Currently in progress'
+            })
+        
+        # Add upcoming activities
+        for item in upcoming_activities:
+            activity = item['activity']
+            address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
+            options.append({
+                'type': 'upcoming',
+                'address': address,
+                'description': f"⏰ {activity['Activity']} (Next - {item['time_info']})",
+                'reason': 'Starting soon'
+            })
+        
+        return "multiple", None, f"Multiple options available ({total_relevant_activities} activities)", options
+
 # Page configuration optimized for mobile
 st.set_page_config(
     page_title="Weekly Planner",
@@ -205,6 +311,9 @@ if 'activities_df' not in st.session_state:
         'kid_name', 'activity', 'time', 'duration', 'frequency', 
         'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
     ])
+
+if 'show_nav_menu' not in st.session_state:
+    st.session_state.show_nav_menu = False
 
 # Remove the CSV file path since we're using Google Sheets as primary source
 # if 'csv_file' not in st.session_state:
@@ -631,7 +740,48 @@ def main():
                 st.error(f"Error: Expected DataFrame but got {type(following_week_schedule)}")
                 following_week_schedule = pd.DataFrame()
             
-            # Display the table first
+            # SMART NAVIGATION BUTTON - FIRST AND TOP
+            if not weekly_schedule.empty:
+                # Smart navigation button at the very top
+                current_time = datetime.now().time()
+                nav_type, nav_address, nav_reason, nav_options = analyze_navigation_context(weekly_schedule, current_time)
+                
+                # Create a prominent navigation section at the top
+                st.markdown("---")
+                st.markdown("### 🧭 Smart Navigation")
+                
+                if nav_type == "multiple":
+                    # Show dropdown for multiple options
+                    col1, col2 = st.columns([3, 1])
+                    with col1:
+                        st.write(f"**{nav_reason}** - Choose your destination:")
+                        selected_option = st.selectbox(
+                            "Navigation options:",
+                            options=range(len(nav_options)),
+                            format_func=lambda x: nav_options[x]['description'],
+                            key="nav_select"
+                        )
+                    with col2:
+                        if st.button("✅ Navigate", key="nav_confirm", type="primary"):
+                            selected_address = nav_options[selected_option]['address']
+                            # Use Google Maps URL that shows driving directions with prominent start button
+                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving"
+                            webbrowser.open(maps_url)
+                else:
+                    # Single destination - direct navigation
+                    col1, col2 = st.columns([3, 1])
+                    with col1:
+                        button_text = "🏠 Navigate Home" if nav_type == "home" else "🧭 Navigate to Activity"
+                        st.write(f"**{nav_reason}**")
+                    with col2:
+                        if st.button(button_text, key="nav_single", type="primary"):
+                            # Use Google Maps URL that shows driving directions with prominent start button
+                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={nav_address.replace(' ', '+')}&travelmode=driving"
+                            webbrowser.open(maps_url)
+                
+                st.markdown("---")
+            
+            # Display the table
             if not weekly_schedule.empty:
                 # Show what date range the schedule is for
                 st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} (Current: {today.strftime('%B %d')} at {pacific_time.strftime('%I:%M %p')})")
