@@ -388,10 +388,10 @@ st.markdown("""
             color: #1e293b !important;
         }
         
-        /* Keep sidebar with blue theme instead of black */
+        /* Keep sidebar with light grey theme */
         .stSidebar {
-            background-color: #1e3a8a !important;
-            color: #ffffff !important;
+            background-color: #f5f5f5 !important;
+            color: #1e293b !important;
         }
         
         /* Keep main content area light grey */
@@ -477,110 +477,110 @@ st.markdown("""
         
         /* Fix sidebar text */
         .stSidebar p, .stSidebar div, .stSidebar span {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix mobile menu (hamburger menu) text */
         .css-1d391kg p, .css-1d391kg div, .css-1d391kg span {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix mobile sidebar overlay text */
         .stSidebar .css-1d391kg p, .stSidebar .css-1d391kg div, .stSidebar .css-1d391kg span {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix any mobile menu containers */
         [data-testid="stSidebar"] p, [data-testid="stSidebar"] div, [data-testid="stSidebar"] span {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Additional mobile menu fixes */
         .stSidebar .css-1d391kg, .stSidebar .css-1d391kg * {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix mobile menu buttons and links */
         .stSidebar button, .stSidebar .stButton, .stSidebar a {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix mobile menu radio buttons and selectboxes */
         .stSidebar .stRadio, .stSidebar .stSelectbox {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         .stSidebar .stRadio label, .stSidebar .stSelectbox label {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix dropdown menus and selectbox options */
         .stSelectbox > div > div > div, .stSelectbox > div > div > div > div {
-            color: #ffffff !important;
-            background-color: #1e3a8a !important;
+            color: #1e293b !important;
+            background-color: #ffffff !important;
         }
         
         /* Fix dropdown option text */
         .stSelectbox .css-1n76uvr, .stSelectbox .css-1n76uvr * {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix all selectbox elements */
         .stSelectbox, .stSelectbox *, .stSelectbox > div, .stSelectbox > div * {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix mobile menu when closed (<<) */
         .stSidebar .css-1d391kg, .stSidebar .css-1d391kg * {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
-        /* Fix any remaining black text in sidebar */
+        /* Fix any remaining text in sidebar */
         .stSidebar *, .stSidebar * * {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix dropdown options specifically */
         .stSelectbox [role="listbox"], .stSelectbox [role="option"] {
-            color: #ffffff !important;
-            background-color: #1e3a8a !important;
+            color: #1e293b !important;
+            background-color: #ffffff !important;
         }
         
         /* Fix mobile menu toggle button */
         .stSidebar .css-1d391kg button, .stSidebar button {
-            color: #ffffff !important;
-            background-color: #1e3a8a !important;
+            color: #1e293b !important;
+            background-color: #ffffff !important;
         }
         
         /* Fix mobile menu when expanded */
         .stSidebar .css-1d391kg .css-1d391kg, .stSidebar .css-1d391kg .css-1d391kg * {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix any remaining Streamlit UI elements in sidebar */
         .stSidebar .stButton, .stSidebar .stButton * {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix mobile menu text in all states */
         .stSidebar p, .stSidebar div, .stSidebar span, .stSidebar label {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix button text and backgrounds */
         button, .stButton button {
             color: #ffffff !important;
-            background-color: #3b82f6 !important;
+            background-color: #6b7280 !important;
         }
         
         /* Fix selectbox and radio button text */
         .stSelectbox label, .stRadio label {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix form elements */
         .stSelectbox > div > div, .stRadio > div > div {
-            color: #ffffff !important;
+            color: #1e293b !important;
         }
         
         /* Fix main content area selectboxes (like Filter by kid) */
