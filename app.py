@@ -1616,39 +1616,51 @@ def main():
                                 st.write(f"**Destination:** {nav_address}")
                 
                 with col2:
-                    # Group Go and Home buttons in a horizontal layout
-                    # Use st.columns with equal width to force horizontal layout
-                    btn_col1, btn_col2 = st.columns([1, 1])
+                    # Use a single row with two buttons side by side
+                    # Create a custom HTML container to force horizontal layout
+                    st.markdown("""
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <div style="flex: 1;">
+                            <a href="#" id="go-button" style="display: block; text-align: center; padding: 0.5rem 1rem; background-color: #ff4b4b; color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600;">🧭 Go</a>
+                        </div>
+                        <div style="flex: 1;">
+                            <a href="#" id="home-button" style="display: block; text-align: center; padding: 0.5rem 1rem; background-color: #f0f2f6; color: #262730; text-decoration: none; border-radius: 0.5rem; font-weight: 600;">🏠 Home</a>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
                     
-                    with btn_col1:
-                        # Show Go button
-                        if nav_type == "multiple":
-                            non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
-                            if non_home_options:
-                                if len(non_home_options) == 1:
-                                    selected_address = non_home_options[0]['address']
-                                else:
-                                    # Use the selected option from dropdown
-                                    if 'nav_select' in st.session_state:
-                                        selected_index = st.session_state.nav_select
-                                        if 0 <= selected_index < len(non_home_options):
-                                            selected_address = non_home_options[selected_index]['address']
-                                        else:
-                                            selected_address = non_home_options[0]['address']
+                    # Get the selected address for the Go button
+                    if nav_type == "multiple":
+                        non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
+                        if non_home_options:
+                            if len(non_home_options) == 1:
+                                selected_address = non_home_options[0]['address']
+                            else:
+                                # Use the selected option from dropdown
+                                if 'nav_select' in st.session_state:
+                                    selected_index = st.session_state.nav_select
+                                    if 0 <= selected_index < len(non_home_options):
+                                        selected_address = non_home_options[selected_index]['address']
                                     else:
                                         selected_address = non_home_options[0]['address']
-                            else:
-                                selected_address = home_address
+                                else:
+                                    selected_address = non_home_options[0]['address']
                         else:
-                            selected_address = nav_address
-                        
-                        maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                        st.link_button("🧭 Go", maps_url, type="primary")
+                            selected_address = home_address
+                    else:
+                        selected_address = nav_address
                     
-                    with btn_col2:
-                        # Always show Home button
-                        home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                        st.link_button("🏠 Home", home_maps_url)
+                    # Create the URLs
+                    go_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                    home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                    
+                    # Add JavaScript to set the button URLs
+                    st.markdown(f"""
+                    <script>
+                        document.getElementById('go-button').href = '{go_maps_url}';
+                        document.getElementById('home-button').href = '{home_maps_url}';
+                    </script>
+                    """, unsafe_allow_html=True)
                 
                 st.markdown("---")
             
