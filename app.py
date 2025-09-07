@@ -514,6 +514,59 @@ st.markdown("""
             color: #ffffff !important;
         }
         
+        /* Fix dropdown menus and selectbox options */
+        .stSelectbox > div > div > div, .stSelectbox > div > div > div > div {
+            color: #ffffff !important;
+            background-color: #0e1117 !important;
+        }
+        
+        /* Fix dropdown option text */
+        .stSelectbox .css-1n76uvr, .stSelectbox .css-1n76uvr * {
+            color: #ffffff !important;
+        }
+        
+        /* Fix all selectbox elements */
+        .stSelectbox, .stSelectbox *, .stSelectbox > div, .stSelectbox > div * {
+            color: #ffffff !important;
+        }
+        
+        /* Fix mobile menu when closed (<<) */
+        .stSidebar .css-1d391kg, .stSidebar .css-1d391kg * {
+            color: #ffffff !important;
+        }
+        
+        /* Fix any remaining black text in sidebar */
+        .stSidebar *, .stSidebar * * {
+            color: #ffffff !important;
+        }
+        
+        /* Fix dropdown options specifically */
+        .stSelectbox [role="listbox"], .stSelectbox [role="option"] {
+            color: #ffffff !important;
+            background-color: #0e1117 !important;
+        }
+        
+        /* Fix mobile menu toggle button */
+        .stSidebar .css-1d391kg button, .stSidebar button {
+            color: #ffffff !important;
+            background-color: #0e1117 !important;
+        }
+        
+        /* Fix mobile menu when expanded */
+        .stSidebar .css-1d391kg .css-1d391kg, .stSidebar .css-1d391kg .css-1d391kg * {
+            color: #ffffff !important;
+        }
+        
+        /* Fix any remaining Streamlit UI elements in sidebar */
+        .stSidebar .stButton, .stSidebar .stButton * {
+            color: #ffffff !important;
+        }
+        
+        /* Fix mobile menu text in all states */
+        .stSidebar p, .stSidebar div, .stSidebar span, .stSidebar label {
+            color: #ffffff !important;
+        }
+        
         /* Fix button text and backgrounds */
         button, .stButton button {
             color: #ffffff !important;
@@ -528,6 +581,29 @@ st.markdown("""
         /* Fix form elements */
         .stSelectbox > div > div, .stRadio > div > div {
             color: #ffffff !important;
+        }
+        
+        /* Fix main content area selectboxes (like Filter by kid) */
+        .main .stSelectbox, .main .stSelectbox * {
+            color: #000000 !important;
+        }
+        
+        .main .stSelectbox label {
+            color: #000000 !important;
+        }
+        
+        .main .stSelectbox > div > div {
+            color: #000000 !important;
+            background-color: #ffffff !important;
+        }
+        
+        /* Fix main content area radio buttons */
+        .main .stRadio, .main .stRadio * {
+            color: #000000 !important;
+        }
+        
+        .main .stRadio label {
+            color: #000000 !important;
         }
         
         /* Specific overrides for monitor elements */
