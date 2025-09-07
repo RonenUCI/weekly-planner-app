@@ -376,28 +376,28 @@ st.markdown("""
     
     /* Mobile-specific fixes for monthly view */
     @media (max-width: 768px) {
-        /* Force white background on main container */
+        /* Force light blue background on main container */
         .main .block-container {
-            background-color: #ffffff !important;
-            color: #000000 !important;
+            background-color: #f8fafc !important;
+            color: #1e293b !important;
         }
         
         /* Override Streamlit's default dark theme - but preserve sidebar */
         .stApp {
-            background-color: #ffffff !important;
-            color: #000000 !important;
+            background-color: #f8fafc !important;
+            color: #1e293b !important;
         }
         
-        /* Keep sidebar dark */
+        /* Keep sidebar with blue theme instead of black */
         .stSidebar {
-            background-color: #0e1117 !important;
+            background-color: #1e3a8a !important;
             color: #ffffff !important;
         }
         
-        /* Keep main content area white */
+        /* Keep main content area light blue */
         .main .block-container {
-            background-color: #ffffff !important;
-            color: #000000 !important;
+            background-color: #f8fafc !important;
+            color: #1e293b !important;
         }
         
         .monitor-header {
@@ -451,7 +451,7 @@ st.markdown("""
     @media (max-width: 768px) {
         /* Target all possible Streamlit containers */
         .stApp > div {
-            background-color: #ffffff !important;
+            background-color: #f8fafc !important;
         }
         
         /* Force visibility on all text elements - but exclude Streamlit UI elements */
@@ -459,7 +459,7 @@ st.markdown("""
         div:not(.stButton):not(.stSelectbox):not(.stRadio):not(.stSidebar):not(.stSidebar > div), 
         span:not(.stButton > div > span):not(.stSelectbox > div > span), 
         td, th {
-            color: #000000 !important;
+            color: #1e293b !important;
         }
         
         /* Fix Streamlit UI elements */
@@ -517,7 +517,7 @@ st.markdown("""
         /* Fix dropdown menus and selectbox options */
         .stSelectbox > div > div > div, .stSelectbox > div > div > div > div {
             color: #ffffff !important;
-            background-color: #0e1117 !important;
+            background-color: #1e3a8a !important;
         }
         
         /* Fix dropdown option text */
@@ -543,13 +543,13 @@ st.markdown("""
         /* Fix dropdown options specifically */
         .stSelectbox [role="listbox"], .stSelectbox [role="option"] {
             color: #ffffff !important;
-            background-color: #0e1117 !important;
+            background-color: #1e3a8a !important;
         }
         
         /* Fix mobile menu toggle button */
         .stSidebar .css-1d391kg button, .stSidebar button {
             color: #ffffff !important;
-            background-color: #0e1117 !important;
+            background-color: #1e3a8a !important;
         }
         
         /* Fix mobile menu when expanded */
@@ -570,7 +570,7 @@ st.markdown("""
         /* Fix button text and backgrounds */
         button, .stButton button {
             color: #ffffff !important;
-            background-color: #ff4b4b !important;
+            background-color: #3b82f6 !important;
         }
         
         /* Fix selectbox and radio button text */
@@ -585,30 +585,30 @@ st.markdown("""
         
         /* Fix main content area selectboxes (like Filter by kid) */
         .main .stSelectbox, .main .stSelectbox * {
-            color: #000000 !important;
+            color: #1e293b !important;
         }
         
         .main .stSelectbox label {
-            color: #000000 !important;
+            color: #1e293b !important;
         }
         
         .main .stSelectbox > div > div {
-            color: #000000 !important;
+            color: #1e293b !important;
             background-color: #ffffff !important;
         }
         
         /* Fix main content area radio buttons */
         .main .stRadio, .main .stRadio * {
-            color: #000000 !important;
+            color: #1e293b !important;
         }
         
         .main .stRadio label {
-            color: #000000 !important;
+            color: #1e293b !important;
         }
         
         /* Specific overrides for monitor elements */
         .monitor-day * {
-            color: #000000 !important;
+            color: #1e293b !important;
         }
         
         .monitor-day-header * {
