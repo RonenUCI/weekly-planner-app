@@ -1864,7 +1864,7 @@ def main():
                             else:
                                 # Multiple destinations - show dropdown
                                 def on_destination_change():
-                                    st.rerun()
+                                    st.session_state.nav_dropdown_changed = True
                                 
                                 selected_option = st.selectbox(
                                     f"Choose destination: ({len(non_home_options)} options)",
@@ -1873,6 +1873,11 @@ def main():
                                     key="nav_select",
                                     on_change=on_destination_change
                                 )
+                                
+                                # Check if dropdown changed and trigger rerun
+                                if st.session_state.get('nav_dropdown_changed', False):
+                                    st.session_state.nav_dropdown_changed = False
+                                    st.rerun()
                                 default_dest = non_home_options[selected_option]
                         else:
                             st.write(f"**{nav_reason}**")
