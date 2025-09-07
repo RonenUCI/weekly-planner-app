@@ -385,6 +385,21 @@ st.markdown("""
             flex: 1 1 auto !important;
             min-width: 0 !important;
         }
+        /* Force button group to stay on same row */
+        .stContainer [data-testid="column"] {
+            flex: 0 0 auto !important;
+            min-width: 0 !important;
+            max-width: none !important;
+        }
+        .stContainer .stHorizontal {
+            flex-wrap: nowrap !important;
+            display: flex !important;
+        }
+        .stContainer .stHorizontal > div {
+            flex-shrink: 0 !important;
+            flex-grow: 0 !important;
+            flex-basis: auto !important;
+        }
     }
     
     .main-header {
@@ -1540,7 +1555,7 @@ def main():
                 home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
                 
                 # Create a single-line header with navigation, status, and title
-                col1, col2, col3 = st.columns([2, 1, 1])
+                col1, col2 = st.columns([2, 1])
                 
                 with col1:
                     if nav_type == "multiple":
@@ -1584,35 +1599,40 @@ def main():
                                 st.write(f"**Destination:** {nav_address}")
                 
                 with col2:
-                    # Show Go button
-                    if nav_type == "multiple":
-                        non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
-                        if non_home_options:
-                            if len(non_home_options) == 1:
-                                selected_address = non_home_options[0]['address']
-                            else:
-                                # Use the selected option from dropdown
-                                if 'nav_select' in st.session_state:
-                                    selected_index = st.session_state.nav_select
-                                    if 0 <= selected_index < len(non_home_options):
-                                        selected_address = non_home_options[selected_index]['address']
-                                    else:
+                    # Group Go and Home buttons in a container to force them on same row
+                    with st.container():
+                        # Create button group using columns
+                        btn_col1, btn_col2 = st.columns(2)
+                        
+                        with btn_col1:
+                            # Show Go button
+                            if nav_type == "multiple":
+                                non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
+                                if non_home_options:
+                                    if len(non_home_options) == 1:
                                         selected_address = non_home_options[0]['address']
+                                    else:
+                                        # Use the selected option from dropdown
+                                        if 'nav_select' in st.session_state:
+                                            selected_index = st.session_state.nav_select
+                                            if 0 <= selected_index < len(non_home_options):
+                                                selected_address = non_home_options[selected_index]['address']
+                                            else:
+                                                selected_address = non_home_options[0]['address']
+                                        else:
+                                            selected_address = non_home_options[0]['address']
                                 else:
-                                    selected_address = non_home_options[0]['address']
-                        else:
-                            selected_address = home_address
-                    else:
-                        selected_address = nav_address
-                    
-                    maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                    st.link_button("🧭 Go", maps_url, type="primary")
-                
-                with col3:
-                    # Always show Home button
-                    home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
-                    home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                    st.link_button("🏠 Home", home_maps_url)
+                                    selected_address = home_address
+                            else:
+                                selected_address = nav_address
+                            
+                            maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                            st.link_button("🧭 Go", maps_url, type="primary")
+                        
+                        with btn_col2:
+                            # Always show Home button
+                            home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                            st.link_button("🏠 Home", home_maps_url)
                 
                 st.markdown("---")
             
