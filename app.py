@@ -1432,8 +1432,8 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             # Create DataFrame for this day's activities
             day_df = pd.DataFrame(day_activities)
             
-            # Remove Start Date and End Date columns
-            columns_to_drop = ['Start Date', 'End Date']
+            # Remove Start Date, End Date, and Day columns
+            columns_to_drop = ['Start Date', 'End Date', 'Day']
             for col in columns_to_drop:
                 if col in day_df.columns:
                     day_df = day_df.drop(columns=[col])
@@ -1448,37 +1448,46 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             if 'Time' in day_df.columns:
                 day_df['Time'] = day_df['Time'].apply(lambda x: str(x)[:15] if len(str(x)) > 15 else str(x))
             
-            # Add CSS for single-line display
+            # Add CSS for single-line display with horizontal scroll
             st.markdown("""
             <style>
+            .weekly-schedule-container {
+                overflow-x: auto;
+                width: 100%;
+                margin: 10px 0;
+            }
             .weekly-schedule-table {
                 width: 100%;
+                min-width: 600px;
                 border-collapse: collapse;
+                table-layout: fixed;
             }
             .weekly-schedule-table td, .weekly-schedule-table th {
                 padding: 8px;
                 border: 1px solid #ddd;
                 text-align: left;
-            }
-            .weekly-schedule-table .address-cell {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width: 200px;
             }
-            .weekly-schedule-table .time-cell {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-width: 100px;
-            }
+            .weekly-schedule-table th:nth-child(1) { width: 10%; } /* Kid */
+            .weekly-schedule-table th:nth-child(2) { width: 30%; } /* Activity */
+            .weekly-schedule-table th:nth-child(3) { width: 15%; } /* Time */
+            .weekly-schedule-table th:nth-child(4) { width: 35%; } /* Address */
+            .weekly-schedule-table th:nth-child(5) { width: 10%; } /* Pickup */
+            .weekly-schedule-table th:nth-child(6) { width: 10%; } /* Return */
             </style>
             """, unsafe_allow_html=True)
             
             # Display the day's activities as HTML table with custom styling
             html_table = day_df.to_html(escape=False, index=False, classes="weekly-schedule-table")
             
-            st.markdown(html_table, unsafe_allow_html=True)
+            # Wrap table in scrollable container
+            st.markdown(f"""
+            <div class="weekly-schedule-container">
+                {html_table}
+            </div>
+            """, unsafe_allow_html=True)
             st.markdown("---")
 
 def display_monitor_dashboard(current_time=None):
