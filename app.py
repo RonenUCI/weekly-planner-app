@@ -1432,12 +1432,52 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             # Create DataFrame for this day's activities
             day_df = pd.DataFrame(day_activities)
             
-            # Check if Address column exists before processing
+            # Remove Start Date and End Date columns
+            columns_to_drop = ['Start Date', 'End Date']
+            for col in columns_to_drop:
+                if col in day_df.columns:
+                    day_df = day_df.drop(columns=[col])
+            
+            # Truncate long addresses and times to fit in single line BEFORE making clickable
             if 'Address' in day_df.columns:
+                # Truncate addresses to 50 characters
+                day_df['Address'] = day_df['Address'].apply(lambda x: x[:50] + '...' if len(str(x)) > 50 else str(x))
+                # Make truncated addresses clickable
                 day_df['Address'] = day_df['Address'].apply(make_address_clickable)
             
-            # Display the day's activities as HTML table instead of dataframe
-            html_table = day_df.to_html(escape=False, index=False)
+            if 'Time' in day_df.columns:
+                day_df['Time'] = day_df['Time'].apply(lambda x: str(x)[:15] if len(str(x)) > 15 else str(x))
+            
+            # Add CSS for single-line display
+            st.markdown("""
+            <style>
+            .weekly-schedule-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .weekly-schedule-table td, .weekly-schedule-table th {
+                padding: 8px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+            .weekly-schedule-table .address-cell {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 200px;
+            }
+            .weekly-schedule-table .time-cell {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100px;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+            
+            # Display the day's activities as HTML table with custom styling
+            html_table = day_df.to_html(escape=False, index=False, classes="weekly-schedule-table")
+            
             st.markdown(html_table, unsafe_allow_html=True)
             st.markdown("---")
 
