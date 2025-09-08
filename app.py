@@ -2083,7 +2083,7 @@ def main():
                 
                 # Display following week schedule
                 if not following_week_schedule.empty:
-                    st.subheader(f"📋 Following Week Schedule ({following_week_start.strftime('%B %d')} - {following_week_end.strftime('%B %d, %Y')})")
+                    st.subheader(f"📋{following_week_start.strftime('%B %d')} - {following_week_end.strftime('%B %d')}")
                     display_weekly_schedule(following_week_schedule, following_week_start, following_week_end, today)
                 else:
                     st.caption("🔮 **Following week:** No activities scheduled")
