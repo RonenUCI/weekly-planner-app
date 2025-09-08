@@ -2021,7 +2021,7 @@ def main():
                     st.markdown("""
                     <div class="tip-reload-container">
                         <div class="tip-text">
-                            💡 <strong>Tip:</strong> Edit activities in <a href="https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit" target="_blank">Google Sheets</a>, then click
+                            💡 <strong>Tip:</strong> Edit activities in <a href="https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit" target="_blank">Here</a>, then click
                         </div>
                         <div class="reload-button">
                             <button onclick="window.location.reload()" style="background-color: #ff4b4b; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer;">
