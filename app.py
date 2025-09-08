@@ -658,9 +658,9 @@ st.markdown("""
     .day-header {
         background-color: #1f77b4 !important;
         color: white !important;
-        padding: 0.75rem !important;
+        padding: 0.3rem 0.75rem !important;
         border-radius: 0.25rem !important;
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 0.2rem !important;
         font-weight: bold !important;
         font-size: 1.1rem !important;
         text-align: center !important;
@@ -1488,7 +1488,6 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
                 {html_table}
             </div>
             """, unsafe_allow_html=True)
-            st.markdown("---")
 
 def display_monitor_dashboard(current_time=None):
     """Display wall dashboard for monitor mode showing today and next 30 days' activities"""
