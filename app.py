@@ -2000,12 +2000,36 @@ def main():
                 st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} (Current: {today.strftime('%B %d')} at {display_time})")
                 
                 # Add refresh button for Google Drive updates
-                col1, col2 = st.columns([3, 1])
-                with col1:
-                    st.markdown("💡 **Tip:** Edit activities in [Google Sheets](https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit) for real-time updates")
-                with col2:
-                    if st.button("🔄 Refresh Data", help="Click to reload latest data from Google Drive"):
-                        st.rerun()
+                with st.container():
+                    st.markdown("""
+                    <style>
+                    .tip-reload-container {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.5rem 0;
+                    }
+                    .tip-text {
+                        flex: 0 1 auto;
+                    }
+                    .reload-button {
+                        flex-shrink: 0;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
+                    
+                    st.markdown("""
+                    <div class="tip-reload-container">
+                        <div class="tip-text">
+                            💡 <strong>Tip:</strong> Edit activities in <a href="https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit" target="_blank">Google Sheets</a>, then click
+                        </div>
+                        <div class="reload-button">
+                            <button onclick="window.location.reload()" style="background-color: #ff4b4b; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer;">
+                                🔄 Reload
+                            </button>
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
                 
                 # Display current week schedule
                 display_weekly_schedule(weekly_schedule, week_start, week_end, today)
