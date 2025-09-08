@@ -1950,44 +1950,43 @@ def main():
                     home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                     
                     # Place buttons side by side using CSS
-                    with st.container():
-                        st.markdown("""
-                        <style>
-                        .button-row {
-                            display: flex;
-                            gap: 10px;
-                            margin: 10px 0;
-                        }
-                        .button-row a {
-                            text-decoration: none;
-                        }
-                        .button-row button {
-                            background-color: #ff4b4b;
-                            color: white;
-                            border: none;
-                            padding: 0.5rem 1rem;
-                            border-radius: 0.5rem;
-                            cursor: pointer;
-                            font-size: 14px;
-                        }
-                        .button-row button:hover {
-                            background-color: #ff2b2b;
-                        }
-                        </style>
-                        """, unsafe_allow_html=True)
-                        
-                        st.markdown(f"""
-                        <div class="button-row">
-                            <a href="{go_maps_url}" target="_blank">
-                                <button>🧭 Go</button>
-                            </a>
-                            <a href="{home_maps_url}" target="_blank">
-                                <button>🏠 Home</button>
-                            </a>
-                        </div>
-                        """, unsafe_allow_html=True)
-                
-                st.markdown("---")
+                    st.markdown("""
+                    <style>
+                    .button-row {
+                        display: flex;
+                        gap: 10px;
+                        margin: 0;
+                        padding: 0;
+                        justify-content: flex-start;
+                    }
+                    .button-row a {
+                        text-decoration: none;
+                    }
+                    .button-row button {
+                        background-color: #ff4b4b;
+                        color: white;
+                        border: none;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+                        font-size: 14px;
+                    }
+                    .button-row button:hover {
+                        background-color: #ff2b2b;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
+                    
+                    st.markdown(f"""
+                    <div class="button-row">
+                        <a href="{go_maps_url}" target="_blank">
+                            <button>🧭 Go</button>
+                        </a>
+                        <a href="{home_maps_url}" target="_blank">
+                            <button>🏠 Home</button>
+                        </a>
+                    </div>
+                    """, unsafe_allow_html=True)
             
             # Display the table
             if not weekly_schedule.empty:
