@@ -2044,7 +2044,7 @@ def main():
                     display_time = current_time.strftime('%I:%M %p')
                 else:
                     display_time = pacific_time.strftime('%I:%M %p')
-                st.info(f"📅 **{week_description}:** {week_start.strftime('%m %d')} - {week_end.strftime('%m %d, %Y')} (Current: {today.strftime('%B %d')} at {display_time})")
+                st.info(f"📅 Current Time: {today.strftime('%m/%d')} at {display_time}")
                 
                 # Add refresh button for Google Drive updates
                 st.markdown("""
