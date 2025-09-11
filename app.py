@@ -1746,8 +1746,9 @@ def main():
     time_override = query_params.get("time")
     date_override = query_params.get("date")
     
-    # Start with current datetime
-    current_time = datetime.now()
+    # Start with Pacific time (same as display)
+    server_now = datetime.now()
+    current_time = server_now - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
     
     # Define home address
     home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
@@ -1776,7 +1777,8 @@ def main():
                 st.info(f"🕐 **Time Override Active:** {current_time.strftime('%I:%M %p')} (for testing)")
         except ValueError:
             st.warning(f"⚠️ Invalid time format: {time_override}. Use HH:MM format (e.g., ?time=14:30)")
-            current_time = datetime.now()
+            # Reset to Pacific time on error
+            current_time = server_now - timedelta(hours=7)
     
     if is_monitor_mode:
         # Monitor mode - wall dashboard
