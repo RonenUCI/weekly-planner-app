@@ -110,9 +110,10 @@ def analyze_navigation_context(weekly_schedule, current_time):
     
     for _, activity in today_activities.iterrows():
         try:
-            # Skip activities with "walk" or "chabad" as driver
-            driver = str(activity.get('Driver', '')).lower()
-            if 'walk' in driver or 'chabad' in driver:
+            # Skip activities with "walk" or "chabad" as pickup or return driver
+            pickup_driver = str(activity.get('Pickup', '')).lower()
+            return_driver = str(activity.get('Return', '')).lower()
+            if 'walk' in pickup_driver or 'chabad' in pickup_driver or 'walk' in return_driver or 'chabad' in return_driver:
                 continue
                 
             # Parse start and end times
@@ -201,10 +202,11 @@ def analyze_navigation_context(weekly_schedule, current_time):
             activity = item['activity']
             address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
             
-            # Skip if driver is "walk" or "chabad"
-            driver = str(activity.get('Driver', '')).lower()
-            if 'walk' in driver or 'chabad' in driver:
-                print(f"DEBUG: Skipping upcoming activity {activity['Activity']} due to driver: {driver}")
+            # Skip if pickup or return driver is "walk" or "chabad"
+            pickup_driver = str(activity.get('Pickup', '')).lower()
+            return_driver = str(activity.get('Return', '')).lower()
+            if 'walk' in pickup_driver or 'chabad' in pickup_driver or 'walk' in return_driver or 'chabad' in return_driver:
+                print(f"DEBUG: Skipping upcoming activity {activity['Activity']} due to driver: pickup={pickup_driver}, return={return_driver}")
                 continue
                 
             if address not in seen_addresses:
