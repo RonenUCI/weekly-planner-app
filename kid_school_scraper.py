@@ -6,7 +6,9 @@ Downloads calendar events from multiple school ICS feeds and converts them to we
 
 from datetime import datetime
 import pandas as pd
+from typing import List, Dict
 from ics_calendar_scraper import ICSCalendarScraper
+from config import SCHOOL_KID_ASSOCIATIONS
 
 class SchoolCalendarScraper(ICSCalendarScraper):
     def __init__(self):
@@ -33,6 +35,7 @@ class SchoolCalendarScraper(ICSCalendarScraper):
             event['location'] = self.school_feeds[school_code]['address']
         return event
     
+
     def save_to_csv(self, df: pd.DataFrame, filename: str):
         """Save events to CSV file with proper escaping for addresses"""
         try:
@@ -50,8 +53,8 @@ class SchoolCalendarScraper(ICSCalendarScraper):
             df.to_csv(filename, index=False)
     
     def scrape_all_schools(self) -> pd.DataFrame:
-        """Scrape all schools and combine them into one DataFrame"""
-        all_events = []
+        """Scrape all schools and combine them into one DataFrame with kid assignments"""
+        all_planner_events = []
         
         # Use parent class methods to scrape each school
         for school_code, school_info in self.school_feeds.items():
@@ -66,11 +69,24 @@ class SchoolCalendarScraper(ICSCalendarScraper):
                     # Apply school addresses to each event
                     for event in school_events:
                         event = self._enhance_event(event, school_code)
-                    all_events.extend(school_events)
+                    
+                    # Get associated kids for this school
+                    school_name = school_info['name']
+                    associated_kids = SCHOOL_KID_ASSOCIATIONS.get(school_name, [])
+                    
+                    if associated_kids:
+                        # Create events for each associated kid
+                        for kid in associated_kids:
+                            kid_events_df = self.convert_to_planner_format(school_events, prefix="School", kid_name=kid)
+                            all_planner_events.append(kid_events_df)
+                    else:
+                        # If no kids associated with this school, create events with 'All'
+                        all_events_df = self.convert_to_planner_format(school_events, prefix="School", kid_name="All")
+                        all_planner_events.append(all_events_df)
         
-        if all_events:
-            # Convert all events to planner format
-            combined_df = self.convert_to_planner_format(all_events, prefix="School")
+        if all_planner_events:
+            # Combine all planner events
+            combined_df = pd.concat(all_planner_events, ignore_index=True)
             combined_df = combined_df.sort_values('start_date')
             
             # Save combined file

@@ -55,8 +55,8 @@ DATA_CONFIG = {
 # School Calendar to Kid Associations
 # Maps school names to lists of kids who attend that school
 SCHOOL_KID_ASSOCIATIONS = {
-    'Jane Lathrop Stanford Middle School': ['Eli', 'Ari'],
-    'Ohlone Elementary School': ['Eli', 'Ari'],
+    'Jane Lathrop Stanford Middle School': ['Sagie', 'Ariella'],
+    'Ohlone Elementary School': ['Yoni'],
     # Add more schools as needed
     # 'School Name': ['Kid1', 'Kid2'],
 }

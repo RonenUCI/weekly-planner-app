@@ -168,7 +168,7 @@ class ICSCalendarScraper:
         except:
             return 1.0  # Default 1 hour
     
-    def convert_to_planner_format(self, events: List[Dict], prefix: str = "") -> pd.DataFrame:
+    def convert_to_planner_format(self, events: List[Dict], prefix: str = "", kid_name: str = "All") -> pd.DataFrame:
         """Convert parsed events to weekly planner CSV format - generic implementation"""
         planner_events = []
         
@@ -191,7 +191,7 @@ class ICSCalendarScraper:
                 
                 # Create planner event
                 planner_event = {
-                    'kid_name': 'All',  # Calendar events typically affect all family members
+                    'kid_name': kid_name,  # Use provided kid_name parameter
                     'activity': activity_name,
                     'time': start_time,
                     'duration': duration,
