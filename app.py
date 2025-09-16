@@ -1460,28 +1460,48 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             # Create DataFrame for this day's activities
             day_df = pd.DataFrame(day_activities)
             
-            # Merge rows that are identical except for kid_name
-            if 'kid_name' in day_df.columns and len(day_df) > 1:
-                # Group by all columns except kid_name
-                group_columns = [col for col in day_df.columns if col != 'kid_name']
+            # Merge rows that are identical except for Kid
+            if 'Kid' in day_df.columns and len(day_df) > 1:
+                print(f"DEBUG MAIN: Before merging - {len(day_df)} rows")
+                print(f"DEBUG MAIN: Columns: {list(day_df.columns)}")
+                print(f"DEBUG MAIN: Sample data:")
+                print(day_df.head())
+                
+                # Clean and normalize data for better grouping
+                day_df_clean = day_df.copy()
+                for col in day_df_clean.columns:
+                    if col != 'Kid':
+                        # Convert to string and strip whitespace
+                        day_df_clean[col] = day_df_clean[col].astype(str).str.strip()
+                
+                # Group by all columns except Kid
+                group_columns = [col for col in day_df_clean.columns if col != 'Kid']
+                print(f"DEBUG MAIN: Grouping by: {group_columns}")
                 merged_rows = []
                 
-                for group_key, group in day_df.groupby(group_columns):
+                for group_key, group in day_df_clean.groupby(group_columns):
+                    print(f"DEBUG MAIN: Group size: {len(group)}, Key: {group_key}")
                     if len(group) > 1:
                         # Multiple kids for same activity - merge kid names
-                        kid_names = sorted(group['kid_name'].unique())
+                        kid_names = sorted(group['Kid'].unique())
                         merged_kid_name = ' + '.join(kid_names)
+                        print(f"DEBUG MAIN: Merging kids: {kid_names} -> {merged_kid_name}")
                         
-                        # Take the first row and update kid_name
-                        merged_row = group.iloc[0].copy()
-                        merged_row['kid_name'] = merged_kid_name
+                        # Take the first row from original data and update Kid
+                        original_indices = group.index
+                        merged_row = day_df.iloc[original_indices[0]].copy()
+                        merged_row['Kid'] = merged_kid_name
                         merged_rows.append(merged_row)
                     else:
                         # Single kid - keep as is
-                        merged_rows.append(group.iloc[0])
+                        original_indices = group.index
+                        merged_rows.append(day_df.iloc[original_indices[0]])
                 
                 # Create new DataFrame with merged rows
                 day_df = pd.DataFrame(merged_rows)
+                print(f"DEBUG MAIN: After merging - {len(day_df)} rows")
+                print(f"DEBUG MAIN: Merged data:")
+                print(day_df)
             
             # Remove Start Date, End Date, and Day columns
             columns_to_drop = ['Start Date', 'End Date', 'Day']
@@ -1757,6 +1777,48 @@ def display_day_activities(display_df, target_date):
     
     # Sort by time
     day_activities.sort(key=lambda x: x['time'])
+    
+    # Merge activities that are identical except for kid
+    if len(day_activities) > 1:
+        merged_activities = []
+        current_group = [day_activities[0]]
+        
+        for i in range(1, len(day_activities)):
+            current_activity = day_activities[i]
+            prev_activity = current_group[0]
+            
+            # Check if activities are identical except for kid
+            if (current_activity['time'] == prev_activity['time'] and
+                current_activity['activity'] == prev_activity['activity'] and
+                current_activity['address'] == prev_activity['address'] and
+                current_activity['pickup'] == prev_activity['pickup'] and
+                current_activity['return'] == prev_activity['return']):
+                # Same activity, add to current group
+                current_group.append(current_activity)
+            else:
+                # Different activity, process current group and start new one
+                if len(current_group) > 1:
+                    # Merge kids
+                    kids = sorted([act['kid'] for act in current_group])
+                    merged_kid = ' + '.join(kids)
+                    merged_activity = current_group[0].copy()
+                    merged_activity['kid'] = merged_kid
+                    merged_activities.append(merged_activity)
+                else:
+                    merged_activities.append(current_group[0])
+                current_group = [current_activity]
+        
+        # Process the last group
+        if len(current_group) > 1:
+            kids = sorted([act['kid'] for act in current_group])
+            merged_kid = ' + '.join(kids)
+            merged_activity = current_group[0].copy()
+            merged_activity['kid'] = merged_kid
+            merged_activities.append(merged_activity)
+        else:
+            merged_activities.append(current_group[0])
+        
+        day_activities = merged_activities
     
     if not day_activities:
         st.markdown('<div class="monitor-no-activities" style="color: #6c757d !important; background-color: transparent !important;">No activities scheduled</div>', unsafe_allow_html=True)
@@ -2191,26 +2253,46 @@ def main():
                             
                             # Merge rows that are identical except for kid_name
                             if 'kid_name' in day_df.columns and len(day_df) > 1:
+                                print(f"DEBUG: Before merging - {len(day_df)} rows")
+                                print(f"DEBUG: Columns: {list(day_df.columns)}")
+                                print(f"DEBUG: Sample data:")
+                                print(day_df.head())
+                                
+                                # Clean and normalize data for better grouping
+                                day_df_clean = day_df.copy()
+                                for col in day_df_clean.columns:
+                                    if col != 'kid_name':
+                                        # Convert to string and strip whitespace
+                                        day_df_clean[col] = day_df_clean[col].astype(str).str.strip()
+                                
                                 # Group by all columns except kid_name
-                                group_columns = [col for col in day_df.columns if col != 'kid_name']
+                                group_columns = [col for col in day_df_clean.columns if col != 'kid_name']
+                                print(f"DEBUG: Grouping by: {group_columns}")
                                 merged_rows = []
                                 
-                                for group_key, group in day_df.groupby(group_columns):
+                                for group_key, group in day_df_clean.groupby(group_columns):
+                                    print(f"DEBUG: Group size: {len(group)}, Key: {group_key}")
                                     if len(group) > 1:
                                         # Multiple kids for same activity - merge kid names
                                         kid_names = sorted(group['kid_name'].unique())
                                         merged_kid_name = ' + '.join(kid_names)
+                                        print(f"DEBUG: Merging kids: {kid_names} -> {merged_kid_name}")
                                         
-                                        # Take the first row and update kid_name
-                                        merged_row = group.iloc[0].copy()
+                                        # Take the first row from original data and update kid_name
+                                        original_indices = group.index
+                                        merged_row = day_df.iloc[original_indices[0]].copy()
                                         merged_row['kid_name'] = merged_kid_name
                                         merged_rows.append(merged_row)
                                     else:
                                         # Single kid - keep as is
-                                        merged_rows.append(group.iloc[0])
+                                        original_indices = group.index
+                                        merged_rows.append(day_df.iloc[original_indices[0]])
                                 
                                 # Create new DataFrame with merged rows
                                 day_df = pd.DataFrame(merged_rows)
+                                print(f"DEBUG: After merging - {len(day_df)} rows")
+                                print(f"DEBUG: Merged data:")
+                                print(day_df)
                             else:
                                 # No merging needed, use original data
                                 day_df = day_activities
