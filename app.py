@@ -7,11 +7,12 @@ import webbrowser
 import os
 from typing import Dict, List, Tuple
 import json
+from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER
 
 def load_activities_from_google_drive():
     """Load activities from Google Drive - no fallback to local file"""
     # Google Drive shareable URL for your activities spreadsheet
-    google_drive_url = "https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/export?format=csv"
+    google_drive_url = DATA_CONFIG['google_drive_url']
     
     try:
         import requests
@@ -23,7 +24,7 @@ def load_activities_from_google_drive():
         timestamp = int(time.time())
         cache_bust_url = f"{google_drive_url}&t={timestamp}"
         
-        response = requests.get(cache_bust_url, timeout=10)
+        response = requests.get(cache_bust_url, timeout=DATA_CONFIG['google_drive_timeout'])
         response.raise_for_status()
         
         # Read CSV content from Google Drive
@@ -77,8 +78,10 @@ def make_address_clickable(address):
 
 def analyze_navigation_context(weekly_schedule, current_time):
     """Analyze current navigation context and return navigation options"""
-    home_address = "628 Wellsbury Way, Palo Alto"
-    navigation_options = []
+    home_address = NAVIGATION_CONFIG['home_address']
+    look_ahead_minutes = NAVIGATION_CONFIG['look_ahead_minutes']
+    excluded_drivers = NAVIGATION_CONFIG['excluded_drivers']
+    excluded_activities = NAVIGATION_CONFIG['excluded_activities']
     
     if weekly_schedule.empty:
         return "home", home_address, "No activities scheduled", []
@@ -88,11 +91,7 @@ def analyze_navigation_context(weekly_schedule, current_time):
     current_day_name = today.strftime('%A').lower()
     
     # Get today's activities - convert current day to abbreviated format
-    day_abbrev_map = {
-        'monday': 'M', 'tuesday': 'T', 'wednesday': 'W', 'thursday': 'Th',
-        'friday': 'F', 'saturday': 'S', 'sunday': 'S'
-    }
-    current_day_abbrev = day_abbrev_map.get(current_day_name, current_day_name.capitalize())
+    current_day_abbrev = DAY_ABBREV_MAP.get(current_day_name, current_day_name.capitalize())
     print(f"DEBUG: Looking for activities on {current_day_abbrev} (from {current_day_name})")
     print(f"DEBUG: Available days in weekly_schedule: {weekly_schedule['Day'].unique() if not weekly_schedule.empty else 'Empty'}")
     
@@ -102,8 +101,8 @@ def analyze_navigation_context(weekly_schedule, current_time):
     if today_activities.empty:
         return "home", home_address, "No activities today", []
     
-    # Find activities within the next 30 minutes
-    thirty_minutes_later = (current_time + timedelta(minutes=30)).time()
+    # Find activities within the configured look-ahead time
+    look_ahead_time = (current_time + timedelta(minutes=look_ahead_minutes)).time()
     
     current_activities = []
     upcoming_activities = []
@@ -115,8 +114,9 @@ def analyze_navigation_context(weekly_schedule, current_time):
             return_driver = str(activity.get('Return', '')).lower()
             print(f"DEBUG: Activity {activity.get('Activity', 'Unknown')} - Pickup: '{pickup_driver}', Return: '{return_driver}'")
             
-            # Skip activities with "walk" or "chabad" as pickup or return driver
-            if 'walk' in pickup_driver or 'chabad' in pickup_driver or 'walk' in return_driver or 'chabad' in return_driver:
+            # Skip activities with excluded drivers as pickup or return driver
+            should_skip = any(excluded in pickup_driver or excluded in return_driver for excluded in excluded_drivers)
+            if should_skip:
                 print(f"DEBUG: Skipping activity {activity['Activity']} due to driver: pickup={pickup_driver}, return={return_driver}")
                 continue
                 
@@ -134,8 +134,8 @@ def analyze_navigation_context(weekly_schedule, current_time):
                     'time_info': f"Now until {end_time_str}"
                 })
             
-            # Check if this activity starts within the next 30 minutes
-            elif start_time <= thirty_minutes_later and start_time > current_time.time():
+            # Check if this activity starts within the configured look-ahead time
+            elif start_time <= look_ahead_time and start_time > current_time.time():
                 upcoming_activities.append({
                     'activity': activity,
                     'type': 'upcoming',
@@ -150,8 +150,8 @@ def analyze_navigation_context(weekly_schedule, current_time):
     total_relevant_activities = len(current_activities) + len(upcoming_activities)
     
     if total_relevant_activities == 0:
-        # No activities within 30 minutes, go home
-        return "home", home_address, "No activities within 30 minutes", []
+        # No activities within configured time window, go home
+        return "home", home_address, f"No activities within {look_ahead_minutes} minutes", []
     
     elif total_relevant_activities == 1:
         # Only one relevant activity, navigate there
@@ -173,7 +173,7 @@ def analyze_navigation_context(weekly_schedule, current_time):
         options.append({
             'type': 'home',
             'address': home_address,
-            'description': '🏠 Home (628 Wellsbury Way, Palo Alto)',
+            'description': f'🏠 Home ({NAVIGATION_CONFIG["home_address"]})',
             'reason': 'No clear next destination'
         })
         seen_addresses.add(home_address)
@@ -183,10 +183,11 @@ def analyze_navigation_context(weekly_schedule, current_time):
             activity = item['activity']
             address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
             
-            # Skip if pickup or return driver is "walk" or "chabad"
+            # Skip if pickup or return driver is in excluded list
             pickup_driver = str(activity.get('Pickup', '')).lower()
             return_driver = str(activity.get('Return', '')).lower()
-            if 'walk' in pickup_driver or 'chabad' in pickup_driver or 'walk' in return_driver or 'chabad' in return_driver:
+            should_skip = any(excluded in pickup_driver or excluded in return_driver for excluded in excluded_drivers)
+            if should_skip:
                 print(f"DEBUG: Skipping activity {activity['Activity']} due to driver: pickup={pickup_driver}, return={return_driver}")
                 continue
                 
@@ -207,10 +208,11 @@ def analyze_navigation_context(weekly_schedule, current_time):
             activity = item['activity']
             address = str(activity['Address']) if pd.notna(activity['Address']) else home_address
             
-            # Skip if pickup or return driver is "walk" or "chabad"
+            # Skip if pickup or return driver is in excluded list
             pickup_driver = str(activity.get('Pickup', '')).lower()
             return_driver = str(activity.get('Return', '')).lower()
-            if 'walk' in pickup_driver or 'chabad' in pickup_driver or 'walk' in return_driver or 'chabad' in return_driver:
+            should_skip = any(excluded in pickup_driver or excluded in return_driver for excluded in excluded_drivers)
+            if should_skip:
                 print(f"DEBUG: Skipping upcoming activity {activity['Activity']} due to driver: pickup={pickup_driver}, return={return_driver}")
                 continue
                 
@@ -665,7 +667,7 @@ st.markdown("""
     .day-header {
         background-color: #1f77b4 !important;
         color: white !important;
-        padding: 0.3rem 0.75rem !important;
+        padding: {UI_CONFIG['day_header_padding']} 0.75rem !important;
         border-radius: 0.25rem !important;
         margin-bottom: 0.2rem !important;
         font-weight: bold !important;
@@ -1149,9 +1151,9 @@ def load_combined_data_for_display() -> pd.DataFrame:
     
     # Load school events if available
     school_events_df = pd.DataFrame()
-    if os.path.exists('school_events.csv'):
+    if os.path.exists(DATA_CONFIG['school_events_file']):
         try:
-            school_events_df = pd.read_csv('school_events.csv')
+            school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'])
             if 'days_of_week' in school_events_df.columns:
                 school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
@@ -1167,9 +1169,9 @@ def load_combined_data_for_display() -> pd.DataFrame:
     
     # Load Jewish holidays if available
     jewish_holidays_df = pd.DataFrame()
-    if os.path.exists('jewish_holidays.csv'):
+    if os.path.exists(DATA_CONFIG['jewish_holidays_file']):
         try:
-            jewish_holidays_df = pd.read_csv('jewish_holidays.csv')
+            jewish_holidays_df = pd.read_csv(DATA_CONFIG['jewish_holidays_file'])
             if 'days_of_week' in jewish_holidays_df.columns:
                 jewish_holidays_df['days_of_week'] = jewish_holidays_df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
@@ -1184,10 +1186,7 @@ def load_combined_data_for_display() -> pd.DataFrame:
             print(f"Warning: Could not load Jewish holidays: {e}")
     
     # Ensure all dataframes have the same columns before concatenating
-    required_columns = [
-        'kid_name', 'activity', 'time', 'duration', 'frequency', 
-        'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
-    ]
+    required_columns = REQUIRED_COLUMNS
     
     # Add missing columns to each dataframe
     for df in [activities_df, school_events_df, jewish_holidays_df]:
@@ -1421,7 +1420,7 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
 def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
     """Helper function to display weekly schedule by day"""
     days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
+    days_abbrev = DAYS_ORDER
     
     for i, day in enumerate(days_order):
         # Filter activities for this specific day
@@ -1447,13 +1446,13 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             
             # Truncate long addresses and times to fit in single line BEFORE making clickable
             if 'Address' in day_df.columns:
-                # Truncate addresses to 50 characters
-                day_df['Address'] = day_df['Address'].apply(lambda x: x[:50] + '...' if len(str(x)) > 50 else str(x))
+                # Truncate addresses to configured length
+                day_df['Address'] = day_df['Address'].apply(lambda x: x[:DISPLAY_CONFIG['address_truncate_length']] + '...' if len(str(x)) > DISPLAY_CONFIG['address_truncate_length'] else str(x))
                 # Make truncated addresses clickable
                 day_df['Address'] = day_df['Address'].apply(make_address_clickable)
             
             if 'Time' in day_df.columns:
-                day_df['Time'] = day_df['Time'].apply(lambda x: str(x)[:15] if len(str(x)) > 15 else str(x))
+                day_df['Time'] = day_df['Time'].apply(lambda x: str(x)[:DISPLAY_CONFIG['time_truncate_length']] if len(str(x)) > DISPLAY_CONFIG['time_truncate_length'] else str(x))
             
             # Add CSS for single-line display with horizontal scroll
             st.markdown("""
@@ -1465,12 +1464,12 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             }
             .weekly-schedule-table {
                 width: 100%;
-                min-width: 600px;
+                min-width: {UI_CONFIG['table_min_width']};
                 border-collapse: collapse;
                 table-layout: fixed;
             }
             .weekly-schedule-table td, .weekly-schedule-table th {
-                padding: 8px;
+                padding: {UI_CONFIG['table_cell_padding']};
                 border: 1px solid #ddd;
                 text-align: left;
                 white-space: nowrap;
@@ -1736,7 +1735,7 @@ def display_day_activities(display_df, target_date):
 def main():
     # Define day order and abbreviations for schedule display
     days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    days_abbrev = ['M', 'T', 'W', 'Th', 'F', 'S', 'Su']
+    days_abbrev = DAYS_ORDER
     
     # Check for monitor mode URL parameter
     query_params = st.query_params
@@ -1748,10 +1747,10 @@ def main():
     
     # Start with Pacific time (same as display)
     server_now = datetime.now()
-    current_time = server_now - timedelta(hours=7)  # UTC-7 for Pacific Daylight Time
+    current_time = server_now + timedelta(hours=TIMEZONE_CONFIG['pacific_offset_hours'])
     
-    # Define home address
-    home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
+    # Define home address from config
+    home_address = NAVIGATION_CONFIG['home_address']
     
     # Apply date override if provided
     if date_override:
@@ -1778,7 +1777,7 @@ def main():
         except ValueError:
             st.warning(f"⚠️ Invalid time format: {time_override}. Use HH:MM format (e.g., ?time=14:30)")
             # Reset to Pacific time on error
-            current_time = server_now - timedelta(hours=7)
+            current_time = server_now + timedelta(hours=TIMEZONE_CONFIG['pacific_offset_hours'])
     
     if is_monitor_mode:
         # Monitor mode - wall dashboard
@@ -1921,8 +1920,8 @@ def main():
                 # current_time is already set from the time override logic above
                 nav_type, nav_address, nav_reason, nav_options = analyze_navigation_context(weekly_schedule, current_time)
                 
-                # Define home address for navigation
-                home_address = "628 Wellsbury Way, Palo Alto, CA 94306"
+                # Define home address for navigation from config
+                home_address = NAVIGATION_CONFIG['home_address']
                 
                 # Create a single-line header with navigation, status, and title
                 col1, col2 = st.columns([2, 1])
@@ -2011,7 +2010,7 @@ def main():
                     <style>
                     .button-row {
                         display: flex;
-                        gap: 10px;
+                        gap: {UI_CONFIG['button_gap']};
                         margin: 0;
                         padding: 0;
                         justify-content: flex-start;
@@ -2023,7 +2022,7 @@ def main():
                         background-color: #ff4b4b;
                         color: white;
                         border: none;
-                        padding: 0.3rem 0.8rem;
+                        padding: {UI_CONFIG['button_padding']};
                         border-radius: 0.5rem;
                         cursor: pointer;
                         font-size: 14px;
@@ -2050,10 +2049,10 @@ def main():
                 # Show what date range the schedule is for
                 # Use overridden time if available, otherwise use Pacific time
                 if time_override or date_override:
-                    display_time = current_time.strftime('%I:%M %p')
+                    display_time = current_time.strftime(DISPLAY_CONFIG['time_format'])
                 else:
-                    display_time = pacific_time.strftime('%I:%M %p')
-                st.info(f"📅 Current Time: {today.strftime('%m/%d')} at {display_time}")
+                    display_time = pacific_time.strftime(DISPLAY_CONFIG['time_format'])
+                st.info(f"📅 Current Time: {today.strftime(DISPLAY_CONFIG['date_format'])} at {display_time}")
                 
                 # Add refresh button for Google Drive updates
                 st.markdown("""
@@ -2062,8 +2061,8 @@ def main():
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
-                    padding: 0.2rem 0;
-                    margin-top: -0.5rem;
+                    padding: {UI_CONFIG['tip_container_padding']};
+                    margin-top: {UI_CONFIG['tip_margin_top']};
                 }
                 .tip-text {
                     flex: 0 1 auto;
@@ -2092,7 +2091,7 @@ def main():
                 
                 # Display following week schedule
                 if not following_week_schedule.empty:
-                    st.subheader(f"📋{following_week_start.strftime('%b. %d')} - {following_week_end.strftime('%b. %d')}")
+                    st.subheader(f"📋{following_week_start.strftime(DISPLAY_CONFIG['month_format'] + ' %d')} - {following_week_end.strftime(DISPLAY_CONFIG['month_format'] + ' %d')}")
                     display_weekly_schedule(following_week_schedule, following_week_start, following_week_end, today)
                 else:
                     st.caption("🔮 **Following week:** No activities scheduled")
