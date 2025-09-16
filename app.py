@@ -7,7 +7,7 @@ import webbrowser
 import os
 from typing import Dict, List, Tuple
 import json
-from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER
+from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS
 
 def load_activities_from_google_drive():
     """Load activities from Google Drive - no fallback to local file"""
@@ -1182,6 +1182,38 @@ def load_combined_data_for_display() -> pd.DataFrame:
                 filtered_count = original_count - len(school_events_df)
                 if filtered_count > 0:
                     print(f"Filtered out {filtered_count} school activities matching ignored patterns: {ignored_activities}")
+            
+            # Assign kids to school events based on school associations
+            if 'school' in school_events_df.columns and SCHOOL_KID_ASSOCIATIONS:
+                # Create a list to store expanded events (one row per kid)
+                expanded_events = []
+                
+                for _, event in school_events_df.iterrows():
+                    school_name = event.get('school', '')
+                    associated_kids = SCHOOL_KID_ASSOCIATIONS.get(school_name, [])
+                    
+                    if associated_kids:
+                        # Create one event row for each associated kid
+                        for kid in associated_kids:
+                            event_copy = event.copy()
+                            event_copy['kid_name'] = kid
+                            expanded_events.append(event_copy)
+                    else:
+                        # If no kids associated with this school, keep the event as-is
+                        event_copy = event.copy()
+                        event_copy['kid_name'] = None
+                        expanded_events.append(event_copy)
+                
+                # Convert back to DataFrame
+                if expanded_events:
+                    school_events_df = pd.DataFrame(expanded_events)
+                    print(f"Assigned school events to kids: {len(school_events_df)} total events")
+                else:
+                    school_events_df = pd.DataFrame()
+            else:
+                # If no school column or no associations, set kid_name to None
+                if 'kid_name' not in school_events_df.columns:
+                    school_events_df['kid_name'] = None
             
             print(f"Loaded {len(school_events_df)} school events")
         except Exception as e:

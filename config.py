@@ -52,6 +52,15 @@ DATA_CONFIG = {
     'activities_file': 'activities.csv',
 }
 
+# School Calendar to Kid Associations
+# Maps school names to lists of kids who attend that school
+SCHOOL_KID_ASSOCIATIONS = {
+    'Jane Lathrop Stanford Middle School': ['Eli', 'Ari'],
+    'Ohlone Elementary School': ['Eli', 'Ari'],
+    # Add more schools as needed
+    # 'School Name': ['Kid1', 'Kid2'],
+}
+
 # Timezone Settings
 TIMEZONE_CONFIG = {
     # Pacific time offset from UTC (in hours)
