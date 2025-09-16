@@ -6,7 +6,7 @@ Contains all constants and settings for navigation, filtering, and display
 # Navigation Settings
 NAVIGATION_CONFIG = {
     # Time window for looking ahead for activities (in minutes)
-    'look_ahead_minutes': 30,
+    'look_ahead_minutes': 60,
     
     # Home address for fallback navigation
     'home_address': "628 Wellsbury Way, Palo Alto, CA 94306",
@@ -16,6 +16,10 @@ NAVIGATION_CONFIG = {
     
     # Activity types to exclude from navigation (case-insensitive)
     'excluded_activities': [],
+    
+    # School activities to ignore/not display (case-insensitive partial matching)
+    # Examples: ['holiday', 'break', 'conference', 'teacher work day']
+    'ignored_school_activities': [],
     
     # Maximum number of navigation options to show
     'max_navigation_options': 5,

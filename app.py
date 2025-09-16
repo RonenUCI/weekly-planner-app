@@ -1163,6 +1163,26 @@ def load_combined_data_for_display() -> pd.DataFrame:
                 school_events_df['start_date'] = pd.to_datetime(school_events_df['start_date']).dt.date
             if 'end_date' in school_events_df.columns:
                 school_events_df['end_date'] = pd.to_datetime(school_events_df['end_date']).dt.date
+            
+            # Filter out ignored school activities
+            ignored_activities = NAVIGATION_CONFIG['ignored_school_activities']
+            if ignored_activities and 'activity' in school_events_df.columns:
+                original_count = len(school_events_df)
+                # Create a mask for activities that should NOT be ignored
+                keep_mask = pd.Series([True] * len(school_events_df), index=school_events_df.index)
+                
+                for ignored_pattern in ignored_activities:
+                    # Case-insensitive partial matching
+                    pattern_mask = ~school_events_df['activity'].str.contains(
+                        ignored_pattern, case=False, na=False
+                    )
+                    keep_mask = keep_mask & pattern_mask
+                
+                school_events_df = school_events_df[keep_mask]
+                filtered_count = original_count - len(school_events_df)
+                if filtered_count > 0:
+                    print(f"Filtered out {filtered_count} school activities matching ignored patterns: {ignored_activities}")
+            
             print(f"Loaded {len(school_events_df)} school events")
         except Exception as e:
             print(f"Warning: Could not load school events: {e}")
