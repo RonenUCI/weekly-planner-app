@@ -2186,8 +2186,37 @@ def main():
                     for i, day in enumerate(days_order):
                         day_activities = new_weekly_schedule[new_weekly_schedule['Day'] == days_abbrev[i]]
                         if not day_activities.empty:
+                            # Create DataFrame for this day's activities
+                            day_df = pd.DataFrame(day_activities)
+                            
+                            # Merge rows that are identical except for kid_name
+                            if 'kid_name' in day_df.columns and len(day_df) > 1:
+                                # Group by all columns except kid_name
+                                group_columns = [col for col in day_df.columns if col != 'kid_name']
+                                merged_rows = []
+                                
+                                for group_key, group in day_df.groupby(group_columns):
+                                    if len(group) > 1:
+                                        # Multiple kids for same activity - merge kid names
+                                        kid_names = sorted(group['kid_name'].unique())
+                                        merged_kid_name = ' + '.join(kid_names)
+                                        
+                                        # Take the first row and update kid_name
+                                        merged_row = group.iloc[0].copy()
+                                        merged_row['kid_name'] = merged_kid_name
+                                        merged_rows.append(merged_row)
+                                    else:
+                                        # Single kid - keep as is
+                                        merged_rows.append(group.iloc[0])
+                                
+                                # Create new DataFrame with merged rows
+                                day_df = pd.DataFrame(merged_rows)
+                            else:
+                                # No merging needed, use original data
+                                day_df = day_activities
+                            
                             st.markdown(f'<div class="day-header">{day}</div>', unsafe_allow_html=True)
-                            st.markdown(day_activities.to_html(escape=False, index=False), unsafe_allow_html=True)
+                            st.markdown(day_df.to_html(escape=False, index=False), unsafe_allow_html=True)
                 else:
                     st.info("No activities found with the selected filters.")
                 
