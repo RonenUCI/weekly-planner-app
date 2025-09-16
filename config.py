@@ -19,7 +19,7 @@ NAVIGATION_CONFIG = {
     
     # School activities to ignore/not display (case-insensitive partial matching)
     # Examples: ['holiday', 'break', 'conference', 'teacher work day']
-    'ignored_school_activities': [],
+    'ignored_school_activities': ['Homework Habitat'],
     
     # Maximum number of navigation options to show
     'max_navigation_options': 5,
