@@ -1547,8 +1547,8 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
                 text-overflow: ellipsis;
             }
             .weekly-schedule-table th:nth-child(1) { width: 10%; } /* Kid */
-            .weekly-schedule-table th:nth-child(2) { width: 30%; } /* Activity */
-            .weekly-schedule-table th:nth-child(3) { width: 15%; } /* Time */
+            .weekly-schedule-table th:nth-child(2) { width: 25%; } /* Activity */
+            .weekly-schedule-table th:nth-child(3) { width: 20%; } /* Time */
             .weekly-schedule-table th:nth-child(4) { width: 35%; } /* Address */
             .weekly-schedule-table th:nth-child(5) { width: 10%; } /* Pickup */
             .weekly-schedule-table th:nth-child(6) { width: 10%; } /* Return */
