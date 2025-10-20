@@ -1,21 +1,4 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,Jewish: 🍏🍯 Erev Rosh Hashana,00:00:00,0,one-time,"[""monday""]",2025-09-22,2025-09-22,Location TBD,N/A,N/A
-All,Jewish: 🍏🍯 Rosh Hashana 5786,00:00:00,0,one-time,"[""tuesday""]",2025-09-23,2025-09-23,Location TBD,N/A,N/A
-All,Jewish: 🍏🍯 Rosh Hashana II,00:00:00,0,one-time,"[""wednesday""]",2025-09-24,2025-09-24,Location TBD,N/A,N/A
-All,Jewish: ✡️ Tzom Gedaliah,00:00:00,0,one-time,"[""thursday""]",2025-09-25,2025-09-25,Location TBD,N/A,N/A
-All,Jewish: 🕍 Shabbat Shuva,00:00:00,0,weekly,"[""saturday""]",2025-09-27,2025-09-27,Location TBD,N/A,N/A
-All,Jewish: ✡️ Erev Yom Kippur,00:00:00,0,one-time,"[""wednesday""]",2025-10-01,2025-10-01,Location TBD,N/A,N/A
-All,Jewish: ✡️ Yom Kippur,00:00:00,0,one-time,"[""thursday""]",2025-10-02,2025-10-02,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Erev Sukkot,00:00:00,0,one-time,"[""monday""]",2025-10-06,2025-10-06,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Sukkot I,00:00:00,0,one-time,"[""tuesday""]",2025-10-07,2025-10-07,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Sukkot II,00:00:00,0,one-time,"[""wednesday""]",2025-10-08,2025-10-08,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Sukkot III (CH’’M),00:00:00,0,one-time,"[""thursday""]",2025-10-09,2025-10-09,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Sukkot IV (CH’’M),00:00:00,0,one-time,"[""friday""]",2025-10-10,2025-10-10,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Sukkot V (CH’’M),00:00:00,0,one-time,"[""saturday""]",2025-10-11,2025-10-11,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Sukkot VI (CH’’M),00:00:00,0,one-time,"[""sunday""]",2025-10-12,2025-10-12,Location TBD,N/A,N/A
-All,Jewish: 🌿🍋 Sukkot VII (Hoshana Raba),00:00:00,0,one-time,"[""monday""]",2025-10-13,2025-10-13,Location TBD,N/A,N/A
-All,Jewish: ✡️ Shmini Atzeret,00:00:00,0,one-time,"[""tuesday""]",2025-10-14,2025-10-14,Location TBD,N/A,N/A
-All,Jewish: ✡️ Simchat Torah,00:00:00,0,one-time,"[""wednesday""]",2025-10-15,2025-10-15,Location TBD,N/A,N/A
 All,Jewish: 🌒 Rosh Chodesh Cheshvan,00:00:00,0,one-time,"[""wednesday""]",2025-10-22,2025-10-22,Location TBD,N/A,N/A
 All,Jewish: 🌒 Rosh Chodesh Cheshvan,00:00:00,0,one-time,"[""thursday""]",2025-10-23,2025-10-23,Location TBD,N/A,N/A
 All,Jewish: ✡️ Sigd,00:00:00,0,one-time,"[""thursday""]",2025-11-20,2025-11-20,Location TBD,N/A,N/A
@@ -129,3 +112,11 @@ All,Jewish: 🎭️ Shushan Purim Katan,00:00:00,0,one-time,"[""monday""]",2027-
 All,Jewish: 🕍 Shabbat Shekalim,00:00:00,0,weekly,"[""saturday""]",2027-03-06,2027-03-06,Location TBD,N/A,N/A
 All,Jewish: 🌒 Rosh Chodesh Adar II,00:00:00,0,one-time,"[""tuesday""]",2027-03-09,2027-03-09,Location TBD,N/A,N/A
 All,Jewish: 🌒 Rosh Chodesh Adar II,00:00:00,0,one-time,"[""wednesday""]",2027-03-10,2027-03-10,Location TBD,N/A,N/A
+All,Jewish: 🕍 Shabbat Zachor,00:00:00,0,weekly,"[""saturday""]",2027-03-20,2027-03-20,Location TBD,N/A,N/A
+All,Jewish: ✡️ Ta’anit Esther,00:00:00,0,one-time,"[""monday""]",2027-03-22,2027-03-22,Location TBD,N/A,N/A
+All,Jewish: 🎭️📜 Erev Purim,00:00:00,0,one-time,"[""monday""]",2027-03-22,2027-03-22,Location TBD,N/A,N/A
+All,Jewish: 🎭️📜 Purim,00:00:00,0,one-time,"[""tuesday""]",2027-03-23,2027-03-23,Location TBD,N/A,N/A
+All,Jewish: 🎭️📜 Shushan Purim,00:00:00,0,one-time,"[""wednesday""]",2027-03-24,2027-03-24,Location TBD,N/A,N/A
+All,Jewish: 🕍 Shabbat Parah,00:00:00,0,weekly,"[""saturday""]",2027-03-27,2027-03-27,Location TBD,N/A,N/A
+All,Jewish: 🕍 Shabbat HaChodesh,00:00:00,0,weekly,"[""saturday""]",2027-04-03,2027-04-03,Location TBD,N/A,N/A
+All,Jewish: 🌒 Rosh Chodesh Nisan,00:00:00,0,one-time,"[""thursday""]",2027-04-08,2027-04-08,Location TBD,N/A,N/A
