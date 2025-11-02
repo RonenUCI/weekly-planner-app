@@ -1,6 +1,4 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,Jewish: 🌒 Rosh Chodesh Cheshvan,00:00:00,0,one-time,"[""wednesday""]",2025-10-22,2025-10-22,Location TBD,N/A,N/A
-All,Jewish: 🌒 Rosh Chodesh Cheshvan,00:00:00,0,one-time,"[""thursday""]",2025-10-23,2025-10-23,Location TBD,N/A,N/A
 All,Jewish: ✡️ Sigd,00:00:00,0,one-time,"[""thursday""]",2025-11-20,2025-11-20,Location TBD,N/A,N/A
 All,Jewish: 🌒 Rosh Chodesh Kislev,00:00:00,0,one-time,"[""friday""]",2025-11-21,2025-11-21,Location TBD,N/A,N/A
 All,Jewish: 🕎1️⃣ Chanukah: 1 Candle,00:00:00,0,one-time,"[""sunday""]",2025-12-14,2025-12-14,Location TBD,N/A,N/A
@@ -120,3 +118,11 @@ All,Jewish: 🎭️📜 Shushan Purim,00:00:00,0,one-time,"[""wednesday""]",2027
 All,Jewish: 🕍 Shabbat Parah,00:00:00,0,weekly,"[""saturday""]",2027-03-27,2027-03-27,Location TBD,N/A,N/A
 All,Jewish: 🕍 Shabbat HaChodesh,00:00:00,0,weekly,"[""saturday""]",2027-04-03,2027-04-03,Location TBD,N/A,N/A
 All,Jewish: 🌒 Rosh Chodesh Nisan,00:00:00,0,one-time,"[""thursday""]",2027-04-08,2027-04-08,Location TBD,N/A,N/A
+All,Jewish: 🕍 Shabbat HaGadol,00:00:00,0,weekly,"[""saturday""]",2027-04-17,2027-04-17,Location TBD,N/A,N/A
+All,Jewish: 🇮🇱 Yom HaAliyah,00:00:00,0,one-time,"[""saturday""]",2027-04-17,2027-04-17,Location TBD,N/A,N/A
+All,Jewish: ✡️ Ta’anit Bechorot,00:00:00,0,one-time,"[""wednesday""]",2027-04-21,2027-04-21,Location TBD,N/A,N/A
+All,Jewish: 🫓🍷 Erev Pesach,00:00:00,0,one-time,"[""wednesday""]",2027-04-21,2027-04-21,Location TBD,N/A,N/A
+All,Jewish: 🫓🍷 Pesach I,00:00:00,0,one-time,"[""thursday""]",2027-04-22,2027-04-22,Location TBD,N/A,N/A
+All,Jewish: 🫓 Pesach II,00:00:00,0,one-time,"[""friday""]",2027-04-23,2027-04-23,Location TBD,N/A,N/A
+All,Jewish: 🫓 Pesach III (CH’’M),00:00:00,0,one-time,"[""saturday""]",2027-04-24,2027-04-24,Location TBD,N/A,N/A
+All,Jewish: 🫓 Pesach IV (CH’’M),00:00:00,0,one-time,"[""sunday""]",2027-04-25,2027-04-25,Location TBD,N/A,N/A
