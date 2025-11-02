@@ -1327,6 +1327,28 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                 if not is_active:
                     continue
                 
+                # Handle bi-weekly frequency: only show on alternating weeks
+                frequency = activity.get('frequency', '').lower()
+                if frequency == 'bi-weekly':
+                    # Calculate week number since start date
+                    # Week 0 is the first week (containing start_date), week 1 is next week, etc.
+                    # Only show on even weeks (0, 2, 4, ...)
+                    start_date = activity['start_date']
+                    # Find the Monday of the week containing the start_date
+                    start_date_weekday = start_date.weekday()  # Monday=0, Sunday=6
+                    start_date_monday = start_date - timedelta(days=start_date_weekday)
+                    # Calculate days between Monday of start week and Monday of current week
+                    days_since_start_monday = (week_start - start_date_monday).days
+                    # If current week is before the start week, don't show yet
+                    if days_since_start_monday < 0:
+                        continue
+                    # Calculate which week this is (0-based from start week)
+                    week_number = days_since_start_monday // 7
+                    # Only show on even weeks (every other week)
+                    if week_number % 2 != 0:
+                        print(f"DEBUG: Skipping bi-weekly activity {activity.get('activity', 'Unknown')} - week {week_number} is odd (start: {start_date}, current week: {week_start})")
+                        continue
+                
                 # Handle different frequency types
                 if activity.get('frequency') == 'one-time':
                     # For one-time events, days_of_week contains the actual day
