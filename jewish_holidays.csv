@@ -1,6 +1,4 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,Jewish: ✡️ Sigd,00:00:00,0,one-time,"[""thursday""]",2025-11-20,2025-11-20,Location TBD,N/A,N/A
-All,Jewish: 🌒 Rosh Chodesh Kislev,00:00:00,0,one-time,"[""friday""]",2025-11-21,2025-11-21,Location TBD,N/A,N/A
 All,Jewish: 🕎1️⃣ Chanukah: 1 Candle,00:00:00,0,one-time,"[""sunday""]",2025-12-14,2025-12-14,Location TBD,N/A,N/A
 All,Jewish: 🕎2️⃣ Chanukah: 2 Candles,00:00:00,0,one-time,"[""monday""]",2025-12-15,2025-12-15,Location TBD,N/A,N/A
 All,Jewish: 🕎3️⃣ Chanukah: 3 Candles,00:00:00,0,one-time,"[""tuesday""]",2025-12-16,2025-12-16,Location TBD,N/A,N/A
@@ -126,3 +124,13 @@ All,Jewish: 🫓🍷 Pesach I,00:00:00,0,one-time,"[""thursday""]",2027-04-22,20
 All,Jewish: 🫓 Pesach II,00:00:00,0,one-time,"[""friday""]",2027-04-23,2027-04-23,Location TBD,N/A,N/A
 All,Jewish: 🫓 Pesach III (CH’’M),00:00:00,0,one-time,"[""saturday""]",2027-04-24,2027-04-24,Location TBD,N/A,N/A
 All,Jewish: 🫓 Pesach IV (CH’’M),00:00:00,0,one-time,"[""sunday""]",2027-04-25,2027-04-25,Location TBD,N/A,N/A
+All,Jewish: 🫓 Pesach V (CH’’M),00:00:00,0,one-time,"[""monday""]",2027-04-26,2027-04-26,Location TBD,N/A,N/A
+All,Jewish: 🫓 Pesach VI (CH’’M),00:00:00,0,one-time,"[""tuesday""]",2027-04-27,2027-04-27,Location TBD,N/A,N/A
+All,Jewish: 🫓 Pesach VII,00:00:00,0,one-time,"[""wednesday""]",2027-04-28,2027-04-28,Location TBD,N/A,N/A
+All,Jewish: 🫓 Pesach VIII,00:00:00,0,one-time,"[""thursday""]",2027-04-29,2027-04-29,Location TBD,N/A,N/A
+All,Jewish: ✡️ Yom HaShoah,00:00:00,0,one-time,"[""tuesday""]",2027-05-04,2027-05-04,Location TBD,N/A,N/A
+All,Jewish: 🌒 Rosh Chodesh Iyyar,00:00:00,0,one-time,"[""friday""]",2027-05-07,2027-05-07,Location TBD,N/A,N/A
+All,Jewish: 🌒 Rosh Chodesh Iyyar,00:00:00,0,one-time,"[""saturday""]",2027-05-08,2027-05-08,Location TBD,N/A,N/A
+All,Jewish: 🇮🇱 Yom HaZikaron,00:00:00,0,one-time,"[""tuesday""]",2027-05-11,2027-05-11,Location TBD,N/A,N/A
+All,Jewish: 🇮🇱 Yom HaAtzma’ut,00:00:00,0,one-time,"[""wednesday""]",2027-05-12,2027-05-12,Location TBD,N/A,N/A
+All,Jewish: ✡️ Pesach Sheni,00:00:00,0,one-time,"[""friday""]",2027-05-21,2027-05-21,Location TBD,N/A,N/A

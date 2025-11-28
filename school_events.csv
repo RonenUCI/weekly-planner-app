@@ -1,136 +1,142 @@
 kid_name,activity,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-Yoni,School: PiE Rally Days Challenge Grant Starts,00:00:00,0.0,one-time,"[""saturday""]",2025-11-01,2025-11-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Aztec Dance Assembly,13:00:00,1.0,one-time,"[""monday""]",2025-11-03,2025-11-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Dia De Los Muertos,12:00:00,1.0,one-time,"[""monday""]",2025-11-03,2025-11-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Site Council Meeting,15:00:00,1.0,one-time,"[""tuesday""]",2025-11-04,2025-11-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: Parent Ed Book Club #2,19:30:00,1.0,one-time,"[""wednesday""]",2025-11-05,2025-11-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,School: Parent Ed Book Club #2,19:30:00,1.0,one-time,"[""wednesday""]",2025-11-05,2025-11-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2025-11-06,2025-11-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2025-11-06,2025-11-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: Principal Coffee,08:30:00,0.75,one-time,"[""friday""]",2025-11-07,2025-11-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: Picture Make-Up Day,00:00:00,0.0,one-time,"[""friday""]",2025-11-07,2025-11-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: International Potluck,17:30:00,2.0,one-time,"[""friday""]",2025-11-07,2025-11-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: Principal Coffee,08:30:00,0.75,one-time,"[""friday""]",2025-11-07,2025-11-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-11-10,2025-11-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: Tuesday Bell Schedule - Dismissal at 3:15 PM,00:00:00,0.0,one-time,"[""monday""]",2025-11-10,2025-11-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,School: Tuesday Bell Schedule - Dismissal at 3:15 PM,00:00:00,0.0,one-time,"[""monday""]",2025-11-10,2025-11-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,School: No School- Holiday,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,School: No School- Holiday,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: Veterans Day Holiday - No School,00:00:00,0.0,one-time,"[""tuesday""]",2025-11-11,2025-11-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-11-12,2025-11-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2025-11-13,2025-11-13,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: Community Chat/Principal Zoom,08:45:00,0.75,one-time,"[""friday""]",2025-11-14,2025-11-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,School: 7th Grade Ice Skating Party (PTA sponsored) ,17:30:00,2.0,one-time,"[""friday""]",2025-11-14,2025-11-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,School: 7th Grade Ice Skating Party (PTA sponsored) ,17:30:00,2.0,one-time,"[""friday""]",2025-11-14,2025-11-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,School: Community Chat/Principal Zoom,08:45:00,0.75,one-time,"[""friday""]",2025-11-14,2025-11-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2025-11-16,2025-11-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School:  PiE Rally Days Challenge Grant Ends,00:00:00,0.0,one-time,"[""monday""]",2025-11-17,2025-11-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2025-11-20,2025-11-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: Restructured Thursday - Dismissal at 2:30 PM,00:00:00,0.0,one-time,"[""thursday""]",2025-11-20,2025-11-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,School: Restructured Thursday - Dismissal at 2:30 PM,00:00:00,0.0,one-time,"[""thursday""]",2025-11-20,2025-11-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-11-21,2025-11-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-11-21,2025-11-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-11-21,2025-11-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: Thanksgiving Holiday,00:00:00,0.0,one-time,"[""monday""]",2025-11-24,2025-11-24,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: No School- Thanksgiving Break,00:00:00,0.0,one-time,"[""monday""]",2025-11-24,2025-11-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,School: No School- Thanksgiving Break,00:00:00,0.0,one-time,"[""monday""]",2025-11-24,2025-11-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-03,2025-12-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-12-03,2025-12-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""wednesday""]",2025-12-03,2025-12-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2025-12-04,2025-12-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: Principal Coffee,08:30:00,0.75,one-time,"[""friday""]",2025-12-05,2025-12-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,School: Principal Coffee,08:30:00,0.75,one-time,"[""friday""]",2025-12-05,2025-12-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Dance: All Grade Levels,17:00:00,2.0,one-time,"[""friday""]",2025-12-05,2025-12-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Dance: All Grade Levels,17:00:00,2.0,one-time,"[""friday""]",2025-12-05,2025-12-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Principal Coffee,08:30:00,0.75,one-time,"[""friday""]",2025-12-05,2025-12-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""saturday""]",2025-12-06,2025-12-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""saturday""]",2025-12-06,2025-12-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Book Fair,00:00:00,0.0,one-time,"[""monday""]",2025-12-08,2025-12-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,School: Community Chat/Principal Zoom,08:45:00,0.75,one-time,"[""friday""]",2025-12-12,2025-12-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,School: Community Chat/Principal Zoom,08:45:00,0.75,one-time,"[""friday""]",2025-12-12,2025-12-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2025-12-15,2025-12-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,School: Ohlone Parent Coffee: Palo Alto Middle College ,08:30:00,1.0,one-time,"[""tuesday""]",2025-12-16,2025-12-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2025-12-17,2025-12-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2025-12-18,2025-12-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-12-19,2025-12-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-12-19,2025-12-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2025-12-19,2025-12-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: No School- Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2025-12-19,2025-12-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,School: No School- Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: No School- Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,School: School Holiday - Winter Break,00:00:00,0.0,one-time,"[""monday""]",2025-12-22,2025-12-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Staff Development Day,00:00:00,0.0,one-time,"[""monday""]",2026-01-05,2026-01-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: K-5 Return to School,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: Students return to school,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,School: Students return to school,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Students return to school,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,School: K-5 Return to School,00:00:00,0.0,one-time,"[""tuesday""]",2026-01-06,2026-01-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-01-08,2026-01-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-01-08,2026-01-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""saturday""]",2026-01-10,2026-01-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""saturday""]",2026-01-10,2026-01-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-01-12,2026-01-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-01-14,2026-01-14,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""wednesday""]",2026-01-14,2026-01-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""wednesday""]",2026-01-14,2026-01-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-01-15,2026-01-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-01-19,2026-01-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,School: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-01-19,2026-01-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-01-19,2026-01-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: 8th Grade Parent Night (GUNN) for Rising 9th Graders,18:30:00,1.5,one-time,"[""wednesday""]",2026-01-21,2026-01-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Incoming 6th Grade Parent Information Night,18:00:00,1.5,one-time,"[""wednesday""]",2026-01-21,2026-01-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Incoming 6th Grade Parent Information Night,18:00:00,1.5,one-time,"[""wednesday""]",2026-01-21,2026-01-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: 8th Grade Parent Night (GUNN) for Rising 9th Graders,18:30:00,1.5,one-time,"[""wednesday""]",2026-01-21,2026-01-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-01-22,2026-01-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Winter Lodge Ice Skating Party,17:30:00,2.0,one-time,"[""friday""]",2026-01-23,2026-01-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-01-26,2026-01-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: School Play Auditions Grade 4,14:45:00,1.33,one-time,"[""tuesday""]",2026-01-27,2026-01-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,School: AMC 8 - After School - See Schoology for Info,15:15:00,1.75,one-time,"[""tuesday""]",2026-01-27,2026-01-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: AMC 8 - After School - See Schoology for Info,15:15:00,1.75,one-time,"[""tuesday""]",2026-01-27,2026-01-27,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: School Play Auditions Grade 5,13:25:00,1.33,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,School: PTA Association Meeting ,08:30:00,1.5,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: 8th Grade Parent Night (PALY) for Rising 9th Graders,18:30:00,2.0,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: 8th Grade Course Selection Workshop (GUNN) for Rising 9th Graders,18:30:00,1.0,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: PTA Association Meeting ,08:30:00,1.5,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: 8th Grade Course Selection Workshop (GUNN) for Rising 9th Graders,18:30:00,1.0,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: 8th Grade Parent Night (PALY) for Rising 9th Graders,18:30:00,2.0,one-time,"[""wednesday""]",2026-01-28,2026-01-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Winter Lodge Ice Skating Party,17:30:00,2.0,one-time,"[""saturday""]",2026-01-31,2026-01-31,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: Parent Ed Book Club #3,19:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Choice Program Info Night: Connections (Incoming 6th Graders),18:00:00,1.0,one-time,"[""monday""]",2026-02-02,2026-02-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Choice Program Info Night: Connections (Incoming 6th Graders),18:00:00,1.0,one-time,"[""monday""]",2026-02-02,2026-02-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Choice Program Info Night: Spanish/Mandarin Bridge (Incoming 6th Graders),18:00:00,1.0,one-time,"[""tuesday""]",2026-02-03,2026-02-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Choice Program Info Night: Spanish/Mandarin Bridge (Incoming 6th Graders),18:00:00,1.0,one-time,"[""tuesday""]",2026-02-03,2026-02-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Choice Program Info Night: Sustainability (Incoming 6th Graders),18:00:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,School: Parent Ed Book Club #3,19:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-02-05,2026-02-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,School: Parent Ed Book Club #3,19:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Choice Program Info Night: Sustainability (Incoming 6th Graders),18:00:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-02-04,2026-02-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-02-05,2026-02-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-02-05,2026-02-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: *Farm Work Day,09:00:00,4.0,one-time,"[""saturday""]",2026-02-07,2026-02-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-02-09,2026-02-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Sagie,School: No Shcool- Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,School: No Shcool- Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""wednesday""]",2026-02-11,2026-02-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: PAMC Tours and Information for Incoming 9th Graders,00:00:00,0.0,one-time,"[""wednesday""]",2026-02-11,2026-02-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: PAMC application window closes,00:00:00,0.0,one-time,"[""thursday""]",2026-02-12,2026-02-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: PAMC application window closes,00:00:00,0.0,one-time,"[""thursday""]",2026-02-12,2026-02-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: School Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,School: No School- Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: No School- Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-02-13,2026-02-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: School Holiday - President's  Day,00:00:00,0.0,one-time,"[""monday""]",2026-02-16,2026-02-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Lunar New Year Celebration,11:00:00,1.0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Ohlone Online Auction,00:00:00,0.0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-02-18,2026-02-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-02-19,2026-02-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-02-19,2026-02-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,School: Middle School Choice Program Applications Due,16:00:00,1.0,one-time,"[""friday""]",2026-02-20,2026-02-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Middle School Choice Program Applications Due,16:00:00,1.0,one-time,"[""friday""]",2026-02-20,2026-02-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Middle School Choice Lottery,00:00:00,0.0,one-time,"[""tuesday""]",2026-02-24,2026-02-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Middle School Choice Lottery,00:00:00,0.0,one-time,"[""tuesday""]",2026-02-24,2026-02-24,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Heart and Soul Black History Month Bike Ride,00:00:00,0.0,one-time,"[""saturday""]",2026-02-28,2026-02-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-03-02,2026-03-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-03-02,2026-03-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-03-04,2026-03-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,School: Choice Program Parent Acceptance Deadline,16:00:00,1.0,one-time,"[""wednesday""]",2026-03-04,2026-03-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,School: Choice Program Parent Acceptance Deadline,16:00:00,1.0,one-time,"[""wednesday""]",2026-03-04,2026-03-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-03-05,2026-03-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: Local Holiday- No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,School: Local Holiday- No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Local Holiday- No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Local Holiday - No School,00:00:00,0.0,one-time,"[""monday""]",2026-03-09,2026-03-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: No School -Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,School: No School -Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: No School -Staff Development Day,00:00:00,0.0,one-time,"[""tuesday""]",2026-03-10,2026-03-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-03-12,2026-03-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,School: Music Registration Forms Due to 5th Grade Teachers,00:00:00,0.0,one-time,"[""friday""]",2026-03-13,2026-03-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Music Registration Forms Due to 5th Grade Teachers,00:00:00,0.0,one-time,"[""friday""]",2026-03-13,2026-03-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-03-18,2026-03-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: School Play Performance,16:30:00,1.0,one-time,"[""thursday""]",2026-03-19,2026-03-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: School Play Performance,19:00:00,1.0,one-time,"[""friday""]",2026-03-20,2026-03-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: School Play Performance,14:00:00,1.0,one-time,"[""saturday""]",2026-03-21,2026-03-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: STEAM Fair,17:00:00,2.0,one-time,"[""friday""]",2026-03-27,2026-03-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: *Farm Work Day,09:00:00,4.0,one-time,"[""sunday""]",2026-03-29,2026-03-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,School: Site Council Meeting,15:00:00,1.0,one-time,"[""monday""]",2026-03-30,2026-03-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-04-01,2026-04-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-04-02,2026-04-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Early Release Day,12:15:00,1.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: Minimum Day,00:00:00,0.0,one-time,"[""friday""]",2026-04-03,2026-04-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Holiday - Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: No School- Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,School: No School- Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: No School- Spring Break,00:00:00,0.0,one-time,"[""monday""]",2026-04-06,2026-04-06,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-04-16,2026-04-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-04-16,2026-04-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,School: CAASPP Testing ,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,School: CAASPP Testing ,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Earth Week,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Walk and Roll Week,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: CAASPP Testing ,00:00:00,0.0,one-time,"[""monday""]",2026-04-20,2026-04-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Staff Appreciation,00:00:00,0.0,one-time,"[""tuesday""]",2026-04-21,2026-04-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-04-22,2026-04-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-04-23,2026-04-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Talent Show/ Ice Cream Social,00:00:00,0.0,one-time,"[""sunday""]",2026-04-26,2026-04-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: AVID Family Night,17:00:00,3.0,one-time,"[""wednesday""]",2026-04-29,2026-04-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,School: AVID Family Night,17:00:00,3.0,one-time,"[""wednesday""]",2026-04-29,2026-04-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,School: AVID Family Night,17:00:00,3.0,one-time,"[""wednesday""]",2026-04-29,2026-04-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday""]",2026-04-30,2026-04-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Ariella,School: No School- Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Yoni,School: Local Holiday - No School,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,School: No School- Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,School: Local Holiday - No School,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,School: No School- Local Holiday,00:00:00,0.0,one-time,"[""friday""]",2026-05-01,2026-05-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Yoni,School: May Fete Parade,10:00:00,1.0,one-time,"[""saturday""]",2026-05-02,2026-05-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-05-06,2026-05-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: PTA Executive Board Meeting,08:30:00,1.5,one-time,"[""thursday""]",2026-05-07,2026-05-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
@@ -140,9 +146,9 @@ Yoni,School: Ohlone Pop Up Makerspace @ Lunch,12:00:00,1.0,one-time,"[""thursday
 Yoni,School: Farm Council Meeting,08:30:00,1.0,one-time,"[""monday""]",2026-05-18,2026-05-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Community Wednesday,13:30:00,1.0,one-time,"[""wednesday""]",2026-05-20,2026-05-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: PTA General Meeting,08:30:00,1.0,one-time,"[""thursday""]",2026-05-21,2026-05-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
-Yoni,School: Memorial Day Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,School: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,School: No School- Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,School: Memorial Day Holiday,00:00:00,0.0,one-time,"[""monday""]",2026-05-25,2026-05-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: *Farm Work Day,09:00:00,4.0,one-time,"[""saturday""]",2026-05-30,2026-05-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: Early Release Day,12:15:00,1.0,one-time,"[""tuesday""]",2026-06-02,2026-06-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Yoni,School: 5th Grade Promotion Party,10:00:00,3.0,one-time,"[""wednesday""]",2026-06-03,2026-06-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A

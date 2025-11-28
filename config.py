@@ -61,6 +61,38 @@ SCHOOL_KID_ASSOCIATIONS = {
     # 'School Name': ['Kid1', 'Kid2'],
 }
 
+# Minimum Day Configuration by School
+# Each school can define:
+#   - pattern: Regular expression to match minimum day events (case-insensitive)
+#   - end_times: Dictionary mapping day names (lowercase) to end times (HH:MM format)
+#     If a day is not specified, the default end time from duration will be used
+SCHOOL_MINIMUM_DAY_CONFIG = {
+    'Jane Lathrop Stanford Middle School': {
+        'pattern': r'minimum day',
+        'end_times': {
+            'friday': '12:45',
+            'thursday': '14:30',
+        }
+    },
+    'Ohlone Elementary School': {
+        'pattern': r'minimum day|early release day',
+        'end_times': {
+            'monday': '12:15',
+            'tuesday': '12:15',
+            'wednesday': '12:15',
+            'thursday': '12:15',
+            'friday': '12:15',
+        }
+    },
+    # Add more schools as needed
+    # 'School Name': {
+    #     'pattern': r'minimum day',
+    #     'end_times': {
+    #         'friday': '12:30',
+    #     }
+    # },
+}
+
 # Timezone Settings
 TIMEZONE_CONFIG = {
     # Pacific time offset from UTC (in hours)

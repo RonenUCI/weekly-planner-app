@@ -7,7 +7,12 @@ import webbrowser
 import os
 from typing import Dict, List, Tuple
 import json
-from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS
+import re
+from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS, SCHOOL_MINIMUM_DAY_CONFIG
+
+# Cache for school events to avoid reloading on every call
+_school_events_cache = None
+_school_events_cache_timestamp = None
 
 def load_activities_from_google_drive():
     """Load activities from Google Drive - no fallback to local file"""
@@ -1137,6 +1142,119 @@ def load_data_from_csv(filename: str) -> pd.DataFrame:
         'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
     ])
 
+def _load_school_events_cached():
+    """Load and cache school events to avoid reloading on every call"""
+    global _school_events_cache, _school_events_cache_timestamp
+    
+    # Check if we have a cached version and file hasn't changed
+    if _school_events_cache is not None and _school_events_cache_timestamp is not None:
+        try:
+            file_mtime = os.path.getmtime(DATA_CONFIG['school_events_file'])
+            if file_mtime == _school_events_cache_timestamp:
+                return _school_events_cache
+        except:
+            pass  # If we can't check mtime, reload anyway
+    
+    # Load fresh data
+    if not os.path.exists(DATA_CONFIG['school_events_file']):
+        return pd.DataFrame()
+    
+    try:
+        school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'])
+        if 'days_of_week' in school_events_df.columns:
+            school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
+                lambda x: json.loads(x) if isinstance(x, str) else x
+            )
+        # Convert date columns to datetime objects
+        if 'start_date' in school_events_df.columns:
+            school_events_df['start_date'] = pd.to_datetime(school_events_df['start_date']).dt.date
+        if 'end_date' in school_events_df.columns:
+            school_events_df['end_date'] = pd.to_datetime(school_events_df['end_date']).dt.date
+        
+        # Cache the result
+        _school_events_cache = school_events_df
+        _school_events_cache_timestamp = os.path.getmtime(DATA_CONFIG['school_events_file'])
+        return school_events_df
+    except Exception as e:
+        print(f"Warning: Could not load school events: {e}")
+        return pd.DataFrame()
+
+def get_minimum_day_end_time(kid_name: str, activity_date: date, day_of_week: str, school_events_df: pd.DataFrame = None) -> str:
+    """
+    Check if there's a Minimum Day event for the given kid on the given date based on school configuration.
+    Returns the override end time if found, or None if not a minimum day.
+    
+    Uses SCHOOL_MINIMUM_DAY_CONFIG to determine:
+    - Which regex pattern matches minimum day events for the kid's school
+    - What end time to use based on the day of week
+    
+    Args:
+        kid_name: Name of the kid
+        activity_date: Date to check for minimum day
+        day_of_week: Day of week name (e.g., 'friday', 'thursday')
+        school_events_df: Optional pre-loaded school events dataframe. If not provided, will load from cache.
+    
+    Returns:
+        End time string in HH:MM format, or None if no minimum day override applies
+    """
+    # Find which school this kid goes to
+    kid_school = None
+    for school_name, kids in SCHOOL_KID_ASSOCIATIONS.items():
+        if kid_name in kids:
+            kid_school = school_name
+            break
+    
+    if kid_school is None:
+        # Kid not associated with any school, no override
+        return None
+    
+    # Get minimum day configuration for this school
+    school_config = SCHOOL_MINIMUM_DAY_CONFIG.get(kid_school)
+    if school_config is None:
+        # No minimum day configuration for this school
+        return None
+    
+    pattern = school_config.get('pattern')
+    end_times = school_config.get('end_times', {})
+    
+    if not pattern:
+        return None
+    
+    # Use provided dataframe or load from cache
+    try:
+        if school_events_df is None:
+            school_events_df = _load_school_events_cached()
+        
+        if school_events_df.empty:
+            return None
+        
+        # Check for minimum day event matching the pattern for this kid on this date
+        # Compile regex pattern for case-insensitive matching
+        regex_pattern = re.compile(pattern, re.IGNORECASE)
+        
+        # Filter events for this kid on this date
+        kid_events = school_events_df[
+            (school_events_df['kid_name'] == kid_name) &
+            (school_events_df['start_date'] == activity_date)
+        ]
+        
+        # Check if any event matches the minimum day pattern
+        for _, event in kid_events.iterrows():
+            activity_name = str(event.get('activity', ''))
+            if regex_pattern.search(activity_name):
+                # Found a minimum day event - get end time for this day of week
+                day_lower = day_of_week.lower()
+                end_time = end_times.get(day_lower)
+                if end_time:
+                    return end_time
+                # If day not in config, return None (use default)
+                return None
+        
+        return None
+    except Exception as e:
+        print(f"Warning: Could not check for minimum day: {e}")
+        return None
+
 def load_combined_data_for_display() -> pd.DataFrame:
     """Load and combine Google Drive activities with school_events.csv and jewish_holidays.csv for display purposes"""
     # Load main activities from Google Drive
@@ -1389,6 +1507,14 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                                 start_datetime = datetime.combine(date.today(), start_time)
                                 end_datetime = start_datetime + timedelta(minutes=duration_minutes)
                                 end_time = end_datetime.time().strftime('%H:%M')
+                                
+                                # Check for minimum day override for school activities
+                                activity_name_lower = str(activity['activity']).lower()
+                                kid_name_full = activity['kid_name']
+                                if 'school' in activity_name_lower:
+                                    minimum_day_end = get_minimum_day_end_time(kid_name_full, day_date, day)
+                                    if minimum_day_end:
+                                        end_time = minimum_day_end
                                 
                                 # Format start time consistently with leading zeros
                                 formatted_start_time = start_time.strftime('%H:%M')
@@ -1787,6 +1913,14 @@ def display_day_activities(display_df, target_date):
                     start_datetime = datetime.combine(target_date, start_time)
                     end_datetime = start_datetime + timedelta(minutes=duration_minutes)
                     end_time = end_datetime.time().strftime('%H:%M')
+                    
+                    # Check for minimum day override for school activities
+                    activity_name_lower = str(activity['activity']).lower()
+                    kid_name_full = activity['kid_name']
+                    if 'school' in activity_name_lower:
+                        minimum_day_end = get_minimum_day_end_time(kid_name_full, target_date, day_name)
+                        if minimum_day_end:
+                            end_time = minimum_day_end
                     
                     formatted_start_time = start_time.strftime('%H:%M')
                     
