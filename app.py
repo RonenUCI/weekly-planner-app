@@ -1604,15 +1604,16 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                                 else:
                                     day_abbrev = day[0].upper()
                                 
-                                # Get calendar source and color
+                                # Get calendar source and color class
                                 calendar_source = activity.get('calendar_source', 'Family')
                                 if pd.isna(calendar_source):
                                     calendar_source = 'Family'
-                                calendar_color = get_calendar_color(str(calendar_source))
+                                calendar_source = str(calendar_source).lower()
                                 
-                                # Color the activity name - use !important for mobile compatibility
+                                # Color the activity name using CSS class (more reliable on mobile)
                                 activity_name = activity['activity']
-                                colored_activity = f'<span style="color: {calendar_color} !important; -webkit-text-fill-color: {calendar_color} !important;">{activity_name}</span>'
+                                color_class = f'calendar-{calendar_source}'
+                                colored_activity = f'<span class="{color_class}">{activity_name}</span>'
                                 
                                 weekly_data.append({
                                     'Day': day_abbrev,
@@ -1678,7 +1679,8 @@ def display_calendar_legend():
     """Display color-coded legend for calendar sources"""
     legend_items = []
     for source, color in CALENDAR_COLORS.items():
-        legend_items.append(f'<span style="color: {color} !important; -webkit-text-fill-color: {color} !important; font-weight: bold;">●</span> {source}')
+        source_lower = source.lower()
+        legend_items.append(f'<span class="calendar-{source_lower}" style="font-weight: bold;">●</span> {source}')
     
     legend_html = '<div style="margin-bottom: 10px; padding: 8px; background-color: #f0f0f0; border-radius: 4px; display: block; width: 100%;">'
     legend_html += '<strong>Calendar Sources:</strong> ' + ' | '.join(legend_items)
@@ -1801,15 +1803,12 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             .weekly-schedule-table th:nth-child(4) { width: 35%; } /* Address */
             .weekly-schedule-table th:nth-child(5) { width: 10%; } /* Pickup */
             .weekly-schedule-table th:nth-child(6) { width: 10%; } /* Return */
-            /* Ensure colors work on mobile - preserve inline color styles */
+            /* Calendar source color classes - more reliable than inline styles on mobile */
+            .calendar-school { color: #87ceeb !important; }
+            .calendar-jewish { color: #ffd700 !important; }
+            .calendar-family { color: #000000 !important; }
             .weekly-schedule-table td span {
                 display: inline !important;
-            }
-            /* Mobile-specific fixes to ensure colors display */
-            @media (max-width: 768px) {
-                .weekly-schedule-table td span[style*="color"] {
-                    -webkit-text-fill-color: unset !important;
-                }
             }
             </style>
             """, unsafe_allow_html=True)
@@ -1943,6 +1942,10 @@ def display_monitor_dashboard(current_time=None):
         right: 10px;
         z-index: 1000;
     }
+    /* Calendar source color classes for monitor view */
+    .calendar-school { color: #87ceeb !important; }
+    .calendar-jewish { color: #ffd700 !important; }
+    .calendar-family { color: #000000 !important; }
     </style>
     """, unsafe_allow_html=True)
     
@@ -2112,14 +2115,19 @@ def display_day_activities(display_df, target_date):
             if len(activity_name) > 20:
                 activity_name = activity_name[:17] + "..."
             
-            # Get color for calendar source
-            calendar_color = activity.get('calendar_color', '#000000')
+            # Get color class for calendar source
+            calendar_source = activity.get('calendar_source', 'Family')
+            if isinstance(calendar_source, str):
+                calendar_source = calendar_source.lower()
+            else:
+                calendar_source = 'family'
+            color_class = f'calendar-{calendar_source}'
             
             st.markdown(f'''
             <div class="monitor-activity" style="color: #000000 !important; background-color: transparent !important;">
                 <span class="monitor-activity-time" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
                 <span class="monitor-activity-details" style="color: #000000 !important; background-color: transparent !important;">
-                    <strong style="color: {calendar_color} !important; -webkit-text-fill-color: {calendar_color} !important;">{activity_name}</strong> ({activity["kid"]})
+                    <strong class="{color_class}">{activity_name}</strong> ({activity["kid"]})
                 </span>
             </div>
             ''', unsafe_allow_html=True)
