@@ -1610,9 +1610,9 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                                     calendar_source = 'Family'
                                 calendar_color = get_calendar_color(str(calendar_source))
                                 
-                                # Color the activity name
+                                # Color the activity name - use !important for mobile compatibility
                                 activity_name = activity['activity']
-                                colored_activity = f'<span style="color: {calendar_color};">{activity_name}</span>'
+                                colored_activity = f'<span style="color: {calendar_color} !important; -webkit-text-fill-color: {calendar_color} !important;">{activity_name}</span>'
                                 
                                 weekly_data.append({
                                     'Day': day_abbrev,
@@ -1678,9 +1678,9 @@ def display_calendar_legend():
     """Display color-coded legend for calendar sources"""
     legend_items = []
     for source, color in CALENDAR_COLORS.items():
-        legend_items.append(f'<span style="color: {color}; font-weight: bold;">●</span> {source}')
+        legend_items.append(f'<span style="color: {color} !important; -webkit-text-fill-color: {color} !important; font-weight: bold;">●</span> {source}')
     
-    legend_html = '<div style="margin-bottom: 10px; padding: 8px; background-color: #f0f0f0; border-radius: 4px;">'
+    legend_html = '<div style="margin-bottom: 10px; padding: 8px; background-color: #f0f0f0; border-radius: 4px; display: block; width: 100%;">'
     legend_html += '<strong>Calendar Sources:</strong> ' + ' | '.join(legend_items)
     legend_html += '</div>'
     st.markdown(legend_html, unsafe_allow_html=True)
@@ -1801,6 +1801,16 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             .weekly-schedule-table th:nth-child(4) { width: 35%; } /* Address */
             .weekly-schedule-table th:nth-child(5) { width: 10%; } /* Pickup */
             .weekly-schedule-table th:nth-child(6) { width: 10%; } /* Return */
+            /* Ensure colors work on mobile - preserve inline color styles */
+            .weekly-schedule-table td span {
+                display: inline !important;
+            }
+            /* Mobile-specific fixes to ensure colors display */
+            @media (max-width: 768px) {
+                .weekly-schedule-table td span[style*="color"] {
+                    -webkit-text-fill-color: unset !important;
+                }
+            }
             </style>
             """, unsafe_allow_html=True)
             
@@ -2109,7 +2119,7 @@ def display_day_activities(display_df, target_date):
             <div class="monitor-activity" style="color: #000000 !important; background-color: transparent !important;">
                 <span class="monitor-activity-time" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
                 <span class="monitor-activity-details" style="color: #000000 !important; background-color: transparent !important;">
-                    <strong style="color: {calendar_color};">{activity_name}</strong> ({activity["kid"]})
+                    <strong style="color: {calendar_color} !important; -webkit-text-fill-color: {calendar_color} !important;">{activity_name}</strong> ({activity["kid"]})
                 </span>
             </div>
             ''', unsafe_allow_html=True)
