@@ -184,15 +184,17 @@ class ICSCalendarScraper:
                 # Determine frequency and days - let subclasses override
                 frequency, days_of_week = self._determine_frequency_and_days(event, event_date)
                 
-                # Create activity name with prefix
+                # Use activity name without prefix (prefix is now stored in calendar_source)
                 activity_name = event['name']
-                if prefix:
-                    activity_name = f"{prefix}: {activity_name}"
+                
+                # Determine calendar source from prefix (for backward compatibility)
+                calendar_source = prefix if prefix else "Family"
                 
                 # Create planner event
                 planner_event = {
                     'kid_name': kid_name,  # Use provided kid_name parameter
                     'activity': activity_name,
+                    'calendar_source': calendar_source,  # Store calendar source separately
                     'time': start_time,
                     'duration': duration,
                     'frequency': frequency,

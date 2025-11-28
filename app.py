@@ -8,11 +8,60 @@ import os
 from typing import Dict, List, Tuple
 import json
 import re
-from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS, SCHOOL_MINIMUM_DAY_CONFIG
+from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS, SCHOOL_MINIMUM_DAY_CONFIG, CALENDAR_COLORS
 
 # Cache for school events to avoid reloading on every call
 _school_events_cache = None
 _school_events_cache_timestamp = None
+
+def get_calendar_source(activity_name: str) -> str:
+    """
+    Detect calendar source from activity name.
+    For backward compatibility with existing data that has prefixes.
+    
+    Args:
+        activity_name: The activity name (may contain prefix like "School: " or "Jewish: ")
+    
+    Returns:
+        Calendar source name: 'School', 'Jewish', or 'Family'
+    """
+    activity_lower = str(activity_name).lower()
+    if activity_lower.startswith('school:'):
+        return 'School'
+    elif activity_lower.startswith('jewish:'):
+        return 'Jewish'
+    else:
+        return 'Family'
+
+def get_calendar_color(calendar_source: str) -> str:
+    """
+    Get color for a calendar source.
+    
+    Args:
+        calendar_source: The calendar source name ('School', 'Jewish', 'Family')
+    
+    Returns:
+        Hex color code
+    """
+    return CALENDAR_COLORS.get(calendar_source, CALENDAR_COLORS.get('Family', '#000000'))
+
+def remove_calendar_prefix(activity_name: str) -> str:
+    """
+    Remove calendar prefix from activity name if present.
+    
+    Args:
+        activity_name: The activity name (may contain prefix like "School: " or "Jewish: ")
+    
+    Returns:
+        Activity name without prefix
+    """
+    activity_str = str(activity_name)
+    # Remove common prefixes
+    if activity_str.startswith('School: '):
+        return activity_str[8:]  # Remove "School: "
+    elif activity_str.startswith('Jewish: '):
+        return activity_str[8:]   # Remove "Jewish: "
+    return activity_str
 
 def load_activities_from_google_drive():
     """Load activities from Google Drive - no fallback to local file"""
@@ -1334,6 +1383,30 @@ def load_combined_data_for_display() -> pd.DataFrame:
             if col not in df.columns:
                 df[col] = None
     
+    # Add calendar_source column if missing (for backward compatibility)
+    # School events should have calendar_source='School'
+    if 'calendar_source' not in school_events_df.columns:
+        school_events_df['calendar_source'] = 'School'
+    # Jewish holidays should have calendar_source='Jewish'
+    if 'calendar_source' not in jewish_holidays_df.columns:
+        jewish_holidays_df['calendar_source'] = 'Jewish'
+    # Family activities should have calendar_source='Family'
+    if 'calendar_source' not in activities_df.columns:
+        activities_df['calendar_source'] = 'Family'
+    
+    # For backward compatibility: if calendar_source is missing, detect from activity name
+    # and remove prefix from activity name
+    for df in [activities_df, school_events_df, jewish_holidays_df]:
+        if 'calendar_source' in df.columns:
+            # Remove prefix from activity names if they have it
+            mask = df['activity'].astype(str).str.lower().str.startswith(('school:', 'jewish:'))
+            if mask.any():
+                df.loc[mask, 'activity'] = df.loc[mask, 'activity'].apply(remove_calendar_prefix)
+        else:
+            # Detect calendar source from activity name and remove prefix
+            df['calendar_source'] = df['activity'].apply(get_calendar_source)
+            df['activity'] = df['activity'].apply(remove_calendar_prefix)
+    
     # Combine all dataframes
     combined_df = pd.concat([activities_df, school_events_df, jewish_holidays_df], ignore_index=True)
     print(f"Combined {len(activities_df)} activities + {len(school_events_df)} school events + {len(jewish_holidays_df)} Jewish holidays = {len(combined_df)} total")
@@ -1509,9 +1582,12 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                                 end_time = end_datetime.time().strftime('%H:%M')
                                 
                                 # Check for minimum day override for school activities
-                                activity_name_lower = str(activity['activity']).lower()
                                 kid_name_full = activity['kid_name']
-                                if 'school' in activity_name_lower:
+                                calendar_source = activity.get('calendar_source', 'Family')
+                                if pd.isna(calendar_source):
+                                    calendar_source = 'Family'
+                                calendar_source = str(calendar_source)
+                                if calendar_source == 'School':
                                     minimum_day_end = get_minimum_day_end_time(kid_name_full, day_date, day)
                                     if minimum_day_end:
                                         end_time = minimum_day_end
@@ -1528,10 +1604,21 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                                 else:
                                     day_abbrev = day[0].upper()
                                 
+                                # Get calendar source and color
+                                calendar_source = activity.get('calendar_source', 'Family')
+                                if pd.isna(calendar_source):
+                                    calendar_source = 'Family'
+                                calendar_color = get_calendar_color(str(calendar_source))
+                                
+                                # Color the activity name
+                                activity_name = activity['activity']
+                                colored_activity = f'<span style="color: {calendar_color};">{activity_name}</span>'
+                                
                                 weekly_data.append({
                                     'Day': day_abbrev,
                                     'Kid': kid_name,
-                                    'Activity': activity['activity'],
+                                    'Activity': colored_activity,
+                                    'calendar_source': calendar_source,  # Store for legend
                                     'Time': f"{formatted_start_time}-{end_time}",
                                     'Address': activity['address'],
                                     'Pickup': activity['pickup_driver'],
@@ -1587,8 +1674,22 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
     print("WARNING: Unexpected code path reached, returning empty DataFrame")
     return pd.DataFrame()
 
+def display_calendar_legend():
+    """Display color-coded legend for calendar sources"""
+    legend_items = []
+    for source, color in CALENDAR_COLORS.items():
+        legend_items.append(f'<span style="color: {color}; font-weight: bold;">●</span> {source}')
+    
+    legend_html = '<div style="margin-bottom: 10px; padding: 8px; background-color: #f0f0f0; border-radius: 4px;">'
+    legend_html += '<strong>Calendar Sources:</strong> ' + ' | '.join(legend_items)
+    legend_html += '</div>'
+    st.markdown(legend_html, unsafe_allow_html=True)
+
 def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
     """Helper function to display weekly schedule by day"""
+    # Display calendar legend
+    display_calendar_legend()
+    
     days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     days_abbrev = DAYS_ORDER
     
@@ -1656,8 +1757,8 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
                 print(f"DEBUG MAIN: Merged data:")
                 print(day_df)
             
-            # Remove Start Date, End Date, and Day columns
-            columns_to_drop = ['Start Date', 'End Date', 'Day']
+            # Remove Start Date, End Date, Day, and calendar_source columns (calendar_source is only for coloring)
+            columns_to_drop = ['Start Date', 'End Date', 'Day', 'calendar_source']
             for col in columns_to_drop:
                 if col in day_df.columns:
                     day_df = day_df.drop(columns=[col])
@@ -1715,6 +1816,9 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
 
 def display_monitor_dashboard(current_time=None):
     """Display wall dashboard for monitor mode showing today and next 30 days' activities"""
+    # Display calendar legend
+    display_calendar_legend()
+    
     # Load data
     try:
         display_df = load_combined_data_for_display()
@@ -1915,18 +2019,26 @@ def display_day_activities(display_df, target_date):
                     end_time = end_datetime.time().strftime('%H:%M')
                     
                     # Check for minimum day override for school activities
-                    activity_name_lower = str(activity['activity']).lower()
                     kid_name_full = activity['kid_name']
-                    if 'school' in activity_name_lower:
+                    calendar_source = activity.get('calendar_source', 'Family')
+                    if pd.isna(calendar_source):
+                        calendar_source = 'Family'
+                    calendar_source = str(calendar_source)
+                    if calendar_source == 'School':
                         minimum_day_end = get_minimum_day_end_time(kid_name_full, target_date, day_name)
                         if minimum_day_end:
                             end_time = minimum_day_end
                     
                     formatted_start_time = start_time.strftime('%H:%M')
                     
+                    # Get color for calendar source
+                    calendar_color = get_calendar_color(calendar_source)
+                    
                     day_activities.append({
                         'time': f"{formatted_start_time}-{end_time}",
                         'activity': activity['activity'],
+                        'calendar_source': calendar_source,
+                        'calendar_color': calendar_color,
                         'kid': activity['kid_name'],
                         'address': activity['address'],
                         'pickup': activity['pickup_driver'],
@@ -1985,19 +2097,22 @@ def display_day_activities(display_df, target_date):
         st.markdown('<div class="monitor-no-activities" style="color: #6c757d !important; background-color: transparent !important;">No activities scheduled</div>', unsafe_allow_html=True)
     else:
         for activity in day_activities:
-                        # Truncate activity name if too long
-                        activity_name = activity["activity"]
-                        if len(activity_name) > 20:
-                            activity_name = activity_name[:17] + "..."
-                        
-                        st.markdown(f'''
-                        <div class="monitor-activity" style="color: #000000 !important; background-color: transparent !important;">
-                            <span class="monitor-activity-time" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
-                            <span class="monitor-activity-details" style="color: #000000 !important; background-color: transparent !important;">
-                                <strong>{activity_name}</strong> ({activity["kid"]})
-                            </span>
-                        </div>
-                        ''', unsafe_allow_html=True)
+            # Truncate activity name if too long
+            activity_name = activity["activity"]
+            if len(activity_name) > 20:
+                activity_name = activity_name[:17] + "..."
+            
+            # Get color for calendar source
+            calendar_color = activity.get('calendar_color', '#000000')
+            
+            st.markdown(f'''
+            <div class="monitor-activity" style="color: #000000 !important; background-color: transparent !important;">
+                <span class="monitor-activity-time" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
+                <span class="monitor-activity-details" style="color: #000000 !important; background-color: transparent !important;">
+                    <strong style="color: {calendar_color};">{activity_name}</strong> ({activity["kid"]})
+                </span>
+            </div>
+            ''', unsafe_allow_html=True)
 
 # Main application
 def main():

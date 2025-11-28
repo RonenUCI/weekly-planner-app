@@ -137,3 +137,12 @@ DAY_ABBREV_MAP = {
 
 # Day order for display
 DAYS_ORDER = ['M', 'T', 'W', 'Th', 'F', 'S', 'S']
+
+# Calendar Source Colors
+# Maps calendar source names to their display colors (hex codes)
+# Used for color-coding activities in the schedule
+CALENDAR_COLORS = {
+    'School': '#87ceeb',      # Light blue for school events
+    'Jewish': '#ffd700',     # Gold for Jewish holidays
+    'Family': '#000000',     # Black for family activities (default)
+}
