@@ -1804,11 +1804,29 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             .weekly-schedule-table th:nth-child(5) { width: 10%; } /* Pickup */
             .weekly-schedule-table th:nth-child(6) { width: 10%; } /* Return */
             /* Calendar source color classes - more reliable than inline styles on mobile */
-            .calendar-school { color: #87ceeb !important; }
-            .calendar-jewish { color: #ffd700 !important; }
-            .calendar-family { color: #000000 !important; }
+            .weekly-schedule-table .calendar-school,
+            .calendar-school { 
+                color: #87ceeb !important; 
+                -webkit-text-fill-color: #87ceeb !important;
+            }
+            .weekly-schedule-table .calendar-jewish,
+            .calendar-jewish { 
+                color: #ffd700 !important; 
+                -webkit-text-fill-color: #ffd700 !important;
+            }
+            .weekly-schedule-table .calendar-family,
+            .calendar-family { 
+                color: #000000 !important; 
+                -webkit-text-fill-color: #000000 !important;
+            }
             .weekly-schedule-table td span {
                 display: inline !important;
+            }
+            /* Force colors on mobile */
+            @media (max-width: 768px) {
+                .weekly-schedule-table .calendar-school { color: #87ceeb !important; }
+                .weekly-schedule-table .calendar-jewish { color: #ffd700 !important; }
+                .weekly-schedule-table .calendar-family { color: #000000 !important; }
             }
             </style>
             """, unsafe_allow_html=True)
@@ -1943,9 +1961,24 @@ def display_monitor_dashboard(current_time=None):
         z-index: 1000;
     }
     /* Calendar source color classes for monitor view */
-    .calendar-school { color: #87ceeb !important; }
-    .calendar-jewish { color: #ffd700 !important; }
-    .calendar-family { color: #000000 !important; }
+    .calendar-school { 
+        color: #87ceeb !important; 
+        -webkit-text-fill-color: #87ceeb !important;
+    }
+    .calendar-jewish { 
+        color: #ffd700 !important; 
+        -webkit-text-fill-color: #ffd700 !important;
+    }
+    .calendar-family { 
+        color: #000000 !important; 
+        -webkit-text-fill-color: #000000 !important;
+    }
+    /* Force colors on mobile for monitor view */
+    @media (max-width: 768px) {
+        .calendar-school { color: #87ceeb !important; }
+        .calendar-jewish { color: #ffd700 !important; }
+        .calendar-family { color: #000000 !important; }
+    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -2134,6 +2167,37 @@ def display_day_activities(display_df, target_date):
 
 # Main application
 def main():
+    # Add global CSS for calendar colors (must be at app level for mobile compatibility)
+    st.markdown("""
+    <style>
+    /* Global calendar color classes - must be defined at app level for mobile */
+    .calendar-school, 
+    .weekly-schedule-table .calendar-school,
+    .monitor-activity .calendar-school { 
+        color: #87ceeb !important; 
+        -webkit-text-fill-color: #87ceeb !important;
+    }
+    .calendar-jewish,
+    .weekly-schedule-table .calendar-jewish,
+    .monitor-activity .calendar-jewish { 
+        color: #ffd700 !important; 
+        -webkit-text-fill-color: #ffd700 !important;
+    }
+    .calendar-family,
+    .weekly-schedule-table .calendar-family,
+    .monitor-activity .calendar-family { 
+        color: #000000 !important; 
+        -webkit-text-fill-color: #000000 !important;
+    }
+    /* Mobile-specific overrides */
+    @media (max-width: 768px) {
+        .calendar-school, .weekly-schedule-table .calendar-school { color: #87ceeb !important; }
+        .calendar-jewish, .weekly-schedule-table .calendar-jewish { color: #ffd700 !important; }
+        .calendar-family, .weekly-schedule-table .calendar-family { color: #000000 !important; }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     # Define day order and abbreviations for schedule display
     days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     days_abbrev = DAYS_ORDER
