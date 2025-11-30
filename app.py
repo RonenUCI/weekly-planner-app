@@ -2801,25 +2801,33 @@ def main():
             end_date = today + timedelta(days=days_to_show - 1)  # -1 because today is included
             
             # Add CSS for monthly view with 20% larger fonts
+            # Use more specific selectors that match elements with both classes
             st.markdown("""
             <style>
             /* Monthly view - 20% larger fonts */
-            .monthly-view .monitor-day-header {
+            /* Target elements that have both classes */
+            .monthly-view.monitor-day-header,
+            #monthly-calendar-container .monitor-day-header {
                 font-size: 0.96rem !important; /* 0.8rem * 1.2 */
             }
-            .monthly-view .monitor-activity {
+            .monthly-view.monitor-activity,
+            #monthly-calendar-container .monitor-activity {
                 font-size: 0.72rem !important; /* 0.6rem * 1.2 */
             }
-            .monthly-view .monitor-activity-time {
+            .monthly-view.monitor-activity-time,
+            #monthly-calendar-container .monitor-activity-time {
                 font-size: 0.72rem !important; /* 0.6rem * 1.2 */
             }
-            .monthly-view .monitor-activity-details {
+            .monthly-view.monitor-activity-details,
+            #monthly-calendar-container .monitor-activity-details {
                 font-size: 0.72rem !important; /* 0.6rem * 1.2 */
             }
-            .monthly-view .monitor-no-activities {
+            .monthly-view.monitor-no-activities,
+            #monthly-calendar-container .monitor-no-activities {
                 font-size: 0.72rem !important; /* 0.6rem * 1.2 */
             }
-            .monthly-view .monitor-header {
+            .monthly-view.monitor-header,
+            #monthly-calendar-container .monitor-header {
                 font-size: 2.4rem !important; /* 2rem * 1.2 */
             }
             </style>
@@ -2872,7 +2880,7 @@ def main():
             
             # Add infinite scroll JavaScript
             # Use a sentinel element at the bottom to detect when it comes into view
-            st.markdown('<div id="scroll-sentinel" style="height: 1px;"></div>', unsafe_allow_html=True)
+            st.markdown('<div id="scroll-sentinel" style="height: 1px; margin: 20px 0;"></div>', unsafe_allow_html=True)
             
             st.markdown("""
             <script>
@@ -2881,9 +2889,11 @@ def main():
                 let lastScrollTop = 0;
                 
                 function checkScroll() {
+                    if (isLoading) return; // Already loading, don't check again
+                    
                     // Only load more if scrolling down (not up)
                     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    if (currentScrollTop < lastScrollTop) {
+                    if (currentScrollTop < lastScrollTop - 10) {
                         lastScrollTop = currentScrollTop;
                         return; // Scrolling up, don't load
                     }
@@ -2891,35 +2901,53 @@ def main():
                     
                     // Check if sentinel element is visible (user scrolled to bottom)
                     const sentinel = document.getElementById('scroll-sentinel');
-                    if (!sentinel) return;
+                    if (!sentinel) {
+                        // Sentinel not found yet, try again later
+                        setTimeout(checkScroll, 500);
+                        return;
+                    }
                     
                     const rect = sentinel.getBoundingClientRect();
-                    const isVisible = rect.top <= window.innerHeight + 100; // 100px threshold
+                    const isVisible = rect.top <= window.innerHeight + 200; // 200px threshold
                     
                     if (isVisible && !isLoading) {
                         isLoading = true;
+                        console.log('Loading more months...');
                         
-                        // Trigger loading more months by setting query param and reloading
+                        // Use Streamlit's rerun with query params
                         const url = new URL(window.location);
                         url.searchParams.set('load_more_months', 'true');
-                        // Preserve scroll position by adding scroll param
                         url.searchParams.set('scroll_pos', currentScrollTop.toString());
+                        
+                        // Use window.location to trigger reload
                         window.location.href = url.toString();
                     }
                 }
                 
-                // Check scroll position on scroll
-                let scrollTimeout;
-                window.addEventListener('scroll', function() {
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(checkScroll, 100); // Debounce
-                });
+                // Wait for page to fully load before setting up scroll listener
+                function setupScrollListener() {
+                    // Check scroll position on scroll
+                    let scrollTimeout;
+                    window.addEventListener('scroll', function() {
+                        clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(checkScroll, 150); // Debounce
+                    }, { passive: true });
+                    
+                    // Also check periodically as backup
+                    setInterval(checkScroll, 1000);
+                    
+                    // Initial check after page loads
+                    setTimeout(checkScroll, 2000);
+                }
                 
-                // Also check periodically as backup
-                setInterval(checkScroll, 1000);
-                
-                // Initial check after page loads
-                setTimeout(checkScroll, 1500);
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(setupScrollListener, 500);
+                    });
+                } else {
+                    // Page already loaded
+                    setTimeout(setupScrollListener, 500);
+                }
             })();
             </script>
             """, unsafe_allow_html=True)
@@ -2927,13 +2955,24 @@ def main():
             # Restore scroll position if provided
             scroll_pos = st.query_params.get('scroll_pos')
             if scroll_pos:
-                st.markdown(f"""
-                <script>
-                window.addEventListener('load', function() {{
-                    window.scrollTo(0, {scroll_pos});
-                }});
-                </script>
-                """, unsafe_allow_html=True)
+                try:
+                    scroll_pos_int = int(scroll_pos)
+                    st.markdown(f"""
+                    <script>
+                    (function() {{
+                        function restoreScroll() {{
+                            window.scrollTo(0, {scroll_pos_int});
+                        }}
+                        if (document.readyState === 'loading') {{
+                            document.addEventListener('DOMContentLoaded', restoreScroll);
+                        }} else {{
+                            setTimeout(restoreScroll, 100);
+                        }}
+                    }})();
+                    </script>
+                    """, unsafe_allow_html=True)
+                except ValueError:
+                    pass  # Invalid scroll position, ignore
     
     # Kid Manager Section
     elif current_page == "👶 Kids":
