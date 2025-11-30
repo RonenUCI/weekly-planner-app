@@ -2879,6 +2879,33 @@ def main():
                 margin-top: 0 !important;
                 padding-top: 0 !important;
             }
+            /* Reduce spacing between days and on sides for monthly view */
+            #monthly-calendar-container .monitor-day,
+            .monthly-view.monitor-day {
+                margin: 0.05rem !important; /* Reduced from 0.25rem */
+                padding: 0.1rem !important; /* Reduced from 0.15rem */
+            }
+            #monthly-calendar-container .monitor-day-today,
+            .monthly-view.monitor-day-today {
+                margin: 0.05rem !important; /* Reduced from 0.25rem */
+                padding: 0.1rem !important; /* Reduced from 0.15rem */
+            }
+            /* Reduce gap between Streamlit columns in monthly view */
+            #monthly-calendar-container [data-testid="column"],
+            .monthly-view [data-testid="column"] {
+                padding-left: 0.1rem !important;
+                padding-right: 0.1rem !important;
+            }
+            /* Reduce container padding on sides */
+            #monthly-calendar-container {
+                padding-left: 0.25rem !important;
+                padding-right: 0.25rem !important;
+            }
+            /* Reduce block container side padding for monthly view */
+            .block-container:has(#monthly-calendar-container) {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
             </style>
             """, unsafe_allow_html=True)
             
