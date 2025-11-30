@@ -2832,11 +2832,30 @@ def main():
             .monthly-view.monitor-header,
             #monthly-calendar-container .monitor-header {
                 font-size: 2.6rem !important; /* 2rem * 1.3 */
+                margin-top: 0 !important;
+                margin-bottom: 0.5rem !important;
+                padding-top: 0 !important;
+            }
+            /* Remove whitespace above monthly view header */
+            .monthly-view.monitor-header {
+                margin-top: 0 !important;
+                padding-top: 0 !important;
+            }
+            /* Remove Streamlit container padding above header */
+            div:has(> .monthly-view.monitor-header) {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+            }
+            /* Target the markdown container that holds the header */
+            [data-testid="stMarkdownContainer"]:has(.monthly-view.monitor-header) {
+                margin-top: 0 !important;
+                padding-top: 0 !important;
             }
             </style>
             """, unsafe_allow_html=True)
             
-            st.markdown(f'<div class="monitor-header monthly-view">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
+            # Use st.markdown with inline style to remove all top spacing
+            st.markdown(f'<div class="monitor-header monthly-view" style="margin-top: 0 !important; padding-top: 0 !important;">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
             
             # Create a container for the calendar with infinite scroll
             st.markdown('<div id="monthly-calendar-container" class="monthly-view">', unsafe_allow_html=True)
