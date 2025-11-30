@@ -1448,6 +1448,104 @@ def is_activity_active_in_week(activity_start: date, activity_end: date, week_st
     # It should start before or during the week AND end after or during the week
     return (activity_start <= week_end) and (activity_end >= week_start)
 
+def should_show_activity_on_date(activity: pd.Series, target_date: date, day_name: str = None) -> bool:
+    """
+    Check if an activity should be shown on a specific date.
+    This handles:
+    - Date range checking (start_date <= target_date <= end_date)
+    - Bi-weekly frequency filtering
+    - Day of week matching
+    
+    Args:
+        activity: Activity row from DataFrame
+        target_date: The date to check
+        day_name: Optional day name (e.g., 'monday'). If not provided, will be calculated from target_date.
+    
+    Returns:
+        True if activity should be shown on this date, False otherwise
+    """
+    # Check date range
+    if not (activity['start_date'] <= target_date <= activity['end_date']):
+        return False
+    
+    # Get day name if not provided
+    if day_name is None:
+        day_name = target_date.strftime('%A').lower()
+    
+    # Check if this activity occurs on this day of the week
+    days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
+    if day_name not in [d.lower() for d in days]:
+        return False
+    
+    # Handle bi-weekly frequency: only show on alternating weeks
+    frequency = activity.get('frequency', '').lower()
+    if frequency == 'bi-weekly':
+        # Calculate week number since start date
+        # Week 0 is the first week (containing start_date), week 1 is next week, etc.
+        # Only show on even weeks (0, 2, 4, ...)
+        start_date = activity['start_date']
+        # Find the Monday of the week containing the start_date
+        start_date_weekday = start_date.weekday()  # Monday=0, Sunday=6
+        start_date_monday = start_date - timedelta(days=start_date_weekday)
+        # Find the Monday of the week containing the target_date
+        target_date_weekday = target_date.weekday()
+        target_date_monday = target_date - timedelta(days=target_date_weekday)
+        # Calculate days between Monday of start week and Monday of current week
+        days_since_start_monday = (target_date_monday - start_date_monday).days
+        # If current week is before the start week, don't show yet
+        if days_since_start_monday < 0:
+            return False
+        # Calculate which week this is (0-based from start week)
+        week_number = days_since_start_monday // 7
+        # Only show on even weeks (every other week)
+        if week_number % 2 != 0:
+            return False
+    
+    return True
+
+def calculate_activity_end_time(activity: pd.Series, activity_date: date, day_name: str = None) -> str:
+    """
+    Calculate the end time for an activity on a specific date.
+    Handles minimum day override for school activities.
+    
+    Args:
+        activity: Activity row from DataFrame
+        activity_date: The date of the activity
+        day_name: Optional day name (e.g., 'monday'). If not provided, will be calculated from activity_date.
+    
+    Returns:
+        End time as string in 'HH:MM' format
+    """
+    # Clean and format the start time consistently
+    start_time_str = str(activity['time']).strip()
+    # Remove any extra colons and ensure proper format
+    if start_time_str.count(':') > 1:
+        start_time_str = start_time_str.split(':')[0] + ':' + start_time_str.split(':')[1]
+    
+    start_time = pd.to_datetime(start_time_str).time()
+    duration_hours = float(activity['duration'])
+    duration_minutes = int(duration_hours * 60)
+    
+    start_datetime = datetime.combine(activity_date, start_time)
+    end_datetime = start_datetime + timedelta(minutes=duration_minutes)
+    end_time = end_datetime.time().strftime('%H:%M')
+    
+    # Check for minimum day override for school activities
+    kid_name_full = activity['kid_name']
+    calendar_source = activity.get('calendar_source', 'Family')
+    if pd.isna(calendar_source):
+        calendar_source = 'Family'
+    calendar_source = str(calendar_source)
+    
+    if calendar_source == 'School':
+        if day_name is None:
+            day_name = activity_date.strftime('%A').lower()
+        minimum_day_end = get_minimum_day_end_time(kid_name_full, activity_date, day_name)
+        if minimum_day_end:
+            end_time = minimum_day_end
+    
+    return end_time
+
 def calculate_hours_by_day(df: pd.DataFrame, kid_name: str, week_start: date = None, week_end: date = None) -> Dict[str, float]:
     """Calculate daily hours for a specific kid within a date range"""
     if df.empty or 'kid_name' not in df.columns:
@@ -1518,28 +1616,6 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                 if not is_active:
                     continue
                 
-                # Handle bi-weekly frequency: only show on alternating weeks
-                frequency = activity.get('frequency', '').lower()
-                if frequency == 'bi-weekly':
-                    # Calculate week number since start date
-                    # Week 0 is the first week (containing start_date), week 1 is next week, etc.
-                    # Only show on even weeks (0, 2, 4, ...)
-                    start_date = activity['start_date']
-                    # Find the Monday of the week containing the start_date
-                    start_date_weekday = start_date.weekday()  # Monday=0, Sunday=6
-                    start_date_monday = start_date - timedelta(days=start_date_weekday)
-                    # Calculate days between Monday of start week and Monday of current week
-                    days_since_start_monday = (week_start - start_date_monday).days
-                    # If current week is before the start week, don't show yet
-                    if days_since_start_monday < 0:
-                        continue
-                    # Calculate which week this is (0-based from start week)
-                    week_number = days_since_start_monday // 7
-                    # Only show on even weeks (every other week)
-                    if week_number % 2 != 0:
-                        print(f"DEBUG: Skipping bi-weekly activity {activity.get('activity', 'Unknown')} - week {week_number} is odd (start: {start_date}, current week: {week_start})")
-                        continue
-                
                 # Handle different frequency types
                 if activity.get('frequency') == 'one-time':
                     # For one-time events, days_of_week contains the actual day
@@ -1564,72 +1640,56 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
                         day_index = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].index(day.lower())
                         day_date = week_start + timedelta(days=day_index)
                         
-                        # Only show activity if it's active on this specific day
-                        if activity['start_date'] <= day_date <= activity['end_date']:
-                            # Clean and format the start time consistently
+                        # Use common function to check if activity should be shown (handles bi-weekly, date range, day matching)
+                        if not should_show_activity_on_date(activity, day_date, day.lower()):
+                            continue
+                        
+                        try:
+                            # Use common function to calculate end time (handles minimum day override)
+                            end_time = calculate_activity_end_time(activity, day_date, day.lower())
+                            
+                            # Format start time consistently with leading zeros
                             start_time_str = str(activity['time']).strip()
-                            # Remove any extra colons and ensure proper format
                             if start_time_str.count(':') > 1:
                                 start_time_str = start_time_str.split(':')[0] + ':' + start_time_str.split(':')[1]
+                            start_time = pd.to_datetime(start_time_str).time()
+                            formatted_start_time = start_time.strftime('%H:%M')
                             
-                            try:
-                                start_time = pd.to_datetime(start_time_str).time()
-                                duration_hours = float(activity['duration'])
-                                duration_minutes = int(duration_hours * 60)
-                                
-                                start_datetime = datetime.combine(date.today(), start_time)
-                                end_datetime = start_datetime + timedelta(minutes=duration_minutes)
-                                end_time = end_datetime.time().strftime('%H:%M')
-                                
-                                # Check for minimum day override for school activities
-                                kid_name_full = activity['kid_name']
-                                calendar_source = activity.get('calendar_source', 'Family')
-                                if pd.isna(calendar_source):
-                                    calendar_source = 'Family'
-                                calendar_source = str(calendar_source)
-                                if calendar_source == 'School':
-                                    minimum_day_end = get_minimum_day_end_time(kid_name_full, day_date, day)
-                                    if minimum_day_end:
-                                        end_time = minimum_day_end
-                                
-                                # Format start time consistently with leading zeros
-                                formatted_start_time = start_time.strftime('%H:%M')
-                                
-                                # Abbreviate kid name using first letter
-                                kid_name = activity['kid_name'][0].upper()
-                                
-                                # Abbreviate day name (M, T, W, Th, F, S, Su)
-                                if day.lower() == 'thursday':
-                                    day_abbrev = 'Th'
-                                else:
-                                    day_abbrev = day[0].upper()
-                                
-                                # Get calendar source and color class
-                                calendar_source = activity.get('calendar_source', 'Family')
-                                if pd.isna(calendar_source):
-                                    calendar_source = 'Family'
-                                calendar_source = str(calendar_source).lower()
-                                
-                                # Color the activity name using CSS class (more reliable on mobile)
-                                activity_name = activity['activity']
-                                color_class = f'calendar-{calendar_source}'
-                                colored_activity = f'<span class="{color_class}">{activity_name}</span>'
-                                
-                                weekly_data.append({
-                                    'Day': day_abbrev,
-                                    'Kid': kid_name,
-                                    'Activity': colored_activity,
-                                    'calendar_source': calendar_source,  # Store for legend
-                                    'Time': f"{formatted_start_time}-{end_time}",
-                                    'Address': activity['address'],
-                                    'Pickup': activity['pickup_driver'],
-                                    'Return': activity['return_driver'],
-                                    'Start Date': activity['start_date'],
-                                    'End Date': activity['end_date']
-                                })
-                            except Exception as time_error:
-                                print(f"WARNING: Could not process time '{start_time_str}' for activity {activity.get('activity', 'Unknown')}: {time_error}")
-                                continue
+                            # Abbreviate kid name using first letter
+                            kid_name = activity['kid_name'][0].upper()
+                            
+                            # Abbreviate day name (M, T, W, Th, F, S, Su)
+                            if day.lower() == 'thursday':
+                                day_abbrev = 'Th'
+                            else:
+                                day_abbrev = day[0].upper()
+                            
+                            # Get calendar source and color class
+                            calendar_source = activity.get('calendar_source', 'Family')
+                            if pd.isna(calendar_source):
+                                calendar_source = 'Family'
+                            calendar_source = str(calendar_source).lower()
+                            
+                            # Color the activity name using CSS class (more reliable on mobile)
+                            activity_name = activity['activity']
+                            color_class = f'calendar-{calendar_source}'
+                            colored_activity = f'<span class="{color_class}">{activity_name}</span>'
+                            
+                            weekly_data.append({
+                                'Day': day_abbrev,
+                                'Kid': kid_name,
+                                'Activity': colored_activity,
+                                'calendar_source': calendar_source,  # Store for legend
+                                'Time': f"{formatted_start_time}-{end_time}",
+                                'Address': activity['address'],
+                                'Pickup': activity['pickup_driver'],
+                                'Return': activity['return_driver'],
+                                'Start Date': activity['start_date'],
+                                'End Date': activity['end_date']
+                            })
+                        except Exception as time_error:
+                            print(f"WARNING: Could not process time '{start_time_str}' for activity {activity.get('activity', 'Unknown')}: {time_error}")
+                            continue
                     except Exception as day_error:
                         print(f"ERROR processing day {day} for activity {activity.get('activity', 'Unknown')}: {day_error}")
                         continue
@@ -2042,57 +2102,45 @@ def display_day_activities(display_df, target_date):
     # Get activities for the target date
     day_activities = []
     
+    day_name = target_date.strftime('%A').lower()
+    
     for _, activity in display_df.iterrows():
-        # Check if activity is active on this date
-        if activity['start_date'] <= target_date <= activity['end_date']:
-            # Check if this activity occurs on this day of the week
-            days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
-            day_name = target_date.strftime('%A').lower()
+        # Use common function to check if activity should be shown (handles bi-weekly, date range, day matching)
+        if not should_show_activity_on_date(activity, target_date, day_name):
+            continue
+        
+        try:
+            # Use common function to calculate end time (handles minimum day override)
+            end_time = calculate_activity_end_time(activity, target_date, day_name)
             
-            if day_name in [d.lower() for d in days]:
-                try:
-                    # Format time
-                    start_time_str = str(activity['time']).strip()
-                    if start_time_str.count(':') > 1:
-                        start_time_str = start_time_str.split(':')[0] + ':' + start_time_str.split(':')[1]
-                    
-                    start_time = pd.to_datetime(start_time_str, format='%H:%M').time()
-                    duration_hours = float(activity['duration'])
-                    duration_minutes = int(duration_hours * 60)
-                    
-                    start_datetime = datetime.combine(target_date, start_time)
-                    end_datetime = start_datetime + timedelta(minutes=duration_minutes)
-                    end_time = end_datetime.time().strftime('%H:%M')
-                    
-                    # Check for minimum day override for school activities
-                    kid_name_full = activity['kid_name']
-                    calendar_source = activity.get('calendar_source', 'Family')
-                    if pd.isna(calendar_source):
-                        calendar_source = 'Family'
-                    calendar_source = str(calendar_source)
-                    if calendar_source == 'School':
-                        minimum_day_end = get_minimum_day_end_time(kid_name_full, target_date, day_name)
-                        if minimum_day_end:
-                            end_time = minimum_day_end
-                    
-                    formatted_start_time = start_time.strftime('%H:%M')
-                    
-                    # Get color for calendar source
-                    calendar_color = get_calendar_color(calendar_source)
-                    
-                    day_activities.append({
-                        'time': f"{formatted_start_time}-{end_time}",
-                        'activity': activity['activity'],
-                        'calendar_source': calendar_source,
-                        'calendar_color': calendar_color,
-                        'kid': activity['kid_name'],
-                        'address': activity['address'],
-                        'pickup': activity['pickup_driver'],
-                        'return': activity['return_driver']
-                    })
-                except Exception as e:
-                    print(f"Error processing activity {activity.get('activity', 'Unknown')}: {e}")
-                    continue
+            # Format start time
+            start_time_str = str(activity['time']).strip()
+            if start_time_str.count(':') > 1:
+                start_time_str = start_time_str.split(':')[0] + ':' + start_time_str.split(':')[1]
+            
+            start_time = pd.to_datetime(start_time_str, format='%H:%M').time()
+            formatted_start_time = start_time.strftime('%H:%M')
+            
+            # Get color for calendar source
+            calendar_source = activity.get('calendar_source', 'Family')
+            if pd.isna(calendar_source):
+                calendar_source = 'Family'
+            calendar_source = str(calendar_source)
+            calendar_color = get_calendar_color(calendar_source)
+            
+            day_activities.append({
+                'time': f"{formatted_start_time}-{end_time}",
+                'activity': activity['activity'],
+                'calendar_source': calendar_source,
+                'calendar_color': calendar_color,
+                'kid': activity['kid_name'],
+                'address': activity['address'],
+                'pickup': activity['pickup_driver'],
+                'return': activity['return_driver']
+            })
+        except Exception as e:
+            print(f"Error processing activity {activity.get('activity', 'Unknown')}: {e}")
+            continue
     
     # Sort by time
     day_activities.sort(key=lambda x: x['time'])
