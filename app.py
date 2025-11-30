@@ -2212,9 +2212,9 @@ def display_day_activities(display_df, target_date):
             kid_initial = activity["kid"][0].upper() if activity["kid"] else ""
             
             st.markdown(f'''
-            <div class="monitor-activity monthly-view" style="color: #000000 !important; background-color: transparent !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;">
+            <div class="monitor-activity monthly-view" style="color: #000000 !important; background-color: transparent !important; white-space: nowrap !important; overflow: hidden !important;">
                 <span class="monitor-activity-time monthly-view" style="color: #0066cc !important; background-color: transparent !important; white-space: nowrap !important;">{activity["time"]}</span>
-                <span class="monitor-activity-details monthly-view" style="color: #000000 !important; background-color: transparent !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; display: inline-block !important; max-width: calc(100% - 60px) !important;">
+                <span class="monitor-activity-details monthly-view" style="color: #000000 !important; background-color: transparent !important; white-space: nowrap !important; overflow: hidden !important; display: inline-block !important; max-width: calc(100% - 60px) !important;">
                     <strong class="{color_class}">{activity_name}</strong> ({kid_initial})
                 </span>
             </div>
@@ -2833,7 +2833,6 @@ def main():
                 font-size: 0.78rem !important; /* 0.6rem * 1.3 */
                 white-space: nowrap !important;
                 overflow: hidden !important;
-                text-overflow: ellipsis !important;
                 display: block !important;
             }
             .monthly-view.monitor-activity-time,
@@ -2846,7 +2845,6 @@ def main():
                 font-size: 0.78rem !important; /* 0.6rem * 1.3 */
                 white-space: nowrap !important;
                 overflow: hidden !important;
-                text-overflow: ellipsis !important;
                 display: inline-block !important;
                 max-width: 100% !important;
             }
