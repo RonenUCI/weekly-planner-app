@@ -2195,10 +2195,8 @@ def display_day_activities(display_df, target_date):
         st.markdown('<div class="monitor-no-activities monthly-view" style="color: #6c757d !important; background-color: transparent !important;">No activities scheduled</div>', unsafe_allow_html=True)
     else:
         for activity in day_activities:
-            # Truncate activity name if too long
+            # No need to truncate - cells are scrollable now
             activity_name = activity["activity"]
-            if len(activity_name) > 20:
-                activity_name = activity_name[:17] + "..."
             
             # Get color class for calendar source
             calendar_source = activity.get('calendar_source', 'Family')
