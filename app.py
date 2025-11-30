@@ -2780,6 +2780,21 @@ def main():
     
     # Monthly View Section
     elif current_page == "📅 Monthly":
+        # Remove top padding from Streamlit container for monthly view
+        st.markdown("""
+        <style>
+        /* Remove all top padding/margin from monthly view section */
+        div[data-testid="stVerticalBlock"]:has(.monthly-view.monitor-header) {
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+        }
+        /* Remove padding from block container when monthly view is active */
+        .main .block-container:has(.monthly-view) {
+            padding-top: 0.5rem !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
         if display_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
@@ -2836,18 +2851,31 @@ def main():
                 margin-bottom: 0.5rem !important;
                 padding-top: 0 !important;
             }
-            /* Remove whitespace above monthly view header */
+            /* Remove whitespace above monthly view header - aggressive targeting */
             .monthly-view.monitor-header {
                 margin-top: 0 !important;
                 padding-top: 0 !important;
             }
             /* Remove Streamlit container padding above header */
-            div:has(> .monthly-view.monitor-header) {
+            div:has(> .monthly-view.monitor-header),
+            div:has(.monthly-view.monitor-header) {
                 padding-top: 0 !important;
                 margin-top: 0 !important;
             }
             /* Target the markdown container that holds the header */
-            [data-testid="stMarkdownContainer"]:has(.monthly-view.monitor-header) {
+            [data-testid="stMarkdownContainer"]:has(.monthly-view.monitor-header),
+            [data-testid="stMarkdownContainer"] .monthly-view.monitor-header {
+                margin-top: 0 !important;
+                padding-top: 0 !important;
+            }
+            /* Remove padding from Streamlit block container for monthly view */
+            .block-container:has(.monthly-view.monitor-header),
+            .block-container .monthly-view.monitor-header {
+                padding-top: 0 !important;
+            }
+            /* Remove margin from first element in monthly view */
+            .monthly-view.monitor-header:first-child,
+            .monthly-view.monitor-header:first-of-type {
                 margin-top: 0 !important;
                 padding-top: 0 !important;
             }
@@ -2855,7 +2883,8 @@ def main():
             """, unsafe_allow_html=True)
             
             # Use st.markdown with inline style to remove all top spacing
-            st.markdown(f'<div class="monitor-header monthly-view" style="margin-top: 0 !important; padding-top: 0 !important;">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
+            # Also add negative margin to pull it up if needed
+            st.markdown(f'<div class="monitor-header monthly-view" style="margin-top: 0 !important; padding-top: 0 !important; position: relative; top: 0;">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
             
             # Create a container for the calendar with infinite scroll
             st.markdown('<div id="monthly-calendar-container" class="monthly-view">', unsafe_allow_html=True)
