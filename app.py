@@ -1531,13 +1531,17 @@ def calculate_activity_end_time(activity: pd.Series, activity_date: date, day_na
     end_time = end_datetime.time().strftime('%H:%M')
     
     # Check for minimum day override for school activities
+    # Apply to activities with calendar_source='School' OR activity name is "School"
     kid_name_full = activity['kid_name']
     calendar_source = activity.get('calendar_source', 'Family')
     if pd.isna(calendar_source):
         calendar_source = 'Family'
     calendar_source = str(calendar_source)
     
-    if calendar_source == 'School':
+    activity_name = str(activity.get('activity', '')).lower()
+    is_school_activity = (calendar_source == 'School') or (activity_name == 'school')
+    
+    if is_school_activity:
         if day_name is None:
             day_name = activity_date.strftime('%A').lower()
         minimum_day_end = get_minimum_day_end_time(kid_name_full, activity_date, day_name)
