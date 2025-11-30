@@ -2803,35 +2803,35 @@ def main():
             days_to_show = 30 * st.session_state.months_loaded
             end_date = today + timedelta(days=days_to_show - 1)  # -1 because today is included
             
-            # Add CSS for monthly view with 20% larger fonts (reduced from 50%)
+            # Add CSS for monthly view with 30% larger fonts (20% base + 10% more)
             # Use more specific selectors that match elements with both classes
             st.markdown("""
             <style>
-            /* Monthly view - 20% larger fonts */
+            /* Monthly view - 30% larger fonts */
             /* Target elements that have both classes */
             .monthly-view.monitor-day-header,
             #monthly-calendar-container .monitor-day-header {
-                font-size: 0.96rem !important; /* 0.8rem * 1.2 */
+                font-size: 1.04rem !important; /* 0.8rem * 1.3 */
             }
             .monthly-view.monitor-activity,
             #monthly-calendar-container .monitor-activity {
-                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+                font-size: 0.78rem !important; /* 0.6rem * 1.3 */
             }
             .monthly-view.monitor-activity-time,
             #monthly-calendar-container .monitor-activity-time {
-                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+                font-size: 0.78rem !important; /* 0.6rem * 1.3 */
             }
             .monthly-view.monitor-activity-details,
             #monthly-calendar-container .monitor-activity-details {
-                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+                font-size: 0.78rem !important; /* 0.6rem * 1.3 */
             }
             .monthly-view.monitor-no-activities,
             #monthly-calendar-container .monitor-no-activities {
-                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+                font-size: 0.78rem !important; /* 0.6rem * 1.3 */
             }
             .monthly-view.monitor-header,
             #monthly-calendar-container .monitor-header {
-                font-size: 2.4rem !important; /* 2rem * 1.2 */
+                font-size: 2.6rem !important; /* 2rem * 1.3 */
             }
             </style>
             """, unsafe_allow_html=True)
