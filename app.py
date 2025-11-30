@@ -2208,11 +2208,14 @@ def display_day_activities(display_df, target_date):
                 calendar_source = 'family'
             color_class = f'calendar-{calendar_source}'
             
+            # Show only first letter of kid name to save space
+            kid_initial = activity["kid"][0].upper() if activity["kid"] else ""
+            
             st.markdown(f'''
             <div class="monitor-activity monthly-view" style="color: #000000 !important; background-color: transparent !important;">
                 <span class="monitor-activity-time monthly-view" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
                 <span class="monitor-activity-details monthly-view" style="color: #000000 !important; background-color: transparent !important;">
-                    <strong class="{color_class}">{activity_name}</strong> ({activity["kid"]})
+                    <strong class="{color_class}">{activity_name}</strong> ({kid_initial})
                 </span>
             </div>
             ''', unsafe_allow_html=True)
