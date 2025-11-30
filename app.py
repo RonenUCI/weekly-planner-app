@@ -2192,7 +2192,7 @@ def display_day_activities(display_df, target_date):
         day_activities = merged_activities
     
     if not day_activities:
-        st.markdown('<div class="monitor-no-activities" style="color: #6c757d !important; background-color: transparent !important;">No activities scheduled</div>', unsafe_allow_html=True)
+        st.markdown('<div class="monitor-no-activities monthly-view" style="color: #6c757d !important; background-color: transparent !important;">No activities scheduled</div>', unsafe_allow_html=True)
     else:
         for activity in day_activities:
             # Truncate activity name if too long
@@ -2209,9 +2209,9 @@ def display_day_activities(display_df, target_date):
             color_class = f'calendar-{calendar_source}'
             
             st.markdown(f'''
-            <div class="monitor-activity" style="color: #000000 !important; background-color: transparent !important;">
-                <span class="monitor-activity-time" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
-                <span class="monitor-activity-details" style="color: #000000 !important; background-color: transparent !important;">
+            <div class="monitor-activity monthly-view" style="color: #000000 !important; background-color: transparent !important;">
+                <span class="monitor-activity-time monthly-view" style="color: #0066cc !important; background-color: transparent !important;">{activity["time"]}</span>
+                <span class="monitor-activity-details monthly-view" style="color: #000000 !important; background-color: transparent !important;">
                     <strong class="{color_class}">{activity_name}</strong> ({activity["kid"]})
                 </span>
             </div>
@@ -2780,13 +2780,57 @@ def main():
         if display_df.empty:
             st.info("No activities available. Add some activities first!")
         else:
-            # Display 30-day calendar view
+            # Initialize months_loaded in session state for infinite scroll
+            if 'months_loaded' not in st.session_state:
+                st.session_state.months_loaded = 1  # Start with 1 month (30 days)
+            
+            # Check if we should load more months (triggered by JavaScript scroll detection)
+            if 'load_more_months' in st.query_params and st.query_params['load_more_months'] == 'true':
+                st.session_state.months_loaded += 1
+                # Remove only the load_more_months param to prevent reloading on every rerun
+                # Keep other params like scroll_pos
+                params = dict(st.query_params)
+                params.pop('load_more_months', None)
+                st.query_params.clear()
+                for key, value in params.items():
+                    st.query_params[key] = value
+            
+            # Calculate date range based on months loaded
             today = date.today()
-            end_date = today + timedelta(days=29)  # 30 days inclusive
+            days_to_show = 30 * st.session_state.months_loaded
+            end_date = today + timedelta(days=days_to_show - 1)  # -1 because today is included
             
-            st.markdown(f'<div class="monitor-header">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
+            # Add CSS for monthly view with 20% larger fonts
+            st.markdown("""
+            <style>
+            /* Monthly view - 20% larger fonts */
+            .monthly-view .monitor-day-header {
+                font-size: 0.96rem !important; /* 0.8rem * 1.2 */
+            }
+            .monthly-view .monitor-activity {
+                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+            }
+            .monthly-view .monitor-activity-time {
+                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+            }
+            .monthly-view .monitor-activity-details {
+                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+            }
+            .monthly-view .monitor-no-activities {
+                font-size: 0.72rem !important; /* 0.6rem * 1.2 */
+            }
+            .monthly-view .monitor-header {
+                font-size: 2.4rem !important; /* 2rem * 1.2 */
+            }
+            </style>
+            """, unsafe_allow_html=True)
             
-            # Create a grid layout for the 30 days
+            st.markdown(f'<div class="monitor-header monthly-view">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
+            
+            # Create a container for the calendar with infinite scroll
+            st.markdown('<div id="monthly-calendar-container" class="monthly-view">', unsafe_allow_html=True)
+            
+            # Create a grid layout for the days
             # Group days into weeks for better organization
             current_date = today
             
@@ -2817,12 +2861,79 @@ def main():
                             day_icon = "📅"
                             bg_color = "#f8f9fa"
                         
-                        st.markdown(f'<div class="{day_class}" style="background-color: {bg_color} !important; color: #000000 !important;"><div class="monitor-day-header" style="color: #0066cc !important; background-color: transparent !important;">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="{day_class} monthly-view" style="background-color: {bg_color} !important; color: #000000 !important;"><div class="monitor-day-header monthly-view" style="color: #0066cc !important; background-color: transparent !important;">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
                         display_day_activities(display_df, day_date)
                         st.markdown('</div>', unsafe_allow_html=True)
                 
                 # Move to next week
                 current_date = week_end + timedelta(days=1)
+            
+            st.markdown('</div>', unsafe_allow_html=True)
+            
+            # Add infinite scroll JavaScript
+            # Use a sentinel element at the bottom to detect when it comes into view
+            st.markdown('<div id="scroll-sentinel" style="height: 1px;"></div>', unsafe_allow_html=True)
+            
+            st.markdown("""
+            <script>
+            (function() {
+                let isLoading = false;
+                let lastScrollTop = 0;
+                
+                function checkScroll() {
+                    // Only load more if scrolling down (not up)
+                    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    if (currentScrollTop < lastScrollTop) {
+                        lastScrollTop = currentScrollTop;
+                        return; // Scrolling up, don't load
+                    }
+                    lastScrollTop = currentScrollTop;
+                    
+                    // Check if sentinel element is visible (user scrolled to bottom)
+                    const sentinel = document.getElementById('scroll-sentinel');
+                    if (!sentinel) return;
+                    
+                    const rect = sentinel.getBoundingClientRect();
+                    const isVisible = rect.top <= window.innerHeight + 100; // 100px threshold
+                    
+                    if (isVisible && !isLoading) {
+                        isLoading = true;
+                        
+                        // Trigger loading more months by setting query param and reloading
+                        const url = new URL(window.location);
+                        url.searchParams.set('load_more_months', 'true');
+                        // Preserve scroll position by adding scroll param
+                        url.searchParams.set('scroll_pos', currentScrollTop.toString());
+                        window.location.href = url.toString();
+                    }
+                }
+                
+                // Check scroll position on scroll
+                let scrollTimeout;
+                window.addEventListener('scroll', function() {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(checkScroll, 100); // Debounce
+                });
+                
+                // Also check periodically as backup
+                setInterval(checkScroll, 1000);
+                
+                // Initial check after page loads
+                setTimeout(checkScroll, 1500);
+            })();
+            </script>
+            """, unsafe_allow_html=True)
+            
+            # Restore scroll position if provided
+            scroll_pos = st.query_params.get('scroll_pos')
+            if scroll_pos:
+                st.markdown(f"""
+                <script>
+                window.addEventListener('load', function() {{
+                    window.scrollTo(0, {scroll_pos});
+                }});
+                </script>
+                """, unsafe_allow_html=True)
     
     # Kid Manager Section
     elif current_page == "👶 Kids":
