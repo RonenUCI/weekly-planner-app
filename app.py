@@ -2878,75 +2878,68 @@ def main():
             
             st.markdown('</div>', unsafe_allow_html=True)
             
-            # Add infinite scroll JavaScript
+            # Add infinite scroll using Intersection Observer (more reliable)
             # Use a sentinel element at the bottom to detect when it comes into view
             st.markdown('<div id="scroll-sentinel" style="height: 1px; margin: 20px 0;"></div>', unsafe_allow_html=True)
+            
+            # Add a "Load More" button as fallback
+            load_more_clicked = st.button("Load More Months", key="load_more_months_btn", use_container_width=True)
+            if load_more_clicked:
+                st.session_state.months_loaded += 1
+                st.rerun()
             
             st.markdown("""
             <script>
             (function() {
                 let isLoading = false;
-                let lastScrollTop = 0;
                 
-                function checkScroll() {
-                    if (isLoading) return; // Already loading, don't check again
+                function loadMore() {
+                    if (isLoading) return;
+                    isLoading = true;
+                    console.log('Loading more months via infinite scroll...');
                     
-                    // Only load more if scrolling down (not up)
+                    // Use query params to trigger reload
+                    const url = new URL(window.location);
+                    url.searchParams.set('load_more_months', 'true');
                     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    if (currentScrollTop < lastScrollTop - 10) {
-                        lastScrollTop = currentScrollTop;
-                        return; // Scrolling up, don't load
-                    }
-                    lastScrollTop = currentScrollTop;
+                    url.searchParams.set('scroll_pos', currentScrollTop.toString());
                     
-                    // Check if sentinel element is visible (user scrolled to bottom)
+                    // Reload with new params
+                    window.location.href = url.toString();
+                }
+                
+                function setupInfiniteScroll() {
                     const sentinel = document.getElementById('scroll-sentinel');
                     if (!sentinel) {
-                        // Sentinel not found yet, try again later
-                        setTimeout(checkScroll, 500);
+                        console.log('Scroll sentinel not found, retrying...');
+                        setTimeout(setupInfiniteScroll, 500);
                         return;
                     }
                     
-                    const rect = sentinel.getBoundingClientRect();
-                    const isVisible = rect.top <= window.innerHeight + 200; // 200px threshold
+                    // Use Intersection Observer for better performance
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !isLoading) {
+                                loadMore();
+                            }
+                        });
+                    }, {
+                        root: null,
+                        rootMargin: '200px', // Trigger 200px before reaching the sentinel
+                        threshold: 0.1
+                    });
                     
-                    if (isVisible && !isLoading) {
-                        isLoading = true;
-                        console.log('Loading more months...');
-                        
-                        // Use Streamlit's rerun with query params
-                        const url = new URL(window.location);
-                        url.searchParams.set('load_more_months', 'true');
-                        url.searchParams.set('scroll_pos', currentScrollTop.toString());
-                        
-                        // Use window.location to trigger reload
-                        window.location.href = url.toString();
-                    }
+                    observer.observe(sentinel);
+                    console.log('Infinite scroll observer set up');
                 }
                 
-                // Wait for page to fully load before setting up scroll listener
-                function setupScrollListener() {
-                    // Check scroll position on scroll
-                    let scrollTimeout;
-                    window.addEventListener('scroll', function() {
-                        clearTimeout(scrollTimeout);
-                        scrollTimeout = setTimeout(checkScroll, 150); // Debounce
-                    }, { passive: true });
-                    
-                    // Also check periodically as backup
-                    setInterval(checkScroll, 1000);
-                    
-                    // Initial check after page loads
-                    setTimeout(checkScroll, 2000);
-                }
-                
+                // Wait for DOM to be ready
                 if (document.readyState === 'loading') {
                     document.addEventListener('DOMContentLoaded', function() {
-                        setTimeout(setupScrollListener, 500);
+                        setTimeout(setupInfiniteScroll, 1000);
                     });
                 } else {
-                    // Page already loaded
-                    setTimeout(setupScrollListener, 500);
+                    setTimeout(setupInfiniteScroll, 1000);
                 }
             })();
             </script>
@@ -2961,13 +2954,16 @@ def main():
                     <script>
                     (function() {{
                         function restoreScroll() {{
-                            window.scrollTo(0, {scroll_pos_int});
+                            const targetPos = {scroll_pos_int};
+                            const currentPos = window.pageYOffset || document.documentElement.scrollTop;
+                            if (Math.abs(currentPos - targetPos) > 50) {{
+                                window.scrollTo({{ top: targetPos, behavior: 'instant' }});
+                            }}
                         }}
-                        if (document.readyState === 'loading') {{
-                            document.addEventListener('DOMContentLoaded', restoreScroll);
-                        }} else {{
-                            setTimeout(restoreScroll, 100);
-                        }}
+                        // Try multiple times to ensure it works
+                        setTimeout(restoreScroll, 100);
+                        setTimeout(restoreScroll, 500);
+                        setTimeout(restoreScroll, 1000);
                     }})();
                     </script>
                     """, unsafe_allow_html=True)
