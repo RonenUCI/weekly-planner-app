@@ -2968,8 +2968,8 @@ def main():
             # Use a sentinel element at the bottom to detect when it comes into view
             st.markdown('<div id="scroll-sentinel" style="height: 1px; margin: 20px 0;"></div>', unsafe_allow_html=True)
             
-            # Add a "Load More" button as fallback
-            load_more_clicked = st.button("Load More Months", key="load_more_months_btn", use_container_width=True)
+            # Add a "Load Next Month" button as fallback
+            load_more_clicked = st.button("Load Next Month", key="load_more_months_btn", use_container_width=True)
             if load_more_clicked:
                 st.session_state.months_loaded += 1
                 st.rerun()
