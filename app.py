@@ -89,9 +89,9 @@ def load_activities_from_google_drive():
         
         # Convert date columns to datetime objects
         if 'start_date' in df.columns:
-            df['start_date'] = pd.to_datetime(df['start_date']).dt.date
+            df['start_date'] = pd.to_datetime(df['start_date'], errors='coerce').dt.date
         if 'end_date' in df.columns:
-            df['end_date'] = pd.to_datetime(df['end_date']).dt.date
+            df['end_date'] = pd.to_datetime(df['end_date'], errors='coerce').dt.date
         
         # Process days_of_week column if it exists
         if 'days_of_week' in df.columns:
@@ -99,13 +99,49 @@ def load_activities_from_google_drive():
                 lambda x: json.loads(x) if isinstance(x, str) and x.strip() else []
             )
         
+        # Handle one-time events: detect events with null/empty end_date
+        # For one-time events, infer day_of_week from start_date and validate end_date/day_of_week are null
+        for idx, row in df.iterrows():
+            end_date = row.get('end_date') if 'end_date' in df.columns else None
+            days_of_week = row.get('days_of_week') if 'days_of_week' in df.columns else []
+            start_date = row.get('start_date') if 'start_date' in df.columns else None
+            
+            # Check if this is a one-time event (end_date is null/empty/NaN)
+            is_one_time = pd.isna(end_date) or end_date is None or (isinstance(end_date, str) and not end_date.strip())
+            
+            if is_one_time:
+                # Validate that end_date and days_of_week are null/empty for one-time events
+                if not (pd.isna(end_date) or end_date is None or (isinstance(end_date, str) and not end_date.strip())):
+                    print(f"WARNING: One-time event '{row.get('activity', 'Unknown')}' has end_date set. Setting to null.")
+                    df.at[idx, 'end_date'] = None
+                
+                if days_of_week and len(days_of_week) > 0:
+                    print(f"WARNING: One-time event '{row.get('activity', 'Unknown')}' has days_of_week set. Clearing it.")
+                    df.at[idx, 'days_of_week'] = []
+                
+                # Infer day_of_week from start_date
+                if start_date and not pd.isna(start_date):
+                    day_name = start_date.strftime('%A').lower()
+                    df.at[idx, 'days_of_week'] = [day_name]
+                    print(f"INFO: One-time event '{row.get('activity', 'Unknown')}' on {start_date} - inferred day_of_week: {day_name}")
+                
+                # Set frequency to 'one-time' if not already set
+                if 'frequency' in df.columns:
+                    current_freq = row.get('frequency', '')
+                    if pd.isna(current_freq) or not str(current_freq).strip() or str(current_freq).lower() != 'one-time':
+                        df.at[idx, 'frequency'] = 'one-time'
+                else:
+                    df['frequency'] = 'weekly'  # Default for existing rows
+                    df.at[idx, 'frequency'] = 'one-time'
+        
         print(f"✅ Successfully loaded {len(df)} activities from Google Drive")
         
         # Debug: Show date ranges of activities
         if not df.empty and 'start_date' in df.columns and 'end_date' in df.columns:
             print(f"DEBUG: Activity date ranges:")
             for idx, row in df.iterrows():
-                print(f"  {row.get('activity', 'Unknown')}: {row['start_date']} to {row['end_date']}")
+                end_date_str = str(row['end_date']) if not pd.isna(row['end_date']) else 'null (one-time)'
+                print(f"  {row.get('activity', 'Unknown')}: {row['start_date']} to {end_date_str}")
         
         return df
         
@@ -1444,7 +1480,12 @@ def get_current_week_dates() -> Tuple[date, date]:
 
 def is_activity_active_in_week(activity_start: date, activity_end: date, week_start: date, week_end: date) -> bool:
     """Check if activity is active during the specified week"""
-    # Activity is active if it actually occurs during the week
+    # Handle one-time events (activity_end is None/NaN)
+    if activity_end is None or pd.isna(activity_end):
+        # One-time event: only active if start_date is in the week
+        return week_start <= activity_start <= week_end
+    
+    # Recurring activity: active if it actually occurs during the week
     # It should start before or during the week AND end after or during the week
     return (activity_start <= week_end) and (activity_end >= week_start)
 
@@ -1452,6 +1493,7 @@ def should_show_activity_on_date(activity: pd.Series, target_date: date, day_nam
     """
     Check if an activity should be shown on a specific date.
     This handles:
+    - One-time events (only show on exact start_date)
     - Date range checking (start_date <= target_date <= end_date)
     - Bi-weekly frequency filtering
     - Day of week matching
@@ -1464,8 +1506,16 @@ def should_show_activity_on_date(activity: pd.Series, target_date: date, day_nam
     Returns:
         True if activity should be shown on this date, False otherwise
     """
-    # Check date range
-    if not (activity['start_date'] <= target_date <= activity['end_date']):
+    start_date = activity['start_date']
+    end_date = activity.get('end_date')
+    frequency = activity.get('frequency', '').lower()
+    
+    # Handle one-time events: only show on exact start_date
+    if frequency == 'one-time' or end_date is None or pd.isna(end_date):
+        return start_date == target_date
+    
+    # Check date range for recurring events
+    if not (start_date <= target_date <= end_date):
         return False
     
     # Get day name if not provided
@@ -1478,12 +1528,10 @@ def should_show_activity_on_date(activity: pd.Series, target_date: date, day_nam
         return False
     
     # Handle bi-weekly frequency: only show on alternating weeks
-    frequency = activity.get('frequency', '').lower()
     if frequency == 'bi-weekly':
         # Calculate week number since start date
         # Week 0 is the first week (containing start_date), week 1 is next week, etc.
         # Only show on even weeks (0, 2, 4, ...)
-        start_date = activity['start_date']
         # Find the Monday of the week containing the start_date
         start_date_weekday = start_date.weekday()  # Monday=0, Sunday=6
         start_date_monday = start_date - timedelta(days=start_date_weekday)
@@ -1561,8 +1609,9 @@ def calculate_hours_by_day(df: pd.DataFrame, kid_name: str, week_start: date = N
     daily_hours = {day: 0.0 for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}
     
     for _, activity in kid_activities.iterrows():
+        end_date = activity.get('end_date')
         if week_start and week_end:
-            if not is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end):
+            if not is_activity_active_in_week(activity['start_date'], end_date, week_start, week_end):
                 continue
         
         days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
@@ -1584,7 +1633,8 @@ def calculate_drives_per_driver(df: pd.DataFrame, week_start: date, week_end: da
     filtered_df = df[df['activity'].str.lower() != 'school']
     
     for _, activity in filtered_df.iterrows():
-        if not is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end):
+        end_date = activity.get('end_date')
+        if not is_activity_active_in_week(activity['start_date'], end_date, week_start, week_end):
             continue
             
         days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
@@ -1613,17 +1663,24 @@ def create_weekly_schedule(df: pd.DataFrame, week_start: date, week_end: date) -
         for idx, activity in df.iterrows():
             try:
                 # Debug: Check date ranges
-                print(f"DEBUG: Activity {activity.get('activity', 'Unknown')} - Start: {activity['start_date']}, End: {activity['end_date']}, Week: {week_start} to {week_end}")
-                is_active = is_activity_active_in_week(activity['start_date'], activity['end_date'], week_start, week_end)
+                end_date = activity.get('end_date')
+                end_date_str = str(end_date) if not pd.isna(end_date) and end_date is not None else 'null (one-time)'
+                print(f"DEBUG: Activity {activity.get('activity', 'Unknown')} - Start: {activity['start_date']}, End: {end_date_str}, Week: {week_start} to {week_end}")
+                is_active = is_activity_active_in_week(activity['start_date'], end_date, week_start, week_end)
                 print(f"DEBUG: Is active in week: {is_active}")
                 
                 if not is_active:
                     continue
                 
                 # Handle different frequency types
-                if activity.get('frequency') == 'one-time':
-                    # For one-time events, days_of_week contains the actual day
-                    days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
+                frequency = activity.get('frequency', '').lower()
+                if frequency == 'one-time' or end_date is None or pd.isna(end_date):
+                    # For one-time events, only show on the exact start_date
+                    if activity['start_date'] < week_start or activity['start_date'] > week_end:
+                        continue
+                    # Get the day of week from start_date
+                    start_date_day = activity['start_date'].strftime('%A').lower()
+                    days = [start_date_day]
                 else:
                     # For recurring events, days_of_week contains recurring days
                     days = activity['days_of_week'] if isinstance(activity['days_of_week'], list) else []
