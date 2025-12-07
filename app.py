@@ -781,9 +781,8 @@ st.markdown("""
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
-        border-left: 2px solid #0066cc;
         min-height: 30px;
-        border: 1px solid #dee2e6;
+        border: none !important; /* Removed border completely */
     }
     .monitor-day-today {
         background-color: #fff3cd !important;
@@ -791,10 +790,9 @@ st.markdown("""
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
-        border-left: 3px solid #ffc107;
         min-height: 30px;
-        box-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
-        border: 2px solid #ffc107;
+        box-shadow: none !important; /* Removed shadow */
+        border: none !important; /* Removed border completely */
     }
     .monitor-day-header {
         font-size: 0.8rem;
@@ -2009,9 +2007,8 @@ def display_monitor_dashboard(current_time=None):
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
-        border-left: 2px solid #0066cc;
         min-height: 30px;
-        border: 1px solid #dee2e6;
+        border: none !important; /* Removed border completely */
     }
     .monitor-day-today {
         background-color: #fff3cd !important;
@@ -2019,10 +2016,9 @@ def display_monitor_dashboard(current_time=None):
         padding: 0.15rem;
         border-radius: 0.25rem;
         margin: 0.25rem;
-        border-left: 3px solid #ffc107;
         min-height: 30px;
-        box-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
-        border: 2px solid #ffc107;
+        box-shadow: none !important; /* Removed shadow */
+        border: none !important; /* Removed border completely */
     }
     .monitor-week-header {
         font-size: 1.2rem;
@@ -2100,6 +2096,34 @@ def display_monitor_dashboard(current_time=None):
         .calendar-jewish { color: #ffd700 !important; }
         .calendar-family { color: #000000 !important; }
     }
+    /* Style date buttons in monitor view to look like headers (same as monthly view) */
+    [data-testid="stButton"] button[key^="monitor_date_btn_"] {
+        background-color: transparent !important;
+        border: none !important;
+        color: #0066cc !important;
+        font-weight: bold !important;
+        font-size: 0.8rem !important;
+        padding: 0.05rem !important;
+        margin: 0 !important;
+        text-align: center !important;
+        box-shadow: none !important;
+        height: auto !important;
+        line-height: 1.0 !important;
+        width: 100% !important;
+        cursor: pointer !important;
+    }
+    [data-testid="stButton"] button[key^="monitor_date_btn_"]:hover {
+        color: #004499 !important;
+        text-decoration: underline !important;
+    }
+    /* Remove button wrapper spacing in monitor view */
+    [data-testid="stButton"]:has(button[key^="monitor_date_btn_"]) {
+        margin: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: -5px !important; /* Negative margin to reduce space below button */
+        padding: 0 !important;
+        border: none !important;
+    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -2132,18 +2156,37 @@ def display_monitor_dashboard(current_time=None):
         
         for i, day_date in enumerate(week_days):
             with cols[i]:
-                # Highlight today
+                # Highlight today - no class needed, just background color
                 if day_date == today:
-                    day_class = "monitor-day-today"
                     day_icon = "⭐"
                     bg_color = "#fff3cd"
                 else:
-                    day_class = "monitor-day"
                     day_icon = "📅"
                     bg_color = "#f8f9fa"
                 
-                st.markdown(f'<div class="{day_class}" style="background-color: {bg_color} !important; color: #000000 !important;"><div class="monitor-day-header" style="color: #0066cc !important; background-color: transparent !important;">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
+                # Start the day container - no class, just inline styles
+                st.markdown(f'<div style="background-color: {bg_color} !important; color: #000000 !important; padding: 0.1rem; margin: 0.05rem; border-radius: 0.25rem; min-height: 30px;">', unsafe_allow_html=True)
+                
+                # Make date header clickable using st.button (same as monthly view)
+                date_str = day_date.strftime("%a %b %d")
+                date_iso = day_date.isoformat()  # Format: YYYY-MM-DD
+                
+                # Use st.button for clickable date header
+                button_key = f"monitor_date_btn_{date_iso}"
+                if st.button(
+                    f"{day_icon} {date_str}",
+                    key=button_key,
+                    use_container_width=False,
+                    help=f"Click to view details for {day_date.strftime('%B %d, %Y')}"
+                ):
+                    # Set query parameter to view this day
+                    st.query_params['view_day'] = date_iso
+                    st.rerun()
+                
+                # Display activities for this day
                 display_day_activities(display_df, day_date)
+                
+                # Close the day container
                 st.markdown('</div>', unsafe_allow_html=True)
         
         # Move to next week
@@ -2157,6 +2200,151 @@ def display_monitor_dashboard(current_time=None):
     }, 300000); // 5 minutes
     </script>
     """, unsafe_allow_html=True)
+
+def display_day_details(display_df, target_date):
+    """Display detailed view of activities for a specific day with all information"""
+    day_name = target_date.strftime('%A').lower()
+    day_full_name = target_date.strftime('%A, %B %d, %Y')
+    
+    # Get activities for the target date
+    day_activities = []
+    
+    for _, activity in display_df.iterrows():
+        # Use common function to check if activity should be shown (handles bi-weekly, date range, day matching)
+        if not should_show_activity_on_date(activity, target_date, day_name):
+            continue
+        
+        try:
+            # Use common function to calculate end time (handles minimum day override)
+            end_time = calculate_activity_end_time(activity, target_date, day_name)
+            
+            # Format start time
+            start_time_str = str(activity['time']).strip()
+            if start_time_str.count(':') > 1:
+                start_time_str = start_time_str.split(':')[0] + ':' + start_time_str.split(':')[1]
+            
+            start_time = pd.to_datetime(start_time_str, format='%H:%M').time()
+            formatted_start_time = start_time.strftime('%H:%M')
+            
+            # Get color for calendar source
+            calendar_source = activity.get('calendar_source', 'Family')
+            if pd.isna(calendar_source):
+                calendar_source = 'Family'
+            calendar_source = str(calendar_source)
+            calendar_color = get_calendar_color(calendar_source)
+            
+            day_activities.append({
+                'time': f"{formatted_start_time}-{end_time}",
+                'activity': activity['activity'],
+                'calendar_source': calendar_source,
+                'calendar_color': calendar_color,
+                'kid': activity['kid_name'],
+                'address': activity['address'],
+                'pickup': activity['pickup_driver'],
+                'return': activity['return_driver']
+            })
+        except Exception as e:
+            print(f"Error processing activity {activity.get('activity', 'Unknown')}: {e}")
+            continue
+    
+    # Sort by time
+    day_activities.sort(key=lambda x: x['time'])
+    
+    # Display header with back button
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.markdown(f'<h2 style="margin-top: 0;">📅 {day_full_name}</h2>', unsafe_allow_html=True)
+    with col2:
+        if st.button("← Back to Calendar", key="back_to_calendar"):
+            # Clear the selected date from query params while preserving others
+            params = dict(st.query_params)
+            params.pop('view_day', None)
+            st.query_params.clear()
+            for key, value in params.items():
+                st.query_params[key] = value
+            st.rerun()
+    
+    # Display calendar legend
+    display_calendar_legend()
+    
+    if not day_activities:
+        st.info("No activities scheduled for this day.")
+    else:
+        # Create DataFrame for display
+        display_data = []
+        for activity in day_activities:
+            # Get color class for calendar source
+            calendar_source = activity.get('calendar_source', 'Family')
+            if isinstance(calendar_source, str):
+                calendar_source = calendar_source.lower()
+            else:
+                calendar_source = 'family'
+            color_class = f'calendar-{calendar_source}'
+            
+            activity_name = activity['activity']
+            colored_activity = f'<span class="{color_class}">{activity_name}</span>'
+            
+            # Make address clickable
+            address = activity['address']
+            if address and str(address).strip() and str(address).lower() != 'n/a':
+                clickable_address = make_address_clickable(address)
+            else:
+                clickable_address = address
+            
+            display_data.append({
+                'Kid': activity['kid'],
+                'Activity': colored_activity,
+                'Time': activity['time'],
+                'Address': clickable_address,
+                'Pickup': activity['pickup'],
+                'Return': activity['return']
+            })
+        
+        day_df = pd.DataFrame(display_data)
+        
+        # Add CSS for table display
+        st.markdown("""
+        <style>
+        .day-details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .day-details-table td, .day-details-table th {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .day-details-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .day-details-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .calendar-school { 
+            color: #87ceeb !important; 
+            -webkit-text-fill-color: #87ceeb !important;
+        }
+        .calendar-jewish { 
+            color: #ffd700 !important; 
+            -webkit-text-fill-color: #ffd700 !important;
+        }
+        .calendar-family { 
+            color: #000000 !important; 
+            -webkit-text-fill-color: #000000 !important;
+        }
+        @media (max-width: 768px) {
+            .calendar-school { color: #87ceeb !important; }
+            .calendar-jewish { color: #ffd700 !important; }
+            .calendar-family { color: #000000 !important; }
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        # Display as HTML table
+        html_table = day_df.to_html(escape=False, index=False, classes="day-details-table")
+        st.markdown(html_table, unsafe_allow_html=True)
 
 def display_day_activities(display_df, target_date):
     """Display activities for a specific day in monitor format"""
@@ -2835,6 +3023,24 @@ def main():
     
     # Monthly View Section
     elif current_page == "📅 Monthly":
+        # Check if a specific day is selected for detailed view
+        view_day_param = st.query_params.get('view_day')
+        if view_day_param:
+            try:
+                # Parse the date from query parameter (format: YYYY-MM-DD)
+                selected_date = pd.to_datetime(view_day_param).date()
+                # Show detailed day view
+                display_day_details(display_df, selected_date)
+                # Don't show the monthly calendar when viewing a day
+                st.stop()
+            except (ValueError, TypeError):
+                # Invalid date parameter, clear it and show monthly view
+                params = dict(st.query_params)
+                params.pop('view_day', None)
+                st.query_params.clear()
+                for key, value in params.items():
+                    st.query_params[key] = value
+        
         # Remove top padding from Streamlit container for monthly view
         st.markdown("""
         <style>
@@ -2846,6 +3052,15 @@ def main():
         /* Remove padding from block container when monthly view is active */
         .main .block-container:has(.monthly-view) {
             padding-top: 0.5rem !important;
+        }
+        /* Make date headers clickable */
+        .clickable-date-header {
+            cursor: pointer;
+            text-decoration: underline;
+            color: #0066cc !important;
+        }
+        .clickable-date-header:hover {
+            color: #004499 !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -2943,21 +3158,66 @@ def main():
                 padding-top: 0 !important;
             }
             /* Reduce spacing between days and on sides for monthly view */
+            /* Remove the border that creates the rectangle - this is the key fix! */
             #monthly-calendar-container .monitor-day,
             .monthly-view.monitor-day {
                 margin: 0.05rem !important; /* Reduced from 0.25rem */
                 padding: 0.1rem !important; /* Reduced from 0.15rem */
+                padding-top: 0 !important; /* Remove top padding to eliminate rectangle above date */
+                border: none !important; /* Remove border that creates the rectangle */
+                border-top: none !important; /* Specifically remove top border */
+                border-left: none !important; /* Remove left border too */
+                border-right: none !important; /* Remove right border */
+                border-bottom: none !important; /* Remove bottom border */
+                box-shadow: none !important; /* Remove any box shadow */
             }
+            /* More specific selectors to override base .monitor-day-today styles */
             #monthly-calendar-container .monitor-day-today,
-            .monthly-view.monitor-day-today {
+            #monthly-calendar-container .monthly-view.monitor-day-today,
+            .monthly-view.monitor-day-today,
+            div.monthly-view.monitor-day-today {
                 margin: 0.05rem !important; /* Reduced from 0.25rem */
                 padding: 0.1rem !important; /* Reduced from 0.15rem */
+                padding-top: 0 !important; /* Remove top padding to eliminate rectangle above date */
+                border: none !important; /* Remove border that creates the rectangle - THIS IS THE KEY */
+                border-top: none !important; /* Specifically remove top border */
+                border-left: none !important; /* Remove left border too */
+                border-right: none !important; /* Remove right border */
+                border-bottom: none !important; /* Remove bottom border */
+                border-width: 0 !important; /* Force border width to 0 */
+                box-shadow: none !important; /* Remove box shadow from today highlight */
+            }
+            /* Remove any spacing/border from first child of day container (the date header area) */
+            #monthly-calendar-container .monitor-day > *:first-child,
+            .monthly-view.monitor-day > *:first-child,
+            #monthly-calendar-container .monitor-day-today > *:first-child,
+            .monthly-view.monitor-day-today > *:first-child {
+                margin-top: 0 !important;
+                padding-top: 0 !important;
+                border-top: none !important;
             }
             /* Reduce gap between Streamlit columns in monthly view */
             #monthly-calendar-container [data-testid="column"],
             .monthly-view [data-testid="column"] {
                 padding-left: 0.1rem !important;
                 padding-right: 0.1rem !important;
+            }
+            /* Remove any spacing from columns that contain date buttons */
+            #monthly-calendar-container [data-testid="column"]:has([data-testid="stButton"]),
+            .monthly-view [data-testid="column"]:has([data-testid="stButton"]),
+            /* Also target the vertical block that might contain the button */
+            #monthly-calendar-container [data-testid="stVerticalBlock"]:has([data-testid="stButton"]),
+            .monthly-view [data-testid="stVerticalBlock"]:has([data-testid="stButton"]) {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+                padding-bottom: 0 !important;
+                margin-bottom: 0 !important;
+            }
+            /* Target any element that might be creating a rectangle above the button */
+            #monthly-calendar-container [data-testid="column"] > div:first-child,
+            .monthly-view [data-testid="column"] > div:first-child {
+                margin-top: 0 !important;
+                padding-top: 0 !important;
             }
             /* Reduce container padding on sides */
             #monthly-calendar-container {
@@ -2969,7 +3229,172 @@ def main():
                 padding-left: 0.5rem !important;
                 padding-right: 0.5rem !important;
             }
+            /* Style date buttons to look like headers - remove all visible rectangles */
+            /* Target the button wrapper container - remove spacing above and below */
+            #monthly-calendar-container [data-testid="stButton"],
+            .monthly-view [data-testid="stButton"] {
+                position: relative !important;
+                margin: 0 !important;
+                margin-top: 0 !important;
+                margin-bottom: -5px !important; /* Negative margin to reduce space below button */
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                border: none !important;
+                border-width: 0 !important;
+                border-top: none !important;
+                border-bottom: none !important;
+                border-left: none !important;
+                border-right: none !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                box-shadow: none !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                line-height: 1.0 !important;
+                overflow: visible !important;
+            }
+            /* Hide any pseudo-elements that might create rectangles */
+            #monthly-calendar-container [data-testid="stButton"]::before,
+            .monthly-view [data-testid="stButton"]::before,
+            #monthly-calendar-container [data-testid="stButton"]::after,
+            .monthly-view [data-testid="stButton"]::after {
+                display: none !important;
+                content: none !important;
+            }
+            /* Target nested divs inside button wrapper */
+            #monthly-calendar-container [data-testid="stButton"] > div,
+            .monthly-view [data-testid="stButton"] > div,
+            #monthly-calendar-container [data-testid="stButton"] > button,
+            .monthly-view [data-testid="stButton"] > button {
+                margin: 0 !important;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                border: none !important;
+                border-width: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                height: auto !important;
+            }
+            /* Target all nested divs inside button wrapper */
+            #monthly-calendar-container [data-testid="stButton"] > *,
+            .monthly-view [data-testid="stButton"] > *,
+            #monthly-calendar-container [data-testid="stButton"] *,
+            .monthly-view [data-testid="stButton"] * {
+                margin: 0 !important;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+            /* Target all possible button selectors */
+            #monthly-calendar-container button,
+            .monthly-view button,
+            #monthly-calendar-container button[data-baseweb="button"],
+            .monthly-view button[data-baseweb="button"],
+            #monthly-calendar-container button.stButton,
+            .monthly-view button.stButton {
+                background-color: transparent !important;
+                background: transparent !important;
+                border: none !important;
+                border-width: 0 !important;
+                border-radius: 0 !important;
+                color: #0066cc !important;
+                font-weight: bold !important;
+                font-size: 1.04rem !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                text-align: center !important;
+                box-shadow: none !important;
+                height: auto !important;
+                min-height: 0 !important;
+                line-height: 1.0 !important;
+                width: 100% !important;
+                cursor: pointer !important;
+                outline: none !important;
+            }
+            /* Hover states for buttons */
+            #monthly-calendar-container button:hover,
+            .monthly-view button:hover,
+            #monthly-calendar-container button[data-baseweb="button"]:hover,
+            .monthly-view button[data-baseweb="button"]:hover,
+            #monthly-calendar-container button.stButton:hover,
+            .monthly-view button.stButton:hover {
+                color: #004499 !important;
+                text-decoration: underline !important;
+                background-color: transparent !important;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+            /* Reduce spacing below button wrapper to minimize gap before activities */
+            #monthly-calendar-container [data-testid="stButton"]:has(button[key^="date_btn_"]),
+            .monthly-view [data-testid="stButton"]:has(button[key^="date_btn_"]) {
+                margin-bottom: -5px !important; /* Negative margin to reduce space below button */
+            }
+            /* Style for clickable date divs (not links, but clickable divs) */
+            #monthly-calendar-container .clickable-date,
+            .monthly-view .clickable-date {
+                color: #0066cc !important;
+                text-decoration: none !important;
+            }
+            #monthly-calendar-container .clickable-date:hover,
+            .monthly-view .clickable-date:hover {
+                color: #004499 !important;
+                text-decoration: underline !important;
+            }
             </style>
+            <script>
+            // Additional JavaScript to remove any remaining rectangles
+            (function() {
+                function removeRectangles() {
+                    // Find all button wrappers in monthly view
+                    const buttons = document.querySelectorAll('#monthly-calendar-container [data-testid="stButton"], .monthly-view [data-testid="stButton"]');
+                    buttons.forEach(function(btn) {
+                        // Remove any visible borders, backgrounds, or spacing
+                        btn.style.margin = '0';
+                        btn.style.padding = '0';
+                        btn.style.border = 'none';
+                        btn.style.background = 'transparent';
+                        btn.style.boxShadow = 'none';
+                        
+                        // Also check child elements
+                        const children = btn.querySelectorAll('*');
+                        children.forEach(function(child) {
+                            if (child.tagName !== 'BUTTON') {
+                                child.style.margin = '0';
+                                child.style.padding = '0';
+                                child.style.border = 'none';
+                                child.style.background = 'transparent';
+                            }
+                        });
+                    });
+                }
+                
+                // Run on page load
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', removeRectangles);
+                } else {
+                    removeRectangles();
+                }
+                
+                // Also run after a short delay to catch dynamically added elements
+                setTimeout(removeRectangles, 500);
+                setTimeout(removeRectangles, 1000);
+            })();
+            </script>
             """, unsafe_allow_html=True)
             
             # Use st.markdown with inline style to remove all top spacing
@@ -3000,18 +3425,37 @@ def main():
                 
                 for i, day_date in enumerate(week_days):
                     with cols[i]:
-                        # Highlight today
+                        # Highlight today - no class needed, just background color
                         if day_date == today:
-                            day_class = "monitor-day-today"
                             day_icon = "⭐"
                             bg_color = "#fff3cd"
                         else:
-                            day_class = "monitor-day"
                             day_icon = "📅"
                             bg_color = "#f8f9fa"
                         
-                        st.markdown(f'<div class="{day_class} monthly-view" style="background-color: {bg_color} !important; color: #000000 !important;"><div class="monitor-day-header monthly-view" style="color: #0066cc !important; background-color: transparent !important;">{day_icon} {day_date.strftime("%a %b %d")}</div>', unsafe_allow_html=True)
+                        # Start the day container - no class, just inline styles
+                        st.markdown(f'<div class="monthly-view" style="background-color: {bg_color} !important; color: #000000 !important; padding: 0.1rem; margin: 0.05rem; border-radius: 0.25rem; min-height: 30px;">', unsafe_allow_html=True)
+                        
+                        # Make date header clickable using st.button but with aggressive CSS to hide rectangle
+                        date_str = day_date.strftime("%a %b %d")
+                        date_iso = day_date.isoformat()  # Format: YYYY-MM-DD
+                        
+                        # Use st.button for clickable date header
+                        button_key = f"date_btn_{date_iso}"
+                        if st.button(
+                            f"{day_icon} {date_str}",
+                            key=button_key,
+                            use_container_width=False,
+                            help=f"Click to view details for {day_date.strftime('%B %d, %Y')}"
+                        ):
+                            # Set query parameter to view this day
+                            st.query_params['view_day'] = date_iso
+                            st.rerun()
+                        
+                        # Display activities for this day
                         display_day_activities(display_df, day_date)
+                        
+                        # Close the day container
                         st.markdown('</div>', unsafe_allow_html=True)
                 
                 # Move to next week
