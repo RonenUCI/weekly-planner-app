@@ -1,30 +1,4 @@
 kid_name,activity,calendar_source,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,🕎1️⃣ Chanukah: 1 Candle,Jewish,00:00:00,0,one-time,"[""sunday""]",2025-12-14,2025-12-14,Location TBD,N/A,N/A
-All,🕎2️⃣ Chanukah: 2 Candles,Jewish,00:00:00,0,one-time,"[""monday""]",2025-12-15,2025-12-15,Location TBD,N/A,N/A
-All,🕎3️⃣ Chanukah: 3 Candles,Jewish,00:00:00,0,one-time,"[""tuesday""]",2025-12-16,2025-12-16,Location TBD,N/A,N/A
-All,🕎4️⃣ Chanukah: 4 Candles,Jewish,00:00:00,0,one-time,"[""wednesday""]",2025-12-17,2025-12-17,Location TBD,N/A,N/A
-All,🕎5️⃣ Chanukah: 5 Candles,Jewish,00:00:00,0,one-time,"[""thursday""]",2025-12-18,2025-12-18,Location TBD,N/A,N/A
-All,🕎6️⃣ Chanukah: 6 Candles,Jewish,00:00:00,0,one-time,"[""friday""]",2025-12-19,2025-12-19,Location TBD,N/A,N/A
-All,✡️ Chag HaBanot,Jewish,00:00:00,0,one-time,"[""saturday""]",2025-12-20,2025-12-20,Location TBD,N/A,N/A
-All,🕎7️⃣ Chanukah: 7 Candles,Jewish,00:00:00,0,one-time,"[""saturday""]",2025-12-20,2025-12-20,Location TBD,N/A,N/A
-All,🌒 Rosh Chodesh Tevet,Jewish,00:00:00,0,one-time,"[""saturday""]",2025-12-20,2025-12-20,Location TBD,N/A,N/A
-All,🕎8️⃣ Chanukah: 8 Candles,Jewish,00:00:00,0,one-time,"[""sunday""]",2025-12-21,2025-12-21,Location TBD,N/A,N/A
-All,🌒 Rosh Chodesh Tevet,Jewish,00:00:00,0,one-time,"[""sunday""]",2025-12-21,2025-12-21,Location TBD,N/A,N/A
-All,🕎 Chanukah: 8th Day,Jewish,00:00:00,0,one-time,"[""monday""]",2025-12-22,2025-12-22,Location TBD,N/A,N/A
-All,✡️ Asara B’Tevet,Jewish,00:00:00,0,one-time,"[""tuesday""]",2025-12-30,2025-12-30,Location TBD,N/A,N/A
-All,🌒 Rosh Chodesh Sh’vat,Jewish,00:00:00,0,one-time,"[""monday""]",2026-01-19,2026-01-19,Location TBD,N/A,N/A
-All,🕍 Shabbat Shirah,Jewish,00:00:00,0,weekly,"[""saturday""]",2026-01-31,2026-01-31,Location TBD,N/A,N/A
-All,🌳 Tu BiShvat,Jewish,00:00:00,0,one-time,"[""monday""]",2026-02-02,2026-02-02,Location TBD,N/A,N/A
-All,🕍 Shabbat Shekalim,Jewish,00:00:00,0,weekly,"[""saturday""]",2026-02-14,2026-02-14,Location TBD,N/A,N/A
-All,🌒 Rosh Chodesh Adar,Jewish,00:00:00,0,one-time,"[""tuesday""]",2026-02-17,2026-02-17,Location TBD,N/A,N/A
-All,🌒 Rosh Chodesh Adar,Jewish,00:00:00,0,one-time,"[""wednesday""]",2026-02-18,2026-02-18,Location TBD,N/A,N/A
-All,🕍 Shabbat Zachor,Jewish,00:00:00,0,weekly,"[""saturday""]",2026-02-28,2026-02-28,Location TBD,N/A,N/A
-All,✡️ Ta’anit Esther,Jewish,00:00:00,0,one-time,"[""monday""]",2026-03-02,2026-03-02,Location TBD,N/A,N/A
-All,🎭️📜 Erev Purim,Jewish,00:00:00,0,one-time,"[""monday""]",2026-03-02,2026-03-02,Location TBD,N/A,N/A
-All,🎭️📜 Purim,Jewish,00:00:00,0,one-time,"[""tuesday""]",2026-03-03,2026-03-03,Location TBD,N/A,N/A
-All,🎭️📜 Shushan Purim,Jewish,00:00:00,0,one-time,"[""wednesday""]",2026-03-04,2026-03-04,Location TBD,N/A,N/A
-All,🕍 Shabbat Parah,Jewish,00:00:00,0,weekly,"[""saturday""]",2026-03-07,2026-03-07,Location TBD,N/A,N/A
-All,🕍 Shabbat HaChodesh,Jewish,00:00:00,0,weekly,"[""saturday""]",2026-03-14,2026-03-14,Location TBD,N/A,N/A
 All,🌒 Rosh Chodesh Nisan,Jewish,00:00:00,0,one-time,"[""thursday""]",2026-03-19,2026-03-19,Location TBD,N/A,N/A
 All,🕍 Shabbat HaGadol,Jewish,00:00:00,0,weekly,"[""saturday""]",2026-03-28,2026-03-28,Location TBD,N/A,N/A
 All,🇮🇱 Yom HaAliyah,Jewish,00:00:00,0,one-time,"[""saturday""]",2026-03-28,2026-03-28,Location TBD,N/A,N/A
@@ -134,3 +108,21 @@ All,🌒 Rosh Chodesh Iyyar,Jewish,00:00:00,0,one-time,"[""saturday""]",2027-05-
 All,🇮🇱 Yom HaZikaron,Jewish,00:00:00,0,one-time,"[""tuesday""]",2027-05-11,2027-05-11,Location TBD,N/A,N/A
 All,🇮🇱 Yom HaAtzma’ut,Jewish,00:00:00,0,one-time,"[""wednesday""]",2027-05-12,2027-05-12,Location TBD,N/A,N/A
 All,✡️ Pesach Sheni,Jewish,00:00:00,0,one-time,"[""friday""]",2027-05-21,2027-05-21,Location TBD,N/A,N/A
+All,🔥 Lag BaOmer,Jewish,00:00:00,0,one-time,"[""tuesday""]",2027-05-25,2027-05-25,Location TBD,N/A,N/A
+All,🇮🇱 Yom Yerushalayim,Jewish,00:00:00,0,one-time,"[""friday""]",2027-06-04,2027-06-04,Location TBD,N/A,N/A
+All,🌒 Rosh Chodesh Sivan,Jewish,00:00:00,0,one-time,"[""sunday""]",2027-06-06,2027-06-06,Location TBD,N/A,N/A
+All,⛰️🌸 Erev Shavuot,Jewish,00:00:00,0,one-time,"[""thursday""]",2027-06-10,2027-06-10,Location TBD,N/A,N/A
+All,⛰️🌸 Shavuot I,Jewish,00:00:00,0,one-time,"[""friday""]",2027-06-11,2027-06-11,Location TBD,N/A,N/A
+All,⛰️🌸 Shavuot II,Jewish,00:00:00,0,one-time,"[""saturday""]",2027-06-12,2027-06-12,Location TBD,N/A,N/A
+All,🌒 Rosh Chodesh Tamuz,Jewish,00:00:00,0,one-time,"[""monday""]",2027-07-05,2027-07-05,Location TBD,N/A,N/A
+All,🌒 Rosh Chodesh Tamuz,Jewish,00:00:00,0,one-time,"[""tuesday""]",2027-07-06,2027-07-06,Location TBD,N/A,N/A
+All,✡️ Tzom Tammuz,Jewish,00:00:00,0,one-time,"[""thursday""]",2027-07-22,2027-07-22,Location TBD,N/A,N/A
+All,🌒 Rosh Chodesh Av,Jewish,00:00:00,0,one-time,"[""wednesday""]",2027-08-04,2027-08-04,Location TBD,N/A,N/A
+All,🕍 Shabbat Chazon,Jewish,00:00:00,0,weekly,"[""saturday""]",2027-08-07,2027-08-07,Location TBD,N/A,N/A
+All,✡️ Erev Tish’a B’Av,Jewish,00:00:00,0,one-time,"[""wednesday""]",2027-08-11,2027-08-11,Location TBD,N/A,N/A
+All,✡️ Tish’a B’Av,Jewish,00:00:00,0,one-time,"[""thursday""]",2027-08-12,2027-08-12,Location TBD,N/A,N/A
+All,🕍 Shabbat Nachamu,Jewish,00:00:00,0,weekly,"[""saturday""]",2027-08-14,2027-08-14,Location TBD,N/A,N/A
+All,❤️ Tu B’Av,Jewish,00:00:00,0,one-time,"[""wednesday""]",2027-08-18,2027-08-18,Location TBD,N/A,N/A
+All,🌒 Rosh Chodesh Elul,Jewish,00:00:00,0,one-time,"[""thursday""]",2027-09-02,2027-09-02,Location TBD,N/A,N/A
+All,🐑 Rosh Hashana LaBehemot,Jewish,00:00:00,0,one-time,"[""friday""]",2027-09-03,2027-09-03,Location TBD,N/A,N/A
+All,🌒 Rosh Chodesh Elul,Jewish,00:00:00,0,one-time,"[""friday""]",2027-09-03,2027-09-03,Location TBD,N/A,N/A
