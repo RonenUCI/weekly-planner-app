@@ -55,8 +55,9 @@ DATA_CONFIG = {
 # School Calendar to Kid Associations
 # Maps school names to lists of kids who attend that school
 SCHOOL_KID_ASSOCIATIONS = {
-    'Jane Lathrop Stanford Middle School': ['Sagie', 'Ariella'],
+    'Jane Lathrop Stanford Middle School': ['Sagie'],
     'Ohlone Elementary School': ['Yoni'],
+    'Henry M. Gunn High School': ['Ariella'],
     # Add more schools as needed
     # 'School Name': ['Kid1', 'Kid2'],
 }
@@ -82,6 +83,17 @@ SCHOOL_MINIMUM_DAY_CONFIG = {
             'wednesday': '12:15',
             'thursday': '12:15',
             'friday': '12:15',
+        }
+    },
+    # Gunn min-day dismissal varies by alternate schedule; tweak end_times as needed
+    'Henry M. Gunn High School': {
+        'pattern': r'minimum day|early release|min day',
+        'end_times': {
+            'monday': '12:30',
+            'tuesday': '12:30',
+            'wednesday': '12:30',
+            'thursday': '12:30',
+            'friday': '12:30',
         }
     },
     # Add more schools as needed

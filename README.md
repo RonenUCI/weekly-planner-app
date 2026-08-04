@@ -128,6 +128,7 @@ pip install -r scraper_requirements.txt
 
 - **JLS Middle School**: `https://jls.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=7`
 - **Ohlone Elementary**: `https://ohlone.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=45`
+- **Gunn High School** (Public + School Year + CCC + Athletics): `https://gunn.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=51&calendar_ids[]=20&calendar_ids[]=15&calendar_ids[]=46`
 - **Jewish Holidays**: `https://download.hebcal.com/v4/CAEQARgBIAEoATABQAGAAQGYAQGgAQH4AQU/hebcal.ics`
 
 ## 🔄 **Updating Calendars**

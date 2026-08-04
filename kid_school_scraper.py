@@ -24,6 +24,13 @@ class SchoolCalendarScraper(ICSCalendarScraper):
                 'name': 'Ohlone Elementary School',
                 'url': 'https://ohlone.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=45',
                 'address': '950 Amarillo Ave, Palo Alto, CA 94303'
+            },
+            # All calendars shown on https://gunn.pausd.org/campus-life/calendars
+            # (Public, School Year – High Schools, College & Career, Athletics)
+            'Gunn': {
+                'name': 'Henry M. Gunn High School',
+                'url': 'https://gunn.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=51&calendar_ids[]=20&calendar_ids[]=15&calendar_ids[]=46',
+                'address': '780 Arastradero Road, Palo Alto, CA 94306'
             }
         }
     
