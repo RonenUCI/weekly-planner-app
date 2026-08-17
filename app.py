@@ -5,10 +5,28 @@ import plotly.graph_objects as go
 from datetime import datetime, timedelta, date
 import webbrowser
 import os
+import sys
 from typing import Dict, List, Tuple
 import json
 import re
 from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS, SCHOOL_MINIMUM_DAY_CONFIG, CALENDAR_COLORS
+
+# PLANNER_FETCH_LOG=1 (or --fetch-log) prints only cache/live fetch status.
+_FETCH_LOG_ONLY = (
+    os.environ.get("PLANNER_FETCH_LOG", "").strip().lower() in ("1", "true", "yes", "on")
+    or "--fetch-log" in sys.argv
+)
+_orig_print = print
+
+
+def print(*args, **kwargs):  # noqa: A001 - scoped debug filter for fetch-only mode
+    if not _FETCH_LOG_ONLY:
+        _orig_print(*args, **kwargs)
+        return
+    text = " ".join(str(a) for a in args)
+    if text.startswith("[cache]") or text.startswith("[live]"):
+        _orig_print(*args, **kwargs)
+
 
 # Cache for school events to avoid reloading on every call
 _school_events_cache = None
@@ -63,6 +81,152 @@ def remove_calendar_prefix(activity_name: str) -> str:
         return activity_str[8:]   # Remove "Jewish: "
     return activity_str
 
+def _normalize_activity_value(value, column: str) -> str:
+    """Normalize a cell so cache (CSV) and live (Google Sheets) compare as equal when content matches."""
+    if value is None or (not isinstance(value, (list, dict, tuple)) and pd.isna(value)):
+        return ""
+
+    if column in ('start_date', 'end_date'):
+        ts = pd.to_datetime(value, errors='coerce')
+        if pd.isna(ts):
+            return ""
+        return ts.strftime('%Y-%m-%d')
+
+    if column == 'days_of_week':
+        days = value
+        if isinstance(days, str):
+            text = days.strip()
+            if not text or text.lower() in ('nan', 'none', 'null'):
+                return "[]"
+            try:
+                days = json.loads(text)
+            except json.JSONDecodeError:
+                days = [text]
+        if isinstance(days, tuple):
+            days = list(days)
+        if isinstance(days, list):
+            cleaned = sorted(
+                str(day).strip().lower()
+                for day in days
+                if str(day).strip() and str(day).strip().lower() not in ('nan', 'none', 'null')
+            )
+            return json.dumps(cleaned)
+        return "[]"
+
+    text = str(value).strip()
+    if text.lower() in ('nan', 'nat', 'none', '<na>', 'null'):
+        return ""
+    return text
+
+
+def _activities_fingerprint(df: pd.DataFrame) -> str:
+    """Stable fingerprint so cache and a fresh Google fetch can be compared."""
+    if df is None or df.empty:
+        return ""
+
+    columns = [col for col in REQUIRED_COLUMNS if col in df.columns]
+    if 'calendar_source' in df.columns:
+        columns.append('calendar_source')
+
+    rows = []
+    for _, row in df.iterrows():
+        rows.append(tuple(_normalize_activity_value(row.get(col), col) for col in columns))
+    rows.sort()
+    return "\n".join("|".join(row) for row in rows)
+
+
+def save_activities_cache(df: pd.DataFrame) -> None:
+    """Persist processed Google Sheet activities for fast subsequent loads."""
+    cache_file = DATA_CONFIG['activities_cache_file']
+    try:
+        cache_dir = os.path.dirname(cache_file)
+        if cache_dir:
+            os.makedirs(cache_dir, exist_ok=True)
+        save_data_to_csv(df, cache_file)
+    except Exception as e:
+        print(f"[cache] save failed: {e}")
+
+
+def load_activities_cache() -> pd.DataFrame:
+    """Load the local activities cache, or an empty DataFrame if missing/unreadable."""
+    cache_file = DATA_CONFIG['activities_cache_file']
+    if not os.path.exists(cache_file):
+        return pd.DataFrame()
+    try:
+        df = load_data_from_csv(cache_file)
+        if df.empty:
+            return pd.DataFrame()
+        return df
+    except Exception as e:
+        print(f"[cache] load failed: {e}")
+        return pd.DataFrame()
+
+
+def bootstrap_activities() -> pd.DataFrame:
+    """
+    Serve cached Google Sheet data immediately when available.
+    First load (no cache) fetches from Google Drive and writes the cache.
+    Later sessions show the cache first, then refresh in the background.
+    """
+    if st.session_state.get('activities_bootstrapped'):
+        return st.session_state.activities_df
+
+    cached = load_activities_cache()
+    if not cached.empty:
+        st.session_state.activities_df = cached
+        st.session_state.needs_google_refresh = True
+        st.session_state.activities_from_cache = True
+        print(f"[cache] served {len(cached)} family activities")
+    else:
+        df = load_activities_from_google_drive()
+        save_activities_cache(df)
+        st.session_state.activities_df = df
+        st.session_state.needs_google_refresh = False
+        st.session_state.activities_from_cache = False
+        print(f"[live] fetched {len(df)} family activities (no cache)")
+
+    st.session_state.activities_bootstrapped = True
+    return st.session_state.activities_df
+
+
+@st.fragment(run_every=timedelta(seconds=1))
+def refresh_google_activities_if_needed():
+    """After the cached page paints, fetch Google Sheets and rerun only if data changed."""
+    if not st.session_state.get('needs_google_refresh'):
+        return
+    if st.session_state.get('_google_refresh_in_progress'):
+        return
+
+    # First fragment run happens during the initial script; skip so the cache can render.
+    if not st.session_state.get('_google_refresh_armed'):
+        st.session_state._google_refresh_armed = True
+        return
+
+    st.session_state._google_refresh_in_progress = True
+    try:
+        fresh = load_activities_from_google_drive()
+    except Exception as e:
+        print(f"[live] refresh failed: {e}")
+        st.session_state._google_refresh_in_progress = False
+        return
+
+    st.session_state.needs_google_refresh = False
+    st.session_state._google_refresh_in_progress = False
+
+    cached_fp = _activities_fingerprint(st.session_state.activities_df)
+    fresh_fp = _activities_fingerprint(fresh)
+    if cached_fp != fresh_fp:
+        save_activities_cache(fresh)
+        st.session_state.activities_df = fresh
+        st.session_state.activities_from_cache = False
+        print(f"[live] refresh updated ({len(fresh)} family activities)")
+        st.rerun()
+    else:
+        save_activities_cache(fresh)
+        st.session_state.activities_from_cache = False
+        print(f"[live] refresh unchanged ({len(fresh)} family activities)")
+
+
 def load_activities_from_google_drive():
     """Load activities from Google Drive - no fallback to local file"""
     # Google Drive shareable URL for your activities spreadsheet
@@ -73,8 +237,7 @@ def load_activities_from_google_drive():
         from io import StringIO
         import time
         
-        print("Attempting to load activities from Google Drive...")
-        # Add timestamp to prevent caching
+        # Add timestamp to prevent HTTP caching of the live sheet
         timestamp = int(time.time())
         cache_bust_url = f"{google_drive_url}&t={timestamp}"
         
@@ -134,21 +297,11 @@ def load_activities_from_google_drive():
                     df['frequency'] = 'weekly'  # Default for existing rows
                     df.at[idx, 'frequency'] = 'one-time'
         
-        print(f"✅ Successfully loaded {len(df)} activities from Google Drive")
-        
-        # Debug: Show date ranges of activities
-        if not df.empty and 'start_date' in df.columns and 'end_date' in df.columns:
-            print(f"DEBUG: Activity date ranges:")
-            for idx, row in df.iterrows():
-                end_date_str = str(row['end_date']) if not pd.isna(row['end_date']) else 'null (one-time)'
-                print(f"  {row.get('activity', 'Unknown')}: {row['start_date']} to {end_date_str}")
-        
         return df
         
     except Exception as e:
-        error_msg = f"❌ Failed to load activities from Google Drive: {str(e)}"
-        print(error_msg)
-        raise RuntimeError(error_msg)
+        print(f"[live] fetch failed: {e}")
+        raise RuntimeError(f"Failed to load activities from Google Drive: {e}")
 
 # Add this function at the top level, before the main() function
 def make_address_clickable(address):
@@ -1338,17 +1491,17 @@ def get_minimum_day_end_time(kid_name: str, activity_date: date, day_of_week: st
         print(f"Warning: Could not check for minimum day: {e}")
         return None
 
-def load_combined_data_for_display() -> pd.DataFrame:
+def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.DataFrame:
     """Load and combine Google Drive activities with school_events.csv and jewish_holidays.csv for display purposes"""
-    # Load main activities from Google Drive
-    try:
-        activities_df = load_activities_from_google_drive()
-    except Exception as e:
-        st.error(f"Failed to load activities from Google Drive: {e}")
-        return pd.DataFrame(columns=[
-            'kid_name', 'activity', 'time', 'duration', 'frequency', 
-            'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
-        ])
+    if activities_df is None:
+        try:
+            activities_df = bootstrap_activities()
+        except Exception as e:
+            st.error(f"Failed to load activities from Google Drive: {e}")
+            return pd.DataFrame(columns=[
+                'kid_name', 'activity', 'time', 'duration', 'frequency', 
+                'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
+            ])
     
     # Load school events if available
     school_events_df = pd.DataFrame()
@@ -1443,7 +1596,12 @@ def load_combined_data_for_display() -> pd.DataFrame:
     
     # Combine all dataframes
     combined_df = pd.concat([activities_df, school_events_df, jewish_holidays_df], ignore_index=True)
-    print(f"Combined {len(activities_df)} activities + {len(school_events_df)} school events + {len(jewish_holidays_df)} Jewish holidays = {len(combined_df)} total")
+    source = "cache" if st.session_state.get('activities_from_cache') else "live"
+    print(
+        f"[{source}] combined {len(activities_df)} family + "
+        f"{len(school_events_df)} school + {len(jewish_holidays_df)} jewish "
+        f"= {len(combined_df)} total"
+    )
     
     return combined_df
 
@@ -1965,9 +2123,11 @@ def display_monitor_dashboard(current_time=None):
     # Display calendar legend
     display_calendar_legend()
     
-    # Load data
+    # Load data (cache first, then refresh Google Sheets in the background)
     try:
         display_df = load_combined_data_for_display()
+        if st.session_state.get('needs_google_refresh'):
+            refresh_google_activities_if_needed()
     except Exception as e:
         st.error(f"Failed to load activities: {e}")
         return
@@ -2548,10 +2708,12 @@ def main():
         return
     
     
-    # Load data - try Google Drive first, fallback to local file
+    # Load data: serve local cache immediately when present, then refresh Google Sheets
     try:
-        st.session_state.activities_df = load_activities_from_google_drive()
-        display_df = load_combined_data_for_display()  # Combined data for display
+        bootstrap_activities()
+        display_df = load_combined_data_for_display(st.session_state.activities_df)
+        if st.session_state.get('needs_google_refresh'):
+            refresh_google_activities_if_needed()
         
     except Exception as e:
         st.error(f"🚨 **Google Drive Error:** {str(e)}")
@@ -2566,6 +2728,8 @@ def main():
     
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
+    if st.session_state.get('activities_from_cache') and st.session_state.get('needs_google_refresh'):
+        st.sidebar.caption("Showing cached schedule; checking Google Sheets…")
     
     # Time and date override help
     if time_override or date_override:

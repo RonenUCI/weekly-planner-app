@@ -50,6 +50,7 @@ DATA_CONFIG = {
     'school_events_file': 'school_events.csv',
     'jewish_holidays_file': 'jewish_holidays.csv',
     'activities_file': 'activities.csv',
+    'activities_cache_file': '.cache/activities.csv',
 }
 
 # School Calendar to Kid Associations
