@@ -249,7 +249,7 @@ def load_activities_from_google_drive():
         response.raise_for_status()
         
         # Read CSV content from Google Drive
-        df = pd.read_csv(StringIO(response.text))
+        df = pd.read_csv(StringIO(response.text), keep_default_na=False)
         
         if df.empty:
             raise ValueError("Google Sheet is empty - no activities found")
@@ -1365,7 +1365,7 @@ def load_data_from_csv(filename: str) -> pd.DataFrame:
     """Load activities data from CSV file"""
     if os.path.exists(filename):
         try:
-            df = pd.read_csv(filename)
+            df = pd.read_csv(filename, keep_default_na=False)
             if 'days_of_week' in df.columns:
                 df['days_of_week'] = df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
@@ -1401,7 +1401,7 @@ def _load_school_events_cached():
         return pd.DataFrame()
     
     try:
-        school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'])
+        school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'], keep_default_na=False)
         if 'days_of_week' in school_events_df.columns:
             school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
                 lambda x: json.loads(x) if isinstance(x, str) else x
@@ -1514,7 +1514,7 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
     school_events_df = pd.DataFrame()
     if os.path.exists(DATA_CONFIG['school_events_file']):
         try:
-            school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'])
+            school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'], keep_default_na=False)
             if 'days_of_week' in school_events_df.columns:
                 school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
@@ -1551,7 +1551,7 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
     jewish_holidays_df = pd.DataFrame()
     if os.path.exists(DATA_CONFIG['jewish_holidays_file']):
         try:
-            jewish_holidays_df = pd.read_csv(DATA_CONFIG['jewish_holidays_file'])
+            jewish_holidays_df = pd.read_csv(DATA_CONFIG['jewish_holidays_file'], keep_default_na=False)
             if 'days_of_week' in jewish_holidays_df.columns:
                 jewish_holidays_df['days_of_week'] = jewish_holidays_df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
@@ -1566,7 +1566,7 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
     sports_events_df = pd.DataFrame()
     if os.path.exists(DATA_CONFIG['sports_events_file']):
         try:
-            sports_events_df = pd.read_csv(DATA_CONFIG['sports_events_file'])
+            sports_events_df = pd.read_csv(DATA_CONFIG['sports_events_file'], keep_default_na=False)
             if 'days_of_week' in sports_events_df.columns:
                 sports_events_df['days_of_week'] = sports_events_df['days_of_week'].apply(
                     lambda x: json.loads(x) if isinstance(x, str) else x
@@ -2028,7 +2028,7 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
                 print(f"DEBUG MAIN: Grouping by: {group_columns}")
                 merged_rows = []
                 
-                for group_key, group in day_df_clean.groupby(group_columns):
+                for group_key, group in day_df_clean.groupby(group_columns, dropna=False):
                     print(f"DEBUG MAIN: Group size: {len(group)}, Key: {group_key}")
                     if len(group) > 1:
                         # Multiple kids for same activity - merge kid names
@@ -3134,7 +3134,7 @@ def main():
                                 print(f"DEBUG: Grouping by: {group_columns}")
                                 merged_rows = []
                                 
-                                for group_key, group in day_df_clean.groupby(group_columns):
+                                for group_key, group in day_df_clean.groupby(group_columns, dropna=False):
                                     print(f"DEBUG: Group size: {len(group)}, Key: {group_key}")
                                     if len(group) > 1:
                                         # Multiple kids for same activity - merge kid names
