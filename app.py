@@ -250,11 +250,8 @@ def load_activities_from_google_drive():
         if df.empty:
             raise ValueError("Google Sheet is empty - no activities found")
         
-        # Convert date columns to datetime objects
-        if 'start_date' in df.columns:
-            df['start_date'] = pd.to_datetime(df['start_date'], errors='coerce').dt.date
-        if 'end_date' in df.columns:
-            df['end_date'] = pd.to_datetime(df['end_date'], errors='coerce').dt.date
+        # Convert date columns to datetime.date (same path as cache)
+        df = ensure_date_columns(df)
         
         # Process days_of_week column if it exists
         if 'days_of_week' in df.columns:
@@ -1337,6 +1334,17 @@ if 'show_nav_menu' not in st.session_state:
 #     st.session_state.csv_file = 'activities.csv'
 
 # Helper functions (same as before)
+def ensure_date_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Coerce start_date/end_date to datetime.date so cache strings and live dates can be compared."""
+    if df is None or df.empty:
+        return df
+    df = df.copy()
+    for col in ('start_date', 'end_date'):
+        if col in df.columns:
+            df[col] = pd.to_datetime(df[col], errors='coerce').dt.date
+    return df
+
+
 def migrate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """Migrate old dataframe to new schema with start_date and end_date"""
     if df.empty:
@@ -1347,14 +1355,7 @@ def migrate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     if 'end_date' not in df.columns:
         df['end_date'] = date.today() + timedelta(days=365)
     
-    if 'start_date' in df.columns:
-        if df['start_date'].dtype == 'object':
-            df['start_date'] = pd.to_datetime(df['start_date']).dt.date
-    if 'end_date' in df.columns:
-        if df['end_date'].dtype == 'object':
-            df['end_date'] = pd.to_datetime(df['end_date']).dt.date
-    
-    return df
+    return ensure_date_columns(df)
 
 def load_data_from_csv(filename: str) -> pd.DataFrame:
     """Load activities data from CSV file"""
@@ -1503,6 +1504,8 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
                 'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
             ])
     
+    activities_df = ensure_date_columns(activities_df)
+    
     # Load school events if available
     school_events_df = pd.DataFrame()
     if os.path.exists(DATA_CONFIG['school_events_file']):
@@ -1513,10 +1516,7 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
                     lambda x: json.loads(x) if isinstance(x, str) else x
                 )
             # Convert date columns to datetime objects
-            if 'start_date' in school_events_df.columns:
-                school_events_df['start_date'] = pd.to_datetime(school_events_df['start_date']).dt.date
-            if 'end_date' in school_events_df.columns:
-                school_events_df['end_date'] = pd.to_datetime(school_events_df['end_date']).dt.date
+            school_events_df = ensure_date_columns(school_events_df)
             
             # Filter out ignored school activities
             ignored_activities = NAVIGATION_CONFIG['ignored_school_activities']
@@ -1553,10 +1553,7 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
                     lambda x: json.loads(x) if isinstance(x, str) else x
                 )
             # Convert date columns to datetime objects
-            if 'start_date' in jewish_holidays_df.columns:
-                jewish_holidays_df['start_date'] = pd.to_datetime(jewish_holidays_df['start_date']).dt.date
-            if 'end_date' in jewish_holidays_df.columns:
-                jewish_holidays_df['end_date'] = pd.to_datetime(jewish_holidays_df['end_date']).dt.date
+            jewish_holidays_df = ensure_date_columns(jewish_holidays_df)
             print(f"Loaded {len(jewish_holidays_df)} Jewish holidays")
         except Exception as e:
             print(f"Warning: Could not load Jewish holidays: {e}")
@@ -1596,6 +1593,7 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
     
     # Combine all dataframes
     combined_df = pd.concat([activities_df, school_events_df, jewish_holidays_df], ignore_index=True)
+    combined_df = ensure_date_columns(combined_df)
     source = "cache" if st.session_state.get('activities_from_cache') else "live"
     print(
         f"[{source}] combined {len(activities_df)} family + "
