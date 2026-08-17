@@ -51,6 +51,7 @@ DATA_CONFIG = {
     'jewish_holidays_file': 'jewish_holidays.csv',
     'activities_file': 'activities.csv',
     'activities_cache_file': '.cache/activities.csv',
+    'sports_events_file': 'sports_events.csv',
 }
 
 # School Calendar to Kid Associations
@@ -59,8 +60,15 @@ SCHOOL_KID_ASSOCIATIONS = {
     'Jane Lathrop Stanford Middle School': ['Sagie'],
     'Ohlone Elementary School': ['Yoni'],
     'Henry M. Gunn High School': ['Ariella'],
-    # Add more schools as needed
-    # 'School Name': ['Kid1', 'Kid2'],
+}
+
+# Sports ICS feeds (TeamSnap, etc.)
+# Add more teams here; each feed is assigned to one kid
+SPORTS_FEEDS = {
+    'Gunn Flag Football': {
+        'url': 'https://calendar-api.teamsnap.com/v1/team.ics?token=hSF3EY7Hz2zWTQE_4cpfrpfUY1319K5jvLwflkbKnAE1ZVbg8yYVKdNmiJxAX4lm&teamId=019feca2-2149-747d-a7a3-68cb09d74885',
+        'kid_name': 'Ariella',
+    },
 }
 
 # Minimum Day Configuration by School
@@ -157,5 +165,6 @@ DAYS_ORDER = ['M', 'T', 'W', 'Th', 'F', 'S', 'S']
 CALENDAR_COLORS = {
     'School': '#87ceeb',      # Light blue for school events
     'Jewish': '#ffd700',     # Gold for Jewish holidays
+    'Sports': '#3cb371',     # Medium sea green for TeamSnap / sports
     'Family': '#000000',     # Black for family activities (default)
 }

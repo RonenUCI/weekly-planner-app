@@ -129,6 +129,7 @@ pip install -r scraper_requirements.txt
 - **JLS Middle School**: `https://jls.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=7`
 - **Ohlone Elementary**: `https://ohlone.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=45`
 - **Gunn High School** (Public + School Year + CCC + Athletics): `https://gunn.pausd.org/fs/calendar-manager/events.ics?calendar_ids[]=51&calendar_ids[]=20&calendar_ids[]=15&calendar_ids[]=46`
+- **Gunn Flag Football** (TeamSnap, Ariella): `https://calendar-api.teamsnap.com/v1/team.ics?token=...&teamId=019feca2-2149-747d-a7a3-68cb09d74885`
 - **Jewish Holidays**: `https://download.hebcal.com/v4/CAEQARgBIAEoATABQAGAAQGYAQGgAQH4AQU/hebcal.ics`
 
 ## 🔄 **Updating Calendars**
@@ -142,6 +143,7 @@ python3 update_calendars.py
 ```bash
 python3 kid_school_scraper.py        # School events only
 python3 jewish_holidays_scraper.py   # Jewish holidays only
+python3 sports_scraper.py            # TeamSnap / sports only
 ```
 
 ### **Automated Updates (Optional)**
@@ -159,6 +161,7 @@ python3 jewish_holidays_scraper.py   # Jewish holidays only
 - `activities.csv`: Family activities (editable)
 - `school_events.csv`: School calendar events (auto-generated)
 - `jewish_holidays.csv`: Jewish holidays (auto-generated)
+- `sports_events.csv`: TeamSnap / sports events (auto-generated)
 
 ## 🚨 **Troubleshooting**
 

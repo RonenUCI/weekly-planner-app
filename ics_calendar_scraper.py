@@ -8,7 +8,10 @@ import requests
 import pandas as pd
 from datetime import datetime, date, timedelta
 from typing import List, Dict, Optional
+from zoneinfo import ZoneInfo
 from icalendar import Calendar
+
+PACIFIC_TZ = ZoneInfo('America/Los_Angeles')
 
 class ICSCalendarScraper:
     """Base class for scraping ICS calendar feeds"""
@@ -39,6 +42,10 @@ class ICSCalendarScraper:
         events = []
         
         try:
+            # TeamSnap emits NAME: on VCALENDAR, which icalendar treats as a required component
+            ics_content = "\n".join(
+                line for line in ics_content.splitlines() if not line.startswith("NAME:")
+            )
             # Parse ICS content
             cal = Calendar.from_ical(ics_content)
             
@@ -90,6 +97,7 @@ class ICSCalendarScraper:
                 start_dt = start_dt.dt
             else:
                 start_dt = start_dt
+            start_dt = self._to_pacific(start_dt)
             
             # Get end date/time
             end_dt = component.get('dtend')
@@ -97,6 +105,15 @@ class ICSCalendarScraper:
                 end_dt = end_dt.dt
             else:
                 end_dt = end_dt
+            end_dt = self._to_pacific(end_dt)
+
+            # TeamSnap and others often send DURATION instead of DTEND
+            if end_dt is None:
+                duration_prop = component.get('duration')
+                if duration_prop is not None:
+                    duration_value = duration_prop.dt if hasattr(duration_prop, 'dt') else duration_prop
+                    if isinstance(start_dt, datetime) and isinstance(duration_value, timedelta):
+                        end_dt = start_dt + duration_value
             
             # Handle all-day events
             if isinstance(start_dt, date) and not isinstance(start_dt, datetime):
@@ -151,6 +168,12 @@ class ICSCalendarScraper:
         except Exception as e:
             print(f"Error parsing ICS event: {e}")
             return None
+
+    def _to_pacific(self, value):
+        """Convert timezone-aware datetimes to naive Pacific local time."""
+        if isinstance(value, datetime) and value.tzinfo is not None:
+            return value.astimezone(PACIFIC_TZ).replace(tzinfo=None)
+        return value
     
     def _enhance_event(self, event: Dict, feed_identifier: str = "") -> Dict:
         """Allow subclasses to add additional fields to the event"""
@@ -253,7 +276,7 @@ class ICSCalendarScraper:
             # Fallback to basic CSV saving
             df.to_csv(filename, index=False)
     
-    def scrape_and_convert(self, url: str, output_filename: str, prefix: str = "") -> pd.DataFrame:
+    def scrape_and_convert(self, url: str, output_filename: str, prefix: str = "", kid_name: str = "All") -> pd.DataFrame:
         """Main method to scrape ICS feed and convert to planner format"""
         print(f"Scraping {self.calendar_name} calendar...")
         
@@ -266,7 +289,7 @@ class ICSCalendarScraper:
             
             if events:
                 # Convert to planner format
-                planner_df = self.convert_to_planner_format(events, prefix)
+                planner_df = self.convert_to_planner_format(events, prefix, kid_name=kid_name)
                 
                 if not planner_df.empty:
                     # Save to file

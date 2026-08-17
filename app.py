@@ -48,6 +48,8 @@ def get_calendar_source(activity_name: str) -> str:
         return 'School'
     elif activity_lower.startswith('jewish:'):
         return 'Jewish'
+    elif activity_lower.startswith('sports:'):
+        return 'Sports'
     else:
         return 'Family'
 
@@ -79,6 +81,8 @@ def remove_calendar_prefix(activity_name: str) -> str:
         return activity_str[8:]  # Remove "School: "
     elif activity_str.startswith('Jewish: '):
         return activity_str[8:]   # Remove "Jewish: "
+    elif activity_str.startswith('Sports: '):
+        return activity_str[8:]   # Remove "Sports: "
     return activity_str
 
 def _normalize_activity_value(value, column: str) -> str:
@@ -1558,11 +1562,25 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
         except Exception as e:
             print(f"Warning: Could not load Jewish holidays: {e}")
     
+    # Load sports events if available
+    sports_events_df = pd.DataFrame()
+    if os.path.exists(DATA_CONFIG['sports_events_file']):
+        try:
+            sports_events_df = pd.read_csv(DATA_CONFIG['sports_events_file'])
+            if 'days_of_week' in sports_events_df.columns:
+                sports_events_df['days_of_week'] = sports_events_df['days_of_week'].apply(
+                    lambda x: json.loads(x) if isinstance(x, str) else x
+                )
+            sports_events_df = ensure_date_columns(sports_events_df)
+            print(f"Loaded {len(sports_events_df)} sports events")
+        except Exception as e:
+            print(f"Warning: Could not load sports events: {e}")
+    
     # Ensure all dataframes have the same columns before concatenating
     required_columns = REQUIRED_COLUMNS
     
     # Add missing columns to each dataframe
-    for df in [activities_df, school_events_df, jewish_holidays_df]:
+    for df in [activities_df, school_events_df, jewish_holidays_df, sports_events_df]:
         for col in required_columns:
             if col not in df.columns:
                 df[col] = None
@@ -1574,16 +1592,18 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
     # Jewish holidays should have calendar_source='Jewish'
     if 'calendar_source' not in jewish_holidays_df.columns:
         jewish_holidays_df['calendar_source'] = 'Jewish'
+    if 'calendar_source' not in sports_events_df.columns:
+        sports_events_df['calendar_source'] = 'Sports'
     # Family activities should have calendar_source='Family'
     if 'calendar_source' not in activities_df.columns:
         activities_df['calendar_source'] = 'Family'
     
     # For backward compatibility: if calendar_source is missing, detect from activity name
     # and remove prefix from activity name
-    for df in [activities_df, school_events_df, jewish_holidays_df]:
+    for df in [activities_df, school_events_df, jewish_holidays_df, sports_events_df]:
         if 'calendar_source' in df.columns:
             # Remove prefix from activity names if they have it
-            mask = df['activity'].astype(str).str.lower().str.startswith(('school:', 'jewish:'))
+            mask = df['activity'].astype(str).str.lower().str.startswith(('school:', 'jewish:', 'sports:'))
             if mask.any():
                 df.loc[mask, 'activity'] = df.loc[mask, 'activity'].apply(remove_calendar_prefix)
         else:
@@ -1592,13 +1612,16 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
             df['activity'] = df['activity'].apply(remove_calendar_prefix)
     
     # Combine all dataframes
-    combined_df = pd.concat([activities_df, school_events_df, jewish_holidays_df], ignore_index=True)
+    combined_df = pd.concat(
+        [activities_df, school_events_df, jewish_holidays_df, sports_events_df],
+        ignore_index=True,
+    )
     combined_df = ensure_date_columns(combined_df)
     source = "cache" if st.session_state.get('activities_from_cache') else "live"
     print(
         f"[{source}] combined {len(activities_df)} family + "
-        f"{len(school_events_df)} school + {len(jewish_holidays_df)} jewish "
-        f"= {len(combined_df)} total"
+        f"{len(school_events_df)} school + {len(jewish_holidays_df)} jewish + "
+        f"{len(sports_events_df)} sports = {len(combined_df)} total"
     )
     
     return combined_df
@@ -2089,6 +2112,11 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
                 color: #ffd700 !important; 
                 -webkit-text-fill-color: #ffd700 !important;
             }
+            .weekly-schedule-table .calendar-sports,
+            .calendar-sports { 
+                color: #3cb371 !important; 
+                -webkit-text-fill-color: #3cb371 !important;
+            }
             .weekly-schedule-table .calendar-family,
             .calendar-family { 
                 color: #000000 !important; 
@@ -2101,6 +2129,7 @@ def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
             @media (max-width: 768px) {
                 .weekly-schedule-table .calendar-school { color: #87ceeb !important; }
                 .weekly-schedule-table .calendar-jewish { color: #ffd700 !important; }
+                .weekly-schedule-table .calendar-sports { color: #3cb371 !important; }
                 .weekly-schedule-table .calendar-family { color: #000000 !important; }
             }
             </style>
@@ -2244,6 +2273,10 @@ def display_monitor_dashboard(current_time=None):
         color: #ffd700 !important; 
         -webkit-text-fill-color: #ffd700 !important;
     }
+    .calendar-sports { 
+        color: #3cb371 !important; 
+        -webkit-text-fill-color: #3cb371 !important;
+    }
     .calendar-family { 
         color: #000000 !important; 
         -webkit-text-fill-color: #000000 !important;
@@ -2252,6 +2285,7 @@ def display_monitor_dashboard(current_time=None):
     @media (max-width: 768px) {
         .calendar-school { color: #87ceeb !important; }
         .calendar-jewish { color: #ffd700 !important; }
+        .calendar-sports { color: #3cb371 !important; }
         .calendar-family { color: #000000 !important; }
     }
     /* Style date buttons in monitor view to look like headers (same as monthly view) */
@@ -2488,6 +2522,10 @@ def display_day_details(display_df, target_date):
             color: #ffd700 !important; 
             -webkit-text-fill-color: #ffd700 !important;
         }
+        .calendar-sports { 
+            color: #3cb371 !important; 
+            -webkit-text-fill-color: #3cb371 !important;
+        }
         .calendar-family { 
             color: #000000 !important; 
             -webkit-text-fill-color: #000000 !important;
@@ -2495,6 +2533,7 @@ def display_day_details(display_df, target_date):
         @media (max-width: 768px) {
             .calendar-school { color: #87ceeb !important; }
             .calendar-jewish { color: #ffd700 !important; }
+            .calendar-sports { color: #3cb371 !important; }
             .calendar-family { color: #000000 !important; }
         }
         </style>
@@ -2639,6 +2678,12 @@ def main():
         color: #ffd700 !important; 
         -webkit-text-fill-color: #ffd700 !important;
     }
+    .calendar-sports,
+    .weekly-schedule-table .calendar-sports,
+    .monitor-activity .calendar-sports { 
+        color: #3cb371 !important; 
+        -webkit-text-fill-color: #3cb371 !important;
+    }
     .calendar-family,
     .weekly-schedule-table .calendar-family,
     .monitor-activity .calendar-family { 
@@ -2649,6 +2694,7 @@ def main():
     @media (max-width: 768px) {
         .calendar-school, .weekly-schedule-table .calendar-school { color: #87ceeb !important; }
         .calendar-jewish, .weekly-schedule-table .calendar-jewish { color: #ffd700 !important; }
+        .calendar-sports, .weekly-schedule-table .calendar-sports { color: #3cb371 !important; }
         .calendar-family, .weekly-schedule-table .calendar-family { color: #000000 !important; }
     }
     </style>

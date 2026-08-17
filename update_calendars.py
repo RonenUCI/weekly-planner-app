@@ -4,6 +4,7 @@ Calendar Update Automation Script
 Run this script to automatically update all calendars:
 - School events (weekly updates)
 - Jewish holidays (monthly updates)
+- Sports events (TeamSnap)
 - Can be run manually or as a cron job
 """
 
@@ -20,6 +21,7 @@ sys.path.append(str(Path(__file__).parent))
 from ics_calendar_scraper import ICSCalendarScraper
 from kid_school_scraper import SchoolCalendarScraper
 from jewish_holidays_scraper import JewishHolidaysScraper
+from sports_scraper import SportsCalendarScraper
 
 class UpdateCalendars:
     """Unified scraper that downloads and saves multiple calendar sources to separate files"""
@@ -27,6 +29,7 @@ class UpdateCalendars:
     def __init__(self):
         self.school_scraper = SchoolCalendarScraper()
         self.jewish_scraper = JewishHolidaysScraper()
+        self.sports_scraper = SportsCalendarScraper()
         
     def scrape_all_calendars(self) -> Dict[str, pd.DataFrame]:
         """Scrape all calendar sources and save to separate CSV files"""
@@ -58,6 +61,15 @@ class UpdateCalendars:
         else:
             print("   ✗ No Jewish holidays found")
         
+        # Scrape sports calendars and save to sports_events.csv
+        print("\n3. Scraping sports calendars...")
+        sports_df = self.sports_scraper.scrape_all_sports()
+        if isinstance(sports_df, pd.DataFrame) and not sports_df.empty:
+            results['sports_events'] = sports_df
+            print(f"   ✓ Sports events: {len(sports_df)} activities saved to sports_events.csv")
+        else:
+            print("   ✗ No sports events found")
+        
         return results
     
     def get_summary(self, calendar_data: Dict[str, pd.DataFrame]) -> str:
@@ -87,6 +99,7 @@ class UpdateCalendars:
         summary_lines.append("\nFiles created/updated:")
         summary_lines.append("- school_events.csv (school calendar events)")
         summary_lines.append("- jewish_holidays.csv (Jewish holidays)")
+        summary_lines.append("- sports_events.csv (TeamSnap / sports)")
         summary_lines.append("- activities.csv (family activities - unchanged)")
         
         return "\n".join(summary_lines)
