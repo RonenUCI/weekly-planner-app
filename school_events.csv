@@ -1,309 +1,480 @@
 kid_name,activity,calendar_source,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-Sagie,PTA - Bike Safety Ed and Repair Booth,School,14:00:00,4.0,one-time,"[""monday""]",2026-08-10,2026-08-10,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,WL Placement Exam ,School,10:30:00,2.0,one-time,"[""tuesday""]",2026-08-11,2026-08-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Staff Development Day - Grades 9-12 ,School,00:00:00,0.0,one-time,"[""tuesday""]",2026-08-11,2026-08-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,New Student Orientation,School,14:00:00,3.5,one-time,"[""tuesday""]",2026-08-11,2026-08-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,School Photo Day,School,09:00:00,6.0,one-time,"[""wednesday""]",2026-08-12,2026-08-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Bike Repair Day ,School,14:00:00,3.0,one-time,"[""wednesday""]",2026-08-12,2026-08-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Teacher Work Day,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-08-12,2026-08-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,JLS Office Re-Opens 8am-4pm,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-08-12,2026-08-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,1st Day of School/Alternate Schedule ,School,00:00:00,0.0,one-time,"[""thursday""]",2026-08-13,2026-08-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,First Day of School 2026-27 School Year ,School,00:00:00,0.0,one-time,"[""thursday""]",2026-08-13,2026-08-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,First Day of School! (Special Schedule),School,00:00:00,0.0,one-time,"[""thursday""]",2026-08-13,2026-08-13,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Welcome Back Dance,School,19:30:00,3.0,one-time,"[""friday""]",2026-08-14,2026-08-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Alternate Schedule- School Festival,School,00:00:00,0.0,one-time,"[""friday""]",2026-08-14,2026-08-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Principal Coffee,School,08:30:00,1.0,one-time,"[""friday""]",2026-08-14,2026-08-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2026-08-18,2026-08-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Picture Day ,School,07:15:00,8.0,one-time,"[""tuesday""]",2026-08-18,2026-08-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,Picture Day,School,07:15:00,7.5,one-time,"[""wednesday""]",2026-08-19,2026-08-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,JLS Back To School Pizza Dinner,School,17:00:00,2.0,one-time,"[""wednesday""]",2026-08-19,2026-08-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Sports Boosters Meeting (N115) ,School,18:00:00,1.0,one-time,"[""thursday""]",2026-08-20,2026-08-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Principals' Coffee,School,09:15:00,1.25,one-time,"[""friday""]",2026-08-21,2026-08-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Community Zoom,School,08:45:00,0.75,one-time,"[""friday""]",2026-08-21,2026-08-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Freshman Elections,School,00:00:00,0.0,one-time,"[""monday""]",2026-08-24,2026-08-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Yoga for students+staff,School,16:20:00,1.0,one-time,"[""tuesday""]",2026-08-25,2026-08-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Back to School Night,School,17:30:00,1.5,one-time,"[""tuesday""]",2026-08-25,2026-08-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Room Parent Training,School,08:30:00,0.5,one-time,"[""tuesday""]",2026-08-25,2026-08-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Frosh Elections Assembly during PRIME,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-08-26,2026-08-26,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Back To School Night,School,17:45:00,1.92,one-time,"[""wednesday""]",2026-08-26,2026-08-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Alternate Schedule: Safety Drills,School,00:00:00,0.0,one-time,"[""thursday""]",2026-08-27,2026-08-27,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PTA General Meeting,School,08:30:00,0.5,one-time,"[""thursday""]",2026-08-27,2026-08-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Alternate Schedule: Extended SELF ,School,00:00:00,0.0,one-time,"[""friday""]",2026-08-28,2026-08-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Lafayette College,School,12:35:00,0.58,one-time,"[""monday""]",2026-08-31,2026-08-31,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Alternate Schedule- Jr's MHFA Training ,School,00:00:00,0.0,one-time,"[""monday""]",2026-08-31,2026-08-31,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Reed College,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-01,2026-09-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Chicago,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-01,2026-09-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Carleton College,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-01,2026-09-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,University of Calgary,School,08:15:00,0.67,one-time,"[""wednesday""]",2026-09-02,2026-09-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Fall Sports Rally,School,12:20:00,0.5,one-time,"[""wednesday""]",2026-09-02,2026-09-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Muhlenberg College,School,12:52:00,0.67,one-time,"[""wednesday""]",2026-09-02,2026-09-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Gunn Parent Community Fair (Before BTSN),School,17:00:00,1.0,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Western Washington University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Fun Party and Harvest Festival Planning Meeting,School,08:20:00,1.0,one-time,"[""thursday""]",2026-09-03,2026-09-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Middlebury College,School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Illinois Urbana-Champaign,School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule: IReady ,School,00:00:00,0.0,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,American University - District of Columbia,School,09:00:00,0.67,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Western Washington University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Middlebury College,School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Saint Louis University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Gunn Parent Community Fair (Before BTSN),School,17:15:00,0.67,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Lafayette College,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Back to School Night ,School,18:00:00,2.75,one-time,"[""thursday""]",2026-09-03,2026-09-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2026-09-04,2026-09-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,Principal Coffee,School,08:45:00,0.75,one-time,"[""friday""]",2026-09-04,2026-09-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Early Release Day,School,12:15:00,1.0,one-time,"[""friday""]",2026-09-04,2026-09-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Alternate Schedule: IReady/Min Day,School,00:00:00,0.0,one-time,"[""friday""]",2026-09-04,2026-09-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Early Release Day,School,00:00:00,0.0,one-time,"[""friday""]",2026-09-04,2026-09-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,Principal Coffee,School,08:45:00,0.75,one-time,"[""friday""]",2026-09-04,2026-09-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,University of Massachusetts-Amherst,School,10:45:00,0.58,one-time,"[""friday""]",2026-09-04,2026-09-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2026-09-04,2026-09-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Labor Day No School,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-07,2026-09-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,No School - Holiday (Labor Day),School,00:00:00,0.0,one-time,"[""monday""]",2026-09-07,2026-09-07,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,No School - Labor Day,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-07,2026-09-07,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Labor Day- No School ,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-07,2026-09-07,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PiE Back to School Challenge Ends,School,00:00:00,0.0,one-time,"[""tuesday""]",2026-09-08,2026-09-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,NYU Shanghai,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-08,2026-09-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Minerva University,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-08,2026-09-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Site Council,School,15:00:00,1.0,one-time,"[""tuesday""]",2026-09-08,2026-09-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Homecoming Reveal during PRIME,School,14:40:00,0.83,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,PTSA Exec Board Meeting ,School,09:30:00,1.5,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,PTSA General Assoc Meeting ,School,08:30:00,1.0,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Purdue University-Main Campus,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Sarah Lawrence College,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,9th Grade Parent Night: Hosted by Gunn Counseling ,School,18:00:00,1.0,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,10th Grade Parent Night: Hosted by Gunn Counseling ,School,19:15:00,1.0,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Homecoming Reveal during PRIME,School,14:40:00,0.83,one-time,"[""wednesday""]",2026-09-09,2026-09-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Case Western Reserve University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-09-10,2026-09-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Oregon State University,School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-10,2026-09-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Case Western Reserve University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-09-10,2026-09-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,"Temple University, Japan Campus",School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-10,2026-09-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,York University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-10,2026-09-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Macalester College,School,10:45:00,0.58,one-time,"[""friday""]",2026-09-11,2026-09-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Occidental College,School,10:45:00,0.58,one-time,"[""friday""]",2026-09-11,2026-09-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Community Zoom,School,08:45:00,0.75,one-time,"[""friday""]",2026-09-11,2026-09-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Gunn Freshman Concert Band Informance/Social,School,19:00:00,1.0,one-time,"[""monday""]",2026-09-14,2026-09-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Columbia University in the City of New York,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Pace University,School,12:35:00,0.58,one-time,"[""monday""]",2026-09-14,2026-09-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Suicide Prevention Week,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-14,2026-09-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Alternate Schedule- Jr's MHFA training ,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-14,2026-09-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Abertay University,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Menlo College,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Emory University,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Washington University in St Louis,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Hampden-Sydney College,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Pitzer College,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Virginia Polytechnic Institute and State University,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Columbia University in the City of New York,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Menlo College,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-15,2026-09-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,PTA Association Meeting (via Zoom),School,19:30:00,1.0,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,University of California-San Diego,School,08:15:00,0.67,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,12th Grade Parent Night: Hosted by Gunn Counseling ,School,19:15:00,1.0,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Willamette University,School,09:00:00,0.67,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Titan Wellness Fair ,School,12:20:00,0.5,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of California-San Diego,School,08:15:00,0.67,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Colby College,School,08:15:00,0.67,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,12th Grade Parent Night: Hosted by Gunn Counseling ,School,19:15:00,1.0,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,11th Grade Parent Night: Hosted by Gunn Counseling,School,18:00:00,1.0,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Yale University,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Willamette University,School,09:00:00,0.67,one-time,"[""wednesday""]",2026-09-16,2026-09-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Swarthmore College,School,08:15:00,0.67,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Rochester,School,09:00:00,0.67,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,New York University,School,09:00:00,0.67,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,DePaul University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Georgetown University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Fall Club/ Interest Group Fair: Day 1,School,12:20:00,0.5,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Hamilton College,School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Sports Boosters Meeting (N115) ,School,18:00:00,1.0,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Fall Club/ Interest Group Fair: Day 1,School,12:20:00,0.5,one-time,"[""thursday""]",2026-09-17,2026-09-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,G6 Movie Night,School,17:00:00,1.5,one-time,"[""friday""]",2026-09-18,2026-09-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,University of Connecticut,School,10:45:00,0.58,one-time,"[""friday""]",2026-09-18,2026-09-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Colorado Boulder,School,10:45:00,0.58,one-time,"[""friday""]",2026-09-18,2026-09-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Fall Club/ Interest Group Fair: Day 2,School,12:20:00,0.5,one-time,"[""friday""]",2026-09-18,2026-09-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Ohlone Sleepover,School,17:00:00,17.0,one-time,"[""friday""]",2026-09-18,2026-09-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Alternate Schedule (Juniors MHFA training),School,00:00:00,0.0,one-time,"[""monday""]",2026-09-21,2026-09-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2026-09-21,2026-09-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Suicide Prevention Week,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-21,2026-09-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2026-09-21,2026-09-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Drexel University,School,12:35:00,0.58,one-time,"[""monday""]",2026-09-21,2026-09-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Trinity University,School,12:35:00,0.58,one-time,"[""monday""]",2026-09-21,2026-09-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Picture Make-Up/Retake Day,School,07:30:00,7.0,one-time,"[""monday""]",2026-09-21,2026-09-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Bentley University,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2026-09-21,2026-09-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2026-09-21,2026-09-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Smith College,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,High Point University,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,University of San Diego,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Indiana University-Bloomington,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Worcester Polytechnic Institute,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Union College,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Indiana University-Bloomington,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,High Point University,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,University of San Francisco,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Washington State University,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,University of Utah,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Worcester Polytechnic Institute,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Bentley University,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of San Diego,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-22,2026-09-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Soka University of America,School,12:52:00,0.67,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Dartmouth College,School,12:52:00,0.67,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Titan Town Hall 1,School,14:40:00,0.83,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,University of California-Santa Barbara,School,08:15:00,0.67,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Washington State University,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Seton Hall University,School,09:00:00,0.67,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,The University of Tennessee-Knoxville,School,09:00:00,0.67,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Delaware,School,08:15:00,0.67,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of California-Santa Barbara,School,08:15:00,0.67,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Utah,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-23,2026-09-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Utah State University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Rensselaer Polytechnic Institute,School,09:00:00,0.67,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Oklahoma-Norman Campus,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Northwestern University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Columbia University in the City of New York,School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Wisconsin-Madison,School,12:52:00,0.67,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Scripps College,School,09:00:00,0.67,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Lake Forest College,School,08:15:00,0.67,one-time,"[""thursday""]",2026-09-24,2026-09-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,International Potluck,School,17:00:00,3.0,one-time,"[""friday""]",2026-09-25,2026-09-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Principals' Coffee,School,09:15:00,1.25,one-time,"[""friday""]",2026-09-25,2026-09-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Staff vs. Seniors Volleyball Game,School,12:20:00,0.5,one-time,"[""friday""]",2026-09-25,2026-09-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,University of the Pacific,School,10:45:00,0.58,one-time,"[""friday""]",2026-09-25,2026-09-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Amherst College,School,10:45:00,0.58,one-time,"[""friday""]",2026-09-25,2026-09-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Staff vs. Seniors Volleyball Game,School,12:20:00,0.5,one-time,"[""friday""]",2026-09-25,2026-09-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PTA Exec Board Meeting,School,08:30:00,1.0,one-time,"[""friday""]",2026-09-25,2026-09-25,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Farm Workday,School,09:00:00,4.0,one-time,"[""sunday""]",2026-09-27,2026-09-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Farm Council Meeting,School,08:30:00,1.0,one-time,"[""monday""]",2026-09-28,2026-09-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,Friday Bell Schedule,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-28,2026-09-28,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Alternate Schedule (Friday Schedule) ,School,00:00:00,0.0,one-time,"[""monday""]",2026-09-28,2026-09-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Lehigh University,School,12:35:00,0.58,one-time,"[""monday""]",2026-09-28,2026-09-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Colorado State University,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-29,2026-09-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Colorado College,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-29,2026-09-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Starbird Restaurant Fundraiser,School,10:30:00,11.5,one-time,"[""tuesday""]",2026-09-29,2026-09-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Wellesley College,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-09-29,2026-09-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,University of Wisconsin-Madison,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-09-29,2026-09-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Villanova University,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-09-29,2026-09-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule: IReady Results/Extended 6th,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-09-30,2026-09-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Toronto,School,09:00:00,0.67,one-time,"[""wednesday""]",2026-09-30,2026-09-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Stevens Institute of Technology,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-30,2026-09-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Haverford College,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-09-30,2026-09-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Junior Family Night: hosted by C+CC (virtual: Time TBD) ,School,18:00:00,1.0,one-time,"[""wednesday""]",2026-09-30,2026-09-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,The University of British Columbia,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-01,2026-10-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Mount Holyoke College,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-01,2026-10-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2026-09-30,2026-09-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,Concert: SoCal Benefit (at Paly PAC),School,18:30:00,1.5,one-time,"[""thursday""]",2026-10-01,2026-10-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,St. Lawrence University - New York,School,10:45:00,0.58,one-time,"[""thursday""]",2026-10-01,2026-10-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of California-Merced,School,09:00:00,0.67,one-time,"[""thursday""]",2026-10-01,2026-10-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,The University of British Columbia,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-01,2026-10-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,University of Puget Sound,School,12:52:00,0.67,one-time,"[""thursday""]",2026-10-01,2026-10-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,No School - Staff Development Day ,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-02,2026-10-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Mount Holyoke College,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-01,2026-10-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Staff Development Day- No School ,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-02,2026-10-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,No School - Staff Development Day,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-02,2026-10-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Staff Development Day No School,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-02,2026-10-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,No School - Staff Development Day ,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-02,2026-10-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Alternate Schedule: SAT/PSAT/PRIME,School,00:00:00,0.0,one-time,"[""monday""]",2026-10-05,2026-10-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Walk and Roll Week,School,00:00:00,0.0,one-time,"[""monday""]",2026-10-05,2026-10-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Colgate University,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-10-06,2026-10-06,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Oregon,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-10-06,2026-10-06,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,UCL (University College London),School,08:15:00,0.67,one-time,"[""wednesday""]",2026-10-07,2026-10-07,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Airband Demos during PRIME,School,14:40:00,0.83,one-time,"[""wednesday""]",2026-10-07,2026-10-07,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Michigan State University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-08,2026-10-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Bard College,School,10:45:00,0.58,one-time,"[""friday""]",2026-10-09,2026-10-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Dance: Grade 7 & Grade 8 Only,School,17:00:00,1.5,one-time,"[""friday""]",2026-10-09,2026-10-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Saint Mary's College of California,School,10:45:00,0.58,one-time,"[""friday""]",2026-10-09,2026-10-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Kaleidoscope Concert,School,19:30:00,1.0,one-time,"[""friday""]",2026-10-09,2026-10-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Float Assembly Day 1,School,00:00:00,0.0,one-time,"[""saturday""]",2026-10-10,2026-10-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Harvest Festival,School,11:00:00,4.0,one-time,"[""saturday""]",2026-10-10,2026-10-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Float Assembly Day 2,School,00:00:00,0.0,one-time,"[""sunday""]",2026-10-11,2026-10-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,College Fair @Paly HS,School,18:30:00,2.0,one-time,"[""monday""]",2026-10-12,2026-10-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Homecoing Week,School,00:00:00,0.0,one-time,"[""monday""]",2026-10-12,2026-10-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Butler University,School,08:15:00,0.67,one-time,"[""monday""]",2026-10-12,2026-10-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Boston University,School,12:35:00,0.58,one-time,"[""monday""]",2026-10-12,2026-10-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Claremont McKenna College,School,12:35:00,0.58,one-time,"[""monday""]",2026-10-12,2026-10-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Jazz Combo Concert (Fall),School,18:00:00,1.0,one-time,"[""monday""]",2026-10-12,2026-10-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Hofstra University,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,College Fair @Paly HS,School,18:30:00,2.0,one-time,"[""monday""]",2026-10-12,2026-10-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Ohlone Middle School Panel,School,19:00:00,1.0,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Tulane University of Louisiana,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Eckerd College,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Brandeis University,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Davidson College,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Grinnell College,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Franklin and Marshall College,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Hofstra University,School,08:15:00,0.67,one-time,"[""tuesday""]",2026-10-13,2026-10-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule: Wellness Survey,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-10-14,2026-10-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Oberlin College | Arts & Sciences,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-10-14,2026-10-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Elon University,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-10-14,2026-10-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,1.0,one-time,"[""wednesday""]",2026-10-14,2026-10-14,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Loyola University Chicago,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Syracuse University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,University of Minnesota-Twin Cities,School,09:00:00,0.67,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,University of Miami,School,10:45:00,0.58,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Homecoming Night Rally,School,19:00:00,2.0,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,End of 1st Quarter,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-16,2026-10-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Vassar College,School,10:45:00,0.58,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Minnesota-Twin Cities,School,09:00:00,0.67,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Syracuse University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Miami,School,10:45:00,0.58,one-time,"[""thursday""]",2026-10-15,2026-10-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Bowdoin College,School,10:45:00,0.58,one-time,"[""friday""]",2026-10-16,2026-10-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Homecoming Football Game ,School,19:00:00,2.0,one-time,"[""friday""]",2026-10-16,2026-10-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,End of 1st Quarter,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-16,2026-10-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Homecoming Dance,School,19:00:00,3.0,one-time,"[""saturday""]",2026-10-17,2026-10-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Late Start Schedule ,School,00:00:00,0.0,one-time,"[""monday""]",2026-10-19,2026-10-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Portland State University,School,12:35:00,0.58,one-time,"[""monday""]",2026-10-19,2026-10-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,First Full Day of Kinder,School,00:00:00,0.0,one-time,"[""monday""]",2026-10-19,2026-10-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Late Start Schedule ,School,00:00:00,0.0,one-time,"[""monday""]",2026-10-19,2026-10-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Farm Council Meeting,School,08:30:00,1.0,one-time,"[""monday""]",2026-10-19,2026-10-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,San Francisco State University,School,09:00:00,0.67,one-time,"[""tuesday""]",2026-10-20,2026-10-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Babson College,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-10-20,2026-10-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Whitman College,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-10-20,2026-10-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Wind Ensemble at JLS Band Concert,School,19:00:00,1.0,one-time,"[""tuesday""]",2026-10-20,2026-10-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Michigan-Ann Arbor,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-10-21,2026-10-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Carnegie Mellon University,School,10:45:00,0.58,one-time,"[""wednesday""]",2026-10-21,2026-10-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Unity Day,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-10-21,2026-10-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,College of the Holy Cross,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-22,2026-10-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Unity Day,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-10-21,2026-10-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Wesleyan University,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-22,2026-10-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,College of the Holy Cross,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-22,2026-10-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PTA Exec Board Meeting,School,08:30:00,1.0,one-time,"[""friday""]",2026-10-23,2026-10-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Gunn Fall Jazz Concert,School,19:00:00,1.0,one-time,"[""friday""]",2026-10-23,2026-10-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Fall Band Concert,School,19:30:00,1.0,one-time,"[""monday""]",2026-10-26,2026-10-26,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Heriot-Watt University,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-10-27,2026-10-27,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,1.0,one-time,"[""wednesday""]",2026-10-28,2026-10-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,California Lutheran University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-10-29,2026-10-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,University of Florida,School,08:15:00,0.67,one-time,"[""thursday""]",2026-10-29,2026-10-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,2:30 PM Dismissal - Restructured Day,School,00:00:00,0.0,one-time,"[""thursday""]",2026-10-29,2026-10-29,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,PTA General Meeting,School,08:30:00,0.5,one-time,"[""thursday""]",2026-10-29,2026-10-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,PTA General Meeting,School,08:30:00,0.5,one-time,"[""thursday""]",2026-10-29,2026-10-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Fall Orchestra + Symphony Orchestra Concert,School,19:30:00,1.5,one-time,"[""thursday""]",2026-10-29,2026-10-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule ,School,00:00:00,0.0,one-time,"[""thursday""]",2026-10-29,2026-10-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,California Lutheran University,School,10:45:00,0.58,one-time,"[""thursday""]",2026-10-29,2026-10-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Alternate Schedule/Minimum Day ,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-30,2026-10-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2026-10-30,2026-10-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Early Release Day,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-30,2026-10-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Early Release Day,School,12:15:00,1.0,one-time,"[""friday""]",2026-10-30,2026-10-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Hall-O-Ween Costume Contest,School,13:10:00,1.0,one-time,"[""friday""]",2026-10-30,2026-10-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Costume Parade,School,08:30:00,0.5,one-time,"[""friday""]",2026-10-30,2026-10-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2026-10-30,2026-10-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Alternate Schedule/Minimum Day ,School,00:00:00,0.0,one-time,"[""friday""]",2026-10-30,2026-10-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PiE Challenge Grant Starts,School,00:00:00,0.0,one-time,"[""sunday""]",2026-11-01,2026-11-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Dia de los Muertos Activities,School,12:20:00,0.5,one-time,"[""monday""]",2026-11-02,2026-11-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Dia De Los Muertos Celebration,School,12:00:00,1.0,one-time,"[""monday""]",2026-11-02,2026-11-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,University of Colorado Boulder,School,10:45:00,0.58,one-time,"[""tuesday""]",2026-11-03,2026-11-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,The Hebrew University of Jerusalem,School,12:52:00,0.67,one-time,"[""tuesday""]",2026-11-03,2026-11-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2026-11-03,2026-11-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Chipotle Ohlone Fundraiser,School,16:00:00,4.0,one-time,"[""tuesday""]",2026-11-03,2026-11-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Site Council,School,15:00:00,1.0,one-time,"[""tuesday""]",2026-11-03,2026-11-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,1.0,one-time,"[""wednesday""]",2026-11-04,2026-11-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Principals' Coffee,School,09:15:00,1.25,one-time,"[""friday""]",2026-11-06,2026-11-06,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Special Schedule ,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-09,2026-11-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Gunn Orch Small Ensemble Concert (FALL),School,19:00:00,1.5,one-time,"[""monday""]",2026-11-09,2026-11-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PiE Rally @ Ohlone,School,00:00:00,0.0,one-time,"[""friday""]",2026-11-06,2026-11-06,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Diwali Celebration,School,12:00:00,1.0,one-time,"[""monday""]",2026-11-09,2026-11-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Farm Council Meeting,School,08:30:00,1.0,one-time,"[""monday""]",2026-11-09,2026-11-09,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Alternate Schedule (Tuesday Schedule) ,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-09,2026-11-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Gunn Orch Small Ensemble Concert (FALL),School,19:00:00,1.5,one-time,"[""monday""]",2026-11-09,2026-11-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,Special Schedule ,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-09,2026-11-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Alternate Schedule- Wednesday Schedule ,School,00:00:00,0.0,one-time,"[""tuesday""]",2026-11-10,2026-11-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,No School - Holiday (Veterans' Day),School,00:00:00,0.0,one-time,"[""wednesday""]",2026-11-11,2026-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Veterans Day- No School ,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-11-11,2026-11-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,No School - Veterans's Day,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-11-11,2026-11-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,No School - Holiday (Veterans' Day),School,00:00:00,0.0,one-time,"[""wednesday""]",2026-11-11,2026-11-11,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,PTA Exec Board Meeting,School,08:30:00,1.0,one-time,"[""friday""]",2026-11-13,2026-11-13,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Gunn Fall Choir Concert,School,19:00:00,2.0,one-time,"[""sunday""]",2026-11-15,2026-11-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2026-11-19,2026-11-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Farm Workday,School,09:00:00,4.0,one-time,"[""sunday""]",2026-11-15,2026-11-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,PiE Challenge Grant Ends,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-16,2026-11-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2026-11-18,2026-11-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,PTSA Exec Board Meeting ,School,08:30:00,1.5,one-time,"[""wednesday""]",2026-11-18,2026-11-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule/Harvest Feast ,School,00:00:00,0.0,one-time,"[""thursday""]",2026-11-19,2026-11-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Alternate Schedule/Minimum Day ,School,00:00:00,0.0,one-time,"[""friday""]",2026-11-20,2026-11-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2026-11-19,2026-11-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2026-11-20,2026-11-20,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Sagie,No School - Thanksgiving Break ,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-23,2026-11-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Early Release Day,School,12:15:00,1.0,one-time,"[""friday""]",2026-11-20,2026-11-20,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Early Release Day,School,00:00:00,0.0,one-time,"[""friday""]",2026-11-20,2026-11-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Alternate Schedule/Minimum Day ,School,00:00:00,0.0,one-time,"[""friday""]",2026-11-20,2026-11-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Thanksgiving Break No School,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-23,2026-11-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,No School - Thanksgiving Break CLONE,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-23,2026-11-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Thanksgiving Break- No School ,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-23,2026-11-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,No School - Thanksgiving Break,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-23,2026-11-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,No School - Thanksgiving Break ,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-23,2026-11-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Ping-Pong Tourney At Lunch,School,00:00:00,0.0,one-time,"[""monday""]",2026-11-30,2026-11-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,All Grade Dance,School,17:00:00,1.5,one-time,"[""friday""]",2026-12-04,2026-12-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2026-12-02,2026-12-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Winter Sports Rally,School,12:20:00,0.5,one-time,"[""friday""]",2026-12-04,2026-12-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,All Grade Dance,School,17:00:00,1.5,one-time,"[""friday""]",2026-12-04,2026-12-04,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Late Start Schedule ,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-07,2026-12-07,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn December Band Concert,School,19:30:00,1.0,one-time,"[""monday""]",2026-12-07,2026-12-07,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Book Fair,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-07,2026-12-07,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Chamber Orch / Chamber Singers Concert,School,19:00:00,1.0,one-time,"[""tuesday""]",2026-12-08,2026-12-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,JLS Band Concert,School,18:30:00,2.0,one-time,"[""wednesday""]",2026-12-09,2026-12-09,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2026-12-10,2026-12-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Cozy Snowmance,School,12:20:00,0.5,one-time,"[""friday""]",2026-12-11,2026-12-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Farm Council Meeting,School,08:30:00,1.0,one-time,"[""monday""]",2026-12-14,2026-12-14,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Review Day- No New Material ,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-14,2026-12-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2026-12-14,2026-12-14,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Finals/PRIME Schedule ,School,00:00:00,0.0,one-time,"[""tuesday""]",2026-12-15,2026-12-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2026-12-15,2026-12-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Finals Schedule ,School,00:00:00,0.0,one-time,"[""wednesday""]",2026-12-16,2026-12-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Finals Schedule ,School,00:00:00,0.0,one-time,"[""thursday""]",2026-12-17,2026-12-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,JLS Orchestra Concert,School,18:30:00,2.0,one-time,"[""thursday""]",2026-12-17,2026-12-17,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Finals Schedule ,School,00:00:00,0.0,one-time,"[""thursday""]",2026-12-17,2026-12-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Finals Schedule ,School,00:00:00,0.0,one-time,"[""friday""]",2026-12-18,2026-12-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,End of 2nd Quarter/1st Semester (84 Days),School,00:00:00,0.0,one-time,"[""friday""]",2026-12-18,2026-12-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Early Release Day,School,00:00:00,0.0,one-time,"[""friday""]",2026-12-18,2026-12-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Early Release Day,School,12:15:00,1.0,one-time,"[""friday""]",2026-12-18,2026-12-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2026-12-18,2026-12-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,No School - Winter Break,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-21,2026-12-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Winter Break - No School,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-21,2026-12-21,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,No School - Winter Break,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-21,2026-12-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,No School- Winter Break ,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-21,2026-12-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Winter Break No School,School,00:00:00,0.0,one-time,"[""monday""]",2026-12-21,2026-12-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Staff Development Day No School,School,00:00:00,0.0,one-time,"[""monday""]",2027-01-04,2027-01-04,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Teacher Work Day - Grades 9-12,School,00:00:00,0.0,one-time,"[""monday""]",2027-01-04,2027-01-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Teacher Workday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-01-04,2027-01-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,School Resumes ,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-01-05,2027-01-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,C+CC: College Panel (Time TBD) ,School,18:00:00,1.0,one-time,"[""friday""]",2027-01-08,2027-01-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Orchestra Winter Concert,School,19:30:00,1.0,one-time,"[""monday""]",2027-01-11,2027-01-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Site Council,School,15:00:00,1.0,one-time,"[""monday""]",2027-01-11,2027-01-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,PTSA Exec Board Meeting ,School,09:30:00,1.5,one-time,"[""wednesday""]",2027-01-13,2027-01-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,PTSA General Association Meeting ,School,08:30:00,1.0,one-time,"[""wednesday""]",2027-01-13,2027-01-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-01-13,2027-01-13,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Principals' Coffee ,School,09:15:00,1.25,one-time,"[""friday""]",2027-01-15,2027-01-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,No School - Holiday (MLK Day),School,00:00:00,0.0,one-time,"[""monday""]",2027-01-18,2027-01-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,No School - Martin Luther King Jr. Day,School,00:00:00,0.0,one-time,"[""monday""]",2027-01-18,2027-01-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,No School- Martin Luther King Jr. Day,School,00:00:00,0.0,one-time,"[""monday""]",2027-01-18,2027-01-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,No School - Holiday (MLK Day),School,00:00:00,0.0,one-time,"[""monday""]",2027-01-18,2027-01-18,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-01-19,2027-01-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Spring Club/ Interest Group Fair: Day 1,School,12:20:00,0.5,one-time,"[""thursday""]",2027-01-21,2027-01-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Sports Boosters Meeting (N115) ,School,18:00:00,1.0,one-time,"[""thursday""]",2027-01-21,2027-01-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Spring Club/ Interest Group Fair: Day 2,School,12:20:00,0.5,one-time,"[""friday""]",2027-01-22,2027-01-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PTA General Meeting,School,08:30:00,0.5,one-time,"[""thursday""]",2027-01-21,2027-01-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Ice Skating Party?,School,00:00:00,0.0,one-time,"[""friday""]",2027-01-22,2027-01-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,PTA Exec Board Meeting,School,08:30:00,1.0,one-time,"[""friday""]",2027-01-22,2027-01-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Juggling Club: Game of Throws Festival,School,00:00:00,0.0,one-time,"[""friday""]",2027-01-22,2027-01-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Late Start Monday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-01-25,2027-01-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Spring Club/ Interest Group Fair: Day 2,School,12:20:00,0.5,one-time,"[""friday""]",2027-01-22,2027-01-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Jazz Guest Artist Concert,School,19:30:00,1.0,one-time,"[""friday""]",2027-01-22,2027-01-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Ice Skating Party?,School,00:00:00,0.0,one-time,"[""saturday""]",2027-01-23,2027-01-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2027-01-25,2027-01-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Late Start Monday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-01-25,2027-01-25,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-01-27,2027-01-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,(TENT.) Incoming 9th Grade Parent Night: Hosted Admin Team,School,18:00:00,2.0,one-time,"[""wednesday""]",2027-01-27,2027-01-27,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,C+CC: Financial Aid Presentation (time TBD) ,School,18:00:00,1.0,one-time,"[""thursday""]",2027-01-28,2027-01-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Jazz Guest Artist Concert,School,19:30:00,1.0,one-time,"[""friday""]",2027-01-29,2027-01-29,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PTA General Meeting,School,08:30:00,0.5,one-time,"[""thursday""]",2027-01-28,2027-01-28,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Farm Workday,School,09:00:00,4.0,one-time,"[""saturday""]",2027-01-30,2027-01-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Incoming 9th Grade Parent Night: hosted by Gunn Counseling ,School,18:30:00,1.0,one-time,"[""wednesday""]",2027-02-03,2027-02-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Principal's Coffee,School,08:45:00,0.75,one-time,"[""friday""]",2027-02-05,2027-02-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-02-03,2027-02-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Choir / Staff Show,School,20:00:00,2.5,one-time,"[""friday""]",2027-02-05,2027-02-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,Principal's Coffee,School,08:45:00,0.75,one-time,"[""friday""]",2027-02-05,2027-02-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Choir / Staff Show,School,20:00:00,2.0,one-time,"[""saturday""]",2027-02-06,2027-02-06,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Site Council,School,15:00:00,1.0,one-time,"[""monday""]",2027-02-08,2027-02-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,Friday Bell Schedule,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-08,2027-02-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Alternate Schedule: Friday Schedule ,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-08,2027-02-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Lunar New Year Activities,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-08,2027-02-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Friday Bell Schedule,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-08,2027-02-08,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-02-09,2027-02-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Farm Council Meeting,School,08:30:00,1.0,one-time,"[""monday""]",2027-02-08,2027-02-08,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Love Week,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-02-09,2027-02-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,No School - Holiday (Local),School,00:00:00,0.0,one-time,"[""friday""]",2027-02-12,2027-02-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-02-09,2027-02-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Lunar New Year Celebration (Tentative pending Lion Dancers),School,12:00:00,0.5,one-time,"[""thursday""]",2027-02-11,2027-02-11,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,No School - Local Holiday,School,00:00:00,0.0,one-time,"[""friday""]",2027-02-12,2027-02-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Local Holiday No School,School,00:00:00,0.0,one-time,"[""friday""]",2027-02-12,2027-02-12,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,No School- Local Holiday ,School,00:00:00,0.0,one-time,"[""friday""]",2027-02-12,2027-02-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,No School - Holiday (President's Day),School,00:00:00,0.0,one-time,"[""monday""]",2027-02-15,2027-02-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Sagie,No School - Holiday (Local),School,00:00:00,0.0,one-time,"[""friday""]",2027-02-12,2027-02-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,No School- Presidents’ Day,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-15,2027-02-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2027-02-18,2027-02-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,No School - Washington's Birthday Observed,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-15,2027-02-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Presidents Day No School,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-15,2027-02-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,No School - Holiday (President's Day),School,00:00:00,0.0,one-time,"[""monday""]",2027-02-15,2027-02-15,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-02-17,2027-02-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Gunn Bands + Symphony Orch February Concert,School,19:30:00,1.0,one-time,"[""thursday""]",2027-02-18,2027-02-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2027-02-18,2027-02-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Spring Sports Rally,School,12:20:00,0.5,one-time,"[""friday""]",2027-02-19,2027-02-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Late Start Monday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-02-22,2027-02-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Prom Reveal,School,12:07:00,0.5,one-time,"[""monday""]",2027-02-22,2027-02-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2027-02-22,2027-02-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,JLS Band Concert with Paly (7th and 8th Grades),School,19:00:00,1.0,one-time,"[""tuesday""]",2027-02-23,2027-02-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Titan Town Hall 2,School,14:40:00,0.83,one-time,"[""wednesday""]",2027-02-24,2027-02-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Junior Family Night: C+CC (virtual) Time TBD,School,18:30:00,1.0,one-time,"[""wednesday""]",2027-02-24,2027-02-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Titan Town Hall 2,School,14:40:00,0.83,one-time,"[""wednesday""]",2027-02-24,2027-02-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PTA Exec Board Meeting,School,08:30:00,1.0,one-time,"[""friday""]",2027-02-26,2027-02-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,All Grade Dance,School,17:00:00,1.5,one-time,"[""friday""]",2027-02-26,2027-02-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Black History Bike Ride?,School,00:00:00,0.0,one-time,"[""saturday""]",2027-02-27,2027-02-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Gunn Orch Small Ensemble Concert (SPRING),School,19:00:00,1.5,one-time,"[""monday""]",2027-03-01,2027-03-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,ASB Elections Week,School,00:00:00,0.0,one-time,"[""monday""]",2027-03-01,2027-03-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Site Council,School,15:00:00,1.0,one-time,"[""monday""]",2027-03-01,2027-03-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,CAASPP+CAST Testing,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-03-02,2027-03-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,CAASPP+CAST Testing ,School,00:00:00,0.0,one-time,"[""wednesday""]",2027-03-03,2027-03-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,School Play?,School,00:00:00,0.0,one-time,"[""wednesday""]",2027-03-03,2027-03-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,ASB Elections Assembly,School,00:00:00,0.0,one-time,"[""thursday""]",2027-03-04,2027-03-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule: XL SELF ,School,00:00:00,0.0,one-time,"[""friday""]",2027-03-05,2027-03-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Staff Meeting: Bagels+Coffee Provided ,School,08:10:00,0.67,one-time,"[""friday""]",2027-03-05,2027-03-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Jazz Swing Dance,School,17:30:00,2.5,one-time,"[""friday""]",2027-03-05,2027-03-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,YCS Service Day,School,00:00:00,0.0,one-time,"[""monday""]",2027-03-08,2027-03-08,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-03-09,2027-03-09,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-03-10,2027-03-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,End of 3rd Quarter,School,00:00:00,0.0,one-time,"[""friday""]",2027-03-12,2027-03-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,No School - Local Holiday,School,00:00:00,0.0,one-time,"[""monday""]",2027-03-15,2027-03-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Local Holiday No School,School,00:00:00,0.0,one-time,"[""monday""]",2027-03-15,2027-03-15,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,No School ,School,00:00:00,0.0,one-time,"[""monday""]",2027-03-15,2027-03-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,No School - Staff Development Day,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-03-16,2027-03-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Staff Development Day No School,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-03-16,2027-03-16,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Staff Development Day ,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-03-16,2027-03-16,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule- 7 period day+ SATs,School,00:00:00,0.0,one-time,"[""wednesday""]",2027-03-17,2027-03-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Sports Boosters Meeting (N115),School,18:00:00,1.0,one-time,"[""thursday""]",2027-03-18,2027-03-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Eid Celebration,School,00:00:00,0.0,one-time,"[""friday""]",2027-03-19,2027-03-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2027-03-22,2027-03-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Farm Workday,School,09:00:00,4.0,one-time,"[""sunday""]",2027-03-21,2027-03-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Late Start Monday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-03-22,2027-03-22,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2027-03-22,2027-03-22,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Clash of the Titans: Extended Lunch ,School,00:00:00,0.0,one-time,"[""wednesday""]",2027-03-24,2027-03-24,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-03-24,2027-03-24,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,PTA Exec Board Meeting,School,08:30:00,1.0,one-time,"[""friday""]",2027-03-26,2027-03-26,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Principals' Coffee,School,09:15:00,1.25,one-time,"[""friday""]",2027-03-26,2027-03-26,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Site Council,School,15:00:00,1.0,one-time,"[""monday""]",2027-03-29,2027-03-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Farm Council Meeting,School,08:30:00,1.0,one-time,"[""monday""]",2027-03-29,2027-03-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Junior Family Night: C+CC (Virtual) (time TBD) ,School,18:30:00,1.0,one-time,"[""wednesday""]",2027-03-31,2027-03-31,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn's Got Talent during PRIME,School,14:40:00,0.83,one-time,"[""wednesday""]",2027-03-31,2027-03-31,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule: Safety Drills ,School,00:00:00,0.0,one-time,"[""thursday""]",2027-04-01,2027-04-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2027-04-02,2027-04-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,PTA General Meeting,School,08:30:00,0.5,one-time,"[""thursday""]",2027-04-01,2027-04-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Early Release Day,School,00:00:00,0.0,one-time,"[""friday""]",2027-04-02,2027-04-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule: Minimum Day,School,00:00:00,0.0,one-time,"[""friday""]",2027-04-02,2027-04-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""friday""]",2027-04-02,2027-04-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Early Release Day,School,00:15:00,1.0,one-time,"[""friday""]",2027-04-02,2027-04-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,No School - Spring Break,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-05,2027-04-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Spring Break,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-05,2027-04-05,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Spring Break No School,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-05,2027-04-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Spring Break- No School ,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-05,2027-04-05,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Dodgeball Tourney,School,00:00:00,0.0,one-time,"[""wednesday""]",2027-04-14,2027-04-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,PTSA Exec Meeting ,School,09:30:00,1.5,one-time,"[""wednesday""]",2027-04-14,2027-04-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,PTSA General Association Meeting ,School,08:30:00,1.0,one-time,"[""wednesday""]",2027-04-14,2027-04-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Sports Boosters Meeting (N115) ,School,18:00:00,1.0,one-time,"[""thursday""]",2027-04-15,2027-04-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,PROM,School,00:00:00,0.0,one-time,"[""saturday""]",2027-04-17,2027-04-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Talent Show,School,16:00:00,2.0,one-time,"[""sunday""]",2027-04-18,2027-04-18,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,JLS School Site Council Meeting,School,15:45:00,1.5,one-time,"[""monday""]",2027-04-19,2027-04-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Earth Week,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-19,2027-04-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Late Start Monday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-19,2027-04-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Earth Week,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-19,2027-04-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-04-20,2027-04-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-04-21,2027-04-21,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Gunn Jazz Combo Concert (Spring),School,19:00:00,1.0,one-time,"[""wednesday""]",2027-04-21,2027-04-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Parent Panel: Hosted by C+CC (time?),School,18:30:00,1.0,one-time,"[""wednesday""]",2027-04-21,2027-04-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Earth Day,School,00:00:00,0.0,one-time,"[""thursday""]",2027-04-22,2027-04-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,STEAM Fair,School,17:00:00,2.0,one-time,"[""friday""]",2027-04-23,2027-04-23,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Sagie,All Grade Dance,School,17:00:00,1.5,one-time,"[""friday""]",2027-04-23,2027-04-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Special Olympics,School,08:30:00,3.5,one-time,"[""friday""]",2027-04-23,2027-04-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,CMEA Band & Orch Festival at Gunn,School,00:00:00,0.0,one-time,"[""friday""]",2027-04-23,2027-04-23,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Sagie,All Grade Dance,School,17:00:00,1.5,one-time,"[""friday""]",2027-04-23,2027-04-23,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Global Cultures Week,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-26,2027-04-26,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Alternate Schedule: Friday Schedule ,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-26,2027-04-26,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Friday Bell Schedule,School,00:00:00,0.0,one-time,"[""monday""]",2027-04-26,2027-04-26,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Staff Appreciation Week,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-04-27,2027-04-27,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Global Tastings ,School,12:15:00,0.5,one-time,"[""wednesday""]",2027-04-28,2027-04-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,No School- Local Holiday ,School,00:00:00,0.0,one-time,"[""friday""]",2027-04-30,2027-04-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Staff Appreciation Lunch,School,00:00:00,0.0,one-time,"[""thursday""]",2027-04-29,2027-04-29,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,No School - Local Holiday,School,00:00:00,0.0,one-time,"[""friday""]",2027-04-30,2027-04-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,No School - Holiday (Local),School,00:00:00,0.0,one-time,"[""friday""]",2027-04-30,2027-04-30,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,No School- Local Holiday ,School,00:00:00,0.0,one-time,"[""friday""]",2027-04-30,2027-04-30,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Local Holiday No School,School,00:00:00,0.0,one-time,"[""friday""]",2027-04-30,2027-04-30,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,May Fete Parade,School,10:00:00,1.0,one-time,"[""saturday""]",2027-05-01,2027-05-01,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Staff Appreciation Week ,School,00:00:00,0.0,one-time,"[""monday""]",2027-05-03,2027-05-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-05-05,2027-05-05,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,10th Grade Family Night: Hosted by C+CC (virtual) time?,School,18:30:00,1.0,one-time,"[""thursday""]",2027-05-06,2027-05-06,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,CVC Buddy Night,School,18:00:00,1.5,one-time,"[""monday""]",2027-05-10,2027-05-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Yoni,Site Council,School,15:00:00,1.0,one-time,"[""monday""]",2027-05-10,2027-05-10,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-05-11,2027-05-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,JLS Band Spring Concert,School,18:30:00,1.0,one-time,"[""wednesday""]",2027-05-12,2027-05-12,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,PTSA Exec Meeting ,School,09:30:00,1.5,one-time,"[""wednesday""]",2027-05-12,2027-05-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,PTSA general association meeting ,School,08:30:00,1.0,one-time,"[""wednesday""]",2027-05-12,2027-05-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Sports Boosters Meeting (N115) ,School,18:00:00,1.0,one-time,"[""thursday""]",2027-05-13,2027-05-13,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,PTA Exec Board Meeting,School,08:30:00,1.0,one-time,"[""friday""]",2027-05-14,2027-05-14,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Ariella,Principals' Coffee,School,09:15:00,1.25,one-time,"[""friday""]",2027-05-14,2027-05-14,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Late Start Monday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-05-17,2027-05-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Bands Spring Concert,School,19:00:00,2.0,one-time,"[""monday""]",2027-05-17,2027-05-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Farm Council Meeting,School,08:30:00,1.0,one-time,"[""monday""]",2027-05-17,2027-05-17,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
+Ariella,Late Start Monday ,School,00:00:00,0.0,one-time,"[""monday""]",2027-05-17,2027-05-17,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Orchestras Spring Concert,School,19:00:00,2.0,one-time,"[""tuesday""]",2027-05-18,2027-05-18,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Gunn Symphony Orch PRIME Concert,School,14:29:00,0.83,one-time,"[""wednesday""]",2027-05-19,2027-05-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Community Wednesday,School,13:30:00,0.5,one-time,"[""wednesday""]",2027-05-19,2027-05-19,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,JLS Orchestra Spring Concert,School,18:30:00,2.0,one-time,"[""wednesday""]",2027-05-19,2027-05-19,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Ariella,Gunn Symphony Orch PRIME Concert,School,14:29:00,0.83,one-time,"[""wednesday""]",2027-05-19,2027-05-19,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Spring Choir Concert,School,19:00:00,1.0,one-time,"[""thursday""]",2027-05-20,2027-05-20,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Gunn Jazz Spring Concert,School,19:00:00,2.0,one-time,"[""friday""]",2027-05-21,2027-05-21,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Farm Workday,School,09:00:00,4.0,one-time,"[""saturday""]",2027-05-22,2027-05-22,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,JLS Choir Pops Concert,School,19:00:00,1.0,one-time,"[""tuesday""]",2027-05-25,2027-05-25,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Senior Awards Night (time TBD),School,18:30:00,1.0,one-time,"[""thursday""]",2027-05-27,2027-05-27,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Review Day- No New Material,School,00:00:00,0.0,one-time,"[""thursday""]",2027-05-27,2027-05-27,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Review Day- No New Material ,School,00:00:00,0.0,one-time,"[""friday""]",2027-05-28,2027-05-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Senior Awards Night (time TBD),School,18:30:00,1.0,one-time,"[""thursday""]",2027-05-27,2027-05-27,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Senior Paper Toss @Brunch,School,10:30:00,0.25,one-time,"[""friday""]",2027-05-28,2027-05-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Review Day- No New Material ,School,00:00:00,0.0,one-time,"[""friday""]",2027-05-28,2027-05-28,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,No School: Memorial Day,School,00:00:00,0.0,one-time,"[""monday""]",2027-05-31,2027-05-31,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,No School - Memorial Day,School,00:00:00,0.0,one-time,"[""monday""]",2027-05-31,2027-05-31,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Memorial Day No School,School,00:00:00,0.0,one-time,"[""monday""]",2027-05-31,2027-05-31,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,No School - Holiday (Memorial Day),School,00:00:00,0.0,one-time,"[""monday""]",2027-05-31,2027-05-31,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""tuesday""]",2027-06-01,2027-06-01,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-06-01,2027-06-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Finals Schedule ,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-06-01,2027-06-01,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Graduation Rehearsal,School,14:00:00,2.0,one-time,"[""wednesday""]",2027-06-02,2027-06-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Finals Schedule ,School,00:00:00,0.0,one-time,"[""wednesday""]",2027-06-02,2027-06-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""wednesday""]",2027-06-02,2027-06-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
+Yoni,Fifth Grade Promotion,School,10:00:00,1.0,one-time,"[""wednesday""]",2027-06-02,2027-06-02,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,JLS Promotion Ceremony,School,18:00:00,1.5,one-time,"[""wednesday""]",2027-06-02,2027-06-02,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
-Ariella,Graduation Rehearsal,School,14:00:00,2.0,one-time,"[""wednesday""]",2027-06-02,2027-06-02,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,Graduation,School,17:00:00,2.0,one-time,"[""thursday""]",2027-06-03,2027-06-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Yoni,Last Day of School,School,00:00:00,0.0,one-time,"[""thursday""]",2027-06-03,2027-06-03,"950 Amarillo Ave, Palo Alto, CA 94303",N/A,N/A
 Sagie,Minimum Day (District Wide 12:40pm Dismissal),School,00:00:00,0.0,one-time,"[""thursday""]",2027-06-03,2027-06-03,"480 E Meadow Dr, Palo Alto, CA",N/A,N/A
 Ariella,Finals Schedule ,School,00:00:00,0.0,one-time,"[""thursday""]",2027-06-03,2027-06-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,End of 4th Quarter/2nd Semester (96 Days),School,00:00:00,0.0,one-time,"[""thursday""]",2027-06-03,2027-06-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Early Release Day - Last Day of School,School,00:00:00,0.0,one-time,"[""thursday""]",2027-06-03,2027-06-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Graduation,School,17:00:00,2.0,one-time,"[""thursday""]",2027-06-03,2027-06-03,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,Teacher Work Day ,School,00:00:00,0.0,one-time,"[""friday""]",2027-06-04,2027-06-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
 Ariella,PAUSD Board of Education Meeting ,School,18:30:00,2.0,one-time,"[""tuesday""]",2027-06-15,2027-06-15,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
-Ariella,No School - Veterans's Day,School,00:00:00,0.0,one-time,"[""thursday""]",2027-11-11,2027-11-11,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Holiday - Independence Day,School,00:00:00,0.0,one-time,"[""sunday""]",2027-07-04,2027-07-04,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,Staff Development Day - Grades 9-12,School,00:00:00,0.0,one-time,"[""tuesday""]",2027-08-10,2027-08-10,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A
+Ariella,First Day of School 2027-28 School Year,School,00:00:00,0.0,one-time,"[""thursday""]",2027-08-12,2027-08-12,"780 Arastradero Road, Palo Alto, CA 94306",N/A,N/A

@@ -1,7 +1,4 @@
 kid_name,activity,calendar_source,time,duration,frequency,days_of_week,start_date,end_date,address,pickup_driver,return_driver
-All,🌒 Rosh Chodesh Elul,Jewish,00:00:00,0,one-time,"[""thursday""]",2026-08-13,2026-08-13,Location TBD,N/A,N/A
-All,🐑 Rosh Hashana LaBehemot,Jewish,00:00:00,0,one-time,"[""friday""]",2026-08-14,2026-08-14,Location TBD,N/A,N/A
-All,🌒 Rosh Chodesh Elul,Jewish,00:00:00,0,one-time,"[""friday""]",2026-08-14,2026-08-14,Location TBD,N/A,N/A
 All,🕍 Leil Selichot,Jewish,00:00:00,0,one-time,"[""saturday""]",2026-09-05,2026-09-05,Location TBD,N/A,N/A
 All,🍏🍯 Erev Rosh Hashana,Jewish,00:00:00,0,one-time,"[""friday""]",2026-09-11,2026-09-11,Location TBD,N/A,N/A
 All,🍏🍯 Rosh Hashana 5787,Jewish,00:00:00,0,one-time,"[""saturday""]",2026-09-12,2026-09-12,Location TBD,N/A,N/A
@@ -128,3 +125,6 @@ All,🕎8️⃣ Chanukah: 8 Candles,Jewish,00:00:00,0,one-time,"[""friday""]",20
 All,🌒 Rosh Chodesh Tevet,Jewish,00:00:00,0,one-time,"[""friday""]",2027-12-31,2027-12-31,Location TBD,N/A,N/A
 All,🕎 Chanukah: 8th Day,Jewish,00:00:00,0,one-time,"[""saturday""]",2028-01-01,2028-01-01,Location TBD,N/A,N/A
 All,✡️ Asara B’Tevet,Jewish,00:00:00,0,one-time,"[""sunday""]",2028-01-09,2028-01-09,Location TBD,N/A,N/A
+All,🌒 Rosh Chodesh Sh’vat,Jewish,00:00:00,0,one-time,"[""saturday""]",2028-01-29,2028-01-29,Location TBD,N/A,N/A
+All,🌳 Tu BiShvat,Jewish,00:00:00,0,one-time,"[""saturday""]",2028-02-12,2028-02-12,Location TBD,N/A,N/A
+All,🕍 Shabbat Shirah,Jewish,00:00:00,0,weekly,"[""saturday""]",2028-02-12,2028-02-12,Location TBD,N/A,N/A
