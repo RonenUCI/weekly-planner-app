@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, date
 import webbrowser
 import os
 import sys
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 import json
 import re
 from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS, SCHOOL_MINIMUM_DAY_CONFIG, CALENDAR_COLORS
@@ -166,24 +166,79 @@ def load_activities_cache() -> pd.DataFrame:
         return pd.DataFrame()
 
 
-def bootstrap_activities() -> pd.DataFrame:
+def _pacific_today() -> date:
+    """Today's date in Pacific time (matches schedule display)."""
+    return (datetime.now() + timedelta(hours=TIMEZONE_CONFIG['pacific_offset_hours'])).date()
+
+
+def _read_last_google_fetch_date() -> Optional[date]:
+    """Return the last successful Google Sheet fetch date, or None if unknown."""
+    stamp_file = DATA_CONFIG['activities_last_fetch_file']
+    if os.path.exists(stamp_file):
+        try:
+            with open(stamp_file, encoding='utf-8') as f:
+                text = f.read().strip()
+            return datetime.strptime(text, '%Y-%m-%d').date()
+        except Exception:
+            pass
+
+    cache_file = DATA_CONFIG['activities_cache_file']
+    if os.path.exists(cache_file):
+        try:
+            from zoneinfo import ZoneInfo
+            pacific = ZoneInfo('America/Los_Angeles')
+            return datetime.fromtimestamp(os.path.getmtime(cache_file), pacific).date()
+        except Exception:
+            pass
+    return None
+
+
+def _write_last_google_fetch_date(fetch_date: Optional[date] = None) -> None:
+    fetch_date = fetch_date or _pacific_today()
+    stamp_file = DATA_CONFIG['activities_last_fetch_file']
+    try:
+        stamp_dir = os.path.dirname(stamp_file)
+        if stamp_dir:
+            os.makedirs(stamp_dir, exist_ok=True)
+        with open(stamp_file, 'w', encoding='utf-8') as f:
+            f.write(fetch_date.strftime('%Y-%m-%d'))
+    except Exception as e:
+        print(f"[cache] last-fetch stamp failed: {e}")
+
+
+def _google_fetch_is_stale() -> bool:
+    """True if Google Sheets has not been fetched successfully today (Pacific)."""
+    last_fetch = _read_last_google_fetch_date()
+    if last_fetch is None:
+        return True
+    return last_fetch < _pacific_today()
+
+
+def bootstrap_activities(force_refresh: bool = False) -> pd.DataFrame:
     """
-    Serve cached Google Sheet data immediately when available.
-    First load (no cache) fetches from Google Drive and writes the cache.
-    Later sessions show the cache first, then refresh in the background.
+    Serve cached Google Sheet data when available.
+    Live fetch runs at most once per Pacific calendar day unless force_refresh is True.
     """
-    if st.session_state.get('activities_bootstrapped'):
+    if st.session_state.get('activities_bootstrapped') and not force_refresh:
         return st.session_state.activities_df
 
     cached = load_activities_cache()
-    if not cached.empty:
+    stale = force_refresh or _google_fetch_is_stale()
+
+    if not cached.empty and not stale:
+        st.session_state.activities_df = cached
+        st.session_state.needs_google_refresh = False
+        st.session_state.activities_from_cache = True
+        print(f"[cache] served {len(cached)} family activities (fresh today, no fetch)")
+    elif not cached.empty:
         st.session_state.activities_df = cached
         st.session_state.needs_google_refresh = True
         st.session_state.activities_from_cache = True
-        print(f"[cache] served {len(cached)} family activities")
+        print(f"[cache] served {len(cached)} family activities (stale, fetch scheduled)")
     else:
         df = load_activities_from_google_drive()
         save_activities_cache(df)
+        _write_last_google_fetch_date()
         st.session_state.activities_df = df
         st.session_state.needs_google_refresh = False
         st.session_state.activities_from_cache = False
@@ -193,29 +248,20 @@ def bootstrap_activities() -> pd.DataFrame:
     return st.session_state.activities_df
 
 
-@st.fragment(run_every=timedelta(seconds=1))
 def refresh_google_activities_if_needed():
-    """After the cached page paints, fetch Google Sheets and rerun only if data changed."""
+    """Fetch Google Sheets when stale; skip network if already fetched today."""
     if not st.session_state.get('needs_google_refresh'):
         return
-    if st.session_state.get('_google_refresh_in_progress'):
-        return
 
-    # First fragment run happens during the initial script; skip so the cache can render.
-    if not st.session_state.get('_google_refresh_armed'):
-        st.session_state._google_refresh_armed = True
-        return
-
-    st.session_state._google_refresh_in_progress = True
     try:
         fresh = load_activities_from_google_drive()
     except Exception as e:
         print(f"[live] refresh failed: {e}")
-        st.session_state._google_refresh_in_progress = False
+        st.session_state.needs_google_refresh = False
         return
 
     st.session_state.needs_google_refresh = False
-    st.session_state._google_refresh_in_progress = False
+    _write_last_google_fetch_date()
 
     cached_fp = _activities_fingerprint(st.session_state.activities_df)
     fresh_fp = _activities_fingerprint(fresh)
@@ -229,6 +275,15 @@ def refresh_google_activities_if_needed():
         save_activities_cache(fresh)
         st.session_state.activities_from_cache = False
         print(f"[live] refresh unchanged ({len(fresh)} family activities)")
+
+
+def prepare_family_activities(force_refresh: bool = False) -> pd.DataFrame:
+    """Load family activities from cache; fetch from Google Sheets at most once per day."""
+    if force_refresh:
+        st.session_state.activities_bootstrapped = False
+    bootstrap_activities(force_refresh=force_refresh)
+    refresh_google_activities_if_needed()
+    return st.session_state.activities_df
 
 
 def load_activities_from_google_drive():
@@ -2150,11 +2205,11 @@ def display_monitor_dashboard(current_time=None):
     # Display calendar legend
     display_calendar_legend()
     
-    # Load data (cache first, then refresh Google Sheets in the background)
+    # Load data (cache first; Google Sheets at most once per day)
     try:
-        display_df = load_combined_data_for_display()
-        if st.session_state.get('needs_google_refresh'):
-            refresh_google_activities_if_needed()
+        force_refresh = st.session_state.pop('force_google_refresh', False)
+        activities_df = prepare_family_activities(force_refresh=force_refresh)
+        display_df = load_combined_data_for_display(activities_df)
     except Exception as e:
         st.error(f"Failed to load activities: {e}")
         return
@@ -2325,6 +2380,7 @@ def display_monitor_dashboard(current_time=None):
         st.markdown(f'<div class="monitor-header">📅 Family Planner - {today.strftime("%B %d")} to {end_date.strftime("%B %d, %Y")}</div>', unsafe_allow_html=True)
     with col3:
         if st.button("🔄 Refresh", key="monitor_refresh", type="primary"):
+            st.session_state.force_google_refresh = True
             st.rerun()
     
     # Create a grid layout for the 30 days
@@ -2752,12 +2808,11 @@ def main():
         return
     
     
-    # Load data: serve local cache immediately when present, then refresh Google Sheets
+    # Load data: cache first; Google Sheets at most once per day
     try:
-        bootstrap_activities()
-        display_df = load_combined_data_for_display(st.session_state.activities_df)
-        if st.session_state.get('needs_google_refresh'):
-            refresh_google_activities_if_needed()
+        force_refresh = st.session_state.pop('force_google_refresh', False)
+        activities_df = prepare_family_activities(force_refresh=force_refresh)
+        display_df = load_combined_data_for_display(activities_df)
         
     except Exception as e:
         st.error(f"🚨 **Google Drive Error:** {str(e)}")
@@ -2772,8 +2827,14 @@ def main():
     
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
-    if st.session_state.get('activities_from_cache') and st.session_state.get('needs_google_refresh'):
-        st.sidebar.caption("Showing cached schedule; checking Google Sheets…")
+    if st.sidebar.button("🔄 Refresh schedule", help="Fetch latest family activities from Google Sheets"):
+        st.session_state.force_google_refresh = True
+        st.rerun()
+    last_fetch = _read_last_google_fetch_date()
+    if last_fetch:
+        st.sidebar.caption(f"Family sheet synced: {last_fetch.strftime('%b %d, %Y')}")
+    if st.session_state.get('needs_google_refresh'):
+        st.sidebar.caption("Updating family activities from Google Sheets…")
     
     # Time and date override help
     if time_override or date_override:

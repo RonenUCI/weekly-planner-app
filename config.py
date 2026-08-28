@@ -51,6 +51,7 @@ DATA_CONFIG = {
     'jewish_holidays_file': 'jewish_holidays.csv',
     'activities_file': 'activities.csv',
     'activities_cache_file': '.cache/activities.csv',
+    'activities_last_fetch_file': '.cache/activities_last_fetch.txt',
     'sports_events_file': 'sports_events.csv',
 }
 
