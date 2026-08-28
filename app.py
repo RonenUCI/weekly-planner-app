@@ -166,42 +166,129 @@ def load_activities_cache() -> pd.DataFrame:
         return pd.DataFrame()
 
 
+def _pacific_now() -> datetime:
+    """Current date/time in Pacific (matches schedule display)."""
+    return datetime.now() + timedelta(hours=TIMEZONE_CONFIG['pacific_offset_hours'])
+
+
 def _pacific_today() -> date:
     """Today's date in Pacific time (matches schedule display)."""
-    return (datetime.now() + timedelta(hours=TIMEZONE_CONFIG['pacific_offset_hours'])).date()
+    return _pacific_now().date()
 
 
-def _read_last_google_fetch_date() -> Optional[date]:
-    """Return the last successful Google Sheet fetch date, or None if unknown."""
+def _cache_mtime_pacific() -> Optional[datetime]:
+    cache_file = DATA_CONFIG['activities_cache_file']
+    if not os.path.exists(cache_file):
+        return None
+    try:
+        from zoneinfo import ZoneInfo
+        pacific = ZoneInfo('America/Los_Angeles')
+        return datetime.fromtimestamp(os.path.getmtime(cache_file), pacific).replace(tzinfo=None)
+    except Exception:
+        return None
+
+
+def _read_last_google_fetch_at() -> Optional[datetime]:
+    """Return the last successful Google Sheet fetch time (Pacific), or None if unknown."""
     stamp_file = DATA_CONFIG['activities_last_fetch_file']
     if os.path.exists(stamp_file):
         try:
             with open(stamp_file, encoding='utf-8') as f:
                 text = f.read().strip()
-            return datetime.strptime(text, '%Y-%m-%d').date()
+            try:
+                return datetime.strptime(text, '%Y-%m-%dT%H:%M:%S')
+            except ValueError:
+                fetch_date = datetime.strptime(text, '%Y-%m-%d').date()
+                cache_at = _cache_mtime_pacific()
+                if cache_at and cache_at.date() == fetch_date:
+                    return cache_at
+                return datetime.combine(fetch_date, datetime.min.time())
         except Exception:
             pass
 
-    cache_file = DATA_CONFIG['activities_cache_file']
-    if os.path.exists(cache_file):
-        try:
-            from zoneinfo import ZoneInfo
-            pacific = ZoneInfo('America/Los_Angeles')
-            return datetime.fromtimestamp(os.path.getmtime(cache_file), pacific).date()
-        except Exception:
-            pass
-    return None
+    return _cache_mtime_pacific()
 
 
-def _write_last_google_fetch_date(fetch_date: Optional[date] = None) -> None:
-    fetch_date = fetch_date or _pacific_today()
+def _read_last_google_fetch_date() -> Optional[date]:
+    """Return the last successful Google Sheet fetch date, or None if unknown."""
+    fetch_at = _read_last_google_fetch_at()
+    return fetch_at.date() if fetch_at else None
+
+
+def _format_sheet_sync_label(fetch_at: Optional[datetime]) -> str:
+    if fetch_at is None:
+        return ""
+    time_label = fetch_at.strftime('%I:%M%p').lstrip('0').lower()
+    if fetch_at.date() == _pacific_today():
+        return f"sheet synced today, {time_label}"
+    return f"sheet synced {fetch_at.strftime('%b %d, %Y')}, {time_label}"
+
+
+def _weekly_refresh_button_label() -> str:
+    if st.session_state.get('needs_google_refresh'):
+        return "🔄 syncing…"
+    sync_label = _format_sheet_sync_label(_read_last_google_fetch_at())
+    return f"🔄 {sync_label}" if sync_label else "🔄 sync sheet"
+
+
+def _render_weekly_refresh_button(key: str = "weekly_refresh_schedule") -> None:
+    if st.button(
+        _weekly_refresh_button_label(),
+        help="Fetch latest family activities from Google Sheets",
+        key=key,
+        type="secondary",
+        use_container_width=False,
+    ):
+        st.session_state.force_google_refresh = True
+        st.rerun()
+
+
+def _render_weekly_action_row(go_maps_url: str, home_maps_url: str, refresh_key: str = "weekly_refresh_schedule") -> None:
+    """Go, Home, and compact sync button on one horizontal row."""
+    st.markdown(f"""
+    <style>
+    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) {{
+        align-items: center;
+    }}
+    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) a[data-testid="stLinkButton"] {{
+        background-color: #ff4b4b;
+        color: white;
+        border: 1px solid #ff4b4b;
+        padding: {UI_CONFIG['button_padding']};
+        white-space: nowrap;
+    }}
+    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) a[data-testid="stLinkButton"]:hover {{
+        background-color: #ff2b2b;
+        border-color: #ff2b2b;
+        color: white;
+    }}
+    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) .stButton > button {{
+        font-size: 11px;
+        padding: 0.25rem 0.5rem;
+        white-space: nowrap;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
+    go_col, home_col, sync_col = st.columns([1, 1, 1.6], gap="small")
+    with go_col:
+        st.markdown('<span class="weekly-action-row-marker"></span>', unsafe_allow_html=True)
+        st.link_button("🧭 Go", go_maps_url, use_container_width=False)
+    with home_col:
+        st.link_button("🏠 Home", home_maps_url, use_container_width=False)
+    with sync_col:
+        _render_weekly_refresh_button(key=refresh_key)
+
+
+def _write_last_google_fetch_date(fetch_at: Optional[datetime] = None) -> None:
+    fetch_at = fetch_at or _pacific_now()
     stamp_file = DATA_CONFIG['activities_last_fetch_file']
     try:
         stamp_dir = os.path.dirname(stamp_file)
         if stamp_dir:
             os.makedirs(stamp_dir, exist_ok=True)
         with open(stamp_file, 'w', encoding='utf-8') as f:
-            f.write(fetch_date.strftime('%Y-%m-%d'))
+            f.write(fetch_at.strftime('%Y-%m-%dT%H:%M:%S'))
     except Exception as e:
         print(f"[cache] last-fetch stamp failed: {e}")
 
@@ -2827,14 +2914,6 @@ def main():
     
     # Mobile-optimized navigation
     st.sidebar.title("Menu")
-    if st.sidebar.button("🔄 Refresh schedule", help="Fetch latest family activities from Google Sheets"):
-        st.session_state.force_google_refresh = True
-        st.rerun()
-    last_fetch = _read_last_google_fetch_date()
-    if last_fetch:
-        st.sidebar.caption(f"Family sheet synced: {last_fetch.strftime('%b %d, %Y')}")
-    if st.session_state.get('needs_google_refresh'):
-        st.sidebar.caption("Updating family activities from Google Sheets…")
     
     # Time and date override help
     if time_override or date_override:
@@ -2892,6 +2971,7 @@ def main():
     # Weekly View Section (landing page)
     if current_page == "📋 Schedule":
         if display_df.empty:
+            _render_weekly_refresh_button(key="weekly_refresh_schedule_no_data")
             st.info("No activities available. Add some activities first!")
         else:
             # Display the table first (with smart week selection)
@@ -2955,126 +3035,73 @@ def main():
                 # Define home address for navigation from config
                 home_address = NAVIGATION_CONFIG['home_address']
                 
-                # Create a single-line header with navigation, status, and title
-                col1, col2 = st.columns([2, 1])
-                
-                with col1:
-                    if nav_type == "multiple":
-                        # Show destination and go button for multiple options
-                        non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
-                        if non_home_options:
-                            if len(non_home_options) == 1:
-                                # Single destination - show it directly
-                                default_dest = non_home_options[0]
-                                st.write(f"**Destination:** {default_dest['description']}")
-                            else:
-                                # Multiple destinations - show dropdown
-                                def on_destination_change():
-                                    st.session_state.nav_dropdown_changed = True
-                                
-                                selected_option = st.selectbox(
-                                    f"Choose destination: ({len(non_home_options)} options)",
-                                    options=range(len(non_home_options)),
-                                    format_func=lambda x: non_home_options[x]['description'],
-                                    key="nav_select",
-                                    on_change=on_destination_change
-                                )
-                                
-                                # Check if dropdown changed and trigger rerun
-                                if st.session_state.get('nav_dropdown_changed', False):
-                                    st.session_state.nav_dropdown_changed = False
-                                    st.rerun()
-                                default_dest = non_home_options[selected_option]
+                if nav_type == "multiple":
+                    non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
+                    if non_home_options:
+                        if len(non_home_options) == 1:
+                            default_dest = non_home_options[0]
+                            st.write(f"**Destination:** {default_dest['description']}")
                         else:
-                            st.write(f"**{nav_reason}**")
-                            st.write("**Destination:** Home")
-                    else:
-                        # Single destination - show destination and go button
-                        if nav_reason == "No activities today":
-                            st.write(f"**{nav_reason}**")
-                            st.write("**Destination:** Home")
-                        else:
-                            # Get the activity details for display
-                            activity_details = ""
-                            if nav_options and len(nav_options) > 0:
-                                # Find the matching activity in nav_options
-                                for option in nav_options:
-                                    if option['address'] == nav_address:
-                                        activity_details = option['description']
-                                        break
+                            def on_destination_change():
+                                st.session_state.nav_dropdown_changed = True
                             
-                            if activity_details:
-                                st.write(f"**Destination:** {activity_details}")
-                            else:
-                                st.write(f"**Destination:** {nav_address}")
-                
-                with col2:
-                    # Get the selected address for the Go button
-                    if nav_type == "multiple":
-                        non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
-                        if non_home_options:
-                            if len(non_home_options) == 1:
-                                selected_address = non_home_options[0]['address']
-                            else:
-                                # Use the selected option from dropdown
-                                if 'nav_select' in st.session_state:
-                                    selected_index = st.session_state.nav_select
-                                    if 0 <= selected_index < len(non_home_options):
-                                        selected_address = non_home_options[selected_index]['address']
-                                    else:
-                                        selected_address = non_home_options[0]['address']
+                            selected_option = st.selectbox(
+                                f"Choose destination: ({len(non_home_options)} options)",
+                                options=range(len(non_home_options)),
+                                format_func=lambda x: non_home_options[x]['description'],
+                                key="nav_select",
+                                on_change=on_destination_change
+                            )
+                            
+                            if st.session_state.get('nav_dropdown_changed', False):
+                                st.session_state.nav_dropdown_changed = False
+                                st.rerun()
+                    else:
+                        st.write(f"**{nav_reason}**")
+                        st.write("**Destination:** Home")
+                else:
+                    if nav_reason == "No activities today":
+                        st.write(f"**{nav_reason}**")
+                        st.write("**Destination:** Home")
+                    else:
+                        activity_details = ""
+                        if nav_options and len(nav_options) > 0:
+                            for option in nav_options:
+                                if option['address'] == nav_address:
+                                    activity_details = option['description']
+                                    break
+                        
+                        if activity_details:
+                            st.write(f"**Destination:** {activity_details}")
+                        else:
+                            st.write(f"**Destination:** {nav_address}")
+
+                if nav_type == "multiple":
+                    non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
+                    if non_home_options:
+                        if len(non_home_options) == 1:
+                            selected_address = non_home_options[0]['address']
+                        else:
+                            if 'nav_select' in st.session_state:
+                                selected_index = st.session_state.nav_select
+                                if 0 <= selected_index < len(non_home_options):
+                                    selected_address = non_home_options[selected_index]['address']
                                 else:
                                     selected_address = non_home_options[0]['address']
-                        else:
-                            selected_address = home_address
+                            else:
+                                selected_address = non_home_options[0]['address']
                     else:
-                        selected_address = nav_address
-                    
-                    # Store the selected address in session state for dynamic updates
-                    st.session_state.selected_nav_address = selected_address
-                    
-                    # Create the URLs
-                    go_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                    home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                    
-                    # Place buttons side by side using CSS
-                    st.markdown("""
-                    <style>
-                    .button-row {
-                        display: flex;
-                        gap: {UI_CONFIG['button_gap']};
-                        margin: 0;
-                        padding: 0;
-                        justify-content: flex-start;
-                    }
-                    .button-row a {
-                        text-decoration: none;
-                    }
-                    .button-row button {
-                        background-color: #ff4b4b;
-                        color: white;
-                        border: none;
-                        padding: {UI_CONFIG['button_padding']};
-                        border-radius: 0.5rem;
-                        cursor: pointer;
-                        font-size: 14px;
-                    }
-                    .button-row button:hover {
-                        background-color: #ff2b2b;
-                    }
-                    </style>
-                    """, unsafe_allow_html=True)
-                    
-                    st.markdown(f"""
-                    <div class="button-row">
-                        <a href="{go_maps_url}" target="_blank">
-                            <button>🧭 Go</button>
-                        </a>
-                        <a href="{home_maps_url}" target="_blank">
-                            <button>🏠 Home</button>
-                        </a>
-                    </div>
-                    """, unsafe_allow_html=True)
+                        selected_address = home_address
+                else:
+                    selected_address = nav_address
+                
+                st.session_state.selected_nav_address = selected_address
+                
+                go_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
+                _render_weekly_action_row(go_maps_url, home_maps_url)
+            else:
+                _render_weekly_refresh_button(key="weekly_refresh_schedule_empty")
             
             # Display the table
             if not weekly_schedule.empty:
@@ -3089,7 +3116,7 @@ def main():
                 # Add tip for Google Drive updates
                 st.markdown(f"""
                 <div style="padding: {UI_CONFIG['tip_container_padding']}; margin-top: {UI_CONFIG['tip_margin_top']};">
-                    💡 <strong>Tip:</strong> Edit activities in <a href="https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit" target="_blank">Here</a>, then refresh the page to reload
+                    💡 <strong>Tip:</strong> Edit activities in <a href="https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit" target="_blank">Here</a>, then tap the 🔄 button above
                 </div>
                 """, unsafe_allow_html=True)
                 
