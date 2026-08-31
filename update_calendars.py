@@ -22,9 +22,11 @@ from ics_calendar_scraper import ICSCalendarScraper
 from kid_school_scraper import SchoolCalendarScraper
 from jewish_holidays_scraper import JewishHolidaysScraper
 from sports_scraper import SportsCalendarScraper
+from calendar_merge import merge_calendar_dataframes, save_merged_calendars
+from google_sheets_uploader import upload_merged_calendars
 
 class UpdateCalendars:
-    """Unified scraper that downloads and saves multiple calendar sources to separate files"""
+    """Unified scraper that downloads calendars and writes merged_calendars.csv"""
     
     def __init__(self):
         self.school_scraper = SchoolCalendarScraper()
@@ -69,6 +71,22 @@ class UpdateCalendars:
             print(f"   ✓ Sports events: {len(sports_df)} activities saved to sports_events.csv")
         else:
             print("   ✗ No sports events found")
+
+        merged_df = merge_calendar_dataframes(results)
+        if not merged_df.empty:
+            merged_path = 'merged_calendars.csv'
+            save_merged_calendars(merged_df, merged_path)
+            results['merged_calendars'] = merged_df
+            print(f"\n4. Merged calendars...")
+            print(f"   ✓ {len(merged_df)} total events saved to {merged_path}")
+            gid = upload_merged_calendars(merged_df)
+            if gid:
+                print(f"   → Set merged_calendars_tab_gid to '{gid}' in config.py if not already set")
+            else:
+                print("   → To auto-upload: add google_credentials.json and share the sheet with that service account")
+        else:
+            print("\n4. Merged calendars...")
+            print("   ✗ No calendar data to merge")
         
         return results
     
@@ -97,10 +115,11 @@ class UpdateCalendars:
         
         summary_lines.append(f"\nTotal events across all sources: {total_events}")
         summary_lines.append("\nFiles created/updated:")
+        summary_lines.append("- merged_calendars.csv (school + jewish + sports — upload to Google Sheets)")
         summary_lines.append("- school_events.csv (school calendar events)")
         summary_lines.append("- jewish_holidays.csv (Jewish holidays)")
         summary_lines.append("- sports_events.csv (TeamSnap / sports)")
-        summary_lines.append("- activities.csv (family activities - unchanged)")
+        summary_lines.append("- activities.csv (family activities — edited in Google Sheets, not scraped)")
         
         return "\n".join(summary_lines)
 

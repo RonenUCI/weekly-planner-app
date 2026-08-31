@@ -43,14 +43,22 @@ DISPLAY_CONFIG = {
 # Data Sources
 DATA_CONFIG = {
     # Google Drive settings
+    'google_sheet_id': '1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA',
     'google_drive_url': "https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/export?format=csv",
     'google_drive_timeout': 10,
+    # Tab gid for merged calendars (school + jewish + sports). Filled automatically after
+    # upload, or copy from the tab URL when viewing Calendars (...#gid=123456789).
+    'merged_calendars_tab_gid': '2044187689',
+    'merged_calendars_tab_name': 'Calendars',
+    'google_credentials_file': 'google_credentials.json',
     
     # CSV file names
     'school_events_file': 'school_events.csv',
     'jewish_holidays_file': 'jewish_holidays.csv',
+    'merged_calendars_file': 'merged_calendars.csv',
     'activities_file': 'activities.csv',
     'activities_cache_file': '.cache/activities.csv',
+    'merged_calendars_cache_file': '.cache/merged_calendars.csv',
     'activities_last_fetch_file': '.cache/activities_last_fetch.txt',
     'sports_events_file': 'sports_events.csv',
 }

@@ -6,9 +6,11 @@ from datetime import datetime, timedelta, date
 import webbrowser
 import os
 import sys
+import html
 from typing import Dict, List, Tuple, Optional
 import json
 import re
+from urllib.parse import urlencode
 from config import NAVIGATION_CONFIG, DISPLAY_CONFIG, DATA_CONFIG, TIMEZONE_CONFIG, UI_CONFIG, REQUIRED_COLUMNS, DAY_ABBREV_MAP, DAYS_ORDER, SCHOOL_KID_ASSOCIATIONS, SCHOOL_MINIMUM_DAY_CONFIG, CALENDAR_COLORS
 
 # PLANNER_FETCH_LOG=1 (or --fetch-log) prints only cache/live fetch status.
@@ -226,58 +228,171 @@ def _format_sheet_sync_label(fetch_at: Optional[datetime]) -> str:
 
 def _weekly_refresh_button_label() -> str:
     if st.session_state.get('needs_google_refresh'):
-        return "🔄 syncing…"
-    sync_label = _format_sheet_sync_label(_read_last_google_fetch_at())
-    return f"🔄 {sync_label}" if sync_label else "🔄 sync sheet"
+        return "🔄 …"
+    fetch_at = _read_last_google_fetch_at()
+    if not fetch_at:
+        return "🔄 sync"
+    time_label = fetch_at.strftime('%I:%M%p').lstrip('0').lower()
+    if fetch_at.date() == _pacific_today():
+        return f"🔄 {time_label}"
+    return f"🔄 {fetch_at.strftime('%b %d')}, {time_label}"
 
 
-def _render_weekly_refresh_button(key: str = "weekly_refresh_schedule") -> None:
-    if st.button(
-        _weekly_refresh_button_label(),
-        help="Fetch latest family activities from Google Sheets",
-        key=key,
-        type="secondary",
-        use_container_width=False,
-    ):
-        st.session_state.force_google_refresh = True
-        st.rerun()
+def _sheet_refresh_url() -> str:
+    params = dict(st.query_params)
+    params["sheet_refresh"] = "1"
+    return "?" + urlencode(params, doseq=True)
 
 
-def _render_weekly_action_row(go_maps_url: str, home_maps_url: str, refresh_key: str = "weekly_refresh_schedule") -> None:
-    """Go, Home, and compact sync button on one horizontal row."""
-    st.markdown(f"""
+def _handle_sheet_refresh_query_param() -> None:
+    if st.query_params.get("sheet_refresh") != "1":
+        return
+    st.session_state.force_google_refresh = True
+    params = dict(st.query_params)
+    params.pop("sheet_refresh", None)
+    st.query_params.clear()
+    for key, value in params.items():
+        st.query_params[key] = value
+    st.rerun()
+
+
+def _short_nav_button_label(text: str, max_len: int = 22) -> str:
+    """Compact label for the primary navigation button."""
+    text = str(text or "").strip()
+    text = re.sub(r"^[^\w]+\s*", "", text)
+    text = re.sub(r"\s*\([^)]*\)\s*$", "", text).strip()
+    if len(text) > max_len:
+        return text[: max_len - 1] + "…"
+    return text or "Go"
+
+
+def _navigation_destination_label(
+    selected_address: str,
+    home_address: str,
+    nav_type: str,
+    nav_options: list,
+    nav_reason: str = "",
+) -> str:
+    if selected_address == home_address:
+        return "Home"
+    if nav_type == "multiple":
+        non_home_options = [opt for opt in nav_options if opt.get("type") != "home"]
+        if non_home_options and "nav_select" in st.session_state:
+            selected_index = st.session_state.nav_select
+            if 0 <= selected_index < len(non_home_options):
+                return _short_nav_button_label(non_home_options[selected_index]["description"])
+    for option in nav_options or []:
+        if option.get("address") == selected_address:
+            return _short_nav_button_label(option["description"])
+    if nav_reason and ":" in nav_reason:
+        return _short_nav_button_label(nav_reason.split(":", 1)[1].strip())
+    if nav_reason:
+        return _short_nav_button_label(nav_reason)
+    return _short_nav_button_label(selected_address)
+
+
+def _weekly_action_row_css() -> str:
+    return f"""
     <style>
-    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) {{
+    .weekly-action-row {{
+        display: flex;
+        flex-wrap: nowrap;
         align-items: center;
+        gap: 0.4rem;
+        width: fit-content;
+        max-width: 100%;
     }}
-    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) a[data-testid="stLinkButton"] {{
+    .weekly-action-row a {{
+        text-decoration: none;
+        flex-shrink: 0;
+    }}
+    .weekly-action-row .weekly-nav-btn {{
         background-color: #ff4b4b;
         color: white;
         border: 1px solid #ff4b4b;
         padding: {UI_CONFIG['button_padding']};
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 14px;
         white-space: nowrap;
+        line-height: 1.2;
     }}
-    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) a[data-testid="stLinkButton"]:hover {{
+    .weekly-action-row .weekly-nav-btn:hover {{
         background-color: #ff2b2b;
         border-color: #ff2b2b;
-        color: white;
     }}
-    div[data-testid="stHorizontalBlock"]:has(.weekly-action-row-marker) .stButton > button {{
-        font-size: 11px;
+    .weekly-action-row .weekly-sync-btn {{
+        background-color: #31333d;
+        color: white;
+        border: 1px solid #464855;
         padding: 0.25rem 0.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 11px;
         white-space: nowrap;
+        line-height: 1.2;
+    }}
+    .weekly-action-row .weekly-sync-btn:hover {{
+        background-color: #3d4049;
+    }}
+    @media (max-width: 768px) {{
+        .weekly-action-row {{
+            gap: 0.3rem;
+        }}
+        .weekly-action-row .weekly-nav-btn {{
+            padding: 0.2rem 0.45rem;
+            font-size: 12px;
+        }}
+        .weekly-action-row .weekly-sync-btn {{
+            font-size: 10px;
+            padding: 0.2rem 0.35rem;
+        }}
     }}
     </style>
-    """, unsafe_allow_html=True)
+    """
 
-    go_col, home_col, sync_col = st.columns([1, 1, 1.6], gap="small")
-    with go_col:
-        st.markdown('<span class="weekly-action-row-marker"></span>', unsafe_allow_html=True)
-        st.link_button("🧭 Go", go_maps_url, use_container_width=False)
-    with home_col:
-        st.link_button("🏠 Home", home_maps_url, use_container_width=False)
-    with sync_col:
-        _render_weekly_refresh_button(key=refresh_key)
+
+def _render_weekly_refresh_button(key: str = "weekly_refresh_schedule") -> None:
+    del key  # HTML link refresh; key kept for call-site compatibility
+    sync_help = _format_sheet_sync_label(_read_last_google_fetch_at()) or "Fetch latest family activities from Google Sheets"
+    refresh_url = html.escape(_sheet_refresh_url(), quote=True)
+    label = html.escape(_weekly_refresh_button_label())
+    title = html.escape(sync_help, quote=True)
+    st.html(
+        _weekly_action_row_css()
+        + f'<div class="weekly-action-row">'
+        + f'<a href="{refresh_url}" title="{title}">'
+        + f'<button class="weekly-sync-btn" type="button">{label}</button>'
+        + f"</a></div>"
+    )
+
+
+def _render_weekly_action_row(
+    go_maps_url: str,
+    home_maps_url: str,
+    destination_label: str = "Go",
+    refresh_key: str = "weekly_refresh_schedule",
+) -> None:
+    """Primary nav, Home, and compact sync button on one horizontal row."""
+    del refresh_key
+    sync_help = _format_sheet_sync_label(_read_last_google_fetch_at()) or "Fetch latest family activities from Google Sheets"
+    go_url = html.escape(go_maps_url, quote=True)
+    home_url = html.escape(home_maps_url, quote=True)
+    refresh_url = html.escape(_sheet_refresh_url(), quote=True)
+    label = html.escape(_weekly_refresh_button_label())
+    title = html.escape(sync_help, quote=True)
+    dest = html.escape(_short_nav_button_label(destination_label))
+    st.html(
+        _weekly_action_row_css()
+        + '<div class="weekly-action-row">'
+        + f'<a href="{go_url}" target="_blank" rel="noopener">'
+        + f'<button class="weekly-nav-btn" type="button">{dest}</button></a>'
+        + f'<a href="{home_url}" target="_blank" rel="noopener">'
+        + '<button class="weekly-nav-btn" type="button">🏠 Home</button></a>'
+        + f'<a href="{refresh_url}" title="{title}">'
+        + f'<button class="weekly-sync-btn" type="button">{label}</button></a>'
+        + "</div>"
+    )
 
 
 def _write_last_google_fetch_date(fetch_at: Optional[datetime] = None) -> None:
@@ -336,39 +451,74 @@ def bootstrap_activities(force_refresh: bool = False) -> pd.DataFrame:
 
 
 def refresh_google_activities_if_needed():
-    """Fetch Google Sheets when stale; skip network if already fetched today."""
+    """Fetch family sheet and merged calendars from Google when stale."""
     if not st.session_state.get('needs_google_refresh'):
         return
 
+    family_error = None
+    merged_error = None
+    family_changed = False
+    merged_changed = False
+
     try:
-        fresh = load_activities_from_google_drive()
+        fresh_family = load_activities_from_google_drive()
     except Exception as e:
-        print(f"[live] refresh failed: {e}")
+        family_error = e
+        print(f"[live] family refresh failed: {e}")
+        fresh_family = None
+
+    if _merged_calendars_google_url():
+        try:
+            fresh_merged = _filter_ignored_school_events(load_merged_calendars_from_google_drive())
+        except Exception as e:
+            merged_error = e
+            print(f"[live] merged calendars refresh failed: {e}")
+            fresh_merged = None
+    else:
+        fresh_merged = None
+
+    if fresh_family is None and fresh_merged is None:
         st.session_state.needs_google_refresh = False
         return
 
     st.session_state.needs_google_refresh = False
     _write_last_google_fetch_date()
 
-    cached_fp = _activities_fingerprint(st.session_state.activities_df)
-    fresh_fp = _activities_fingerprint(fresh)
-    if cached_fp != fresh_fp:
-        save_activities_cache(fresh)
-        st.session_state.activities_df = fresh
+    if fresh_family is not None:
+        cached_fp = _activities_fingerprint(st.session_state.activities_df)
+        fresh_fp = _activities_fingerprint(fresh_family)
+        family_changed = cached_fp != fresh_fp
+        save_activities_cache(fresh_family)
+        st.session_state.activities_df = fresh_family
         st.session_state.activities_from_cache = False
-        print(f"[live] refresh updated ({len(fresh)} family activities)")
+        print(
+            f"[live] family refresh {'updated' if family_changed else 'unchanged'} "
+            f"({len(fresh_family)} activities)"
+        )
+
+    if fresh_merged is not None:
+        cached_merged_fp = _activities_fingerprint(st.session_state.get('merged_calendars_df', pd.DataFrame()))
+        fresh_merged_fp = _activities_fingerprint(fresh_merged)
+        merged_changed = cached_merged_fp != fresh_merged_fp
+        save_merged_calendars_cache(fresh_merged)
+        st.session_state.merged_calendars_df = fresh_merged
+        st.session_state.merged_calendars_from_cache = False
+        print(
+            f"[live] merged calendars refresh {'updated' if merged_changed else 'unchanged'} "
+            f"({len(fresh_merged)} events)"
+        )
+
+    if family_changed or merged_changed:
         st.rerun()
-    else:
-        save_activities_cache(fresh)
-        st.session_state.activities_from_cache = False
-        print(f"[live] refresh unchanged ({len(fresh)} family activities)")
 
 
 def prepare_family_activities(force_refresh: bool = False) -> pd.DataFrame:
-    """Load family activities from cache; fetch from Google Sheets at most once per day."""
+    """Load family activities and merged calendars; fetch from Google at most once per day."""
     if force_refresh:
         st.session_state.activities_bootstrapped = False
+        st.session_state.merged_calendars_bootstrapped = False
     bootstrap_activities(force_refresh=force_refresh)
+    bootstrap_merged_calendars(force_refresh=force_refresh)
     refresh_google_activities_if_needed()
     return st.session_state.activities_df
 
@@ -446,7 +596,177 @@ def load_activities_from_google_drive():
         print(f"[live] fetch failed: {e}")
         raise RuntimeError(f"Failed to load activities from Google Drive: {e}")
 
-# Add this function at the top level, before the main() function
+
+def _merged_calendars_google_url() -> Optional[str]:
+    """Export URL for the merged calendars tab in Google Sheets."""
+    gid = str(DATA_CONFIG.get('merged_calendars_tab_gid', '') or '').strip()
+    sheet_id = str(DATA_CONFIG.get('google_sheet_id', '') or '').strip()
+    if gid and sheet_id:
+        return f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
+    return None
+
+
+def _parse_calendar_csv(text: str) -> pd.DataFrame:
+    from io import StringIO
+
+    df = pd.read_csv(StringIO(text), keep_default_na=False)
+    df = ensure_date_columns(df)
+    if 'days_of_week' in df.columns:
+        df['days_of_week'] = df['days_of_week'].apply(
+            lambda x: json.loads(x) if isinstance(x, str) and x.strip() else []
+        )
+    return df
+
+
+def _filter_ignored_school_events(calendar_df: pd.DataFrame) -> pd.DataFrame:
+    if calendar_df.empty or 'activity' not in calendar_df.columns:
+        return calendar_df
+    ignored_activities = NAVIGATION_CONFIG['ignored_school_activities']
+    if not ignored_activities:
+        return calendar_df
+
+    keep_mask = pd.Series([True] * len(calendar_df), index=calendar_df.index)
+    school_mask = calendar_df.get('calendar_source', pd.Series([''] * len(calendar_df))) == 'School'
+    for ignored_pattern in ignored_activities:
+        pattern_mask = ~calendar_df['activity'].str.contains(ignored_pattern, case=False, na=False)
+        keep_mask = keep_mask & (~school_mask | pattern_mask)
+
+    filtered = calendar_df[keep_mask]
+    removed = len(calendar_df) - len(filtered)
+    if removed > 0:
+        print(f"Filtered out {removed} school activities matching ignored patterns: {ignored_activities}")
+    return filtered
+
+
+def load_merged_calendars_from_google_drive() -> pd.DataFrame:
+    google_drive_url = _merged_calendars_google_url()
+    if not google_drive_url:
+        raise RuntimeError(
+            "Merged calendars Google Sheet tab is not configured. "
+            "Set merged_calendars_tab_gid in config.py after uploading merged_calendars.csv."
+        )
+
+    import requests
+    import time
+
+    timestamp = int(time.time())
+    cache_bust_url = f"{google_drive_url}&t={timestamp}"
+    response = requests.get(cache_bust_url, timeout=DATA_CONFIG['google_drive_timeout'])
+    response.raise_for_status()
+    df = _parse_calendar_csv(response.text)
+    if df.empty:
+        raise ValueError("Merged calendars Google Sheet tab is empty")
+    return df
+
+
+def save_merged_calendars_cache(df: pd.DataFrame) -> None:
+    cache_file = DATA_CONFIG['merged_calendars_cache_file']
+    try:
+        cache_dir = os.path.dirname(cache_file)
+        if cache_dir:
+            os.makedirs(cache_dir, exist_ok=True)
+        save_data_to_csv(df, cache_file)
+    except Exception as e:
+        print(f"[cache] merged calendars save failed: {e}")
+
+
+def load_merged_calendars_cache() -> pd.DataFrame:
+    cache_file = DATA_CONFIG['merged_calendars_cache_file']
+    if not os.path.exists(cache_file):
+        return pd.DataFrame()
+    try:
+        df = load_data_from_csv(cache_file)
+        return df if not df.empty else pd.DataFrame()
+    except Exception as e:
+        print(f"[cache] merged calendars load failed: {e}")
+        return pd.DataFrame()
+
+
+def load_merged_calendars_from_local_file() -> pd.DataFrame:
+    merged_file = DATA_CONFIG['merged_calendars_file']
+    if os.path.exists(merged_file):
+        df = load_data_from_csv(merged_file)
+        if not df.empty:
+            print(f"Loaded {len(df)} merged calendar events from {merged_file}")
+            return df
+    return pd.DataFrame()
+
+
+def _load_legacy_separate_calendars() -> pd.DataFrame:
+    """Fallback: load school/jewish/sports CSVs when merged_calendars.csv is missing."""
+    from calendar_merge import merge_calendar_dataframes
+
+    calendar_data = {}
+    file_map = {
+        'school_events': DATA_CONFIG['school_events_file'],
+        'jewish_holidays': DATA_CONFIG['jewish_holidays_file'],
+        'sports_events': DATA_CONFIG['sports_events_file'],
+    }
+    for source_name, path in file_map.items():
+        if os.path.exists(path):
+            df = load_data_from_csv(path)
+            if not df.empty:
+                calendar_data[source_name] = df
+                print(f"Loaded {len(df)} events from legacy {path}")
+
+    if not calendar_data:
+        return pd.DataFrame()
+    merged = merge_calendar_dataframes(calendar_data)
+    print(f"Built {len(merged)} calendar events from legacy CSV files")
+    return merged
+
+
+def bootstrap_merged_calendars(force_refresh: bool = False) -> pd.DataFrame:
+    """Load merged calendars from cache, Google Sheets, or local/legacy CSV files."""
+    if st.session_state.get('merged_calendars_bootstrapped') and not force_refresh:
+        return st.session_state.get('merged_calendars_df', pd.DataFrame())
+
+    google_url = _merged_calendars_google_url()
+    cached = load_merged_calendars_cache()
+    stale = force_refresh or _google_fetch_is_stale()
+
+    if google_url:
+        if not cached.empty and not stale:
+            df = _filter_ignored_school_events(cached)
+            st.session_state.merged_calendars_df = df
+            st.session_state.merged_calendars_from_cache = True
+            print(f"[cache] served {len(df)} merged calendar events (fresh today, no fetch)")
+        elif not cached.empty:
+            df = _filter_ignored_school_events(cached)
+            st.session_state.merged_calendars_df = df
+            st.session_state.needs_google_refresh = True
+            st.session_state.merged_calendars_from_cache = True
+            print(f"[cache] served {len(df)} merged calendar events (stale, fetch scheduled)")
+        else:
+            try:
+                df = _filter_ignored_school_events(load_merged_calendars_from_google_drive())
+                save_merged_calendars_cache(df)
+                st.session_state.merged_calendars_df = df
+                st.session_state.merged_calendars_from_cache = False
+                print(f"[live] fetched {len(df)} merged calendar events (no cache)")
+            except Exception as e:
+                print(f"[live] merged calendars fetch failed: {e}; trying local files")
+                df = load_merged_calendars_from_local_file()
+                if df.empty:
+                    df = _load_legacy_separate_calendars()
+                df = _filter_ignored_school_events(df)
+                st.session_state.merged_calendars_df = df
+                st.session_state.merged_calendars_from_cache = True
+    else:
+        df = load_merged_calendars_from_local_file()
+        if df.empty:
+            df = _load_legacy_separate_calendars()
+        df = _filter_ignored_school_events(df)
+        st.session_state.merged_calendars_df = df
+        st.session_state.merged_calendars_from_cache = True
+        if df.empty:
+            print("[calendars] no merged or legacy calendar files found")
+        else:
+            print(f"[local] served {len(df)} merged calendar events")
+
+    st.session_state.merged_calendars_bootstrapped = True
+    return st.session_state.get('merged_calendars_df', pd.DataFrame())
+
 def make_address_clickable(address):
     """Convert address to clickable Google Maps link with truncated display text"""
     # Handle NaN/None values
@@ -639,6 +959,19 @@ st.markdown("""
 <style>
     /* Mobile-first responsive design */
     @media (max-width: 768px) {
+        .main .block-container,
+        [data-testid="stMainBlockContainer"] {
+            padding-top: 0.5rem !important;
+        }
+        .main [data-testid="stMarkdownContainer"] p {
+            margin: 0.15rem 0 !important;
+        }
+        [data-testid="stCaptionContainer"] {
+            margin-bottom: 0.25rem !important;
+        }
+        .weekly-nav-header [data-testid="stSelectbox"] {
+            margin-bottom: 0.35rem !important;
+        }
         .main-header {
             font-size: 1.8rem !important;
             margin-bottom: 1rem !important;
@@ -1528,33 +1861,49 @@ def load_data_from_csv(filename: str) -> pd.DataFrame:
 def _load_school_events_cached():
     """Load and cache school events to avoid reloading on every call"""
     global _school_events_cache, _school_events_cache_timestamp
-    
-    # Check if we have a cached version and file hasn't changed
+
+    merged_df = st.session_state.get('merged_calendars_df')
+    if isinstance(merged_df, pd.DataFrame) and not merged_df.empty and 'calendar_source' in merged_df.columns:
+        school_events_df = merged_df[merged_df['calendar_source'] == 'School'].copy()
+        _school_events_cache = school_events_df
+        _school_events_cache_timestamp = None
+        return school_events_df
+
+    merged_file = DATA_CONFIG['merged_calendars_file']
+    if os.path.exists(merged_file):
+        try:
+            merged_df = load_data_from_csv(merged_file)
+            if not merged_df.empty and 'calendar_source' in merged_df.columns:
+                school_events_df = merged_df[merged_df['calendar_source'] == 'School'].copy()
+                _school_events_cache = school_events_df
+                _school_events_cache_timestamp = os.path.getmtime(merged_file)
+                return school_events_df
+        except Exception as e:
+            print(f"Warning: Could not load school events from merged file: {e}")
+
+    # Legacy fallback: school_events.csv
     if _school_events_cache is not None and _school_events_cache_timestamp is not None:
         try:
             file_mtime = os.path.getmtime(DATA_CONFIG['school_events_file'])
             if file_mtime == _school_events_cache_timestamp:
                 return _school_events_cache
-        except:
-            pass  # If we can't check mtime, reload anyway
-    
-    # Load fresh data
+        except Exception:
+            pass
+
     if not os.path.exists(DATA_CONFIG['school_events_file']):
         return pd.DataFrame()
-    
+
     try:
         school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'], keep_default_na=False)
         if 'days_of_week' in school_events_df.columns:
             school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
                 lambda x: json.loads(x) if isinstance(x, str) else x
             )
-        # Convert date columns to datetime objects
         if 'start_date' in school_events_df.columns:
             school_events_df['start_date'] = pd.to_datetime(school_events_df['start_date']).dt.date
         if 'end_date' in school_events_df.columns:
             school_events_df['end_date'] = pd.to_datetime(school_events_df['end_date']).dt.date
-        
-        # Cache the result
+
         _school_events_cache = school_events_df
         _school_events_cache_timestamp = os.path.getmtime(DATA_CONFIG['school_events_file'])
         return school_events_df
@@ -1639,7 +1988,7 @@ def get_minimum_day_end_time(kid_name: str, activity_date: date, day_of_week: st
         return None
 
 def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.DataFrame:
-    """Load and combine Google Drive activities with school_events.csv and jewish_holidays.csv for display purposes"""
+    """Load family activities plus merged calendars for display."""
     if activities_df is None:
         try:
             activities_df = bootstrap_activities()
@@ -1649,123 +1998,40 @@ def load_combined_data_for_display(activities_df: pd.DataFrame = None) -> pd.Dat
                 'kid_name', 'activity', 'time', 'duration', 'frequency', 
                 'days_of_week', 'start_date', 'end_date', 'address', 'pickup_driver', 'return_driver'
             ])
-    
+
     activities_df = ensure_date_columns(activities_df)
-    
-    # Load school events if available
-    school_events_df = pd.DataFrame()
-    if os.path.exists(DATA_CONFIG['school_events_file']):
-        try:
-            school_events_df = pd.read_csv(DATA_CONFIG['school_events_file'], keep_default_na=False)
-            if 'days_of_week' in school_events_df.columns:
-                school_events_df['days_of_week'] = school_events_df['days_of_week'].apply(
-                    lambda x: json.loads(x) if isinstance(x, str) else x
-                )
-            # Convert date columns to datetime objects
-            school_events_df = ensure_date_columns(school_events_df)
-            
-            # Filter out ignored school activities
-            ignored_activities = NAVIGATION_CONFIG['ignored_school_activities']
-            if ignored_activities and 'activity' in school_events_df.columns:
-                original_count = len(school_events_df)
-                # Create a mask for activities that should NOT be ignored
-                keep_mask = pd.Series([True] * len(school_events_df), index=school_events_df.index)
-                
-                for ignored_pattern in ignored_activities:
-                    # Case-insensitive partial matching
-                    pattern_mask = ~school_events_df['activity'].str.contains(
-                        ignored_pattern, case=False, na=False
-                    )
-                    keep_mask = keep_mask & pattern_mask
-                
-                school_events_df = school_events_df[keep_mask]
-                filtered_count = original_count - len(school_events_df)
-                if filtered_count > 0:
-                    print(f"Filtered out {filtered_count} school activities matching ignored patterns: {ignored_activities}")
-            
-            # School events now come pre-assigned with kid_name from the scraper
-            
-            print(f"Loaded {len(school_events_df)} school events")
-        except Exception as e:
-            print(f"Warning: Could not load school events: {e}")
-    
-    # Load Jewish holidays if available
-    jewish_holidays_df = pd.DataFrame()
-    if os.path.exists(DATA_CONFIG['jewish_holidays_file']):
-        try:
-            jewish_holidays_df = pd.read_csv(DATA_CONFIG['jewish_holidays_file'], keep_default_na=False)
-            if 'days_of_week' in jewish_holidays_df.columns:
-                jewish_holidays_df['days_of_week'] = jewish_holidays_df['days_of_week'].apply(
-                    lambda x: json.loads(x) if isinstance(x, str) else x
-                )
-            # Convert date columns to datetime objects
-            jewish_holidays_df = ensure_date_columns(jewish_holidays_df)
-            print(f"Loaded {len(jewish_holidays_df)} Jewish holidays")
-        except Exception as e:
-            print(f"Warning: Could not load Jewish holidays: {e}")
-    
-    # Load sports events if available
-    sports_events_df = pd.DataFrame()
-    if os.path.exists(DATA_CONFIG['sports_events_file']):
-        try:
-            sports_events_df = pd.read_csv(DATA_CONFIG['sports_events_file'], keep_default_na=False)
-            if 'days_of_week' in sports_events_df.columns:
-                sports_events_df['days_of_week'] = sports_events_df['days_of_week'].apply(
-                    lambda x: json.loads(x) if isinstance(x, str) else x
-                )
-            sports_events_df = ensure_date_columns(sports_events_df)
-            print(f"Loaded {len(sports_events_df)} sports events")
-        except Exception as e:
-            print(f"Warning: Could not load sports events: {e}")
-    
-    # Ensure all dataframes have the same columns before concatenating
+    merged_calendars_df = bootstrap_merged_calendars()
+    merged_calendars_df = ensure_date_columns(merged_calendars_df)
+
     required_columns = REQUIRED_COLUMNS
-    
-    # Add missing columns to each dataframe
-    for df in [activities_df, school_events_df, jewish_holidays_df, sports_events_df]:
+
+    for df in [activities_df, merged_calendars_df]:
         for col in required_columns:
             if col not in df.columns:
                 df[col] = None
-    
-    # Add calendar_source column if missing (for backward compatibility)
-    # School events should have calendar_source='School'
-    if 'calendar_source' not in school_events_df.columns:
-        school_events_df['calendar_source'] = 'School'
-    # Jewish holidays should have calendar_source='Jewish'
-    if 'calendar_source' not in jewish_holidays_df.columns:
-        jewish_holidays_df['calendar_source'] = 'Jewish'
-    if 'calendar_source' not in sports_events_df.columns:
-        sports_events_df['calendar_source'] = 'Sports'
-    # Family activities should have calendar_source='Family'
+
+    if 'calendar_source' not in merged_calendars_df.columns:
+        merged_calendars_df['calendar_source'] = None
     if 'calendar_source' not in activities_df.columns:
         activities_df['calendar_source'] = 'Family'
-    
-    # For backward compatibility: if calendar_source is missing, detect from activity name
-    # and remove prefix from activity name
-    for df in [activities_df, school_events_df, jewish_holidays_df, sports_events_df]:
+
+    for df in [activities_df, merged_calendars_df]:
         if 'calendar_source' in df.columns:
-            # Remove prefix from activity names if they have it
             mask = df['activity'].astype(str).str.lower().str.startswith(('school:', 'jewish:', 'sports:'))
             if mask.any():
                 df.loc[mask, 'activity'] = df.loc[mask, 'activity'].apply(remove_calendar_prefix)
         else:
-            # Detect calendar source from activity name and remove prefix
             df['calendar_source'] = df['activity'].apply(get_calendar_source)
             df['activity'] = df['activity'].apply(remove_calendar_prefix)
-    
-    # Combine all dataframes
-    combined_df = pd.concat(
-        [activities_df, school_events_df, jewish_holidays_df, sports_events_df],
-        ignore_index=True,
-    )
+
+    combined_df = pd.concat([activities_df, merged_calendars_df], ignore_index=True)
     combined_df = ensure_date_columns(combined_df)
     source = "cache" if st.session_state.get('activities_from_cache') else "live"
     print(
         f"[{source}] combined {len(activities_df)} family + "
-        f"{len(school_events_df)} school + {len(jewish_holidays_df)} jewish + "
-        f"{len(sports_events_df)} sports = {len(combined_df)} total"
+        f"{len(merged_calendars_df)} calendars = {len(combined_df)} total"
     )
-    
+
     return combined_df
 
 def save_data_to_csv(df: pd.DataFrame, filename: str):
@@ -2123,15 +2389,12 @@ def display_calendar_legend():
         legend_items.append(f'<span class="calendar-{source_lower}" style="font-weight: bold;">●</span> {source}')
     
     legend_html = '<div style="margin-bottom: 10px; padding: 8px; background-color: #f0f0f0; border-radius: 4px; display: block; width: 100%;">'
-    legend_html += '<strong>Calendar Sources:</strong> ' + ' | '.join(legend_items)
+    legend_html += '<strong>Calendars:</strong> ' + ' | '.join(legend_items)
     legend_html += '</div>'
     st.markdown(legend_html, unsafe_allow_html=True)
 
 def display_weekly_schedule(weekly_schedule, week_start, week_end, today):
     """Helper function to display weekly schedule by day"""
-    # Display calendar legend
-    display_calendar_legend()
-    
     days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     days_abbrev = DAYS_ORDER
     
@@ -2849,6 +3112,7 @@ def main():
     
     # Check for monitor mode URL parameter
     query_params = st.query_params
+    _handle_sheet_refresh_query_param()
     is_monitor_mode = query_params.get("mode") == "monitor"
     
     # Time and date override for testing
@@ -3028,78 +3292,57 @@ def main():
             
             # SMART NAVIGATION BUTTON - FIRST AND TOP
             if not weekly_schedule.empty:
-                # Smart navigation button at the very top
-                # current_time is already set from the time override logic above
                 nav_type, nav_address, nav_reason, nav_options = analyze_navigation_context(weekly_schedule, current_time)
-                
-                # Define home address for navigation from config
                 home_address = NAVIGATION_CONFIG['home_address']
-                
+
+                if nav_reason:
+                    st.caption(nav_reason)
+
                 if nav_type == "multiple":
                     non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
-                    if non_home_options:
-                        if len(non_home_options) == 1:
-                            default_dest = non_home_options[0]
-                            st.write(f"**Destination:** {default_dest['description']}")
-                        else:
-                            def on_destination_change():
-                                st.session_state.nav_dropdown_changed = True
-                            
-                            selected_option = st.selectbox(
-                                f"Choose destination: ({len(non_home_options)} options)",
-                                options=range(len(non_home_options)),
-                                format_func=lambda x: non_home_options[x]['description'],
-                                key="nav_select",
-                                on_change=on_destination_change
-                            )
-                            
-                            if st.session_state.get('nav_dropdown_changed', False):
-                                st.session_state.nav_dropdown_changed = False
-                                st.rerun()
-                    else:
-                        st.write(f"**{nav_reason}**")
-                        st.write("**Destination:** Home")
-                else:
-                    if nav_reason == "No activities today":
-                        st.write(f"**{nav_reason}**")
-                        st.write("**Destination:** Home")
-                    else:
-                        activity_details = ""
-                        if nav_options and len(nav_options) > 0:
-                            for option in nav_options:
-                                if option['address'] == nav_address:
-                                    activity_details = option['description']
-                                    break
-                        
-                        if activity_details:
-                            st.write(f"**Destination:** {activity_details}")
-                        else:
-                            st.write(f"**Destination:** {nav_address}")
+                    if len(non_home_options) > 1:
+                        def on_destination_change():
+                            st.session_state.nav_dropdown_changed = True
+
+                        st.selectbox(
+                            "Destination",
+                            options=range(len(non_home_options)),
+                            format_func=lambda x: non_home_options[x]['description'],
+                            key="nav_select",
+                            on_change=on_destination_change,
+                            label_visibility="collapsed",
+                        )
+
+                        if st.session_state.get('nav_dropdown_changed', False):
+                            st.session_state.nav_dropdown_changed = False
+                            st.rerun()
 
                 if nav_type == "multiple":
                     non_home_options = [opt for opt in nav_options if opt['type'] != 'home']
                     if non_home_options:
                         if len(non_home_options) == 1:
                             selected_address = non_home_options[0]['address']
-                        else:
-                            if 'nav_select' in st.session_state:
-                                selected_index = st.session_state.nav_select
-                                if 0 <= selected_index < len(non_home_options):
-                                    selected_address = non_home_options[selected_index]['address']
-                                else:
-                                    selected_address = non_home_options[0]['address']
+                        elif 'nav_select' in st.session_state:
+                            selected_index = st.session_state.nav_select
+                            if 0 <= selected_index < len(non_home_options):
+                                selected_address = non_home_options[selected_index]['address']
                             else:
                                 selected_address = non_home_options[0]['address']
+                        else:
+                            selected_address = non_home_options[0]['address']
                     else:
                         selected_address = home_address
                 else:
                     selected_address = nav_address
-                
+
                 st.session_state.selected_nav_address = selected_address
-                
+                destination_label = _navigation_destination_label(
+                    selected_address, home_address, nav_type, nav_options, nav_reason
+                )
+
                 go_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={selected_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
                 home_maps_url = f"https://www.google.com/maps/dir/?api=1&destination={home_address.replace(' ', '+')}&travelmode=driving&dir_action=navigate"
-                _render_weekly_action_row(go_maps_url, home_maps_url)
+                _render_weekly_action_row(go_maps_url, home_maps_url, destination_label)
             else:
                 _render_weekly_refresh_button(key="weekly_refresh_schedule_empty")
             
@@ -3116,7 +3359,7 @@ def main():
                 # Add tip for Google Drive updates
                 st.markdown(f"""
                 <div style="padding: {UI_CONFIG['tip_container_padding']}; margin-top: {UI_CONFIG['tip_margin_top']};">
-                    💡 <strong>Tip:</strong> Edit activities in <a href="https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit" target="_blank">Here</a>, then tap the 🔄 button above
+                    💡 <strong>Tip:</strong> Edit activities <a href="https://docs.google.com/spreadsheets/d/1TS4zfU5BT1e80R5VMoZFkbLlH-yj2ZWGWHMd0qMO4wA/edit" target="_blank">Here</a>, then tap 🔄 button
                 </div>
                 """, unsafe_allow_html=True)
                 
@@ -3129,6 +3372,8 @@ def main():
                     display_weekly_schedule(following_week_schedule, following_week_start, following_week_end, today)
                 else:
                     st.caption("🔮 **Following week:** No activities scheduled")
+
+                display_calendar_legend()
             
             # Controls after the table
             st.markdown("---")
